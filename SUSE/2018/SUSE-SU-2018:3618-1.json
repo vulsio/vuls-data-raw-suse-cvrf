@@ -1,0 +1,908 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2018:3618-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2018-11-05T12:59:04Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2018-11-05T12:59:04Z",
+		"current_release_date": "2018-11-05T12:59:04Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\n\nThe SUSE Linux Enterprise 11 SP3 LTSS kernel was updated to receive various security and bugfixes.\n\nThe following security bugs were fixed:\n\n- CVE-2018-14633: A security flaw was found in the chap_server_compute_md5() function in the ISCSI target code in a way an authentication request from an ISCSI initiator is processed. An unauthenticated remote attacker can cause a stack buffer overflow and smash up to 17 bytes of the stack. The attack requires the iSCSI target to be enabled on the victim host. Depending on how the target's code was built (i.e. depending on a compiler, compile flags and hardware architecture) an attack may lead to a system crash and thus to a denial-of-service or possibly to a non-authorized access to data exported by an iSCSI target. Due to the nature of the flaw, privilege escalation cannot be fully ruled out, although we believe it is highly unlikely. (bnc#1107829).\n- CVE-2018-14617: There is a NULL pointer dereference and panic in hfsplus_lookup() in fs/hfsplus/dir.c when opening a file (that is purportedly a hard link) in an hfs+ filesystem that has malformed catalog data, and is mounted read-only without a metadata directory (bnc#1102870).\n- CVE-2018-16276: An issue was discovered in yurex_read in drivers/usb/misc/yurex.c where local attackers could use user access read/writes with incorrect bounds checking in the yurex USB driver to crash the kernel or potentially escalate privileges (bnc#1106095).\n- CVE-2018-12896: An Integer Overflow in kernel/time/posix-timers.c in the POSIX timer code is caused by the way the overrun accounting works. Depending on interval and expiry time values, the overrun can be larger than INT_MAX, but the accounting is int based. This basically made the accounting values, which are visible to user space via timer_getoverrun(2) and siginfo::si_overrun, random. For example, a local user can cause a denial of service (signed integer overflow) via crafted mmap, futex, timer_create, and timer_settime system calls (bnc#1099922).\n\nThe following non-security bugs were fixed:\n\n- net: fix neighbours after MAC change (bnc#905299).\n- powerpc: Fix smp_mb__before_spinlock() (bsc#1110247).\n- x86/fpu: Do not do __thread_fpu_end() if use_eager_fpu() (bnc#1109967).\n- x86/fpu: fix signal handling with eager FPU switching (ia32) (bsc#1108227).\n- retpoline: Introduce start/end markers of indirect thunk (bsc#1113337).\n\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "sleposp3-kernel-source-13855,slessp3-kernel-source-13855,slexsp3-kernel-source-13855",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20183618-1/",
+			"description": "Link for SUSE-SU-2018:3618-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2018-November/004827.html",
+			"description": "E-Mail link for SUSE-SU-2018:3618-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1099922",
+			"description": "SUSE Bug 1099922"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1102870",
+			"description": "SUSE Bug 1102870"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1106095",
+			"description": "SUSE Bug 1106095"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1107829",
+			"description": "SUSE Bug 1107829"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1108227",
+			"description": "SUSE Bug 1108227"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1109967",
+			"description": "SUSE Bug 1109967"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1110247",
+			"description": "SUSE Bug 1110247"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1113337",
+			"description": "SUSE Bug 1113337"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/905299",
+			"description": "SUSE Bug 905299"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-12896/",
+			"description": "SUSE CVE CVE-2018-12896 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-14617/",
+			"description": "SUSE CVE CVE-2018-14617 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-14633/",
+			"description": "SUSE CVE CVE-2018-14633 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-16276/",
+			"description": "SUSE CVE CVE-2018-16276 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Point of Sale 11 SP3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Point of Sale 11 SP3",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Point of Sale 11 SP3",
+							"product_id": "SUSE Linux Enterprise Point of Sale 11 SP3",
+							"cpe": "cpe:/o:suse:sle-pos:11:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 11 SP3-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 11 SP3-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 11 SP3-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 11 SP3-LTSS",
+							"cpe": "cpe:/o:suse:suse_sles_ltss:11:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-default-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-default-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-default-base-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-default-base-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-default-devel-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-default-devel-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-ec2-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-ec2-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-base-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-ec2-base-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-ec2-base-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-devel-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-ec2-devel-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-ec2-devel-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-pae-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-pae-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-base-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-pae-base-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-pae-base-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-devel-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-pae-devel-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-pae-devel-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-source-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-source-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-syms-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-syms-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-trace-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-trace-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-trace-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-trace-base-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-trace-base-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-trace-base-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-trace-devel-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-trace-devel-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-trace-devel-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-xen-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-xen-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-base-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-xen-base-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-xen-base-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-devel-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-xen-devel-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-xen-devel-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-bigsmp-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-bigsmp-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-bigsmp-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-bigsmp-base-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-bigsmp-base-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-bigsmp-base-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-bigsmp-devel-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-bigsmp-devel-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-bigsmp-devel-3.0.101-0.47.106.56.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-man-3.0.101-0.47.106.56.1",
+				"full_product_name": {
+					"text": "kernel-default-man-3.0.101-0.47.106.56.1",
+					"product_id": "kernel-default-man-3.0.101-0.47.106.56.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-default-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-default-base-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-default-devel-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-ec2-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-ec2-base-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-ec2-devel-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-pae-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-pae-base-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-pae-devel-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-source-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-syms-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-trace-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-trace-base-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-trace-devel-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-xen-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-xen-base-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-xen-devel-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "kernel-bigsmp-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-bigsmp-base-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-bigsmp-devel-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-base-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-devel-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-man-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-ec2-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-ec2-base-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-ec2-devel-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-pae-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-pae-base-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-pae-devel-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-source-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-syms-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-trace-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-trace-base-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-trace-devel-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-base-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-devel-3.0.101-0.47.106.56.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel through 4.17.3. An Integer Overflow in kernel/time/posix-timers.c in the POSIX timer code is caused by the way the overrun accounting works. Depending on interval and expiry time values, the overrun can be larger than INT_MAX, but the accounting is int based. This basically makes the accounting values, which are visible to user space via timer_getoverrun(2) and siginfo::si_overrun, random. For example, a local user can cause a denial of service (signed integer overflow) via crafted mmap, futex, timer_create, and timer_settime system calls.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-12896",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-default-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-default-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-default-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-ec2-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-ec2-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-ec2-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-pae-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-pae-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-pae-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-source-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-syms-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-trace-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-trace-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-trace-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-xen-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-xen-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-xen-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-bigsmp-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-bigsmp-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-bigsmp-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-man-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-ec2-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-ec2-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-ec2-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-pae-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-pae-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-pae-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-source-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-syms-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-trace-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-trace-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-trace-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-xen-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-xen-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-xen-devel-3.0.101-0.47.106.56.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20183618-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-12896.html",
+					"description": "CVE-2018-12896"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1099922",
+					"description": "SUSE Bug 1099922"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel through 4.17.10. There is a NULL pointer dereference and panic in hfsplus_lookup() in fs/hfsplus/dir.c when opening a file (that is purportedly a hard link) in an hfs+ filesystem that has malformed catalog data, and is mounted read-only without a metadata directory.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-14617",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-default-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-default-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-default-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-ec2-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-ec2-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-ec2-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-pae-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-pae-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-pae-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-source-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-syms-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-trace-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-trace-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-trace-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-xen-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-xen-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-xen-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-bigsmp-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-bigsmp-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-bigsmp-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-man-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-ec2-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-ec2-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-ec2-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-pae-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-pae-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-pae-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-source-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-syms-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-trace-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-trace-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-trace-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-xen-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-xen-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-xen-devel-3.0.101-0.47.106.56.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.1",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20183618-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-14617.html",
+					"description": "CVE-2018-14617"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1102870",
+					"description": "SUSE Bug 1102870"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A security flaw was found in the chap_server_compute_md5() function in the ISCSI target code in the Linux kernel in a way an authentication request from an ISCSI initiator is processed. An unauthenticated remote attacker can cause a stack buffer overflow and smash up to 17 bytes of the stack. The attack requires the iSCSI target to be enabled on the victim host. Depending on how the target's code was built (i.e. depending on a compiler, compile flags and hardware architecture) an attack may lead to a system crash and thus to a denial-of-service or possibly to a non-authorized access to data exported by an iSCSI target. Due to the nature of the flaw, privilege escalation cannot be fully ruled out, although we believe it is highly unlikely. Kernel versions 4.18.x, 4.14.x and 3.10.x are believed to be vulnerable.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-14633",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-default-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-default-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-default-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-ec2-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-ec2-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-ec2-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-pae-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-pae-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-pae-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-source-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-syms-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-trace-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-trace-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-trace-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-xen-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-xen-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-xen-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-bigsmp-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-bigsmp-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-bigsmp-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-man-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-ec2-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-ec2-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-ec2-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-pae-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-pae-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-pae-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-source-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-syms-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-trace-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-trace-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-trace-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-xen-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-xen-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-xen-devel-3.0.101-0.47.106.56.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "8.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.8",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20183618-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-14633.html",
+					"description": "CVE-2018-14633"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1107829",
+					"description": "SUSE Bug 1107829"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1107832",
+					"description": "SUSE Bug 1107832"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in yurex_read in drivers/usb/misc/yurex.c in the Linux kernel before 4.17.7. Local attackers could use user access read/writes with incorrect bounds checking in the yurex USB driver to crash the kernel or potentially escalate privileges.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-16276",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-default-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-default-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-default-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-ec2-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-ec2-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-ec2-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-pae-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-pae-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-pae-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-source-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-syms-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-trace-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-trace-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-trace-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-xen-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-xen-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:kernel-xen-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-bigsmp-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-bigsmp-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-bigsmp-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-default-man-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-ec2-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-ec2-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-ec2-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-pae-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-pae-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-pae-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-source-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-syms-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-trace-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-trace-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-trace-devel-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-xen-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-xen-base-3.0.101-0.47.106.56.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:kernel-xen-devel-3.0.101-0.47.106.56.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20183618-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-16276.html",
+					"description": "CVE-2018-16276"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1106095",
+					"description": "SUSE Bug 1106095"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115593",
+					"description": "SUSE Bug 1115593"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,276 @@
+{
+	"document_title": "Recommended update for postgresql95",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2018:1900-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2018-07-05T18:14:05Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2018-07-05T18:14:05Z",
+		"current_release_date": "2018-07-05T18:14:05Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Recommended update for postgresql95",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for postgresql95 fixes the following issues:\n\n- Update to PostgreSQL 9.5.13:\n  * https://www.postgresql.org/docs/9.5/static/release-9-5-13.html\n    A dump/restore is not required for those running 9.5.X.\n    However, if the function marking mistakes mentioned belowpg_logfile_rotate\n    affect you, you will want to take steps to correct your\n    database catalogs.\n    \n    The functions query_to_xml, cursor_to_xml, cursor_to_xmlschema,\n    query_to_xmlschema, and query_to_xml_and_xmlschema should be\n    marked volatile because they execute user-supplied queries\n    that might contain volatile operations. They were not,\n    leading to a risk of incorrect query optimization. This has\n    been repaired for new installations by correcting the initial\n    catalog data, but existing installations will continue to\n    contain the incorrect markings. Practical use of these\n    functions seems to pose little hazard, but in case of trouble,\n    it can be fixed by manually updating these functions' pg_proc\n    entries, for example: ALTER FUNCTION\n    pg_catalog.query_to_xml(text, boolean, boolean, text) VOLATILE.\n    (Note that that will need to be done in each database of the\n    installation.) Another option is to pg_upgrade the database to\n    a version containing the corrected initial data.\n    \nSecurity issue fixed:\n\n- CVE-2018-1115: Remove public execute privilege\n  from contrib/adminpack's pg_logfile_rotate() function\n  pg_logfile_rotate() is a deprecated wrapper for the core\n  function pg_rotate_logfile(). When that function was changed\n  to rely on SQL privileges for access control rather than a\n  hard-coded superuser check, pg_logfile_rotate() should have\n  been updated as well, but the need for this was missed. Hence,\n  if adminpack is installed, any user could request a logfile\n  rotation, creating a minor security issue.\n  After installing this update, administrators should update\n  adminpack by performing ALTER EXTENSION adminpack UPDATE in\n  each database in which adminpack is installed. (bsc#1091610)\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2018-07/msg00004.html",
+			"description": "E-Mail link for openSUSE-SU-2018:1900-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 42.3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 42.3",
+						"full_product_name": {
+							"text": "openSUSE Leap 42.3",
+							"product_id": "openSUSE Leap 42.3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql95-9.5.13-2.9.1",
+				"full_product_name": {
+					"text": "postgresql95-9.5.13-2.9.1",
+					"product_id": "postgresql95-9.5.13-2.9.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql95-contrib-9.5.13-2.9.1",
+				"full_product_name": {
+					"text": "postgresql95-contrib-9.5.13-2.9.1",
+					"product_id": "postgresql95-contrib-9.5.13-2.9.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql95-devel-9.5.13-2.9.1",
+				"full_product_name": {
+					"text": "postgresql95-devel-9.5.13-2.9.1",
+					"product_id": "postgresql95-devel-9.5.13-2.9.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql95-docs-9.5.13-2.9.1",
+				"full_product_name": {
+					"text": "postgresql95-docs-9.5.13-2.9.1",
+					"product_id": "postgresql95-docs-9.5.13-2.9.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql95-libs-9.5.13-2.9.1",
+				"full_product_name": {
+					"text": "postgresql95-libs-9.5.13-2.9.1",
+					"product_id": "postgresql95-libs-9.5.13-2.9.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql95-plperl-9.5.13-2.9.1",
+				"full_product_name": {
+					"text": "postgresql95-plperl-9.5.13-2.9.1",
+					"product_id": "postgresql95-plperl-9.5.13-2.9.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql95-plpython-9.5.13-2.9.1",
+				"full_product_name": {
+					"text": "postgresql95-plpython-9.5.13-2.9.1",
+					"product_id": "postgresql95-plpython-9.5.13-2.9.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql95-pltcl-9.5.13-2.9.1",
+				"full_product_name": {
+					"text": "postgresql95-pltcl-9.5.13-2.9.1",
+					"product_id": "postgresql95-pltcl-9.5.13-2.9.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql95-server-9.5.13-2.9.1",
+				"full_product_name": {
+					"text": "postgresql95-server-9.5.13-2.9.1",
+					"product_id": "postgresql95-server-9.5.13-2.9.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql95-test-9.5.13-2.9.1",
+				"full_product_name": {
+					"text": "postgresql95-test-9.5.13-2.9.1",
+					"product_id": "postgresql95-test-9.5.13-2.9.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "postgresql95-9.5.13-2.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "postgresql95-contrib-9.5.13-2.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "postgresql95-devel-9.5.13-2.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "postgresql95-docs-9.5.13-2.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "postgresql95-libs-9.5.13-2.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "postgresql95-plperl-9.5.13-2.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "postgresql95-plpython-9.5.13-2.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "postgresql95-pltcl-9.5.13-2.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "postgresql95-server-9.5.13-2.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "postgresql95-test-9.5.13-2.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "postgresql before versions 10.4, 9.6.9 is vulnerable in the adminpack extension, the pg_catalog.pg_logfile_rotate() function doesn't follow the same ACLs than pg_rorate_logfile. If the adminpack is added to a database, an attacker able to connect to it could exploit this to force log rotation.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-1115",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.3:postgresql95-9.5.13-2.9.1",
+						"openSUSE Leap 42.3:postgresql95-contrib-9.5.13-2.9.1",
+						"openSUSE Leap 42.3:postgresql95-devel-9.5.13-2.9.1",
+						"openSUSE Leap 42.3:postgresql95-docs-9.5.13-2.9.1",
+						"openSUSE Leap 42.3:postgresql95-libs-9.5.13-2.9.1",
+						"openSUSE Leap 42.3:postgresql95-plperl-9.5.13-2.9.1",
+						"openSUSE Leap 42.3:postgresql95-plpython-9.5.13-2.9.1",
+						"openSUSE Leap 42.3:postgresql95-pltcl-9.5.13-2.9.1",
+						"openSUSE Leap 42.3:postgresql95-server-9.5.13-2.9.1",
+						"openSUSE Leap 42.3:postgresql95-test-9.5.13-2.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.4",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9.1",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2018-07/msg00004.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-1115.html",
+					"description": "CVE-2018-1115"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091610",
+					"description": "SUSE Bug 1091610"
+				}
+			]
+		}
+	]
+}

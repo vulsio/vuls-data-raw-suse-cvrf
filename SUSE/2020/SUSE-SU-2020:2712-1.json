@@ -1,0 +1,4621 @@
+{
+	"document_title": "Security update for openldap2",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2020:2712-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2020-09-25T07:14:49Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2020-09-25T07:14:49Z",
+		"current_release_date": "2020-09-25T07:14:49Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for openldap2",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for openldap2 fixes the following issues:\n\n- CVE-2020-8027: openldap_update_modules_path.sh starts daemons unconditionally and uses fixed paths in /tmp (bsc#1175568).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Container bci/dotnet-aspnet:5.0-2020-2712,Container bci/dotnet-runtime:5.0-2020-2712,Container bci/dotnet-sdk:5.0-2020-2712,Container bci/rust:1.56-2020-2712,Container bci/rust:latest-2020-2712,Container caasp/v4/389-ds:1.4.2-2020-2712,Container caasp/v4/busybox:1.34.1-2020-2712,Container caasp/v4/caasp-dex:2.16.0-2020-2712,Container caasp/v4/cert-exporter:2.3.0-2020-2712,Container caasp/v4/cilium-etcd-operator:2.0.5-2020-2712,Container caasp/v4/cilium-init:1.5.3-2020-2712,Container caasp/v4/cilium-operator:1.6.6-2020-2712,Container caasp/v4/cilium:1.6.6-2020-2712,Container caasp/v4/cloud-provider-openstack:1.15.0-2020-2712,Container caasp/v4/configmap-reload:0.3.0-2020-2712,Container caasp/v4/coredns:1.6.7-2020-2712,Container caasp/v4/curl:7.60.0-2020-2712,Container caasp/v4/etcd:3.4.13-2020-2712,Container caasp/v4/gangway:3.1.0-2020-2712,Container caasp/v4/grafana:7.5.12-2020-2712,Container caasp/v4/helm-tiller:2.16.12-2020-2712,Container caasp/v4/hyperkube:v1.17.17-2020-2712,Container caasp/v4/k8s-sidecar:0.1.75-2020-2712,Container caasp/v4/kube-state-metrics:1.9.3-2020-2712,Container caasp/v4/kubernetes-client:1.17.17-2020-2712,Container caasp/v4/kucero:1.3.0-2020-2712,Container caasp/v4/kured:1.3.0-2020-2712,Container caasp/v4/metrics-server:0.3.6-2020-2712,Container caasp/v4/prometheus-alertmanager:0.16.2-2020-2712,Container caasp/v4/prometheus-node-exporter:1.1.2-2020-2712,Container caasp/v4/prometheus-pushgateway:0.6.0-2020-2712,Container caasp/v4/prometheus-server:2.7.1-2020-2712,Container caasp/v4/rsyslog:8.39.0-2020-2712,Container caasp/v4/skuba-tooling:0.1.0-2020-2712,Container caasp/v4/test-update:beta-2020-2712,Container caasp/v4/velero-plugin-for-aws:1.0.1-2020-2712,Container caasp/v4/velero-plugin-for-gcp:1.0.1-2020-2712,Container caasp/v4/velero-plugin-for-microsoft-azure:1.0.1-2020-2712,Container caasp/v4/velero-restic-restore-helper:1.3.1-2020-2712,Container caasp/v4/velero:1.3.1-2020-2712,Container ses/6/cephcsi/cephcsi:latest-2020-2712,Container ses/6/rook/ceph:latest-2020-2712,Container ses/7/ceph/ceph:latest-2020-2712,Container ses/7/ceph/grafana:latest-2020-2712,Container ses/7/ceph/prometheus-alertmanager:latest-2020-2712,Container ses/7/ceph/prometheus-node-exporter:latest-2020-2712,Container ses/7/ceph/prometheus-server:latest-2020-2712,Container ses/7/cephcsi/cephcsi:latest-2020-2712,Container ses/7/cephcsi/csi-attacher:v2.1.0-2020-2712,Container ses/7/cephcsi/csi-attacher:v3.3.0-2020-2712,Container ses/7/cephcsi/csi-livenessprobe:v1.1.0-2020-2712,Container ses/7/cephcsi/csi-node-driver-registrar:v1.2.0-2020-2712,Container ses/7/cephcsi/csi-node-driver-registrar:v2.3.0-2020-2712,Container ses/7/cephcsi/csi-provisioner:v1.6.0-2020-2712,Container ses/7/cephcsi/csi-provisioner:v3.0.0-2020-2712,Container ses/7/cephcsi/csi-resizer:v0.4.0-2020-2712,Container ses/7/cephcsi/csi-resizer:v1.3.0-2020-2712,Container ses/7/cephcsi/csi-snapshotter:v2.1.0-2020-2712,Container ses/7/cephcsi/csi-snapshotter:v2.1.1-2020-2712,Container ses/7/cephcsi/csi-snapshotter:v4.2.0-2020-2712,Container ses/7/prometheus-webhook-snmp:latest-2020-2712,Container ses/7/rook/ceph:latest-2020-2712,Container suse/postgres:10-2020-2712,Container suse/sle-micro/5.0/toolbox:latest-2020-2712,Container suse/sle15:15.0-2020-2712,Container suse/sle15:15.1-2020-2712,Container suse/sles/15.2/virt-api:0.38.1-2020-2712,Container suse/sles/15.2/virt-controller:0.38.1-2020-2712,Container suse/sles/15.2/virt-handler:0.38.1-2020-2712,Container suse/sles/15.2/virt-launcher:0.38.1-2020-2712,Container suse/sles/15.2/virt-operator:0.38.1-2020-2712,Container suse/sles/15.3/cdi-apiserver:1.37.1-2020-2712,Container suse/sles/15.3/cdi-cloner:1.37.1-2020-2712,Container suse/sles/15.3/cdi-controller:1.37.1-2020-2712,Container suse/sles/15.3/cdi-importer:1.37.1-2020-2712,Container suse/sles/15.3/cdi-operator:1.37.1-2020-2712,Container suse/sles/15.3/cdi-uploadproxy:1.37.1-2020-2712,Container suse/sles/15.3/cdi-uploadserver:1.37.1-2020-2712,Container suse/sles/15.3/libguestfs-tools:0.45.0-2020-2712,Container suse/sles/15.3/virt-api:0.45.0-2020-2712,Container suse/sles/15.3/virt-controller:0.45.0-2020-2712,Container suse/sles/15.3/virt-handler:0.45.0-2020-2712,Container suse/sles/15.3/virt-launcher:0.45.0-2020-2712,Container suse/sles/15.3/virt-operator:0.45.0-2020-2712,Image SLES15-Azure-BYOS-2020-2712,Image SLES15-EC2-CHOST-HVM-BYOS-2020-2712,Image SLES15-EC2-HVM-BYOS-2020-2712,Image SLES15-GCE-BYOS-2020-2712,Image SLES15-OCI-BYOS-2020-2712,Image SLES15-SAP-Azure-2020-2712,Image SLES15-SAP-Azure-BYOS-2020-2712,Image SLES15-SAP-Azure-LI-BYOS-Production-2020-2712,Image SLES15-SAP-Azure-VLI-BYOS-Production-2020-2712,Image SLES15-SAP-EC2-HVM-2020-2712,Image SLES15-SAP-EC2-HVM-BYOS-2020-2712,Image SLES15-SAP-GCE-2020-2712,Image SLES15-SAP-GCE-BYOS-2020-2712,Image SLES15-SAP-OCI-BYOS-2020-2712,Image SLES15-SP1-Azure-BYOS-2020-2712,Image SLES15-SP1-Azure-HPC-BYOS-2020-2712,Image SLES15-SP1-CAP-Deployment-BYOS-EC2-HVM-2020-2712,Image SLES15-SP1-CAP-Deployment-BYOS-GCE-2020-2712,Image SLES15-SP1-CHOST-BYOS-Azure-2020-2712,Image SLES15-SP1-CHOST-BYOS-EC2-2020-2712,Image SLES15-SP1-CHOST-BYOS-GCE-2020-2712,Image SLES15-SP1-EC2-HPC-HVM-BYOS-2020-2712,Image SLES15-SP1-EC2-HVM-BYOS-2020-2712,Image SLES15-SP1-GCE-BYOS-2020-2712,Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy-2020-2712,Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server-2020-2712,Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy-2020-2712,Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server-2020-2712,Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy-2020-2712,Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server-2020-2712,Image SLES15-SP1-OCI-BYOS-2020-2712,Image SLES15-SP1-SAP-Azure-2020-2712,Image SLES15-SP1-SAP-Azure-BYOS-2020-2712,Image SLES15-SP1-SAP-Azure-LI-BYOS-Production-2020-2712,Image SLES15-SP1-SAP-Azure-VLI-BYOS-Production-2020-2712,Image SLES15-SP1-SAP-EC2-HVM-2020-2712,Image SLES15-SP1-SAP-EC2-HVM-BYOS-2020-2712,Image SLES15-SP1-SAP-GCE-2020-2712,Image SLES15-SP1-SAP-GCE-BYOS-2020-2712,Image SLES15-SP1-SAP-OCI-BYOS-2020-2712,Image SLES15-SP1-SAPCAL-Azure-2020-2712,Image SLES15-SP1-SAPCAL-EC2-HVM-2020-2712,Image SLES15-SP1-SAPCAL-GCE-2020-2712,Image SLES15-SP2-Azure-Basic-2020-2712,Image SLES15-SP2-Azure-Standard-2020-2712,Image SLES15-SP2-CAP-Deployment-BYOS-Azure-2020-2712,Image SLES15-SP2-EC2-ECS-HVM-2020-2712,Image SLES15-SP2-EC2-HVM-2020-2712,Image SLES15-SP2-GCE-2020-2712,Image SLES15-SP2-HPC-Azure-2020-2712,Image SLES15-SP2-Manager-4-1-Proxy-BYOS-Azure-2020-2712,Image SLES15-SP2-Manager-4-1-Server-BYOS-Azure-2020-2712,Image SLES15-SP3-EC2-ECS-HVM-2020-2712,Image SLES15-SP3-EC2-HVM-2020-2712,Image SLES15-SP3-Micro-BYOS-GCE-2020-2712,Image SLES15-SP3-SAP-EC2-HVM-2020-2712,SUSE-2020-2712,SUSE-SLE-Module-Basesystem-15-SP1-2020-2712,SUSE-SLE-Module-Basesystem-15-SP2-2020-2712,SUSE-SLE-Module-Development-Tools-15-SP1-2020-2712,SUSE-SLE-Module-Development-Tools-15-SP2-2020-2712,SUSE-SLE-Module-Legacy-15-SP1-2020-2712,SUSE-SLE-Module-Legacy-15-SP2-2020-2712",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20202712-1/",
+			"description": "Link for SUSE-SU-2020:2712-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2020-September/007454.html",
+			"description": "E-Mail link for SUSE-SU-2020:2712-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1175568",
+			"description": "SUSE Bug 1175568"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2020-8027/",
+			"description": "SUSE CVE CVE-2020-8027 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Container bci/dotnet-aspnet:5.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/dotnet-aspnet:5.0",
+						"full_product_name": {
+							"text": "Container bci/dotnet-aspnet:5.0",
+							"product_id": "Container bci/dotnet-aspnet:5.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/dotnet-runtime:5.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/dotnet-runtime:5.0",
+						"full_product_name": {
+							"text": "Container bci/dotnet-runtime:5.0",
+							"product_id": "Container bci/dotnet-runtime:5.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/dotnet-sdk:5.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/dotnet-sdk:5.0",
+						"full_product_name": {
+							"text": "Container bci/dotnet-sdk:5.0",
+							"product_id": "Container bci/dotnet-sdk:5.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/rust:1.56",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/rust:1.56",
+						"full_product_name": {
+							"text": "Container bci/rust:1.56",
+							"product_id": "Container bci/rust:1.56"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/rust:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/rust:latest",
+						"full_product_name": {
+							"text": "Container bci/rust:latest",
+							"product_id": "Container bci/rust:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/389-ds:1.4.2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/389-ds:1.4.2",
+						"full_product_name": {
+							"text": "Container caasp/v4/389-ds:1.4.2",
+							"product_id": "Container caasp/v4/389-ds:1.4.2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/busybox:1.34.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/busybox:1.34.1",
+						"full_product_name": {
+							"text": "Container caasp/v4/busybox:1.34.1",
+							"product_id": "Container caasp/v4/busybox:1.34.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/caasp-dex:2.16.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/caasp-dex:2.16.0",
+						"full_product_name": {
+							"text": "Container caasp/v4/caasp-dex:2.16.0",
+							"product_id": "Container caasp/v4/caasp-dex:2.16.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/cert-exporter:2.3.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/cert-exporter:2.3.0",
+						"full_product_name": {
+							"text": "Container caasp/v4/cert-exporter:2.3.0",
+							"product_id": "Container caasp/v4/cert-exporter:2.3.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/cilium-etcd-operator:2.0.5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/cilium-etcd-operator:2.0.5",
+						"full_product_name": {
+							"text": "Container caasp/v4/cilium-etcd-operator:2.0.5",
+							"product_id": "Container caasp/v4/cilium-etcd-operator:2.0.5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/cilium-init:1.5.3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/cilium-init:1.5.3",
+						"full_product_name": {
+							"text": "Container caasp/v4/cilium-init:1.5.3",
+							"product_id": "Container caasp/v4/cilium-init:1.5.3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/cilium-operator:1.6.6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/cilium-operator:1.6.6",
+						"full_product_name": {
+							"text": "Container caasp/v4/cilium-operator:1.6.6",
+							"product_id": "Container caasp/v4/cilium-operator:1.6.6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/cilium:1.6.6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/cilium:1.6.6",
+						"full_product_name": {
+							"text": "Container caasp/v4/cilium:1.6.6",
+							"product_id": "Container caasp/v4/cilium:1.6.6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/cloud-provider-openstack:1.15.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/cloud-provider-openstack:1.15.0",
+						"full_product_name": {
+							"text": "Container caasp/v4/cloud-provider-openstack:1.15.0",
+							"product_id": "Container caasp/v4/cloud-provider-openstack:1.15.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/configmap-reload:0.3.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/configmap-reload:0.3.0",
+						"full_product_name": {
+							"text": "Container caasp/v4/configmap-reload:0.3.0",
+							"product_id": "Container caasp/v4/configmap-reload:0.3.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/coredns:1.6.7",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/coredns:1.6.7",
+						"full_product_name": {
+							"text": "Container caasp/v4/coredns:1.6.7",
+							"product_id": "Container caasp/v4/coredns:1.6.7"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/curl:7.60.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/curl:7.60.0",
+						"full_product_name": {
+							"text": "Container caasp/v4/curl:7.60.0",
+							"product_id": "Container caasp/v4/curl:7.60.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/etcd:3.4.13",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/etcd:3.4.13",
+						"full_product_name": {
+							"text": "Container caasp/v4/etcd:3.4.13",
+							"product_id": "Container caasp/v4/etcd:3.4.13"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/gangway:3.1.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/gangway:3.1.0",
+						"full_product_name": {
+							"text": "Container caasp/v4/gangway:3.1.0",
+							"product_id": "Container caasp/v4/gangway:3.1.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/grafana:7.5.12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/grafana:7.5.12",
+						"full_product_name": {
+							"text": "Container caasp/v4/grafana:7.5.12",
+							"product_id": "Container caasp/v4/grafana:7.5.12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/helm-tiller:2.16.12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/helm-tiller:2.16.12",
+						"full_product_name": {
+							"text": "Container caasp/v4/helm-tiller:2.16.12",
+							"product_id": "Container caasp/v4/helm-tiller:2.16.12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/hyperkube:v1.17.17",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/hyperkube:v1.17.17",
+						"full_product_name": {
+							"text": "Container caasp/v4/hyperkube:v1.17.17",
+							"product_id": "Container caasp/v4/hyperkube:v1.17.17"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/k8s-sidecar:0.1.75",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/k8s-sidecar:0.1.75",
+						"full_product_name": {
+							"text": "Container caasp/v4/k8s-sidecar:0.1.75",
+							"product_id": "Container caasp/v4/k8s-sidecar:0.1.75"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/kube-state-metrics:1.9.3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/kube-state-metrics:1.9.3",
+						"full_product_name": {
+							"text": "Container caasp/v4/kube-state-metrics:1.9.3",
+							"product_id": "Container caasp/v4/kube-state-metrics:1.9.3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/kubernetes-client:1.17.17",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/kubernetes-client:1.17.17",
+						"full_product_name": {
+							"text": "Container caasp/v4/kubernetes-client:1.17.17",
+							"product_id": "Container caasp/v4/kubernetes-client:1.17.17"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/kucero:1.3.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/kucero:1.3.0",
+						"full_product_name": {
+							"text": "Container caasp/v4/kucero:1.3.0",
+							"product_id": "Container caasp/v4/kucero:1.3.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/kured:1.3.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/kured:1.3.0",
+						"full_product_name": {
+							"text": "Container caasp/v4/kured:1.3.0",
+							"product_id": "Container caasp/v4/kured:1.3.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/metrics-server:0.3.6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/metrics-server:0.3.6",
+						"full_product_name": {
+							"text": "Container caasp/v4/metrics-server:0.3.6",
+							"product_id": "Container caasp/v4/metrics-server:0.3.6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/prometheus-alertmanager:0.16.2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/prometheus-alertmanager:0.16.2",
+						"full_product_name": {
+							"text": "Container caasp/v4/prometheus-alertmanager:0.16.2",
+							"product_id": "Container caasp/v4/prometheus-alertmanager:0.16.2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/prometheus-node-exporter:1.1.2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/prometheus-node-exporter:1.1.2",
+						"full_product_name": {
+							"text": "Container caasp/v4/prometheus-node-exporter:1.1.2",
+							"product_id": "Container caasp/v4/prometheus-node-exporter:1.1.2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/prometheus-pushgateway:0.6.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/prometheus-pushgateway:0.6.0",
+						"full_product_name": {
+							"text": "Container caasp/v4/prometheus-pushgateway:0.6.0",
+							"product_id": "Container caasp/v4/prometheus-pushgateway:0.6.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/prometheus-server:2.7.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/prometheus-server:2.7.1",
+						"full_product_name": {
+							"text": "Container caasp/v4/prometheus-server:2.7.1",
+							"product_id": "Container caasp/v4/prometheus-server:2.7.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/rsyslog:8.39.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/rsyslog:8.39.0",
+						"full_product_name": {
+							"text": "Container caasp/v4/rsyslog:8.39.0",
+							"product_id": "Container caasp/v4/rsyslog:8.39.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/skuba-tooling:0.1.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/skuba-tooling:0.1.0",
+						"full_product_name": {
+							"text": "Container caasp/v4/skuba-tooling:0.1.0",
+							"product_id": "Container caasp/v4/skuba-tooling:0.1.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/test-update:beta",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/test-update:beta",
+						"full_product_name": {
+							"text": "Container caasp/v4/test-update:beta",
+							"product_id": "Container caasp/v4/test-update:beta"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/velero-plugin-for-aws:1.0.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/velero-plugin-for-aws:1.0.1",
+						"full_product_name": {
+							"text": "Container caasp/v4/velero-plugin-for-aws:1.0.1",
+							"product_id": "Container caasp/v4/velero-plugin-for-aws:1.0.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/velero-plugin-for-gcp:1.0.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/velero-plugin-for-gcp:1.0.1",
+						"full_product_name": {
+							"text": "Container caasp/v4/velero-plugin-for-gcp:1.0.1",
+							"product_id": "Container caasp/v4/velero-plugin-for-gcp:1.0.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/velero-plugin-for-microsoft-azure:1.0.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/velero-plugin-for-microsoft-azure:1.0.1",
+						"full_product_name": {
+							"text": "Container caasp/v4/velero-plugin-for-microsoft-azure:1.0.1",
+							"product_id": "Container caasp/v4/velero-plugin-for-microsoft-azure:1.0.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/velero-restic-restore-helper:1.3.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/velero-restic-restore-helper:1.3.1",
+						"full_product_name": {
+							"text": "Container caasp/v4/velero-restic-restore-helper:1.3.1",
+							"product_id": "Container caasp/v4/velero-restic-restore-helper:1.3.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container caasp/v4/velero:1.3.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container caasp/v4/velero:1.3.1",
+						"full_product_name": {
+							"text": "Container caasp/v4/velero:1.3.1",
+							"product_id": "Container caasp/v4/velero:1.3.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/6/cephcsi/cephcsi:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/6/cephcsi/cephcsi:latest",
+						"full_product_name": {
+							"text": "Container ses/6/cephcsi/cephcsi:latest",
+							"product_id": "Container ses/6/cephcsi/cephcsi:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/6/rook/ceph:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/6/rook/ceph:latest",
+						"full_product_name": {
+							"text": "Container ses/6/rook/ceph:latest",
+							"product_id": "Container ses/6/rook/ceph:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/ceph/ceph:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/ceph/ceph:latest",
+						"full_product_name": {
+							"text": "Container ses/7/ceph/ceph:latest",
+							"product_id": "Container ses/7/ceph/ceph:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/ceph/grafana:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/ceph/grafana:latest",
+						"full_product_name": {
+							"text": "Container ses/7/ceph/grafana:latest",
+							"product_id": "Container ses/7/ceph/grafana:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/ceph/prometheus-alertmanager:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/ceph/prometheus-alertmanager:latest",
+						"full_product_name": {
+							"text": "Container ses/7/ceph/prometheus-alertmanager:latest",
+							"product_id": "Container ses/7/ceph/prometheus-alertmanager:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/ceph/prometheus-node-exporter:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/ceph/prometheus-node-exporter:latest",
+						"full_product_name": {
+							"text": "Container ses/7/ceph/prometheus-node-exporter:latest",
+							"product_id": "Container ses/7/ceph/prometheus-node-exporter:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/ceph/prometheus-server:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/ceph/prometheus-server:latest",
+						"full_product_name": {
+							"text": "Container ses/7/ceph/prometheus-server:latest",
+							"product_id": "Container ses/7/ceph/prometheus-server:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/cephcsi/cephcsi:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/cephcsi/cephcsi:latest",
+						"full_product_name": {
+							"text": "Container ses/7/cephcsi/cephcsi:latest",
+							"product_id": "Container ses/7/cephcsi/cephcsi:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/cephcsi/csi-attacher:v2.1.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/cephcsi/csi-attacher:v2.1.0",
+						"full_product_name": {
+							"text": "Container ses/7/cephcsi/csi-attacher:v2.1.0",
+							"product_id": "Container ses/7/cephcsi/csi-attacher:v2.1.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/cephcsi/csi-attacher:v3.3.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/cephcsi/csi-attacher:v3.3.0",
+						"full_product_name": {
+							"text": "Container ses/7/cephcsi/csi-attacher:v3.3.0",
+							"product_id": "Container ses/7/cephcsi/csi-attacher:v3.3.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/cephcsi/csi-livenessprobe:v1.1.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/cephcsi/csi-livenessprobe:v1.1.0",
+						"full_product_name": {
+							"text": "Container ses/7/cephcsi/csi-livenessprobe:v1.1.0",
+							"product_id": "Container ses/7/cephcsi/csi-livenessprobe:v1.1.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/cephcsi/csi-node-driver-registrar:v1.2.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/cephcsi/csi-node-driver-registrar:v1.2.0",
+						"full_product_name": {
+							"text": "Container ses/7/cephcsi/csi-node-driver-registrar:v1.2.0",
+							"product_id": "Container ses/7/cephcsi/csi-node-driver-registrar:v1.2.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/cephcsi/csi-node-driver-registrar:v2.3.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/cephcsi/csi-node-driver-registrar:v2.3.0",
+						"full_product_name": {
+							"text": "Container ses/7/cephcsi/csi-node-driver-registrar:v2.3.0",
+							"product_id": "Container ses/7/cephcsi/csi-node-driver-registrar:v2.3.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/cephcsi/csi-provisioner:v1.6.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/cephcsi/csi-provisioner:v1.6.0",
+						"full_product_name": {
+							"text": "Container ses/7/cephcsi/csi-provisioner:v1.6.0",
+							"product_id": "Container ses/7/cephcsi/csi-provisioner:v1.6.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/cephcsi/csi-provisioner:v3.0.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/cephcsi/csi-provisioner:v3.0.0",
+						"full_product_name": {
+							"text": "Container ses/7/cephcsi/csi-provisioner:v3.0.0",
+							"product_id": "Container ses/7/cephcsi/csi-provisioner:v3.0.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/cephcsi/csi-resizer:v0.4.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/cephcsi/csi-resizer:v0.4.0",
+						"full_product_name": {
+							"text": "Container ses/7/cephcsi/csi-resizer:v0.4.0",
+							"product_id": "Container ses/7/cephcsi/csi-resizer:v0.4.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/cephcsi/csi-resizer:v1.3.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/cephcsi/csi-resizer:v1.3.0",
+						"full_product_name": {
+							"text": "Container ses/7/cephcsi/csi-resizer:v1.3.0",
+							"product_id": "Container ses/7/cephcsi/csi-resizer:v1.3.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/cephcsi/csi-snapshotter:v2.1.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/cephcsi/csi-snapshotter:v2.1.0",
+						"full_product_name": {
+							"text": "Container ses/7/cephcsi/csi-snapshotter:v2.1.0",
+							"product_id": "Container ses/7/cephcsi/csi-snapshotter:v2.1.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/cephcsi/csi-snapshotter:v2.1.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/cephcsi/csi-snapshotter:v2.1.1",
+						"full_product_name": {
+							"text": "Container ses/7/cephcsi/csi-snapshotter:v2.1.1",
+							"product_id": "Container ses/7/cephcsi/csi-snapshotter:v2.1.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/cephcsi/csi-snapshotter:v4.2.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/cephcsi/csi-snapshotter:v4.2.0",
+						"full_product_name": {
+							"text": "Container ses/7/cephcsi/csi-snapshotter:v4.2.0",
+							"product_id": "Container ses/7/cephcsi/csi-snapshotter:v4.2.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/prometheus-webhook-snmp:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/prometheus-webhook-snmp:latest",
+						"full_product_name": {
+							"text": "Container ses/7/prometheus-webhook-snmp:latest",
+							"product_id": "Container ses/7/prometheus-webhook-snmp:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/7/rook/ceph:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/7/rook/ceph:latest",
+						"full_product_name": {
+							"text": "Container ses/7/rook/ceph:latest",
+							"product_id": "Container ses/7/rook/ceph:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/postgres:10",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/postgres:10",
+						"full_product_name": {
+							"text": "Container suse/postgres:10",
+							"product_id": "Container suse/postgres:10"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sle-micro/5.0/toolbox:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sle-micro/5.0/toolbox:latest",
+						"full_product_name": {
+							"text": "Container suse/sle-micro/5.0/toolbox:latest",
+							"product_id": "Container suse/sle-micro/5.0/toolbox:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sle15:15.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sle15:15.0",
+						"full_product_name": {
+							"text": "Container suse/sle15:15.0",
+							"product_id": "Container suse/sle15:15.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sle15:15.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sle15:15.1",
+						"full_product_name": {
+							"text": "Container suse/sle15:15.1",
+							"product_id": "Container suse/sle15:15.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.2/virt-api:0.38.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.2/virt-api:0.38.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.2/virt-api:0.38.1",
+							"product_id": "Container suse/sles/15.2/virt-api:0.38.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.2/virt-controller:0.38.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.2/virt-controller:0.38.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.2/virt-controller:0.38.1",
+							"product_id": "Container suse/sles/15.2/virt-controller:0.38.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.2/virt-handler:0.38.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.2/virt-handler:0.38.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.2/virt-handler:0.38.1",
+							"product_id": "Container suse/sles/15.2/virt-handler:0.38.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.2/virt-launcher:0.38.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.2/virt-launcher:0.38.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.2/virt-launcher:0.38.1",
+							"product_id": "Container suse/sles/15.2/virt-launcher:0.38.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.2/virt-operator:0.38.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.2/virt-operator:0.38.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.2/virt-operator:0.38.1",
+							"product_id": "Container suse/sles/15.2/virt-operator:0.38.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.3/cdi-apiserver:1.37.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.3/cdi-apiserver:1.37.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.3/cdi-apiserver:1.37.1",
+							"product_id": "Container suse/sles/15.3/cdi-apiserver:1.37.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.3/cdi-cloner:1.37.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.3/cdi-cloner:1.37.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.3/cdi-cloner:1.37.1",
+							"product_id": "Container suse/sles/15.3/cdi-cloner:1.37.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.3/cdi-controller:1.37.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.3/cdi-controller:1.37.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.3/cdi-controller:1.37.1",
+							"product_id": "Container suse/sles/15.3/cdi-controller:1.37.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.3/cdi-importer:1.37.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.3/cdi-importer:1.37.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.3/cdi-importer:1.37.1",
+							"product_id": "Container suse/sles/15.3/cdi-importer:1.37.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.3/cdi-operator:1.37.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.3/cdi-operator:1.37.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.3/cdi-operator:1.37.1",
+							"product_id": "Container suse/sles/15.3/cdi-operator:1.37.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.3/cdi-uploadproxy:1.37.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.3/cdi-uploadproxy:1.37.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.3/cdi-uploadproxy:1.37.1",
+							"product_id": "Container suse/sles/15.3/cdi-uploadproxy:1.37.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.3/cdi-uploadserver:1.37.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.3/cdi-uploadserver:1.37.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.3/cdi-uploadserver:1.37.1",
+							"product_id": "Container suse/sles/15.3/cdi-uploadserver:1.37.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.3/libguestfs-tools:0.45.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.3/libguestfs-tools:0.45.0",
+						"full_product_name": {
+							"text": "Container suse/sles/15.3/libguestfs-tools:0.45.0",
+							"product_id": "Container suse/sles/15.3/libguestfs-tools:0.45.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.3/virt-api:0.45.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.3/virt-api:0.45.0",
+						"full_product_name": {
+							"text": "Container suse/sles/15.3/virt-api:0.45.0",
+							"product_id": "Container suse/sles/15.3/virt-api:0.45.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.3/virt-controller:0.45.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.3/virt-controller:0.45.0",
+						"full_product_name": {
+							"text": "Container suse/sles/15.3/virt-controller:0.45.0",
+							"product_id": "Container suse/sles/15.3/virt-controller:0.45.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.3/virt-handler:0.45.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.3/virt-handler:0.45.0",
+						"full_product_name": {
+							"text": "Container suse/sles/15.3/virt-handler:0.45.0",
+							"product_id": "Container suse/sles/15.3/virt-handler:0.45.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.3/virt-launcher:0.45.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.3/virt-launcher:0.45.0",
+						"full_product_name": {
+							"text": "Container suse/sles/15.3/virt-launcher:0.45.0",
+							"product_id": "Container suse/sles/15.3/virt-launcher:0.45.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.3/virt-operator:0.45.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.3/virt-operator:0.45.0",
+						"full_product_name": {
+							"text": "Container suse/sles/15.3/virt-operator:0.45.0",
+							"product_id": "Container suse/sles/15.3/virt-operator:0.45.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-Azure-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-Azure-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-Azure-BYOS",
+							"product_id": "Image SLES15-Azure-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-EC2-CHOST-HVM-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-EC2-CHOST-HVM-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-EC2-CHOST-HVM-BYOS",
+							"product_id": "Image SLES15-EC2-CHOST-HVM-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-EC2-HVM-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-EC2-HVM-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-EC2-HVM-BYOS",
+							"product_id": "Image SLES15-EC2-HVM-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-GCE-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-GCE-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-GCE-BYOS",
+							"product_id": "Image SLES15-GCE-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-OCI-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-OCI-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-OCI-BYOS",
+							"product_id": "Image SLES15-OCI-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-Azure",
+							"product_id": "Image SLES15-SAP-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-Azure-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-Azure-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-Azure-BYOS",
+							"product_id": "Image SLES15-SAP-Azure-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-Azure-LI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-Azure-LI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-Azure-LI-BYOS-Production",
+							"product_id": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-Azure-VLI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-Azure-VLI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-Azure-VLI-BYOS-Production",
+							"product_id": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-EC2-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-EC2-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-EC2-HVM",
+							"product_id": "Image SLES15-SAP-EC2-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-EC2-HVM-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-EC2-HVM-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-EC2-HVM-BYOS",
+							"product_id": "Image SLES15-SAP-EC2-HVM-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-GCE",
+							"product_id": "Image SLES15-SAP-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-GCE-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-GCE-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-GCE-BYOS",
+							"product_id": "Image SLES15-SAP-GCE-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-OCI-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-OCI-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-OCI-BYOS",
+							"product_id": "Image SLES15-SAP-OCI-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Azure-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Azure-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Azure-BYOS",
+							"product_id": "Image SLES15-SP1-Azure-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Azure-HPC-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Azure-HPC-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Azure-HPC-BYOS",
+							"product_id": "Image SLES15-SP1-Azure-HPC-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-CAP-Deployment-BYOS-EC2-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-CAP-Deployment-BYOS-EC2-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-CAP-Deployment-BYOS-EC2-HVM",
+							"product_id": "Image SLES15-SP1-CAP-Deployment-BYOS-EC2-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-CAP-Deployment-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-CAP-Deployment-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-CAP-Deployment-BYOS-GCE",
+							"product_id": "Image SLES15-SP1-CAP-Deployment-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-CHOST-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-CHOST-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-CHOST-BYOS-Azure",
+							"product_id": "Image SLES15-SP1-CHOST-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-CHOST-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-CHOST-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-CHOST-BYOS-EC2",
+							"product_id": "Image SLES15-SP1-CHOST-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-CHOST-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-CHOST-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-CHOST-BYOS-GCE",
+							"product_id": "Image SLES15-SP1-CHOST-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-EC2-HPC-HVM-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-EC2-HPC-HVM-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-EC2-HPC-HVM-BYOS",
+							"product_id": "Image SLES15-SP1-EC2-HPC-HVM-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-EC2-HVM-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-EC2-HVM-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-EC2-HVM-BYOS",
+							"product_id": "Image SLES15-SP1-EC2-HVM-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-GCE-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-GCE-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-GCE-BYOS",
+							"product_id": "Image SLES15-SP1-GCE-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy",
+							"product_id": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server",
+							"product_id": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy",
+							"product_id": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server",
+							"product_id": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy",
+							"product_id": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server",
+							"product_id": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-OCI-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-OCI-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-OCI-BYOS",
+							"product_id": "Image SLES15-SP1-OCI-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAP-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAP-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAP-Azure",
+							"product_id": "Image SLES15-SP1-SAP-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAP-Azure-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAP-Azure-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAP-Azure-BYOS",
+							"product_id": "Image SLES15-SP1-SAP-Azure-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAP-Azure-LI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAP-Azure-LI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAP-Azure-LI-BYOS-Production",
+							"product_id": "Image SLES15-SP1-SAP-Azure-LI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAP-Azure-VLI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAP-Azure-VLI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAP-Azure-VLI-BYOS-Production",
+							"product_id": "Image SLES15-SP1-SAP-Azure-VLI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAP-EC2-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAP-EC2-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAP-EC2-HVM",
+							"product_id": "Image SLES15-SP1-SAP-EC2-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAP-EC2-HVM-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAP-EC2-HVM-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAP-EC2-HVM-BYOS",
+							"product_id": "Image SLES15-SP1-SAP-EC2-HVM-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAP-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAP-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAP-GCE",
+							"product_id": "Image SLES15-SP1-SAP-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAP-GCE-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAP-GCE-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAP-GCE-BYOS",
+							"product_id": "Image SLES15-SP1-SAP-GCE-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAP-OCI-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAP-OCI-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAP-OCI-BYOS",
+							"product_id": "Image SLES15-SP1-SAP-OCI-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAPCAL-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAPCAL-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAPCAL-Azure",
+							"product_id": "Image SLES15-SP1-SAPCAL-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAPCAL-EC2-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAPCAL-EC2-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAPCAL-EC2-HVM",
+							"product_id": "Image SLES15-SP1-SAPCAL-EC2-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAPCAL-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAPCAL-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAPCAL-GCE",
+							"product_id": "Image SLES15-SP1-SAPCAL-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP2-Azure-Basic",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP2-Azure-Basic",
+						"full_product_name": {
+							"text": "Image SLES15-SP2-Azure-Basic",
+							"product_id": "Image SLES15-SP2-Azure-Basic"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP2-Azure-Standard",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP2-Azure-Standard",
+						"full_product_name": {
+							"text": "Image SLES15-SP2-Azure-Standard",
+							"product_id": "Image SLES15-SP2-Azure-Standard"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP2-CAP-Deployment-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP2-CAP-Deployment-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP2-CAP-Deployment-BYOS-Azure",
+							"product_id": "Image SLES15-SP2-CAP-Deployment-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP2-EC2-ECS-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP2-EC2-ECS-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SP2-EC2-ECS-HVM",
+							"product_id": "Image SLES15-SP2-EC2-ECS-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP2-EC2-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP2-EC2-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SP2-EC2-HVM",
+							"product_id": "Image SLES15-SP2-EC2-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP2-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP2-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP2-GCE",
+							"product_id": "Image SLES15-SP2-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP2-HPC-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP2-HPC-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP2-HPC-Azure",
+							"product_id": "Image SLES15-SP2-HPC-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP2-Manager-4-1-Proxy-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP2-Manager-4-1-Proxy-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP2-Manager-4-1-Proxy-BYOS-Azure",
+							"product_id": "Image SLES15-SP2-Manager-4-1-Proxy-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP2-Manager-4-1-Server-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP2-Manager-4-1-Server-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP2-Manager-4-1-Server-BYOS-Azure",
+							"product_id": "Image SLES15-SP2-Manager-4-1-Server-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP3-EC2-ECS-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP3-EC2-ECS-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SP3-EC2-ECS-HVM",
+							"product_id": "Image SLES15-SP3-EC2-ECS-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP3-EC2-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP3-EC2-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SP3-EC2-HVM",
+							"product_id": "Image SLES15-SP3-EC2-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP3-Micro-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP3-Micro-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP3-Micro-BYOS-GCE",
+							"product_id": "Image SLES15-SP3-Micro-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP3-SAP-EC2-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP3-SAP-EC2-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SP3-SAP-EC2-HVM",
+							"product_id": "Image SLES15-SP3-SAP-EC2-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Basesystem 15 SP1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Basesystem 15 SP1",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Basesystem 15 SP1",
+							"product_id": "SUSE Linux Enterprise Module for Basesystem 15 SP1",
+							"cpe": "cpe:/o:suse:sle-module-basesystem:15:sp1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Basesystem 15 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Basesystem 15 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Basesystem 15 SP2",
+							"product_id": "SUSE Linux Enterprise Module for Basesystem 15 SP2",
+							"cpe": "cpe:/o:suse:sle-module-basesystem:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Development Tools 15 SP1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Development Tools 15 SP1",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Development Tools 15 SP1",
+							"product_id": "SUSE Linux Enterprise Module for Development Tools 15 SP1",
+							"cpe": "cpe:/o:suse:sle-module-development-tools:15:sp1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Development Tools 15 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Development Tools 15 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Development Tools 15 SP2",
+							"product_id": "SUSE Linux Enterprise Module for Development Tools 15 SP2",
+							"cpe": "cpe:/o:suse:sle-module-development-tools:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Legacy 15 SP1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Legacy 15 SP1",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Legacy 15 SP1",
+							"product_id": "SUSE Linux Enterprise Module for Legacy 15 SP1",
+							"cpe": "cpe:/o:suse:sle-module-legacy:15:sp1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Legacy 15 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Legacy 15 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Legacy 15 SP2",
+							"product_id": "SUSE Linux Enterprise Module for Legacy 15 SP2",
+							"cpe": "cpe:/o:suse:sle-module-legacy:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libldap-2_4-2-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "libldap-2_4-2-2.4.46-9.37.1",
+					"product_id": "libldap-2_4-2-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libldap-data-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "libldap-data-2.4.46-9.37.1",
+					"product_id": "libldap-data-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openldap2-client-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "openldap2-client-2.4.46-9.37.1",
+					"product_id": "openldap2-client-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libldap-2_4-2-32bit-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "libldap-2_4-2-32bit-2.4.46-9.37.1",
+					"product_id": "libldap-2_4-2-32bit-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libldap-2_4-2-64bit-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "libldap-2_4-2-64bit-2.4.46-9.37.1",
+					"product_id": "libldap-2_4-2-64bit-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openldap2-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "openldap2-2.4.46-9.37.1",
+					"product_id": "openldap2-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openldap2-back-meta-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "openldap2-back-meta-2.4.46-9.37.1",
+					"product_id": "openldap2-back-meta-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openldap2-back-perl-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "openldap2-back-perl-2.4.46-9.37.1",
+					"product_id": "openldap2-back-perl-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openldap2-back-sock-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "openldap2-back-sock-2.4.46-9.37.1",
+					"product_id": "openldap2-back-sock-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openldap2-back-sql-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "openldap2-back-sql-2.4.46-9.37.1",
+					"product_id": "openldap2-back-sql-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openldap2-contrib-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "openldap2-contrib-2.4.46-9.37.1",
+					"product_id": "openldap2-contrib-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openldap2-devel-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "openldap2-devel-2.4.46-9.37.1",
+					"product_id": "openldap2-devel-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openldap2-devel-32bit-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "openldap2-devel-32bit-2.4.46-9.37.1",
+					"product_id": "openldap2-devel-32bit-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openldap2-devel-64bit-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "openldap2-devel-64bit-2.4.46-9.37.1",
+					"product_id": "openldap2-devel-64bit-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openldap2-devel-static-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "openldap2-devel-static-2.4.46-9.37.1",
+					"product_id": "openldap2-devel-static-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openldap2-doc-2.4.46-9.37.1",
+				"full_product_name": {
+					"text": "openldap2-doc-2.4.46-9.37.1",
+					"product_id": "openldap2-doc-2.4.46-9.37.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openldap2-ppolicy-check-password-1.2-9.37.1",
+				"full_product_name": {
+					"text": "openldap2-ppolicy-check-password-1.2-9.37.1",
+					"product_id": "openldap2-ppolicy-check-password-1.2-9.37.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/dotnet-aspnet:5.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/dotnet-aspnet:5.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/dotnet-runtime:5.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/dotnet-runtime:5.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/dotnet-sdk:5.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/dotnet-sdk:5.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/rust:1.56"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/rust:1.56"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/rust:latest"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/rust:latest"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/389-ds:1.4.2"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/389-ds:1.4.2"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/busybox:1.34.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/busybox:1.34.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/caasp-dex:2.16.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/caasp-dex:2.16.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/cert-exporter:2.3.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/cert-exporter:2.3.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/cilium-etcd-operator:2.0.5"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/cilium-etcd-operator:2.0.5"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/cilium-init:1.5.3"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/cilium-init:1.5.3"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/cilium-operator:1.6.6"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/cilium-operator:1.6.6"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/cilium:1.6.6"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/cilium:1.6.6"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/cloud-provider-openstack:1.15.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/cloud-provider-openstack:1.15.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/configmap-reload:0.3.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/configmap-reload:0.3.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/coredns:1.6.7"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/coredns:1.6.7"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/curl:7.60.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/curl:7.60.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/etcd:3.4.13"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/etcd:3.4.13"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/gangway:3.1.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/gangway:3.1.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/grafana:7.5.12"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/grafana:7.5.12"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/helm-tiller:2.16.12"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/helm-tiller:2.16.12"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/hyperkube:v1.17.17"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/hyperkube:v1.17.17"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/k8s-sidecar:0.1.75"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/k8s-sidecar:0.1.75"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/kube-state-metrics:1.9.3"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/kube-state-metrics:1.9.3"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/kubernetes-client:1.17.17"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/kubernetes-client:1.17.17"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/kucero:1.3.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/kucero:1.3.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/kured:1.3.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/kured:1.3.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/metrics-server:0.3.6"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/metrics-server:0.3.6"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/prometheus-alertmanager:0.16.2"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/prometheus-alertmanager:0.16.2"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/prometheus-node-exporter:1.1.2"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/prometheus-node-exporter:1.1.2"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/prometheus-pushgateway:0.6.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/prometheus-pushgateway:0.6.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/prometheus-server:2.7.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/prometheus-server:2.7.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/rsyslog:8.39.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/rsyslog:8.39.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/skuba-tooling:0.1.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/skuba-tooling:0.1.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/test-update:beta"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/test-update:beta"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/velero-plugin-for-aws:1.0.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/velero-plugin-for-aws:1.0.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/velero-plugin-for-gcp:1.0.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/velero-plugin-for-gcp:1.0.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/velero-plugin-for-microsoft-azure:1.0.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/velero-plugin-for-microsoft-azure:1.0.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/velero-restic-restore-helper:1.3.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/velero-restic-restore-helper:1.3.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/velero:1.3.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container caasp/v4/velero:1.3.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/ceph/ceph:latest"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/ceph/ceph:latest"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/ceph/grafana:latest"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/ceph/grafana:latest"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/ceph/prometheus-alertmanager:latest"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/ceph/prometheus-alertmanager:latest"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/ceph/prometheus-node-exporter:latest"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/ceph/prometheus-node-exporter:latest"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/ceph/prometheus-server:latest"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/ceph/prometheus-server:latest"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-attacher:v2.1.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-attacher:v2.1.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-attacher:v3.3.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-attacher:v3.3.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-livenessprobe:v1.1.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-livenessprobe:v1.1.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-node-driver-registrar:v1.2.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-node-driver-registrar:v1.2.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-node-driver-registrar:v2.3.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-node-driver-registrar:v2.3.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-provisioner:v1.6.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-provisioner:v1.6.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-provisioner:v3.0.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-provisioner:v3.0.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-resizer:v0.4.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-resizer:v0.4.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-resizer:v1.3.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-resizer:v1.3.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-snapshotter:v2.1.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-snapshotter:v2.1.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-snapshotter:v2.1.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-snapshotter:v2.1.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-snapshotter:v4.2.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/cephcsi/csi-snapshotter:v4.2.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/prometheus-webhook-snmp:latest"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/prometheus-webhook-snmp:latest"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/rook/ceph:latest"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/7/rook/ceph:latest"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/postgres:10"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/postgres:10"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle-micro/5.0/toolbox:latest"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle-micro/5.0/toolbox:latest"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle15:15.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle15:15.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle15:15.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle15:15.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.2/virt-api:0.38.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.2/virt-api:0.38.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.2/virt-controller:0.38.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.2/virt-controller:0.38.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.2/virt-handler:0.38.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.2/virt-handler:0.38.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.2/virt-launcher:0.38.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.2/virt-launcher:0.38.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.2/virt-operator:0.38.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.2/virt-operator:0.38.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-apiserver:1.37.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-apiserver:1.37.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-cloner:1.37.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-cloner:1.37.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-controller:1.37.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-controller:1.37.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-importer:1.37.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-importer:1.37.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-operator:1.37.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-operator:1.37.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-uploadproxy:1.37.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-uploadproxy:1.37.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-uploadserver:1.37.1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/cdi-uploadserver:1.37.1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/libguestfs-tools:0.45.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/libguestfs-tools:0.45.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/virt-api:0.45.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/virt-api:0.45.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/virt-controller:0.45.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/virt-controller:0.45.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/virt-handler:0.45.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/virt-handler:0.45.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/virt-launcher:0.45.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/virt-launcher:0.45.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/virt-operator:0.45.0"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.3/virt-operator:0.45.0"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-Azure-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-Azure-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-Azure-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-CHOST-HVM-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-CHOST-HVM-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-GCE-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-GCE-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-GCE-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-OCI-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-OCI-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-OCI-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Azure-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Azure-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Azure-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Azure-HPC-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Azure-HPC-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Azure-HPC-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-CAP-Deployment-BYOS-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-CAP-Deployment-BYOS-EC2-HVM"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-CAP-Deployment-BYOS-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-CAP-Deployment-BYOS-GCE"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-CAP-Deployment-BYOS-GCE"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-CAP-Deployment-BYOS-GCE"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-CHOST-BYOS-Azure"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-CHOST-BYOS-Azure"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-CHOST-BYOS-EC2"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-CHOST-BYOS-EC2"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-CHOST-BYOS-GCE"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-CHOST-BYOS-GCE"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-EC2-HPC-HVM-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-EC2-HPC-HVM-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-EC2-HPC-HVM-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-GCE-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-GCE-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-GCE-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-OCI-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-OCI-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-OCI-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-Azure"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-Azure"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-Azure"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-GCE"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-GCE"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-GCE"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-Azure"
+			},
+			{
+				"product_reference": "libldap-2_4-2-32bit-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-Azure"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-Azure"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-Azure"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-2_4-2-32bit-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-EC2-HVM"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-GCE"
+			},
+			{
+				"product_reference": "libldap-2_4-2-32bit-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-GCE"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-GCE"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-GCE"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-Azure-Basic"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-Azure-Basic"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-Azure-Basic"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-Azure-Standard"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-Azure-Standard"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-Azure-Standard"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-CAP-Deployment-BYOS-Azure"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-CAP-Deployment-BYOS-Azure"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-CAP-Deployment-BYOS-Azure"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-EC2-ECS-HVM"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-EC2-ECS-HVM"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-EC2-ECS-HVM"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-EC2-HVM"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-GCE"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-GCE"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-GCE"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-HPC-Azure"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-HPC-Azure"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-HPC-Azure"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-Manager-4-1-Proxy-BYOS-Azure"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-Manager-4-1-Proxy-BYOS-Azure"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-Manager-4-1-Proxy-BYOS-Azure"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-Manager-4-1-Server-BYOS-Azure"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-Manager-4-1-Server-BYOS-Azure"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-Manager-4-1-Server-BYOS-Azure"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP3-EC2-ECS-HVM"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP3-EC2-ECS-HVM"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP3-EC2-ECS-HVM"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP3-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-2_4-2-32bit-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP3-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP3-EC2-HVM"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP3-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP3-Micro-BYOS-GCE"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP3-Micro-BYOS-GCE"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP3-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-2_4-2-32bit-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP3-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP3-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP3-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-32bit-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP1"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP1"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP1"
+			},
+			{
+				"product_reference": "openldap2-devel-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP1"
+			},
+			{
+				"product_reference": "openldap2-devel-static-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP1"
+			},
+			{
+				"product_reference": "libldap-2_4-2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP2"
+			},
+			{
+				"product_reference": "libldap-2_4-2-32bit-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP2"
+			},
+			{
+				"product_reference": "libldap-data-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP2"
+			},
+			{
+				"product_reference": "openldap2-client-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP2"
+			},
+			{
+				"product_reference": "openldap2-devel-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP2"
+			},
+			{
+				"product_reference": "openldap2-devel-static-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP2"
+			},
+			{
+				"product_reference": "openldap2-devel-32bit-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP1"
+			},
+			{
+				"product_reference": "openldap2-devel-32bit-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP2"
+			},
+			{
+				"product_reference": "openldap2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP1"
+			},
+			{
+				"product_reference": "openldap2-back-meta-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP1"
+			},
+			{
+				"product_reference": "openldap2-back-perl-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP1"
+			},
+			{
+				"product_reference": "openldap2-ppolicy-check-password-1.2-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP1"
+			},
+			{
+				"product_reference": "openldap2-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP2"
+			},
+			{
+				"product_reference": "openldap2-back-meta-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP2"
+			},
+			{
+				"product_reference": "openldap2-back-perl-2.4.46-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP2"
+			},
+			{
+				"product_reference": "openldap2-ppolicy-check-password-1.2-9.37.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP2"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "A Insecure Temporary File vulnerability in openldap2 of SUSE Linux Enterprise Server 15-LTSS, SUSE Linux Enterprise Server for SAP 15; openSUSE Leap 15.1, openSUSE Leap 15.2 allows local attackers to overwrite arbitrary files and gain access to the openldap2 configuration This issue affects: SUSE Linux Enterprise Server 15-LTSS openldap2 versions prior to 2.4.46-9.37.1. SUSE Linux Enterprise Server for SAP 15 openldap2 versions prior to 2.4.46-9.37.1. openSUSE Leap 15.1 openldap2 versions prior to 2.4.46-lp151.10.18.1. openSUSE Leap 15.2 openldap2 versions prior to 2.4.46-lp152.14.9.1.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2020-8027",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container bci/dotnet-aspnet:5.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container bci/dotnet-aspnet:5.0:libldap-data-2.4.46-9.37.1",
+						"Container bci/dotnet-runtime:5.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container bci/dotnet-runtime:5.0:libldap-data-2.4.46-9.37.1",
+						"Container bci/dotnet-sdk:5.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container bci/dotnet-sdk:5.0:libldap-data-2.4.46-9.37.1",
+						"Container bci/rust:1.56:libldap-2_4-2-2.4.46-9.37.1",
+						"Container bci/rust:1.56:libldap-data-2.4.46-9.37.1",
+						"Container bci/rust:latest:libldap-2_4-2-2.4.46-9.37.1",
+						"Container bci/rust:latest:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/389-ds:1.4.2:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/389-ds:1.4.2:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/busybox:1.34.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/busybox:1.34.1:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/caasp-dex:2.16.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/caasp-dex:2.16.0:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/cert-exporter:2.3.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/cert-exporter:2.3.0:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/cilium-etcd-operator:2.0.5:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/cilium-etcd-operator:2.0.5:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/cilium-init:1.5.3:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/cilium-init:1.5.3:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/cilium-operator:1.6.6:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/cilium-operator:1.6.6:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/cilium:1.6.6:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/cilium:1.6.6:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/cloud-provider-openstack:1.15.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/cloud-provider-openstack:1.15.0:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/configmap-reload:0.3.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/configmap-reload:0.3.0:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/coredns:1.6.7:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/coredns:1.6.7:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/curl:7.60.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/curl:7.60.0:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/etcd:3.4.13:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/etcd:3.4.13:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/gangway:3.1.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/gangway:3.1.0:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/grafana:7.5.12:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/grafana:7.5.12:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/helm-tiller:2.16.12:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/helm-tiller:2.16.12:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/hyperkube:v1.17.17:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/hyperkube:v1.17.17:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/k8s-sidecar:0.1.75:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/k8s-sidecar:0.1.75:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/kube-state-metrics:1.9.3:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/kube-state-metrics:1.9.3:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/kubernetes-client:1.17.17:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/kubernetes-client:1.17.17:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/kucero:1.3.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/kucero:1.3.0:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/kured:1.3.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/kured:1.3.0:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/metrics-server:0.3.6:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/metrics-server:0.3.6:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/prometheus-alertmanager:0.16.2:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/prometheus-alertmanager:0.16.2:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/prometheus-node-exporter:1.1.2:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/prometheus-node-exporter:1.1.2:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/prometheus-pushgateway:0.6.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/prometheus-pushgateway:0.6.0:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/prometheus-server:2.7.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/prometheus-server:2.7.1:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/rsyslog:8.39.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/rsyslog:8.39.0:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/skuba-tooling:0.1.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/skuba-tooling:0.1.0:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/test-update:beta:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/test-update:beta:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/velero-plugin-for-aws:1.0.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/velero-plugin-for-aws:1.0.1:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/velero-plugin-for-gcp:1.0.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/velero-plugin-for-gcp:1.0.1:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/velero-plugin-for-microsoft-azure:1.0.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/velero-plugin-for-microsoft-azure:1.0.1:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/velero-restic-restore-helper:1.3.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/velero-restic-restore-helper:1.3.1:libldap-data-2.4.46-9.37.1",
+						"Container caasp/v4/velero:1.3.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container caasp/v4/velero:1.3.1:libldap-data-2.4.46-9.37.1",
+						"Container ses/6/cephcsi/cephcsi:latest:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/6/cephcsi/cephcsi:latest:libldap-data-2.4.46-9.37.1",
+						"Container ses/6/rook/ceph:latest:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/6/rook/ceph:latest:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/ceph/ceph:latest:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/ceph/ceph:latest:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/ceph/grafana:latest:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/ceph/grafana:latest:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/ceph/prometheus-alertmanager:latest:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/ceph/prometheus-alertmanager:latest:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/ceph/prometheus-node-exporter:latest:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/ceph/prometheus-node-exporter:latest:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/ceph/prometheus-server:latest:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/ceph/prometheus-server:latest:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/cephcsi:latest:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/cephcsi:latest:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-attacher:v2.1.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-attacher:v2.1.0:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-attacher:v3.3.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-attacher:v3.3.0:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-livenessprobe:v1.1.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-livenessprobe:v1.1.0:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-node-driver-registrar:v1.2.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-node-driver-registrar:v1.2.0:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-node-driver-registrar:v2.3.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-node-driver-registrar:v2.3.0:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-provisioner:v1.6.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-provisioner:v1.6.0:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-provisioner:v3.0.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-provisioner:v3.0.0:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-resizer:v0.4.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-resizer:v0.4.0:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-resizer:v1.3.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-resizer:v1.3.0:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-snapshotter:v2.1.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-snapshotter:v2.1.0:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-snapshotter:v2.1.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-snapshotter:v2.1.1:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-snapshotter:v4.2.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/cephcsi/csi-snapshotter:v4.2.0:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/prometheus-webhook-snmp:latest:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/prometheus-webhook-snmp:latest:libldap-data-2.4.46-9.37.1",
+						"Container ses/7/rook/ceph:latest:libldap-2_4-2-2.4.46-9.37.1",
+						"Container ses/7/rook/ceph:latest:libldap-data-2.4.46-9.37.1",
+						"Container suse/postgres:10:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/postgres:10:libldap-data-2.4.46-9.37.1",
+						"Container suse/sle-micro/5.0/toolbox:latest:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sle-micro/5.0/toolbox:latest:libldap-data-2.4.46-9.37.1",
+						"Container suse/sle15:15.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sle15:15.0:libldap-data-2.4.46-9.37.1",
+						"Container suse/sle15:15.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sle15:15.1:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.2/virt-api:0.38.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.2/virt-api:0.38.1:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.2/virt-controller:0.38.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.2/virt-controller:0.38.1:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.2/virt-handler:0.38.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.2/virt-handler:0.38.1:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.2/virt-launcher:0.38.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.2/virt-launcher:0.38.1:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.2/virt-operator:0.38.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.2/virt-operator:0.38.1:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-apiserver:1.37.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-apiserver:1.37.1:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-cloner:1.37.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-cloner:1.37.1:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-controller:1.37.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-controller:1.37.1:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-importer:1.37.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-importer:1.37.1:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-operator:1.37.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-operator:1.37.1:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-uploadproxy:1.37.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-uploadproxy:1.37.1:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-uploadserver:1.37.1:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.3/cdi-uploadserver:1.37.1:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.3/libguestfs-tools:0.45.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.3/libguestfs-tools:0.45.0:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.3/virt-api:0.45.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.3/virt-api:0.45.0:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.3/virt-controller:0.45.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.3/virt-controller:0.45.0:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.3/virt-handler:0.45.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.3/virt-handler:0.45.0:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.3/virt-launcher:0.45.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.3/virt-launcher:0.45.0:libldap-data-2.4.46-9.37.1",
+						"Container suse/sles/15.3/virt-operator:0.45.0:libldap-2_4-2-2.4.46-9.37.1",
+						"Container suse/sles/15.3/virt-operator:0.45.0:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-Azure-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-Azure-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-Azure-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-EC2-CHOST-HVM-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-EC2-CHOST-HVM-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-EC2-HVM-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-EC2-HVM-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-EC2-HVM-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-GCE-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-GCE-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-GCE-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-OCI-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-OCI-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-OCI-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SAP-Azure-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SAP-Azure-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SAP-Azure-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SAP-Azure:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SAP-Azure:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SAP-Azure:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SAP-EC2-HVM:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SAP-EC2-HVM:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SAP-EC2-HVM:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SAP-GCE-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SAP-GCE-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SAP-GCE-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SAP-GCE:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SAP-GCE:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SAP-GCE:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SAP-OCI-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SAP-OCI-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SAP-OCI-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-Azure-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-Azure-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-Azure-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-Azure-HPC-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-Azure-HPC-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-Azure-HPC-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-CAP-Deployment-BYOS-EC2-HVM:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-CAP-Deployment-BYOS-EC2-HVM:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-CAP-Deployment-BYOS-EC2-HVM:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-CAP-Deployment-BYOS-GCE:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-CAP-Deployment-BYOS-GCE:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-CAP-Deployment-BYOS-GCE:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-CHOST-BYOS-Azure:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-CHOST-BYOS-Azure:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-CHOST-BYOS-EC2:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-CHOST-BYOS-EC2:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-CHOST-BYOS-GCE:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-CHOST-BYOS-GCE:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-EC2-HPC-HVM-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-EC2-HPC-HVM-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-EC2-HPC-HVM-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-EC2-HVM-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-EC2-HVM-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-EC2-HVM-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-GCE-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-GCE-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-GCE-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-OCI-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-OCI-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-OCI-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-Azure-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-Azure-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-Azure-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-Azure-LI-BYOS-Production:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-Azure-LI-BYOS-Production:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-Azure-LI-BYOS-Production:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-Azure-VLI-BYOS-Production:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-Azure-VLI-BYOS-Production:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-Azure-VLI-BYOS-Production:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-Azure:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-Azure:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-Azure:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-EC2-HVM-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-EC2-HVM-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-EC2-HVM-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-EC2-HVM:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-EC2-HVM:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-EC2-HVM:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-GCE-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-GCE-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-GCE-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-GCE:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-GCE:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-GCE:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-OCI-BYOS:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-OCI-BYOS:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAP-OCI-BYOS:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAPCAL-Azure:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAPCAL-Azure:libldap-2_4-2-32bit-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAPCAL-Azure:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAPCAL-Azure:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAPCAL-EC2-HVM:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAPCAL-EC2-HVM:libldap-2_4-2-32bit-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAPCAL-EC2-HVM:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAPCAL-EC2-HVM:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAPCAL-GCE:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAPCAL-GCE:libldap-2_4-2-32bit-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAPCAL-GCE:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP1-SAPCAL-GCE:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP2-Azure-Basic:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP2-Azure-Basic:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP2-Azure-Basic:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP2-Azure-Standard:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP2-Azure-Standard:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP2-Azure-Standard:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP2-CAP-Deployment-BYOS-Azure:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP2-CAP-Deployment-BYOS-Azure:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP2-CAP-Deployment-BYOS-Azure:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP2-EC2-ECS-HVM:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP2-EC2-ECS-HVM:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP2-EC2-ECS-HVM:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP2-EC2-HVM:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP2-EC2-HVM:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP2-EC2-HVM:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP2-GCE:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP2-GCE:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP2-GCE:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP2-HPC-Azure:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP2-HPC-Azure:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP2-HPC-Azure:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP2-Manager-4-1-Proxy-BYOS-Azure:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP2-Manager-4-1-Proxy-BYOS-Azure:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP2-Manager-4-1-Proxy-BYOS-Azure:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP2-Manager-4-1-Server-BYOS-Azure:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP2-Manager-4-1-Server-BYOS-Azure:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP2-Manager-4-1-Server-BYOS-Azure:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP3-EC2-ECS-HVM:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP3-EC2-ECS-HVM:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP3-EC2-ECS-HVM:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP3-EC2-HVM:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP3-EC2-HVM:libldap-2_4-2-32bit-2.4.46-9.37.1",
+						"Image SLES15-SP3-EC2-HVM:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP3-EC2-HVM:openldap2-client-2.4.46-9.37.1",
+						"Image SLES15-SP3-Micro-BYOS-GCE:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP3-Micro-BYOS-GCE:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP3-SAP-EC2-HVM:libldap-2_4-2-2.4.46-9.37.1",
+						"Image SLES15-SP3-SAP-EC2-HVM:libldap-2_4-2-32bit-2.4.46-9.37.1",
+						"Image SLES15-SP3-SAP-EC2-HVM:libldap-data-2.4.46-9.37.1",
+						"Image SLES15-SP3-SAP-EC2-HVM:openldap2-client-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP1:libldap-2_4-2-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP1:libldap-2_4-2-32bit-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP1:libldap-data-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP1:openldap2-client-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP1:openldap2-devel-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP1:openldap2-devel-static-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP2:libldap-2_4-2-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP2:libldap-2_4-2-32bit-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP2:libldap-data-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP2:openldap2-client-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP2:openldap2-devel-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP2:openldap2-devel-static-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP1:openldap2-devel-32bit-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP2:openldap2-devel-32bit-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP1:openldap2-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP1:openldap2-back-meta-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP1:openldap2-back-perl-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP1:openldap2-ppolicy-check-password-1.2-9.37.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP2:openldap2-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP2:openldap2-back-meta-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP2:openldap2-back-perl-2.4.46-9.37.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP2:openldap2-ppolicy-check-password-1.2-9.37.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.4",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20202712-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2020-8027.html",
+					"description": "CVE-2020-8027"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1175568",
+					"description": "SUSE Bug 1175568"
+				}
+			]
+		}
+	]
+}

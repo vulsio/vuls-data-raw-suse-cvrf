@@ -1,0 +1,1643 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2019:14051-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2019-05-16T13:04:49Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2019-05-16T13:04:49Z",
+		"current_release_date": "2019-05-16T13:04:49Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "The SUSE Linux Enterprise 11 SP4 kernel was updated to receive various security and bugfixes.\n\nFour new speculative execution information leak issues have been identified in Intel CPUs. (bsc#1111331)\n\n- CVE-2018-12126: Microarchitectural Store Buffer Data Sampling (MSBDS)\n- CVE-2018-12127: Microarchitectural Fill Buffer Data Sampling (MFBDS)\n- CVE-2018-12130: Microarchitectural Load Port Data Samling (MLPDS)\n- CVE-2019-11091: Microarchitectural Data Sampling Uncacheable Memory (MDSUM)\n\nThis kernel update contains software mitigations for these issues, which also utilize CPU microcode updates shipped in parallel.\n\nFor more information on this set of information leaks, check out https://www.suse.com/support/kb/doc/?id=7023736\n\nThe following security bugs were fixed:\n\n- CVE-2019-9213: The expand_downwards function in mm/mmap.c lacked a check for the mmap minimum address, which made it easier for attackers to exploit kernel NULL pointer dereferences on non-SMAP platforms. This is related to a capability check for the wrong task (bnc#1128166).\n- CVE-2013-0216: The Xen netback functionality allowed guest OS users to cause a denial of service (loop) by triggering ring pointer corruption (bnc#800280).\n- CVE-2013-0231: The pciback_enable_msi function in the PCI backend driver (drivers/xen/pciback/conf_space_capability_msi.c) in Xen allowed guest OS users with PCI device access to cause a denial of service via a large number of kernel log messages. (bnc#801178).\n- CVE-2012-3430: The rds_recvmsg function in net/rds/recv.c did not initialize a certain structure member, which allowed local users to obtain potentially sensitive information from kernel stack memory via a recvfrom or recvmsg system call on an RDS socket (bnc#773383).\n- CVE-2012-3412: The sfc (aka Solarflare Solarstorm) driver allowed remote attackers to cause a denial of service (DMA descriptor consumption and network-controller outage) via crafted TCP packets that trigger a small MSS value (bnc#774523).\n- CVE-2013-0160: The kernel allowed local users to obtain sensitive information about keystroke timing by using the inotify API on the /dev/ptmx device (bnc#797175).\n- CVE-2013-1979: The scm_set_cred function in include/net/scm.h uses incorrect uid and gid values during credentials passing, which allowed local users to gain privileges via a crafted application (bnc#816708).\n\nThe following non-security bugs were fixed:\n\n- Add opcodes from net: filter: BPF 'JIT' compiler for PPC64 (bsc#1131107).\n- EHCI: improved logic for isochronous scheduling (bsc#1117515).\n- KVM: x86: Use jmp to invoke kvm_spurious_fault() from .fixup (bsc#1129439).\n- USB: Add new USB LPM helpers (bsc#1129770).\n- USB: Consolidate LPM checks to avoid enabling LPM twice (bsc#1129770).\n- USB: EHCI: add new root-hub state: STOPPING (bsc#1117515).\n- USB: EHCI: add pointer to end of async-unlink list (bsc#1117515).\n- USB: EHCI: add symbolic constants for QHs (bsc#1117515).\n- USB: EHCI: always scan each interrupt QH (bsc#1117515).\n- USB: EHCI: do not lose events during a scan (bsc#1117515).\n- USB: EHCI: do not refcount QHs (bsc#1117515).\n- USB: EHCI: do not refcount iso_stream structures (bsc#1117515).\n- USB: EHCI: fix initialization bug in iso_stream_schedule() (bsc#1117515).\n- USB: EHCI: fix up locking (bsc#1117515).\n- USB: EHCI: initialize data before resetting hardware (bsc#1117515).\n- USB: EHCI: introduce high-res timer (bsc#1117515).\n- USB: EHCI: remove PS3 status polling (bsc#1117515).\n- USB: EHCI: remove unneeded suspend/resume code (bsc#1117515).\n- USB: EHCI: rename 'reclaim' (bsc#1117515).\n- USB: EHCI: resolve some unlikely races (bsc#1117515).\n- USB: EHCI: return void instead of 0 (bsc#1117515).\n- USB: EHCI: simplify isochronous scanning (bsc#1117515).\n- USB: EHCI: unlink multiple async QHs together (bsc#1117515).\n- USB: EHCI: use hrtimer for (s)iTD deallocation (bsc#1117515).\n- USB: EHCI: use hrtimer for async schedule (bsc#1117515).\n- USB: EHCI: use hrtimer for controller death (bsc#1117515).\n- USB: EHCI: use hrtimer for interrupt QH unlink (bsc#1117515).\n- USB: EHCI: use hrtimer for the I/O watchdog (bsc#1117515).\n- USB: EHCI: use hrtimer for the IAA watchdog (bsc#1117515).\n- USB: EHCI: use hrtimer for the periodic schedule (bsc#1117515).\n- USB: EHCI: use hrtimer for unlinking empty async QHs (bsc#1117515).\n- copy_mount_string: Limit string length to PATH_MAX (bsc#1082943).\n- cpu/speculation: Add 'mitigations=' cmdline option (bsc#1112178).\n- drm: Fix error handling in drm_legacy_addctx (bsc#1106886)\n- ext3: Set bitmap tails when growing filesystem (bsc#1128383).\n- fbdev: chipsfb: remove set but not used variable 'size' (bsc#1106886)\n- iommu/vt-d: Check capability before disabling protected memory (bsc#1130353).\n- iommu/vt-d: Check identity map for hot-added devices (bsc#1129248).\n- kernel/watchdog.c: control hard lockup detection default (bsc#1110436).\n- kvm: ensure hard lockup detection is disabled by default (bsc#1110436).\n- kvm: vmx: Set IA32_TSC_AUX for legacy mode guests (bsc#1129437).\n- kvm: x86: Add AMD's EX_CFG to the list of ignored MSRs (bsc#1127082).\n- mm, oom: fix use-after-free in oom_kill_process (git fixes (mm/mmap)).\n- mpt2sas: Fix IO error occurs on pulling out a drive from RAID1 volume created on two SATA drive (bsc#1130384).\n- nfsd: fix memory corruption caused by readdir (bsc#1127445).\n- powerpc/64: Call setup_barrier_nospec() from setup_arch() (bsc#1131107).\n- powerpc/64: Disable the speculation barrier from the command line (bsc#1131107).\n- powerpc/64: Make stf barrier PPC_BOOK3S_64 specific (bsc#1131107).\n- powerpc/64s: Add new security feature flags for count cache flush (bsc#1131107).\n- powerpc/64s: Add support for software count cache flush (bsc#1131107).\n- powerpc/asm: Add a patch_site macro & helpers for patching instructions (bsc#1131107).\n- powerpc/fsl: Fix spectre_v2 mitigations reporting (bsc#1131107).\n- powerpc/pseries/mce: Fix misleading print for TLB mutlihit (bsc#1094244, git-fixes).\n- powerpc/pseries: Query hypervisor for count cache flush settings (bsc#1131107).\n- powerpc/security: Fix spectre_v2 reporting (bsc#1131107).\n- powerpc/speculation: Support 'mitigations=' cmdline option (bsc#1112178).\n- powerpc/vdso32: fix CLOCK_MONOTONIC on PPC64 (bsc#1131587).\n- powerpc/vdso64: Fix CLOCK_MONOTONIC inconsistencies across Y2038 (bsc#1131587).\n- s390/dasd: fix panic for failed online processing (bsc#1132589).\n- s390/qeth: cancel close_dev work before removing a card (LTC#175048, bsc#1127376).\n- s390/qeth: fix use-after-free in error path (LTC#175048, bsc#1127376, bsc#1127534).\n- s390/qeth: handle failure on workqueue creation (LTC#175048, bsc#1127376).\n- s390/speculation: Support 'mitigations=' cmdline option (bsc#1112178).\n- sched/core: Optimize SCHED_SMT (bsc#1111331).\n- sched/smt: Expose sched_smt_present static key (bsc#1111331).\n- sched/smt: Make sched_smt_present track topology (bsc#1111331).\n- sched/smt: Update sched_smt_present at runtime (bsc#1111331).\n- scsi: ibmvscsi: Fix empty event pool access during host removal (bsc#1119019).\n- scsi: qla2xxx: do not disable a not previously enabled PCI device (bsc#1127738).\n- x86/cpu: Sanitize FAM6_ATOM naming (bsc#1111331).\n- x86/kvm/vmx: Add MDS protection when L1D Flush is not active (bsc#1111331).\n- x86/speculation/mds: Add 'mitigations=' support for MDS (bsc#1111331).\n- x86/speculation/mds: Add BUG_MSBDS_ONLY (bsc#1111331).\n- x86/speculation/mds: Add SMT warning message (bsc#1111331).\n- x86/speculation/mds: Add basic bug infrastructure for MDS (bsc#1111331).\n- x86/speculation/mds: Add mds=full,nosmt cmdline option (bsc#1111331).\n- x86/speculation/mds: Add mds_clear_cpu_buffers() (bsc#1111331).\n- x86/speculation/mds: Add mitigation control for MDS (bsc#1111331).\n- x86/speculation/mds: Add mitigation mode VMWERV (bsc#1111331).\n- x86/speculation/mds: Add sysfs reporting for MDS (bsc#1111331).\n- x86/speculation/mds: Clear CPU buffers on exit to user (bsc#1111331).\n- x86/speculation/mds: Conditionally clear CPU buffers on idle entry (bsc#1111331).\n- x86/speculation/mds: Print SMT vulnerable on MSBDS with mitigations off (bsc#1111331).\n- x86/speculation: Consolidate CPU whitelists (bsc#1111331).\n- x86/speculation: Enable cross-hyperthread spectre v2 STIBP mitigation (bsc#1111331).\n- x86/speculation: Move arch_smt_update() call to after mitigation decisions (bsc#1111331).\n- x86/speculation: Rework SMT state change (bsc#1111331).\n- x86/speculation: Support 'mitigations=' cmdline option (bsc#1112178).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "slessp4-kernel-20190508-14051,slexsp3-kernel-20190508-14051",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201914051-1/",
+			"description": "Link for SUSE-SU-2019:14051-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2019-May/005470.html",
+			"description": "E-Mail link for SUSE-SU-2019:14051-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1082943",
+			"description": "SUSE Bug 1082943"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1094244",
+			"description": "SUSE Bug 1094244"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1103186",
+			"description": "SUSE Bug 1103186"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1106886",
+			"description": "SUSE Bug 1106886"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1110436",
+			"description": "SUSE Bug 1110436"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1111331",
+			"description": "SUSE Bug 1111331"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1112178",
+			"description": "SUSE Bug 1112178"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1117515",
+			"description": "SUSE Bug 1117515"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1119019",
+			"description": "SUSE Bug 1119019"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1127082",
+			"description": "SUSE Bug 1127082"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1127376",
+			"description": "SUSE Bug 1127376"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1127445",
+			"description": "SUSE Bug 1127445"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1127534",
+			"description": "SUSE Bug 1127534"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1127738",
+			"description": "SUSE Bug 1127738"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1128166",
+			"description": "SUSE Bug 1128166"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1128383",
+			"description": "SUSE Bug 1128383"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1129248",
+			"description": "SUSE Bug 1129248"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1129437",
+			"description": "SUSE Bug 1129437"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1129439",
+			"description": "SUSE Bug 1129439"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1129770",
+			"description": "SUSE Bug 1129770"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1130353",
+			"description": "SUSE Bug 1130353"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1130384",
+			"description": "SUSE Bug 1130384"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1131107",
+			"description": "SUSE Bug 1131107"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1131587",
+			"description": "SUSE Bug 1131587"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1132589",
+			"description": "SUSE Bug 1132589"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/773383",
+			"description": "SUSE Bug 773383"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/774523",
+			"description": "SUSE Bug 774523"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/797175",
+			"description": "SUSE Bug 797175"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/800280",
+			"description": "SUSE Bug 800280"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/801178",
+			"description": "SUSE Bug 801178"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/816708",
+			"description": "SUSE Bug 816708"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2012-3412/",
+			"description": "SUSE CVE CVE-2012-3412 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2012-3430/",
+			"description": "SUSE CVE CVE-2012-3430 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2013-0160/",
+			"description": "SUSE CVE CVE-2013-0160 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2013-0216/",
+			"description": "SUSE CVE CVE-2013-0216 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2013-0231/",
+			"description": "SUSE CVE CVE-2013-0231 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2013-1979/",
+			"description": "SUSE CVE CVE-2013-1979 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-12126/",
+			"description": "SUSE CVE CVE-2018-12126 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-12127/",
+			"description": "SUSE CVE CVE-2018-12127 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-12130/",
+			"description": "SUSE CVE CVE-2018-12130 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-11091/",
+			"description": "SUSE CVE CVE-2019-11091 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-9213/",
+			"description": "SUSE CVE CVE-2019-9213 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 11 SP4-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 11 SP4-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 11 SP4-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 11 SP4-LTSS",
+							"cpe": "cpe:/o:suse:suse_sles:11:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-bigmem-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-bigmem-3.0.101-108.90.1",
+					"product_id": "kernel-bigmem-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-bigmem-base-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-bigmem-base-3.0.101-108.90.1",
+					"product_id": "kernel-bigmem-base-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-bigmem-devel-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-bigmem-devel-3.0.101-108.90.1",
+					"product_id": "kernel-bigmem-devel-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-default-3.0.101-108.90.1",
+					"product_id": "kernel-default-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-default-base-3.0.101-108.90.1",
+					"product_id": "kernel-default-base-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-default-devel-3.0.101-108.90.1",
+					"product_id": "kernel-default-devel-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-man-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-default-man-3.0.101-108.90.1",
+					"product_id": "kernel-default-man-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-ec2-3.0.101-108.90.1",
+					"product_id": "kernel-ec2-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-base-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-ec2-base-3.0.101-108.90.1",
+					"product_id": "kernel-ec2-base-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-devel-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-ec2-devel-3.0.101-108.90.1",
+					"product_id": "kernel-ec2-devel-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-pae-3.0.101-108.90.1",
+					"product_id": "kernel-pae-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-base-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-pae-base-3.0.101-108.90.1",
+					"product_id": "kernel-pae-base-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-devel-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-pae-devel-3.0.101-108.90.1",
+					"product_id": "kernel-pae-devel-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ppc64-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-ppc64-3.0.101-108.90.1",
+					"product_id": "kernel-ppc64-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ppc64-base-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-ppc64-base-3.0.101-108.90.1",
+					"product_id": "kernel-ppc64-base-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ppc64-devel-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-ppc64-devel-3.0.101-108.90.1",
+					"product_id": "kernel-ppc64-devel-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-source-3.0.101-108.90.1",
+					"product_id": "kernel-source-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-syms-3.0.101-108.90.1",
+					"product_id": "kernel-syms-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-trace-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-trace-3.0.101-108.90.1",
+					"product_id": "kernel-trace-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-trace-base-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-trace-base-3.0.101-108.90.1",
+					"product_id": "kernel-trace-base-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-trace-devel-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-trace-devel-3.0.101-108.90.1",
+					"product_id": "kernel-trace-devel-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-xen-3.0.101-108.90.1",
+					"product_id": "kernel-xen-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-base-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-xen-base-3.0.101-108.90.1",
+					"product_id": "kernel-xen-base-3.0.101-108.90.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-devel-3.0.101-108.90.1",
+				"full_product_name": {
+					"text": "kernel-xen-devel-3.0.101-108.90.1",
+					"product_id": "kernel-xen-devel-3.0.101-108.90.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-bigmem-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-bigmem-base-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-bigmem-devel-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-base-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-devel-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-man-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-ec2-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-ec2-base-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-ec2-devel-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-pae-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-pae-base-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-pae-devel-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-ppc64-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-ppc64-base-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-ppc64-devel-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-source-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-syms-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-trace-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-trace-base-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-trace-devel-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-base-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-devel-3.0.101-108.90.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4-LTSS"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "The sfc (aka Solarflare Solarstorm) driver in the Linux kernel before 3.2.30 allows remote attackers to cause a denial of service (DMA descriptor consumption and network-controller outage) via crafted TCP packets that trigger a small MSS value.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2012-3412",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-man-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-source-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-syms-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-devel-3.0.101-108.90.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.8",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201914051-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2012-3412.html",
+					"description": "CVE-2012-3412"
+				},
+				{
+					"url": "https://bugzilla.suse.com/774523",
+					"description": "SUSE Bug 774523"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The rds_recvmsg function in net/rds/recv.c in the Linux kernel before 3.0.44 does not initialize a certain structure member, which allows local users to obtain potentially sensitive information from kernel stack memory via a (1) recvfrom or (2) recvmsg system call on an RDS socket.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2012-3430",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-man-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-source-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-syms-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-devel-3.0.101-108.90.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201914051-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2012-3430.html",
+					"description": "CVE-2012-3430"
+				},
+				{
+					"url": "https://bugzilla.suse.com/773383",
+					"description": "SUSE Bug 773383"
+				},
+				{
+					"url": "https://bugzilla.suse.com/795039",
+					"description": "SUSE Bug 795039"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The Linux kernel through 3.7.9 allows local users to obtain sensitive information about keystroke timing by using the inotify API on the /dev/ptmx device.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2013-0160",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-man-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-source-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-syms-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-devel-3.0.101-108.90.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201914051-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2013-0160.html",
+					"description": "CVE-2013-0160"
+				},
+				{
+					"url": "https://bugzilla.suse.com/797175",
+					"description": "SUSE Bug 797175"
+				},
+				{
+					"url": "https://bugzilla.suse.com/841063",
+					"description": "SUSE Bug 841063"
+				},
+				{
+					"url": "https://bugzilla.suse.com/871595",
+					"description": "SUSE Bug 871595"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The Xen netback functionality in the Linux kernel before 3.7.8 allows guest OS users to cause a denial of service (loop) by triggering ring pointer corruption.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2013-0216",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-man-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-source-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-syms-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-devel-3.0.101-108.90.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5.2",
+					"vector_v_2": "AV:A/AC:M/Au:S/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201914051-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2013-0216.html",
+					"description": "CVE-2013-0216"
+				},
+				{
+					"url": "https://bugzilla.suse.com/800280",
+					"description": "SUSE Bug 800280"
+				},
+				{
+					"url": "https://bugzilla.suse.com/800801",
+					"description": "SUSE Bug 800801"
+				},
+				{
+					"url": "https://bugzilla.suse.com/801178",
+					"description": "SUSE Bug 801178"
+				},
+				{
+					"url": "https://bugzilla.suse.com/841063",
+					"description": "SUSE Bug 841063"
+				},
+				{
+					"url": "https://bugzilla.suse.com/871595",
+					"description": "SUSE Bug 871595"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The pciback_enable_msi function in the PCI backend driver (drivers/xen/pciback/conf_space_capability_msi.c) in Xen for the Linux kernel 2.6.18 and 3.8 allows guest OS users with PCI device access to cause a denial of service via a large number of kernel log messages. NOTE: some of these details are obtained from third party information.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2013-0231",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-man-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-source-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-syms-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-devel-3.0.101-108.90.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201914051-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2013-0231.html",
+					"description": "CVE-2013-0231"
+				},
+				{
+					"url": "https://bugzilla.suse.com/801178",
+					"description": "SUSE Bug 801178"
+				},
+				{
+					"url": "https://bugzilla.suse.com/841063",
+					"description": "SUSE Bug 841063"
+				},
+				{
+					"url": "https://bugzilla.suse.com/871595",
+					"description": "SUSE Bug 871595"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The scm_set_cred function in include/net/scm.h in the Linux kernel before 3.8.11 uses incorrect uid and gid values during credentials passing, which allows local users to gain privileges via a crafted application.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2013-1979",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-man-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-source-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-syms-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-devel-3.0.101-108.90.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201914051-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2013-1979.html",
+					"description": "CVE-2013-1979"
+				},
+				{
+					"url": "https://bugzilla.suse.com/816708",
+					"description": "SUSE Bug 816708"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Microarchitectural Store Buffer Data Sampling (MSBDS): Store buffers on some microprocessors utilizing speculative execution may allow an authenticated user to potentially enable information disclosure via a side channel with local access. A list of impacted products can be found here: https://www.intel.com/content/dam/www/public/us/en/documents/corporate-information/SA00233-microcode-update-guidance_05132019.pdf",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-12126",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-man-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-source-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-syms-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-devel-3.0.101-108.90.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201914051-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-12126.html",
+					"description": "CVE-2018-12126"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1103186",
+					"description": "SUSE Bug 1103186"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1111331",
+					"description": "SUSE Bug 1111331"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1132686",
+					"description": "SUSE Bug 1132686"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1135409",
+					"description": "SUSE Bug 1135409"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1135524",
+					"description": "SUSE Bug 1135524"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1137916",
+					"description": "SUSE Bug 1137916"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1138534",
+					"description": "SUSE Bug 1138534"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1141977",
+					"description": "SUSE Bug 1141977"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1149725",
+					"description": "SUSE Bug 1149725"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1149726",
+					"description": "SUSE Bug 1149726"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1149729",
+					"description": "SUSE Bug 1149729"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201877",
+					"description": "SUSE Bug 1201877"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Microarchitectural Load Port Data Sampling (MLPDS): Load ports on some microprocessors utilizing speculative execution may allow an authenticated user to potentially enable information disclosure via a side channel with local access. A list of impacted products can be found here: https://www.intel.com/content/dam/www/public/us/en/documents/corporate-information/SA00233-microcode-update-guidance_05132019.pdf",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-12127",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-man-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-source-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-syms-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-devel-3.0.101-108.90.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201914051-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-12127.html",
+					"description": "CVE-2018-12127"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1103186",
+					"description": "SUSE Bug 1103186"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1111331",
+					"description": "SUSE Bug 1111331"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1132686",
+					"description": "SUSE Bug 1132686"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1135409",
+					"description": "SUSE Bug 1135409"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1138534",
+					"description": "SUSE Bug 1138534"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1141977",
+					"description": "SUSE Bug 1141977"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201877",
+					"description": "SUSE Bug 1201877"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Microarchitectural Fill Buffer Data Sampling (MFBDS): Fill buffers on some microprocessors utilizing speculative execution may allow an authenticated user to potentially enable information disclosure via a side channel with local access. A list of impacted products can be found here: https://www.intel.com/content/dam/www/public/us/en/documents/corporate-information/SA00233-microcode-update-guidance_05132019.pdf",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-12130",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-man-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-source-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-syms-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-devel-3.0.101-108.90.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201914051-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-12130.html",
+					"description": "CVE-2018-12130"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1103186",
+					"description": "SUSE Bug 1103186"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1111331",
+					"description": "SUSE Bug 1111331"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1132686",
+					"description": "SUSE Bug 1132686"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1135409",
+					"description": "SUSE Bug 1135409"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1137916",
+					"description": "SUSE Bug 1137916"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1138534",
+					"description": "SUSE Bug 1138534"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1141977",
+					"description": "SUSE Bug 1141977"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201877",
+					"description": "SUSE Bug 1201877"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Microarchitectural Data Sampling Uncacheable Memory (MDSUM): Uncacheable memory on some microprocessors utilizing speculative execution may allow an authenticated user to potentially enable information disclosure via a side channel with local access. A list of impacted products can be found here: https://www.intel.com/content/dam/www/public/us/en/documents/corporate-information/SA00233-microcode-update-guidance_05132019.pdf",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-11091",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-man-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-source-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-syms-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-devel-3.0.101-108.90.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201914051-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-11091.html",
+					"description": "CVE-2019-11091"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1103186",
+					"description": "SUSE Bug 1103186"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1111331",
+					"description": "SUSE Bug 1111331"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1132686",
+					"description": "SUSE Bug 1132686"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1133319",
+					"description": "SUSE Bug 1133319"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1135394",
+					"description": "SUSE Bug 1135394"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1138043",
+					"description": "SUSE Bug 1138043"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1138534",
+					"description": "SUSE Bug 1138534"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1141977",
+					"description": "SUSE Bug 1141977"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201877",
+					"description": "SUSE Bug 1201877"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel before 4.20.14, expand_downwards in mm/mmap.c lacks a check for the mmap minimum address, which makes it easier for attackers to exploit kernel NULL pointer dereferences on non-SMAP platforms. This is related to a capability check for the wrong task.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-9213",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-bigmem-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-default-man-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ec2-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-pae-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-ppc64-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-source-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-syms-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-trace-devel-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-base-3.0.101-108.90.1",
+						"SUSE Linux Enterprise Server 11 SP4-LTSS:kernel-xen-devel-3.0.101-108.90.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201914051-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-9213.html",
+					"description": "CVE-2019-9213"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1128166",
+					"description": "SUSE Bug 1128166"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1128378",
+					"description": "SUSE Bug 1128378"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1129016",
+					"description": "SUSE Bug 1129016"
+				}
+			]
+		}
+	]
+}

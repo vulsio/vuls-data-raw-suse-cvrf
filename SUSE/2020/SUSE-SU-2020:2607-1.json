@@ -1,0 +1,1337 @@
+{
+	"document_title": "Security update for pdsh, slurm_20_02",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2020:2607-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2020-09-11T07:01:32Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2020-09-11T07:01:32Z",
+		"current_release_date": "2020-09-11T07:01:32Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for pdsh, slurm_20_02",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for pdsh, slurm_20_02 fixes the following issues:\n\nChanges in slurm_20_02:\n\n- Add support for openPMIx also for Leap/SLE 15.0/1 (bsc#1173805).\n- Do not run %check on SLE-12-SP2: Some incompatibility in tcl\n  makes this fail.\n- Remove unneeded build dependency to postgresql-devel.\n- Disable build on s390 (requires 64bit).\n\n- Bring QA to the package build: add %%check stage.\n- Remove cruft that isn't needed any longer.\n- Add 'ghosted' run-file.\n- Add rpmlint filter to handle issues with library packages\n  for Leap and enterprise upgrade versions.\n\n- Updated to 20.02.3 which fixes CVE-2020-12693 (bsc#1172004).\n- Other changes are:\n * Factor in ntasks-per-core=1 with cons_tres.\n * Fix formatting in error message in cons_tres.\n * Fix calling stat on a NULL variable.\n * Fix minor memory leak when using reservations with flags=first_cores.\n * Fix gpu bind issue when CPUs=Cores and ThreadsPerCore > 1 on a node.\n * Fix --mem-per-gpu for heterogenous --gres requests.\n * Fix slurmctld load order in load_all_part_state().\n * Fix race condition not finding jobacct gather task cgroup entry.\n * Suppress error message when selecting nodes on disjoint topologies.\n * Improve performance of _pack_default_job_details() with large number of job\n * arguments.\n * Fix archive loading previous to 17.11 jobs per-node req_mem.\n * Fix regresion validating that --gpus-per-socket requires --sockets-per-node\n * for steps. Should only validate allocation requests.\n * error() instead of fatal() when parsing an invalid hostlist.\n * nss_slurm - fix potential deadlock in slurmstepd on overloaded systems.\n * cons_tres - fix --gres-flags=enforce-binding and related --cpus-per-gres.\n * cons_tres - Allocate lowest numbered cores when filtering cores with gres.\n * Fix getting system counts for named GRES/TRES.\n * MySQL - Fix for handing typed GRES for association rollups.\n * Fix step allocations when tasks_per_core > 1.\n * Fix allocating more GRES than requested when asking for multiple GRES types.\n\n- Treat libnss_slurm like any other package: add version string to\n  upgrade package.\n\n- Updated to 20.02.1 with following changes'\n * Improve job state reason for jobs hitting partition_job_depth.\n * Speed up testing of singleton dependencies.\n * Fix negative loop bound in cons_tres.\n * srun - capture the MPI plugin return code from mpi_hook_client_fini() and\n   use as final return code for step failure.\n * Fix segfault in cli_filter/lua.\n * Fix --gpu-bind=map_gpu reusability if tasks > elements.\n * Make sure config_flags on a gres are sent to the slurmctld on node\n   registration.\n * Prolog/Epilog - Fix missing GPU information.\n * Fix segfault when using config parser for expanded lines.\n * Fix bit overlap test function.\n * Don't accrue time if job begin time is in the future.\n * Remove accrue time when updating a job start/eligible time to the future.\n * Fix regression in 20.02.0 that broke --depend=expand.\n * Reset begin time on job release if it's not in the future.\n * Fix for recovering burst buffers when using high-availability.\n * Fix invalid read due to freeing an incorrectly allocated env array.\n * Update slurmctld -i message to warn about losing data.\n * Fix scontrol cancel_reboot so it clears the DRAIN flag and node reason for a\n   pending ASAP reboot.\n\nChanges in pdsh:\n- Bring QA to the package build: add %%check stage\n\n- Since the build for the SLE-12 HPC Module got fixed, simplify\n  spec file and remove legacy workarounds.\n- Remove _multibuild file where not needed.\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2020-2607,SUSE-SLE-Module-HPC-12-2020-2607",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20202607-1/",
+			"description": "Link for SUSE-SU-2020:2607-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2020-September/007406.html",
+			"description": "E-Mail link for SUSE-SU-2020:2607-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1007053",
+			"description": "SUSE Bug 1007053"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1018371",
+			"description": "SUSE Bug 1018371"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031872",
+			"description": "SUSE Bug 1031872"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1041706",
+			"description": "SUSE Bug 1041706"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1065697",
+			"description": "SUSE Bug 1065697"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1084125",
+			"description": "SUSE Bug 1084125"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1084917",
+			"description": "SUSE Bug 1084917"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1085240",
+			"description": "SUSE Bug 1085240"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1085606",
+			"description": "SUSE Bug 1085606"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1086859",
+			"description": "SUSE Bug 1086859"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1088693",
+			"description": "SUSE Bug 1088693"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1090292",
+			"description": "SUSE Bug 1090292"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1095508",
+			"description": "SUSE Bug 1095508"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1100850",
+			"description": "SUSE Bug 1100850"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1103561",
+			"description": "SUSE Bug 1103561"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1108671",
+			"description": "SUSE Bug 1108671"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1109373",
+			"description": "SUSE Bug 1109373"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1116758",
+			"description": "SUSE Bug 1116758"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1123304",
+			"description": "SUSE Bug 1123304"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1140709",
+			"description": "SUSE Bug 1140709"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1153095",
+			"description": "SUSE Bug 1153095"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1153259",
+			"description": "SUSE Bug 1153259"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1155784",
+			"description": "SUSE Bug 1155784"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1158696",
+			"description": "SUSE Bug 1158696"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1159692",
+			"description": "SUSE Bug 1159692"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1161716",
+			"description": "SUSE Bug 1161716"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1162377",
+			"description": "SUSE Bug 1162377"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1164326",
+			"description": "SUSE Bug 1164326"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1164386",
+			"description": "SUSE Bug 1164386"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1172004",
+			"description": "SUSE Bug 1172004"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1173805",
+			"description": "SUSE Bug 1173805"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-10030/",
+			"description": "SUSE CVE CVE-2016-10030 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-15566/",
+			"description": "SUSE CVE CVE-2017-15566 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10995/",
+			"description": "SUSE CVE CVE-2018-10995 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-7033/",
+			"description": "SUSE CVE CVE-2018-7033 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-12838/",
+			"description": "SUSE CVE CVE-2019-12838 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-19727/",
+			"description": "SUSE CVE CVE-2019-19727 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-19728/",
+			"description": "SUSE CVE CVE-2019-19728 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-6438/",
+			"description": "SUSE CVE CVE-2019-6438 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2020-12693/",
+			"description": "SUSE CVE CVE-2020-12693 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for HPC 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for HPC 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for HPC 12",
+							"product_id": "SUSE Linux Enterprise Module for HPC 12",
+							"cpe": "cpe:/o:suse:sle-module-hpc:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libnss_slurm2_20_02-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "libnss_slurm2_20_02-20.02.3-3.5.1",
+					"product_id": "libnss_slurm2_20_02-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpmi0_20_02-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "libpmi0_20_02-20.02.3-3.5.1",
+					"product_id": "libpmi0_20_02-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libslurm35-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "libslurm35-20.02.3-3.5.1",
+					"product_id": "libslurm35-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pdsh-2.34-7.26.2",
+				"full_product_name": {
+					"text": "pdsh-2.34-7.26.2",
+					"product_id": "pdsh-2.34-7.26.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pdsh-dshgroup-2.34-7.26.2",
+				"full_product_name": {
+					"text": "pdsh-dshgroup-2.34-7.26.2",
+					"product_id": "pdsh-dshgroup-2.34-7.26.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pdsh-genders-2.34-7.26.2",
+				"full_product_name": {
+					"text": "pdsh-genders-2.34-7.26.2",
+					"product_id": "pdsh-genders-2.34-7.26.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pdsh-machines-2.34-7.26.2",
+				"full_product_name": {
+					"text": "pdsh-machines-2.34-7.26.2",
+					"product_id": "pdsh-machines-2.34-7.26.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pdsh-netgroup-2.34-7.26.2",
+				"full_product_name": {
+					"text": "pdsh-netgroup-2.34-7.26.2",
+					"product_id": "pdsh-netgroup-2.34-7.26.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pdsh-slurm-2.34-7.26.2",
+				"full_product_name": {
+					"text": "pdsh-slurm-2.34-7.26.2",
+					"product_id": "pdsh-slurm-2.34-7.26.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pdsh-slurm_18_08-2.34-7.26.2",
+				"full_product_name": {
+					"text": "pdsh-slurm_18_08-2.34-7.26.2",
+					"product_id": "pdsh-slurm_18_08-2.34-7.26.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pdsh-slurm_20_02-2.34-7.26.2",
+				"full_product_name": {
+					"text": "pdsh-slurm_20_02-2.34-7.26.2",
+					"product_id": "pdsh-slurm_20_02-2.34-7.26.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "perl-slurm_20_02-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "perl-slurm_20_02-20.02.3-3.5.1",
+					"product_id": "perl-slurm_20_02-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-auth-none-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-auth-none-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-auth-none-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-config-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-config-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-config-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-config-man-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-config-man-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-config-man-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-cray-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-cray-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-cray-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-devel-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-devel-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-devel-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-doc-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-doc-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-doc-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-lua-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-lua-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-lua-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-munge-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-munge-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-munge-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-node-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-node-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-node-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-openlava-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-openlava-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-openlava-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-pam_slurm-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-pam_slurm-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-pam_slurm-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-plugins-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-plugins-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-plugins-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-seff-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-seff-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-seff-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-sjstat-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-sjstat-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-sjstat-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-slurmdbd-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-slurmdbd-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-slurmdbd-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-sql-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-sql-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-sql-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-sview-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-sview-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-sview-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-torque-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-torque-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-torque-20.02.3-3.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "slurm_20_02-webdoc-20.02.3-3.5.1",
+				"full_product_name": {
+					"text": "slurm_20_02-webdoc-20.02.3-3.5.1",
+					"product_id": "slurm_20_02-webdoc-20.02.3-3.5.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "libnss_slurm2_20_02-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "libpmi0_20_02-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "libslurm35-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "pdsh-slurm_18_08-2.34-7.26.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "pdsh-slurm_20_02-2.34-7.26.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "perl-slurm_20_02-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-auth-none-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-config-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-config-man-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-devel-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-doc-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-lua-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-munge-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-node-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-pam_slurm-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-plugins-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-slurmdbd-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-sql-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-sview-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			},
+			{
+				"product_reference": "slurm_20_02-torque-20.02.3-3.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for HPC 12"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "The _prolog_error function in slurmd/req.c in Slurm before 15.08.13, 16.x before 16.05.7, and 17.x before 17.02.0-pre4 has a vulnerability in how the slurmd daemon informs users of a Prolog failure on a compute node. That vulnerability could allow a user to assume control of an arbitrary file on the system. Any exploitation of this is dependent on the user being able to cause or anticipate the failure (non-zero return code) of a Prolog script that their job would run on. This issue affects all Slurm versions from 0.6.0 (September 2005) to present. Workarounds to prevent exploitation of this are to either disable your Prolog script, or modify it such that it always returns 0 (\"success\") and adjust it to set the node as down using scontrol instead of relying on the slurmd to handle that automatically. If you do not have a Prolog set you are unaffected by this issue.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-10030",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for HPC 12:libnss_slurm2_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libpmi0_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libslurm35-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_18_08-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_20_02-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:perl-slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-auth-none-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-man-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-devel-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-doc-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-lua-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-munge-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-node-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-pam_slurm-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-plugins-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-slurmdbd-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sql-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sview-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-torque-20.02.3-3.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.6",
+					"vector_v_2": "AV:N/AC:H/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.1",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20202607-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-10030.html",
+					"description": "CVE-2016-10030"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1018371",
+					"description": "SUSE Bug 1018371"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Insecure SPANK environment variable handling exists in SchedMD Slurm before 16.05.11, 17.x before 17.02.9, and 17.11.x before 17.11.0rc2, allowing privilege escalation to root during Prolog or Epilog execution.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-15566",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for HPC 12:libnss_slurm2_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libpmi0_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libslurm35-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_18_08-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_20_02-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:perl-slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-auth-none-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-man-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-devel-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-doc-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-lua-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-munge-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-node-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-pam_slurm-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-plugins-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-slurmdbd-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sql-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sview-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-torque-20.02.3-3.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20202607-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-15566.html",
+					"description": "CVE-2017-15566"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1065697",
+					"description": "SUSE Bug 1065697"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "SchedMD Slurm before 17.02.11 and 17.1x.x before 17.11.7 mishandles user names (aka user_name fields) and group ids (aka gid fields).",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10995",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for HPC 12:libnss_slurm2_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libpmi0_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libslurm35-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_18_08-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_20_02-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:perl-slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-auth-none-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-man-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-devel-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-doc-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-lua-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-munge-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-node-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-pam_slurm-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-plugins-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-slurmdbd-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sql-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sview-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-torque-20.02.3-3.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.4",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20202607-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10995.html",
+					"description": "CVE-2018-10995"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1095508",
+					"description": "SUSE Bug 1095508"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "SchedMD Slurm before 17.02.10 and 17.11.x before 17.11.5 allows SQL Injection attacks against SlurmDBD.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-7033",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for HPC 12:libnss_slurm2_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libpmi0_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libslurm35-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_18_08-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_20_02-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:perl-slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-auth-none-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-man-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-devel-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-doc-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-lua-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-munge-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-node-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-pam_slurm-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-plugins-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-slurmdbd-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sql-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sview-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-torque-20.02.3-3.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20202607-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-7033.html",
+					"description": "CVE-2018-7033"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1085240",
+					"description": "SUSE Bug 1085240"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "SchedMD Slurm 17.11.x, 18.08.0 through 18.08.7, and 19.05.0 allows SQL Injection.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-12838",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for HPC 12:libnss_slurm2_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libpmi0_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libslurm35-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_18_08-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_20_02-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:perl-slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-auth-none-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-man-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-devel-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-doc-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-lua-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-munge-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-node-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-pam_slurm-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-plugins-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-slurmdbd-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sql-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sview-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-torque-20.02.3-3.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.3",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20202607-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-12838.html",
+					"description": "CVE-2019-12838"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1140709",
+					"description": "SUSE Bug 1140709"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "SchedMD Slurm before 18.08.9 and 19.x before 19.05.5 has weak slurmdbd.conf permissions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-19727",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for HPC 12:libnss_slurm2_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libpmi0_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libslurm35-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_18_08-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_20_02-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:perl-slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-auth-none-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-man-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-devel-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-doc-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-lua-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-munge-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-node-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-pam_slurm-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-plugins-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-slurmdbd-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sql-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sview-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-torque-20.02.3-3.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20202607-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-19727.html",
+					"description": "CVE-2019-19727"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1155784",
+					"description": "SUSE Bug 1155784"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "SchedMD Slurm before 18.08.9 and 19.x before 19.05.5 executes srun --uid with incorrect privileges.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-19728",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for HPC 12:libnss_slurm2_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libpmi0_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libslurm35-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_18_08-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_20_02-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:perl-slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-auth-none-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-man-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-devel-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-doc-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-lua-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-munge-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-node-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-pam_slurm-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-plugins-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-slurmdbd-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sql-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sview-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-torque-20.02.3-3.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6",
+					"vector_v_2": "AV:N/AC:M/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20202607-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-19728.html",
+					"description": "CVE-2019-19728"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1155784",
+					"description": "SUSE Bug 1155784"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1159692",
+					"description": "SUSE Bug 1159692"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "SchedMD Slurm before 17.11.13 and 18.x before 18.08.5 mishandles 32-bit systems.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-6438",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for HPC 12:libnss_slurm2_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libpmi0_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libslurm35-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_18_08-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_20_02-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:perl-slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-auth-none-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-man-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-devel-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-doc-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-lua-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-munge-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-node-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-pam_slurm-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-plugins-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-slurmdbd-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sql-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sview-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-torque-20.02.3-3.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "critical"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9.8",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20202607-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-6438.html",
+					"description": "CVE-2019-6438"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1123304",
+					"description": "SUSE Bug 1123304"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Slurm 19.05.x before 19.05.7 and 20.02.x before 20.02.3, in the rare case where Message Aggregation is enabled, allows Authentication Bypass via an Alternate Path or Channel. A race condition allows a user to launch a process as an arbitrary user.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2020-12693",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for HPC 12:libnss_slurm2_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libpmi0_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:libslurm35-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_18_08-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:pdsh-slurm_20_02-2.34-7.26.2",
+						"SUSE Linux Enterprise Module for HPC 12:perl-slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-auth-none-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-config-man-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-devel-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-doc-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-lua-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-munge-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-node-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-pam_slurm-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-plugins-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-slurmdbd-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sql-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-sview-20.02.3-3.5.1",
+						"SUSE Linux Enterprise Module for HPC 12:slurm_20_02-torque-20.02.3-3.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5.1",
+					"vector_v_2": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.3",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20202607-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2020-12693.html",
+					"description": "CVE-2020-12693"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1172004",
+					"description": "SUSE Bug 1172004"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1173804",
+					"description": "SUSE Bug 1173804"
+				}
+			]
+		}
+	]
+}

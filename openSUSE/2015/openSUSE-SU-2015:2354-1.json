@@ -1,0 +1,2490 @@
+{
+	"document_title": "Security update for ldb, samba, talloc, tdb, tevent",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2015:2354-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2015-12-23T23:07:11Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2015-12-23T23:07:11Z",
+		"current_release_date": "2015-12-23T23:07:11Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for ldb, samba, talloc, tdb, tevent",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThis update for ldb, samba, talloc, tdb, tevent fixes the following security issues and bugs:\n\nThe Samba LDB was updated to version 1.1.24:\n\n- Fix ldap \\00 search expression attack dos; CVE-2015-3223; (bso#11325)\n- Fix remote read memory exploit in ldb; CVE-2015-5330; (bso#11599)\n- Move ldb_(un)pack_data into ldb_module.h for testing\n- Fix installation of _ldb_text.py\n- Fix propagation of ldb errors through tdb\n- Fix bug triggered by having an empty message in database during search\n\nSamba was updated to fix these issues:\n\n- Malicious request can cause Samba LDAP server to hang, spinning using CPU;\n  CVE-2015-3223; (bso#11325); (bnc#958581).\n- Remote read memory exploit in LDB; CVE-2015-5330; (bso#11599); (bnc#958586).\n- Insufficient symlink verification (file access outside the share);\n  CVE-2015-5252; (bso#11395); (bnc#958582).\n- No man in the middle protection when forcing smb encryption on the client\n  side; CVE-2015-5296; (bso#11536); (bnc#958584).\n- Currently the snapshot browsing is not secure thru windows previous version\n  (shadow_copy2); CVE-2015-5299; (bso#11529); (bnc#958583).\n- Fix Microsoft MS15-096 to prevent machine accounts from being changed into\n  user accounts; CVE-2015-8467; (bso#11552); (bnc#958585).\n- Changing log level of two entries to from 1 to 3; (bso#9912).\n- vfs_gpfs: Re-enable share modes; (bso#11243).\n- wafsamba: Also build libraries with RELRO protection; (bso#11346).\n- ctdb: Strip trailing spaces from nodes file; (bso#11365).\n- s3-smbd: Fix old DOS client doing wildcard delete - gives a attribute type\n  of zero; (bso#11452).\n- nss_wins: Do not run into use after free issues when we access memory\n  allocated on the globals and the global being reinitialized; (bso#11563).\n- async_req: Fix non-blocking connect(); (bso#11564).\n- auth: gensec: Fix a memory leak; (bso#11565).\n- lib: util: Make non-critical message a warning; (bso#11566).\n- Fix winbindd crashes with samlogon for trusted domain user; (bso#11569);\n  (bnc#949022).\n- smbd: Send SMB2 oplock breaks unencrypted; (bso#11570).\n- ctdb: Open the RO tracking db with perms 0600 instead of 0000; (bso#11577).\n- manpage: Correct small typo error; (bso#11584).\n- s3: smbd: If EA's are turned off on a share don't allow an SMB2 create\n  containing them; (bso#11589).\n- Backport some valgrind fixes from upstream master; (bso#11597).\n- s3: smbd: have_file_open_below() fails to enumerate open files below an open\n  directory handle; (bso#11615).\n- docs: Fix some typos in the idmap config section of man 5 smb.conf;\n  (bso#11619).\n- Cleanup and enhance the pidl sub package.\n- s3: smbd: Fix our access-based enumeration on 'hide unreadable' to match\n  Windows; (bso#10252).\n- smbd: Fix file name buflen and padding in notify repsonse; (bso#10634).\n- kerberos: Make sure we only use prompter type when available; (bso#11038).\n- s3:ctdbd_conn: Make sure we destroy tevent_fd before closing the socket;\n  (bso#11316).\n- dcerpc.idl: accept invalid dcerpc_bind_nak pdus; (bso#11327).\n- Fix a deadlock in tdb; (bso#11381).\n- s3: smbd: Fix mkdir race condition; (bso#11486).\n- pam_winbind: Fix a segfault if initialization fails; (bso#11502).\n- s3: dfs: Fix a crash when the dfs targets are disabled; (bso#11509).\n- s3: smbd: Fix opening/creating :stream files on the root share directory;\n  (bso#11522).\n- net: Fix a crash with 'net ads keytab create'; (bso#11528).\n- s3: smbd: Fix a crash in unix_convert() and a NULL pointer bug introduced by\n  previous 'raw' stream fix (bso#11522); (bso#11535).\n- vfs_fruit: Return value of ad_pack in vfs_fruit.c; (bso#11543).\n- vfs_commit: Set the fd on open before calling SMB_VFS_FSTAT; (bso#11547).\n- Fix bug in smbstatus where the lease info is not printed; (bso#11549).\n- s3:smbstatus: Add stream name to share_entry_forall(); (bso#11550).\n- Prevent null pointer access in samlogon fallback when security\n  credentials are null; (bnc#949022).\n- Fix 100% CPU in winbindd when logging in with 'user must change password on\n  next logon'; (bso#11038).\n\ntalloc was updated to version 2.1.5; (bsc#954658) (bsc#951660).\n\n- Test that talloc magic differs between processes.\n- Increment minor version due to added talloc_test_get_magic.\n- Provide tests access to talloc_magic.\n- Test magic protection measures.\n\ntdb was updated to version 1.3.8; (bsc#954658).\n\n- Improved python3 bindings\n\ntevent was updated to 0.9.26; (bsc#954658).\n\n- New tevent_thread_proxy api\n- Minor build fixes\nThis update was imported from the SUSE:SLE-12-SP1:Update update project.",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2015-12/msg00032.html",
+			"description": "E-Mail link for openSUSE-SU-2015:2354-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 42.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 42.1",
+						"full_product_name": {
+							"text": "openSUSE Leap 42.1",
+							"product_id": "openSUSE Leap 42.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "ldb-1.1.24-7.1",
+				"full_product_name": {
+					"text": "ldb-1.1.24-7.1",
+					"product_id": "ldb-1.1.24-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ldb-tools-1.1.24-7.1",
+				"full_product_name": {
+					"text": "ldb-tools-1.1.24-7.1",
+					"product_id": "ldb-tools-1.1.24-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-atsvc-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libdcerpc-atsvc-devel-4.2.4-9.2",
+					"product_id": "libdcerpc-atsvc-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-atsvc0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libdcerpc-atsvc0-4.2.4-9.2",
+					"product_id": "libdcerpc-atsvc0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-atsvc0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libdcerpc-atsvc0-32bit-4.2.4-9.2",
+					"product_id": "libdcerpc-atsvc0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-binding0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libdcerpc-binding0-4.2.4-9.2",
+					"product_id": "libdcerpc-binding0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-binding0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libdcerpc-binding0-32bit-4.2.4-9.2",
+					"product_id": "libdcerpc-binding0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libdcerpc-devel-4.2.4-9.2",
+					"product_id": "libdcerpc-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-samr-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libdcerpc-samr-devel-4.2.4-9.2",
+					"product_id": "libdcerpc-samr-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-samr0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libdcerpc-samr0-4.2.4-9.2",
+					"product_id": "libdcerpc-samr0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-samr0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libdcerpc-samr0-32bit-4.2.4-9.2",
+					"product_id": "libdcerpc-samr0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libdcerpc0-4.2.4-9.2",
+					"product_id": "libdcerpc0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libdcerpc0-32bit-4.2.4-9.2",
+					"product_id": "libdcerpc0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgensec-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libgensec-devel-4.2.4-9.2",
+					"product_id": "libgensec-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgensec0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libgensec0-4.2.4-9.2",
+					"product_id": "libgensec0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgensec0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libgensec0-32bit-4.2.4-9.2",
+					"product_id": "libgensec0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libldb-devel-1.1.24-7.1",
+				"full_product_name": {
+					"text": "libldb-devel-1.1.24-7.1",
+					"product_id": "libldb-devel-1.1.24-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libldb1-1.1.24-7.1",
+				"full_product_name": {
+					"text": "libldb1-1.1.24-7.1",
+					"product_id": "libldb1-1.1.24-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libldb1-32bit-1.1.24-7.1",
+				"full_product_name": {
+					"text": "libldb1-32bit-1.1.24-7.1",
+					"product_id": "libldb1-32bit-1.1.24-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libndr-devel-4.2.4-9.2",
+					"product_id": "libndr-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-krb5pac-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libndr-krb5pac-devel-4.2.4-9.2",
+					"product_id": "libndr-krb5pac-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-krb5pac0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libndr-krb5pac0-4.2.4-9.2",
+					"product_id": "libndr-krb5pac0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-krb5pac0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libndr-krb5pac0-32bit-4.2.4-9.2",
+					"product_id": "libndr-krb5pac0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-nbt-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libndr-nbt-devel-4.2.4-9.2",
+					"product_id": "libndr-nbt-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-nbt0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libndr-nbt0-4.2.4-9.2",
+					"product_id": "libndr-nbt0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-nbt0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libndr-nbt0-32bit-4.2.4-9.2",
+					"product_id": "libndr-nbt0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-standard-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libndr-standard-devel-4.2.4-9.2",
+					"product_id": "libndr-standard-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-standard0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libndr-standard0-4.2.4-9.2",
+					"product_id": "libndr-standard0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-standard0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libndr-standard0-32bit-4.2.4-9.2",
+					"product_id": "libndr-standard0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libndr0-4.2.4-9.2",
+					"product_id": "libndr0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libndr0-32bit-4.2.4-9.2",
+					"product_id": "libndr0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libnetapi-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libnetapi-devel-4.2.4-9.2",
+					"product_id": "libnetapi-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libnetapi0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libnetapi0-4.2.4-9.2",
+					"product_id": "libnetapi0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libnetapi0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libnetapi0-32bit-4.2.4-9.2",
+					"product_id": "libnetapi0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libregistry-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libregistry-devel-4.2.4-9.2",
+					"product_id": "libregistry-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libregistry0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libregistry0-4.2.4-9.2",
+					"product_id": "libregistry0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libregistry0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libregistry0-32bit-4.2.4-9.2",
+					"product_id": "libregistry0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-credentials-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-credentials-devel-4.2.4-9.2",
+					"product_id": "libsamba-credentials-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-credentials0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-credentials0-4.2.4-9.2",
+					"product_id": "libsamba-credentials0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-credentials0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-credentials0-32bit-4.2.4-9.2",
+					"product_id": "libsamba-credentials0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-hostconfig-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-hostconfig-devel-4.2.4-9.2",
+					"product_id": "libsamba-hostconfig-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-hostconfig0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-hostconfig0-4.2.4-9.2",
+					"product_id": "libsamba-hostconfig0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-hostconfig0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-hostconfig0-32bit-4.2.4-9.2",
+					"product_id": "libsamba-hostconfig0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-passdb-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-passdb-devel-4.2.4-9.2",
+					"product_id": "libsamba-passdb-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-passdb0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-passdb0-4.2.4-9.2",
+					"product_id": "libsamba-passdb0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-passdb0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-passdb0-32bit-4.2.4-9.2",
+					"product_id": "libsamba-passdb0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-policy-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-policy-devel-4.2.4-9.2",
+					"product_id": "libsamba-policy-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-policy0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-policy0-4.2.4-9.2",
+					"product_id": "libsamba-policy0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-policy0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-policy0-32bit-4.2.4-9.2",
+					"product_id": "libsamba-policy0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-util-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-util-devel-4.2.4-9.2",
+					"product_id": "libsamba-util-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-util0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-util0-4.2.4-9.2",
+					"product_id": "libsamba-util0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-util0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamba-util0-32bit-4.2.4-9.2",
+					"product_id": "libsamba-util0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamdb-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamdb-devel-4.2.4-9.2",
+					"product_id": "libsamdb-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamdb0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamdb0-4.2.4-9.2",
+					"product_id": "libsamdb0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamdb0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsamdb0-32bit-4.2.4-9.2",
+					"product_id": "libsamdb0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbclient-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsmbclient-devel-4.2.4-9.2",
+					"product_id": "libsmbclient-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbclient-raw-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsmbclient-raw-devel-4.2.4-9.2",
+					"product_id": "libsmbclient-raw-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbclient-raw0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsmbclient-raw0-4.2.4-9.2",
+					"product_id": "libsmbclient-raw0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbclient-raw0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsmbclient-raw0-32bit-4.2.4-9.2",
+					"product_id": "libsmbclient-raw0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbclient0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsmbclient0-4.2.4-9.2",
+					"product_id": "libsmbclient0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbclient0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsmbclient0-32bit-4.2.4-9.2",
+					"product_id": "libsmbclient0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbconf-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsmbconf-devel-4.2.4-9.2",
+					"product_id": "libsmbconf-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbconf0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsmbconf0-4.2.4-9.2",
+					"product_id": "libsmbconf0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbconf0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsmbconf0-32bit-4.2.4-9.2",
+					"product_id": "libsmbconf0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbldap-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsmbldap-devel-4.2.4-9.2",
+					"product_id": "libsmbldap-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbldap0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsmbldap0-4.2.4-9.2",
+					"product_id": "libsmbldap0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbldap0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libsmbldap0-32bit-4.2.4-9.2",
+					"product_id": "libsmbldap0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtalloc-devel-2.1.5-7.1",
+				"full_product_name": {
+					"text": "libtalloc-devel-2.1.5-7.1",
+					"product_id": "libtalloc-devel-2.1.5-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtalloc2-2.1.5-7.1",
+				"full_product_name": {
+					"text": "libtalloc2-2.1.5-7.1",
+					"product_id": "libtalloc2-2.1.5-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtalloc2-32bit-2.1.5-7.1",
+				"full_product_name": {
+					"text": "libtalloc2-32bit-2.1.5-7.1",
+					"product_id": "libtalloc2-32bit-2.1.5-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtdb-devel-1.3.8-7.1",
+				"full_product_name": {
+					"text": "libtdb-devel-1.3.8-7.1",
+					"product_id": "libtdb-devel-1.3.8-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtdb1-1.3.8-7.1",
+				"full_product_name": {
+					"text": "libtdb1-1.3.8-7.1",
+					"product_id": "libtdb1-1.3.8-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtdb1-32bit-1.3.8-7.1",
+				"full_product_name": {
+					"text": "libtdb1-32bit-1.3.8-7.1",
+					"product_id": "libtdb1-32bit-1.3.8-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtevent-devel-0.9.26-7.1",
+				"full_product_name": {
+					"text": "libtevent-devel-0.9.26-7.1",
+					"product_id": "libtevent-devel-0.9.26-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtevent-util-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libtevent-util-devel-4.2.4-9.2",
+					"product_id": "libtevent-util-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtevent-util0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libtevent-util0-4.2.4-9.2",
+					"product_id": "libtevent-util0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtevent-util0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libtevent-util0-32bit-4.2.4-9.2",
+					"product_id": "libtevent-util0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtevent0-0.9.26-7.1",
+				"full_product_name": {
+					"text": "libtevent0-0.9.26-7.1",
+					"product_id": "libtevent0-0.9.26-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtevent0-32bit-0.9.26-7.1",
+				"full_product_name": {
+					"text": "libtevent0-32bit-0.9.26-7.1",
+					"product_id": "libtevent0-32bit-0.9.26-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libwbclient-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libwbclient-devel-4.2.4-9.2",
+					"product_id": "libwbclient-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libwbclient0-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libwbclient0-4.2.4-9.2",
+					"product_id": "libwbclient0-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libwbclient0-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "libwbclient0-32bit-4.2.4-9.2",
+					"product_id": "libwbclient0-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pyldb-1.1.24-7.1",
+				"full_product_name": {
+					"text": "pyldb-1.1.24-7.1",
+					"product_id": "pyldb-1.1.24-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pyldb-32bit-1.1.24-7.1",
+				"full_product_name": {
+					"text": "pyldb-32bit-1.1.24-7.1",
+					"product_id": "pyldb-32bit-1.1.24-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pyldb-devel-1.1.24-7.1",
+				"full_product_name": {
+					"text": "pyldb-devel-1.1.24-7.1",
+					"product_id": "pyldb-devel-1.1.24-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pytalloc-2.1.5-7.1",
+				"full_product_name": {
+					"text": "pytalloc-2.1.5-7.1",
+					"product_id": "pytalloc-2.1.5-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pytalloc-32bit-2.1.5-7.1",
+				"full_product_name": {
+					"text": "pytalloc-32bit-2.1.5-7.1",
+					"product_id": "pytalloc-32bit-2.1.5-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pytalloc-devel-2.1.5-7.1",
+				"full_product_name": {
+					"text": "pytalloc-devel-2.1.5-7.1",
+					"product_id": "pytalloc-devel-2.1.5-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-tdb-1.3.8-7.1",
+				"full_product_name": {
+					"text": "python-tdb-1.3.8-7.1",
+					"product_id": "python-tdb-1.3.8-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-tdb-32bit-1.3.8-7.1",
+				"full_product_name": {
+					"text": "python-tdb-32bit-1.3.8-7.1",
+					"product_id": "python-tdb-32bit-1.3.8-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-tevent-0.9.26-7.1",
+				"full_product_name": {
+					"text": "python-tevent-0.9.26-7.1",
+					"product_id": "python-tevent-0.9.26-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-tevent-32bit-0.9.26-7.1",
+				"full_product_name": {
+					"text": "python-tevent-32bit-0.9.26-7.1",
+					"product_id": "python-tevent-32bit-0.9.26-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-4.2.4-9.2",
+					"product_id": "samba-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-32bit-4.2.4-9.2",
+					"product_id": "samba-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-client-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-client-4.2.4-9.2",
+					"product_id": "samba-client-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-client-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-client-32bit-4.2.4-9.2",
+					"product_id": "samba-client-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-core-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-core-devel-4.2.4-9.2",
+					"product_id": "samba-core-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-doc-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-doc-4.2.4-9.2",
+					"product_id": "samba-doc-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-libs-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-libs-4.2.4-9.2",
+					"product_id": "samba-libs-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-libs-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-libs-32bit-4.2.4-9.2",
+					"product_id": "samba-libs-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-pidl-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-pidl-4.2.4-9.2",
+					"product_id": "samba-pidl-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-python-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-python-4.2.4-9.2",
+					"product_id": "samba-python-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-test-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-test-4.2.4-9.2",
+					"product_id": "samba-test-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-test-devel-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-test-devel-4.2.4-9.2",
+					"product_id": "samba-test-devel-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-winbind-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-winbind-4.2.4-9.2",
+					"product_id": "samba-winbind-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-winbind-32bit-4.2.4-9.2",
+				"full_product_name": {
+					"text": "samba-winbind-32bit-4.2.4-9.2",
+					"product_id": "samba-winbind-32bit-4.2.4-9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "talloc-2.1.5-7.1",
+				"full_product_name": {
+					"text": "talloc-2.1.5-7.1",
+					"product_id": "talloc-2.1.5-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "tdb-1.3.8-7.1",
+				"full_product_name": {
+					"text": "tdb-1.3.8-7.1",
+					"product_id": "tdb-1.3.8-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "tdb-tools-1.3.8-7.1",
+				"full_product_name": {
+					"text": "tdb-tools-1.3.8-7.1",
+					"product_id": "tdb-tools-1.3.8-7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "tevent-0.9.26-7.1",
+				"full_product_name": {
+					"text": "tevent-0.9.26-7.1",
+					"product_id": "tevent-0.9.26-7.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "ldb-1.1.24-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "ldb-tools-1.1.24-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libdcerpc-atsvc-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libdcerpc-atsvc0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libdcerpc-atsvc0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libdcerpc-binding0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libdcerpc-binding0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libdcerpc-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libdcerpc-samr-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libdcerpc-samr0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libdcerpc-samr0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libdcerpc0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libdcerpc0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libgensec-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libgensec0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libgensec0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libldb-devel-1.1.24-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libldb1-1.1.24-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libldb1-32bit-1.1.24-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libndr-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libndr-krb5pac-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libndr-krb5pac0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libndr-krb5pac0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libndr-nbt-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libndr-nbt0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libndr-nbt0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libndr-standard-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libndr-standard0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libndr-standard0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libndr0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libndr0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libnetapi-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libnetapi0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libnetapi0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libregistry-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libregistry0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libregistry0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-credentials-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-credentials0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-credentials0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-hostconfig-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-hostconfig0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-hostconfig0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-passdb-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-passdb0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-passdb0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-policy-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-policy0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-policy0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-util-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-util0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamba-util0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamdb-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamdb0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsamdb0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsmbclient-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsmbclient-raw-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsmbclient-raw0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsmbclient-raw0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsmbclient0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsmbclient0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsmbconf-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsmbconf0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsmbconf0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsmbldap-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsmbldap0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libsmbldap0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libtalloc-devel-2.1.5-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libtalloc2-2.1.5-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libtalloc2-32bit-2.1.5-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libtdb-devel-1.3.8-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libtdb1-1.3.8-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libtdb1-32bit-1.3.8-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libtevent-devel-0.9.26-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libtevent-util-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libtevent-util0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libtevent-util0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libtevent0-0.9.26-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libtevent0-32bit-0.9.26-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libwbclient-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libwbclient0-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libwbclient0-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "pyldb-1.1.24-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "pyldb-32bit-1.1.24-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "pyldb-devel-1.1.24-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "pytalloc-2.1.5-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "pytalloc-32bit-2.1.5-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "pytalloc-devel-2.1.5-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "python-tdb-1.3.8-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "python-tdb-32bit-1.3.8-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "python-tevent-0.9.26-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "python-tevent-32bit-0.9.26-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-client-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-client-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-core-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-doc-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-libs-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-libs-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-pidl-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-python-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-test-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-test-devel-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-winbind-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "samba-winbind-32bit-4.2.4-9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "talloc-2.1.5-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "tdb-1.3.8-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "tdb-tools-1.3.8-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "tevent-0.9.26-7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "The ldb_wildcard_compare function in ldb_match.c in ldb before 1.1.24, as used in the AD LDAP server in Samba 4.x before 4.1.22, 4.2.x before 4.2.7, and 4.3.x before 4.3.3, mishandles certain zero values, which allows remote attackers to cause a denial of service (infinite loop) via crafted packets.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-3223",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:ldb-1.1.24-7.1",
+						"openSUSE Leap 42.1:ldb-tools-1.1.24-7.1",
+						"openSUSE Leap 42.1:libdcerpc-atsvc-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-atsvc0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-atsvc0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-binding0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-binding0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libldb-devel-1.1.24-7.1",
+						"openSUSE Leap 42.1:libldb1-1.1.24-7.1",
+						"openSUSE Leap 42.1:libldb1-32bit-1.1.24-7.1",
+						"openSUSE Leap 42.1:libndr-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtalloc-devel-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtalloc2-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtalloc2-32bit-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtdb-devel-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtdb1-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtdb1-32bit-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtevent-devel-0.9.26-7.1",
+						"openSUSE Leap 42.1:libtevent-util-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent-util0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent-util0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent0-0.9.26-7.1",
+						"openSUSE Leap 42.1:libtevent0-32bit-0.9.26-7.1",
+						"openSUSE Leap 42.1:libwbclient-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libwbclient0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libwbclient0-4.2.4-9.2",
+						"openSUSE Leap 42.1:pyldb-1.1.24-7.1",
+						"openSUSE Leap 42.1:pyldb-32bit-1.1.24-7.1",
+						"openSUSE Leap 42.1:pyldb-devel-1.1.24-7.1",
+						"openSUSE Leap 42.1:pytalloc-2.1.5-7.1",
+						"openSUSE Leap 42.1:pytalloc-32bit-2.1.5-7.1",
+						"openSUSE Leap 42.1:pytalloc-devel-2.1.5-7.1",
+						"openSUSE Leap 42.1:python-tdb-1.3.8-7.1",
+						"openSUSE Leap 42.1:python-tdb-32bit-1.3.8-7.1",
+						"openSUSE Leap 42.1:python-tevent-0.9.26-7.1",
+						"openSUSE Leap 42.1:python-tevent-32bit-0.9.26-7.1",
+						"openSUSE Leap 42.1:samba-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-client-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-client-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-core-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-doc-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-libs-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-libs-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-pidl-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-python-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-test-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-test-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-winbind-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-winbind-4.2.4-9.2",
+						"openSUSE Leap 42.1:talloc-2.1.5-7.1",
+						"openSUSE Leap 42.1:tdb-1.3.8-7.1",
+						"openSUSE Leap 42.1:tdb-tools-1.3.8-7.1",
+						"openSUSE Leap 42.1:tevent-0.9.26-7.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.8",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2015-12/msg00032.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-3223.html",
+					"description": "CVE-2015-3223"
+				},
+				{
+					"url": "https://bugzilla.suse.com/958581",
+					"description": "SUSE Bug 958581"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "vfs.c in smbd in Samba 3.x and 4.x before 4.1.22, 4.2.x before 4.2.7, and 4.3.x before 4.3.3, when share names with certain substring relationships exist, allows remote attackers to bypass intended file-access restrictions via a symlink that points outside of a share.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-5252",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:ldb-1.1.24-7.1",
+						"openSUSE Leap 42.1:ldb-tools-1.1.24-7.1",
+						"openSUSE Leap 42.1:libdcerpc-atsvc-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-atsvc0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-atsvc0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-binding0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-binding0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libldb-devel-1.1.24-7.1",
+						"openSUSE Leap 42.1:libldb1-1.1.24-7.1",
+						"openSUSE Leap 42.1:libldb1-32bit-1.1.24-7.1",
+						"openSUSE Leap 42.1:libndr-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtalloc-devel-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtalloc2-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtalloc2-32bit-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtdb-devel-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtdb1-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtdb1-32bit-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtevent-devel-0.9.26-7.1",
+						"openSUSE Leap 42.1:libtevent-util-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent-util0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent-util0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent0-0.9.26-7.1",
+						"openSUSE Leap 42.1:libtevent0-32bit-0.9.26-7.1",
+						"openSUSE Leap 42.1:libwbclient-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libwbclient0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libwbclient0-4.2.4-9.2",
+						"openSUSE Leap 42.1:pyldb-1.1.24-7.1",
+						"openSUSE Leap 42.1:pyldb-32bit-1.1.24-7.1",
+						"openSUSE Leap 42.1:pyldb-devel-1.1.24-7.1",
+						"openSUSE Leap 42.1:pytalloc-2.1.5-7.1",
+						"openSUSE Leap 42.1:pytalloc-32bit-2.1.5-7.1",
+						"openSUSE Leap 42.1:pytalloc-devel-2.1.5-7.1",
+						"openSUSE Leap 42.1:python-tdb-1.3.8-7.1",
+						"openSUSE Leap 42.1:python-tdb-32bit-1.3.8-7.1",
+						"openSUSE Leap 42.1:python-tevent-0.9.26-7.1",
+						"openSUSE Leap 42.1:python-tevent-32bit-0.9.26-7.1",
+						"openSUSE Leap 42.1:samba-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-client-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-client-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-core-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-doc-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-libs-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-libs-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-pidl-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-python-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-test-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-test-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-winbind-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-winbind-4.2.4-9.2",
+						"openSUSE Leap 42.1:talloc-2.1.5-7.1",
+						"openSUSE Leap 42.1:tdb-1.3.8-7.1",
+						"openSUSE Leap 42.1:tdb-tools-1.3.8-7.1",
+						"openSUSE Leap 42.1:tevent-0.9.26-7.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:N/AC:L/Au:S/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2015-12/msg00032.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-5252.html",
+					"description": "CVE-2015-5252"
+				},
+				{
+					"url": "https://bugzilla.suse.com/958582",
+					"description": "SUSE Bug 958582"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Samba 3.x and 4.x before 4.1.22, 4.2.x before 4.2.7, and 4.3.x before 4.3.3 supports connections that are encrypted but unsigned, which allows man-in-the-middle attackers to conduct encrypted-to-unencrypted downgrade attacks by modifying the client-server data stream, related to clidfs.c, libsmb_server.c, and smbXcli_base.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-5296",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:ldb-1.1.24-7.1",
+						"openSUSE Leap 42.1:ldb-tools-1.1.24-7.1",
+						"openSUSE Leap 42.1:libdcerpc-atsvc-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-atsvc0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-atsvc0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-binding0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-binding0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libldb-devel-1.1.24-7.1",
+						"openSUSE Leap 42.1:libldb1-1.1.24-7.1",
+						"openSUSE Leap 42.1:libldb1-32bit-1.1.24-7.1",
+						"openSUSE Leap 42.1:libndr-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtalloc-devel-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtalloc2-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtalloc2-32bit-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtdb-devel-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtdb1-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtdb1-32bit-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtevent-devel-0.9.26-7.1",
+						"openSUSE Leap 42.1:libtevent-util-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent-util0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent-util0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent0-0.9.26-7.1",
+						"openSUSE Leap 42.1:libtevent0-32bit-0.9.26-7.1",
+						"openSUSE Leap 42.1:libwbclient-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libwbclient0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libwbclient0-4.2.4-9.2",
+						"openSUSE Leap 42.1:pyldb-1.1.24-7.1",
+						"openSUSE Leap 42.1:pyldb-32bit-1.1.24-7.1",
+						"openSUSE Leap 42.1:pyldb-devel-1.1.24-7.1",
+						"openSUSE Leap 42.1:pytalloc-2.1.5-7.1",
+						"openSUSE Leap 42.1:pytalloc-32bit-2.1.5-7.1",
+						"openSUSE Leap 42.1:pytalloc-devel-2.1.5-7.1",
+						"openSUSE Leap 42.1:python-tdb-1.3.8-7.1",
+						"openSUSE Leap 42.1:python-tdb-32bit-1.3.8-7.1",
+						"openSUSE Leap 42.1:python-tevent-0.9.26-7.1",
+						"openSUSE Leap 42.1:python-tevent-32bit-0.9.26-7.1",
+						"openSUSE Leap 42.1:samba-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-client-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-client-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-core-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-doc-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-libs-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-libs-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-pidl-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-python-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-test-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-test-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-winbind-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-winbind-4.2.4-9.2",
+						"openSUSE Leap 42.1:talloc-2.1.5-7.1",
+						"openSUSE Leap 42.1:tdb-1.3.8-7.1",
+						"openSUSE Leap 42.1:tdb-tools-1.3.8-7.1",
+						"openSUSE Leap 42.1:tevent-0.9.26-7.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.2",
+					"vector_v_2": "AV:A/AC:H/Au:N/C:P/I:P/A:N"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2015-12/msg00032.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-5296.html",
+					"description": "CVE-2015-5296"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1058622",
+					"description": "SUSE Bug 1058622"
+				},
+				{
+					"url": "https://bugzilla.suse.com/958584",
+					"description": "SUSE Bug 958584"
+				},
+				{
+					"url": "https://bugzilla.suse.com/973031",
+					"description": "SUSE Bug 973031"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The shadow_copy2_get_shadow_copy_data function in modules/vfs_shadow_copy2.c in Samba 3.x and 4.x before 4.1.22, 4.2.x before 4.2.7, and 4.3.x before 4.3.3 does not verify that the DIRECTORY_LIST access right has been granted, which allows remote attackers to access snapshots by visiting a shadow copy directory.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-5299",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:ldb-1.1.24-7.1",
+						"openSUSE Leap 42.1:ldb-tools-1.1.24-7.1",
+						"openSUSE Leap 42.1:libdcerpc-atsvc-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-atsvc0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-atsvc0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-binding0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-binding0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libldb-devel-1.1.24-7.1",
+						"openSUSE Leap 42.1:libldb1-1.1.24-7.1",
+						"openSUSE Leap 42.1:libldb1-32bit-1.1.24-7.1",
+						"openSUSE Leap 42.1:libndr-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtalloc-devel-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtalloc2-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtalloc2-32bit-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtdb-devel-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtdb1-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtdb1-32bit-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtevent-devel-0.9.26-7.1",
+						"openSUSE Leap 42.1:libtevent-util-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent-util0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent-util0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent0-0.9.26-7.1",
+						"openSUSE Leap 42.1:libtevent0-32bit-0.9.26-7.1",
+						"openSUSE Leap 42.1:libwbclient-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libwbclient0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libwbclient0-4.2.4-9.2",
+						"openSUSE Leap 42.1:pyldb-1.1.24-7.1",
+						"openSUSE Leap 42.1:pyldb-32bit-1.1.24-7.1",
+						"openSUSE Leap 42.1:pyldb-devel-1.1.24-7.1",
+						"openSUSE Leap 42.1:pytalloc-2.1.5-7.1",
+						"openSUSE Leap 42.1:pytalloc-32bit-2.1.5-7.1",
+						"openSUSE Leap 42.1:pytalloc-devel-2.1.5-7.1",
+						"openSUSE Leap 42.1:python-tdb-1.3.8-7.1",
+						"openSUSE Leap 42.1:python-tdb-32bit-1.3.8-7.1",
+						"openSUSE Leap 42.1:python-tevent-0.9.26-7.1",
+						"openSUSE Leap 42.1:python-tevent-32bit-0.9.26-7.1",
+						"openSUSE Leap 42.1:samba-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-client-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-client-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-core-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-doc-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-libs-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-libs-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-pidl-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-python-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-test-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-test-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-winbind-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-winbind-4.2.4-9.2",
+						"openSUSE Leap 42.1:talloc-2.1.5-7.1",
+						"openSUSE Leap 42.1:tdb-1.3.8-7.1",
+						"openSUSE Leap 42.1:tdb-tools-1.3.8-7.1",
+						"openSUSE Leap 42.1:tevent-0.9.26-7.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.5",
+					"vector_v_2": "AV:N/AC:M/Au:S/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2015-12/msg00032.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-5299.html",
+					"description": "CVE-2015-5299"
+				},
+				{
+					"url": "https://bugzilla.suse.com/958583",
+					"description": "SUSE Bug 958583"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "ldb before 1.1.24, as used in the AD LDAP server in Samba 4.x before 4.1.22, 4.2.x before 4.2.7, and 4.3.x before 4.3.3, mishandles string lengths, which allows remote attackers to obtain sensitive information from daemon heap memory by sending crafted packets and then reading (1) an error message or (2) a database value.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-5330",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:ldb-1.1.24-7.1",
+						"openSUSE Leap 42.1:ldb-tools-1.1.24-7.1",
+						"openSUSE Leap 42.1:libdcerpc-atsvc-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-atsvc0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-atsvc0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-binding0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-binding0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libldb-devel-1.1.24-7.1",
+						"openSUSE Leap 42.1:libldb1-1.1.24-7.1",
+						"openSUSE Leap 42.1:libldb1-32bit-1.1.24-7.1",
+						"openSUSE Leap 42.1:libndr-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtalloc-devel-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtalloc2-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtalloc2-32bit-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtdb-devel-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtdb1-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtdb1-32bit-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtevent-devel-0.9.26-7.1",
+						"openSUSE Leap 42.1:libtevent-util-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent-util0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent-util0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent0-0.9.26-7.1",
+						"openSUSE Leap 42.1:libtevent0-32bit-0.9.26-7.1",
+						"openSUSE Leap 42.1:libwbclient-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libwbclient0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libwbclient0-4.2.4-9.2",
+						"openSUSE Leap 42.1:pyldb-1.1.24-7.1",
+						"openSUSE Leap 42.1:pyldb-32bit-1.1.24-7.1",
+						"openSUSE Leap 42.1:pyldb-devel-1.1.24-7.1",
+						"openSUSE Leap 42.1:pytalloc-2.1.5-7.1",
+						"openSUSE Leap 42.1:pytalloc-32bit-2.1.5-7.1",
+						"openSUSE Leap 42.1:pytalloc-devel-2.1.5-7.1",
+						"openSUSE Leap 42.1:python-tdb-1.3.8-7.1",
+						"openSUSE Leap 42.1:python-tdb-32bit-1.3.8-7.1",
+						"openSUSE Leap 42.1:python-tevent-0.9.26-7.1",
+						"openSUSE Leap 42.1:python-tevent-32bit-0.9.26-7.1",
+						"openSUSE Leap 42.1:samba-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-client-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-client-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-core-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-doc-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-libs-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-libs-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-pidl-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-python-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-test-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-test-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-winbind-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-winbind-4.2.4-9.2",
+						"openSUSE Leap 42.1:talloc-2.1.5-7.1",
+						"openSUSE Leap 42.1:tdb-1.3.8-7.1",
+						"openSUSE Leap 42.1:tdb-tools-1.3.8-7.1",
+						"openSUSE Leap 42.1:tevent-0.9.26-7.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4",
+					"vector_v_2": "AV:N/AC:L/Au:S/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2015-12/msg00032.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-5330.html",
+					"description": "CVE-2015-5330"
+				},
+				{
+					"url": "https://bugzilla.suse.com/958581",
+					"description": "SUSE Bug 958581"
+				},
+				{
+					"url": "https://bugzilla.suse.com/958586",
+					"description": "SUSE Bug 958586"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The samldb_check_user_account_control_acl function in dsdb/samdb/ldb_modules/samldb.c in Samba 4.x before 4.1.22, 4.2.x before 4.2.7, and 4.3.x before 4.3.3 does not properly check for administrative privileges during creation of machine accounts, which allows remote authenticated users to bypass intended access restrictions by leveraging the existence of a domain with both a Samba DC and a Windows DC, a similar issue to CVE-2015-2535.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-8467",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:ldb-1.1.24-7.1",
+						"openSUSE Leap 42.1:ldb-tools-1.1.24-7.1",
+						"openSUSE Leap 42.1:libdcerpc-atsvc-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-atsvc0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-atsvc0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-binding0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-binding0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc-samr0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libdcerpc0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libgensec0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libldb-devel-1.1.24-7.1",
+						"openSUSE Leap 42.1:libldb1-1.1.24-7.1",
+						"openSUSE Leap 42.1:libldb1-32bit-1.1.24-7.1",
+						"openSUSE Leap 42.1:libndr-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-krb5pac0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-nbt0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr-standard0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libndr0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libnetapi0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libregistry0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-credentials0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-hostconfig0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-passdb0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-policy0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamba-util0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsamdb0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient-raw0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbclient0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbconf0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libsmbldap0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtalloc-devel-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtalloc2-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtalloc2-32bit-2.1.5-7.1",
+						"openSUSE Leap 42.1:libtdb-devel-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtdb1-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtdb1-32bit-1.3.8-7.1",
+						"openSUSE Leap 42.1:libtevent-devel-0.9.26-7.1",
+						"openSUSE Leap 42.1:libtevent-util-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent-util0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent-util0-4.2.4-9.2",
+						"openSUSE Leap 42.1:libtevent0-0.9.26-7.1",
+						"openSUSE Leap 42.1:libtevent0-32bit-0.9.26-7.1",
+						"openSUSE Leap 42.1:libwbclient-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:libwbclient0-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:libwbclient0-4.2.4-9.2",
+						"openSUSE Leap 42.1:pyldb-1.1.24-7.1",
+						"openSUSE Leap 42.1:pyldb-32bit-1.1.24-7.1",
+						"openSUSE Leap 42.1:pyldb-devel-1.1.24-7.1",
+						"openSUSE Leap 42.1:pytalloc-2.1.5-7.1",
+						"openSUSE Leap 42.1:pytalloc-32bit-2.1.5-7.1",
+						"openSUSE Leap 42.1:pytalloc-devel-2.1.5-7.1",
+						"openSUSE Leap 42.1:python-tdb-1.3.8-7.1",
+						"openSUSE Leap 42.1:python-tdb-32bit-1.3.8-7.1",
+						"openSUSE Leap 42.1:python-tevent-0.9.26-7.1",
+						"openSUSE Leap 42.1:python-tevent-32bit-0.9.26-7.1",
+						"openSUSE Leap 42.1:samba-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-client-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-client-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-core-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-doc-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-libs-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-libs-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-pidl-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-python-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-test-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-test-devel-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-winbind-32bit-4.2.4-9.2",
+						"openSUSE Leap 42.1:samba-winbind-4.2.4-9.2",
+						"openSUSE Leap 42.1:talloc-2.1.5-7.1",
+						"openSUSE Leap 42.1:tdb-1.3.8-7.1",
+						"openSUSE Leap 42.1:tdb-tools-1.3.8-7.1",
+						"openSUSE Leap 42.1:tevent-0.9.26-7.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6",
+					"vector_v_2": "AV:N/AC:M/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2015-12/msg00032.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-8467.html",
+					"description": "CVE-2015-8467"
+				},
+				{
+					"url": "https://bugzilla.suse.com/958585",
+					"description": "SUSE Bug 958585"
+				}
+			]
+		}
+	]
+}

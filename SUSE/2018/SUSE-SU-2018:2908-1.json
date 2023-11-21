@@ -1,0 +1,1960 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2018:2908-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2018-09-27T15:01:17Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2018-09-27T15:01:17Z",
+		"current_release_date": "2018-09-27T15:01:17Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThe SUSE Linux Enterprise 12 SP1 kernel was updated receive various security and bugfixes.\n\nThe following security bugs were fixed:\n\n- CVE-2018-14634: Prevent integer overflow in create_elf_tables that allowed a\n  local attacker to exploit this vulnerability via a SUID-root binary and obtain\n  full root privileges (bsc#1108912)\n- CVE-2018-14617: Prevent NULL pointer dereference and panic in\n  hfsplus_lookup() when opening a file (that is purportedly a hard link) in an\n  hfs+ filesystem that has malformed catalog data, and is mounted read-only\n  without a metadata directory (bsc#1102870)\n- CVE-2018-16276: Incorrect bounds checking in the yurex USB driver in\n  yurex_read allowed local attackers to use user access read/writes to crash the\n  kernel or potentially escalate privileges (bsc#1106095)\n- CVE-2018-12896: Prevent integer overflow in the POSIX timer code that was\n  caused by the way the overrun accounting works. Depending on interval and\n  expiry time values, the overrun can be larger than INT_MAX, but the accounting\n  is int based. This basically made the accounting values, which are visible to\n  user space via timer_getoverrun(2) and siginfo::si_overrun, random. This\n  allowed a local user to cause a denial of service (signed integer overflow) via\n  crafted mmap, futex, timer_create, and timer_settime system calls (bnc#1099922)\n- CVE-2018-13093: Prevent NULL pointer dereference and panic in lookup_slow()\n  on a NULL inode->i_ops pointer when doing pathwalks on a corrupted xfs image.\n  This occured because of a lack of proper validation that cached inodes are free\n  during allocation (bnc#1100001)\n- CVE-2018-10940: The cdrom_ioctl_media_changed function allowed local\n  attackers to use a incorrect bounds check in the CDROM driver\n  CDROM_MEDIA_CHANGED ioctl to read out kernel memory (bsc#1092903)\n- CVE-2018-16658: Prevent information leak in cdrom_ioctl_drive_status that\n  could have been used by local attackers to read kernel memory (bnc#1107689)\n- CVE-2018-6555: The irda_setsockopt function allowed local users to cause a\n  denial of service (ias_object use-after-free and system crash) or possibly have\n  unspecified other impact via an AF_IRDA socket (bnc#1106511)\n- CVE-2018-6554: Prevent memory leak in the irda_bind function that allowed\n  local users to cause a denial of service (memory consumption) by repeatedly\n  binding an AF_IRDA socket (bnc#1106509)\n- CVE-2018-10902: Protect against concurrent access to prevent double realloc\n  (double free) in snd_rawmidi_input_params() and snd_rawmidi_output_status(). A\n  malicious local attacker could have used this for privilege escalation\n  (bnc#1105322)\n- CVE-2018-10879: A local user could have caused a use-after-free in\n  ext4_xattr_set_entry function and a denial of service or unspecified other\n  impact by renaming a file in a crafted ext4 filesystem image (bsc#1099844)\n- CVE-2018-10883: A local user could have caused an out-of-bounds write in\n  jbd2_journal_dirty_metadata(), a denial of service, and a system crash by\n  mounting and operating on a crafted ext4 filesystem image (bsc#1099863)\n- CVE-2018-10880: Prevent stack-out-of-bounds write in the ext4 filesystem code\n  when mounting and writing to a crafted ext4 image in ext4_update_inline_data().\n  An attacker could have used this to cause a system crash and a denial of\n  service (bsc#1099845)\n- CVE-2018-10882: A local user could have caused an out-of-bound write, a\n  denial of service, and a system crash by unmounting a crafted ext4 filesystem\n  image (bsc#1099849)\n- CVE-2018-10881: A local user could have caused an out-of-bound access in\n  ext4_get_group_info function, a denial of service, and a system crash by\n  mounting and operating on a crafted ext4 filesystem image (bsc#1099864)\n- CVE-2018-10877: Prevent out-of-bound access in the ext4_ext_drop_refs()\n  function when operating on a crafted ext4 filesystem image (bsc#1099846)\n- CVE-2018-10876: A use-after-free was possible in ext4_ext_remove_space()\n  function when mounting and operating a crafted ext4 image (bsc#1099811)\n- CVE-2018-10878: A local user could have caused an out-of-bounds write and a\n  denial of service or unspecified other impact by mounting and operating a\n  crafted ext4 filesystem image (bsc#1099813)\n- CVE-2018-10853: The KVM hypervisor did not check current privilege(CPL) level\n  while emulating unprivileged instructions. An unprivileged guest user/process\n  could have used this flaw to potentially escalate privileges inside guest\n  (bsc#1097104).\n\nThe following non-security bugs were fixed:\n\n- KEYS: prevent creating a different user's keyrings (bnc#1065999).\n- KVM: MMU: always terminate page walks at level 1 (bsc#1062604).\n- KVM: MMU: simplify last_pte_bitmap (bsc#1062604).\n- KVM: VMX: Work around kABI breakage in 'enum vmx_l1d_flush_state' (bsc#1106369).\n- KVM: VMX: fixes for vmentry_l1d_flush module parameter (bsc#1106369).\n- KVM: nVMX: update last_nonleaf_level when initializing nested EPT (bsc#1062604).\n- Refresh patches.xen/xen3-x86-l1tf-04-protect-PROT_NONE-ptes.patch (bsc#1105100).\n- Do not report CPU affected by L1TF when ARCH_CAP_RDCL_NO bit is set (bsc#1104906).\n- Revert '- Disable patches.arch/x86-mm-Simplify-p-g4um-d_page-macros.patch' (bnc#1104818) \n- bcache: avoid unncessary cache prefetch bch_btree_node_get().\n- bcache: calculate the number of incremental GC nodes according to the total of btree nodes.\n- bcache: display rate debug parameters to 0 when writeback is not running.\n- bcache: do not check return value of debugfs_create_dir().\n- bcache: finish incremental GC.\n- bcache: fix I/O significant decline while backend devices registering.\n- bcache: fix error setting writeback_rate through sysfs interface (bsc#1064233).\n- bcache: free heap cache_set->flush_btree in bch_journal_free.\n- bcache: make the pr_err statement used for ENOENT only in sysfs_attatch section.\n- bcache: release dc->writeback_lock properly in bch_writeback_thread().\n- bcache: set max writeback rate when I/O request is idle (bsc#1064233).\n- bcache: simplify the calculation of the total amount of flash dirty data.\n- cifs: Fix infinite loop when using hard mount option (bsc#1091171).\n- ext4: check for allocation block validity with block group locked (bsc#1104495).\n- ext4: do not update checksum of new initialized bitmaps (bnc#1012382).\n- ext4: fix check to prevent initializing reserved inodes (bsc#1104319).\n- ext4: fix false negatives *and* false positives in ext4_check_descriptors() (bsc#1103445).\n- restore cond_resched() in shrink_dcache_parent().\n- usbip: vhci_sysfs: fix potential Spectre v1 (bsc#1096547).\n- x86, l1tf: Protect PROT_NONE PTEs against speculation fixup (bnc#1104818).\n- x86/speculation: Use ARCH_CAPABILITIES to skip L1D flush on vmentry (bsc#1106369).\n- xen, x86, l1tf: Protect PROT_NONE PTEs against speculation fixup (bnc#1104818).\n- xfs: Remove dead code from inode recover function (bsc#1105396).\n- xfs: convert XFS_AGFL_SIZE to a helper function (bsc#1090955, bsc#1090534).\n- xfs: detect agfl count corruption and reset agfl (bsc#1090955, bsc#1090534).\n- xfs: do not log/recover swapext extent owner changes for deleted inodes (bsc#1090955).\n- xfs: protect inode ->di_dmstate with a spinlock (bsc#1024788).\n- xfs: repair malformed inode items during log recovery (bsc#1105396).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-SLE-Module-Public-Cloud-12-2018-2063,SUSE-SLE-SERVER-12-SP1-2018-2063",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/",
+			"description": "Link for SUSE-SU-2018:2908-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2018-September/004618.html",
+			"description": "E-Mail link for SUSE-SU-2018:2908-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1012382",
+			"description": "SUSE Bug 1012382"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1024788",
+			"description": "SUSE Bug 1024788"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1062604",
+			"description": "SUSE Bug 1062604"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1064233",
+			"description": "SUSE Bug 1064233"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1065999",
+			"description": "SUSE Bug 1065999"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1090534",
+			"description": "SUSE Bug 1090534"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1090955",
+			"description": "SUSE Bug 1090955"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1091171",
+			"description": "SUSE Bug 1091171"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1092903",
+			"description": "SUSE Bug 1092903"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1096547",
+			"description": "SUSE Bug 1096547"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1097104",
+			"description": "SUSE Bug 1097104"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1097108",
+			"description": "SUSE Bug 1097108"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1099811",
+			"description": "SUSE Bug 1099811"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1099813",
+			"description": "SUSE Bug 1099813"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1099844",
+			"description": "SUSE Bug 1099844"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1099845",
+			"description": "SUSE Bug 1099845"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1099846",
+			"description": "SUSE Bug 1099846"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1099849",
+			"description": "SUSE Bug 1099849"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1099863",
+			"description": "SUSE Bug 1099863"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1099864",
+			"description": "SUSE Bug 1099864"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1099922",
+			"description": "SUSE Bug 1099922"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1100001",
+			"description": "SUSE Bug 1100001"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1102870",
+			"description": "SUSE Bug 1102870"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1103445",
+			"description": "SUSE Bug 1103445"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1104319",
+			"description": "SUSE Bug 1104319"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1104495",
+			"description": "SUSE Bug 1104495"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1104818",
+			"description": "SUSE Bug 1104818"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1104906",
+			"description": "SUSE Bug 1104906"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1105100",
+			"description": "SUSE Bug 1105100"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1105322",
+			"description": "SUSE Bug 1105322"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1105323",
+			"description": "SUSE Bug 1105323"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1105396",
+			"description": "SUSE Bug 1105396"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1106095",
+			"description": "SUSE Bug 1106095"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1106369",
+			"description": "SUSE Bug 1106369"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1106509",
+			"description": "SUSE Bug 1106509"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1106511",
+			"description": "SUSE Bug 1106511"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1107689",
+			"description": "SUSE Bug 1107689"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1108912",
+			"description": "SUSE Bug 1108912"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10853/",
+			"description": "SUSE CVE CVE-2018-10853 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10876/",
+			"description": "SUSE CVE CVE-2018-10876 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10877/",
+			"description": "SUSE CVE CVE-2018-10877 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10878/",
+			"description": "SUSE CVE CVE-2018-10878 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10879/",
+			"description": "SUSE CVE CVE-2018-10879 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10880/",
+			"description": "SUSE CVE CVE-2018-10880 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10881/",
+			"description": "SUSE CVE CVE-2018-10881 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10882/",
+			"description": "SUSE CVE CVE-2018-10882 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10883/",
+			"description": "SUSE CVE CVE-2018-10883 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10902/",
+			"description": "SUSE CVE CVE-2018-10902 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10940/",
+			"description": "SUSE CVE CVE-2018-10940 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-12896/",
+			"description": "SUSE CVE CVE-2018-12896 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-13093/",
+			"description": "SUSE CVE CVE-2018-13093 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-14617/",
+			"description": "SUSE CVE CVE-2018-14617 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-14634/",
+			"description": "SUSE CVE CVE-2018-14634 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-16276/",
+			"description": "SUSE CVE CVE-2018-16276 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-16658/",
+			"description": "SUSE CVE CVE-2018-16658 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-6554/",
+			"description": "SUSE CVE CVE-2018-6554 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-6555/",
+			"description": "SUSE CVE CVE-2018-6555 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Public Cloud 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Public Cloud 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Public Cloud 12",
+							"product_id": "SUSE Linux Enterprise Module for Public Cloud 12",
+							"cpe": "cpe:/o:suse:sle-module-public-cloud:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12 SP1-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12 SP1-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12 SP1-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 12 SP1-LTSS",
+							"cpe": "cpe:/o:suse:sles-ltss:12:sp1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-ec2-3.12.74-60.64.104.1",
+					"product_id": "kernel-ec2-3.12.74-60.64.104.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-devel-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-ec2-devel-3.12.74-60.64.104.1",
+					"product_id": "kernel-ec2-devel-3.12.74-60.64.104.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-extra-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-ec2-extra-3.12.74-60.64.104.1",
+					"product_id": "kernel-ec2-extra-3.12.74-60.64.104.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-default-3.12.74-60.64.104.1",
+					"product_id": "kernel-default-3.12.74-60.64.104.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-default-base-3.12.74-60.64.104.1",
+					"product_id": "kernel-default-base-3.12.74-60.64.104.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-default-devel-3.12.74-60.64.104.1",
+					"product_id": "kernel-default-devel-3.12.74-60.64.104.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-man-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-default-man-3.12.74-60.64.104.1",
+					"product_id": "kernel-default-man-3.12.74-60.64.104.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-devel-3.12.74-60.64.104.1",
+					"product_id": "kernel-devel-3.12.74-60.64.104.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-macros-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-macros-3.12.74-60.64.104.1",
+					"product_id": "kernel-macros-3.12.74-60.64.104.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-source-3.12.74-60.64.104.1",
+					"product_id": "kernel-source-3.12.74-60.64.104.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-syms-3.12.74-60.64.104.1",
+					"product_id": "kernel-syms-3.12.74-60.64.104.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-xen-3.12.74-60.64.104.1",
+					"product_id": "kernel-xen-3.12.74-60.64.104.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-base-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-xen-base-3.12.74-60.64.104.1",
+					"product_id": "kernel-xen-base-3.12.74-60.64.104.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-devel-3.12.74-60.64.104.1",
+				"full_product_name": {
+					"text": "kernel-xen-devel-3.12.74-60.64.104.1",
+					"product_id": "kernel-xen-devel-3.12.74-60.64.104.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-ec2-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Public Cloud 12"
+			},
+			{
+				"product_reference": "kernel-ec2-devel-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Public Cloud 12"
+			},
+			{
+				"product_reference": "kernel-ec2-extra-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Public Cloud 12"
+			},
+			{
+				"product_reference": "kernel-default-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-base-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-devel-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-man-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-devel-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-macros-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-source-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-syms-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-base-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-devel-3.12.74-60.64.104.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the way Linux kernel KVM hypervisor before 4.18 emulated instructions such as sgdt/sidt/fxsave/fxrstor. It did not check current privilege(CPL) level while emulating unprivileged instructions. An unprivileged guest user/process could use this flaw to potentially escalate privileges inside guest.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10853",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10853.html",
+					"description": "CVE-2018-10853"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1097104",
+					"description": "SUSE Bug 1097104"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1097108",
+					"description": "SUSE Bug 1097108"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in Linux kernel in the ext4 filesystem code. A use-after-free is possible in ext4_ext_remove_space() function when mounting and operating a crafted ext4 image.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10876",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10876.html",
+					"description": "CVE-2018-10876"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1099811",
+					"description": "SUSE Bug 1099811"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Linux kernel ext4 filesystem is vulnerable to an out-of-bound access in the ext4_ext_drop_refs() function when operating on a crafted ext4 filesystem image.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10877",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.7",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10877.html",
+					"description": "CVE-2018-10877"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1099846",
+					"description": "SUSE Bug 1099846"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the Linux kernel's ext4 filesystem. A local user can cause an out-of-bounds write and a denial of service or unspecified other impact is possible by mounting and operating a crafted ext4 filesystem image.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10878",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.6",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:R/S:U/C:N/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10878.html",
+					"description": "CVE-2018-10878"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1099813",
+					"description": "SUSE Bug 1099813"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the Linux kernel's ext4 filesystem. A local user can cause a use-after-free in ext4_xattr_set_entry function and a denial of service or unspecified other impact may occur by renaming a file in a crafted ext4 filesystem image.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10879",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10879.html",
+					"description": "CVE-2018-10879"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1099844",
+					"description": "SUSE Bug 1099844"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Linux kernel is vulnerable to a stack-out-of-bounds write in the ext4 filesystem code when mounting and writing to a crafted ext4 image in ext4_update_inline_data(). An attacker could use this to cause a system crash and a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10880",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.1",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.6",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:R/S:U/C:N/I:L/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10880.html",
+					"description": "CVE-2018-10880"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1099845",
+					"description": "SUSE Bug 1099845"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the Linux kernel's ext4 filesystem. A local user can cause an out-of-bound access in ext4_get_group_info function, a denial of service, and a system crash by mounting and operating on a crafted ext4 filesystem image.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10881",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10881.html",
+					"description": "CVE-2018-10881"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1099864",
+					"description": "SUSE Bug 1099864"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the Linux kernel's ext4 filesystem. A local user can cause an out-of-bound write in in fs/jbd2/transaction.c code, a denial of service, and a system crash by unmounting a crafted ext4 filesystem image.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10882",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10882.html",
+					"description": "CVE-2018-10882"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1099849",
+					"description": "SUSE Bug 1099849"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the Linux kernel's ext4 filesystem. A local user can cause an out-of-bounds write in jbd2_journal_dirty_metadata(), a denial of service, and a system crash by mounting and operating on a crafted ext4 filesystem image.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10883",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10883.html",
+					"description": "CVE-2018-10883"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1099863",
+					"description": "SUSE Bug 1099863"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "It was found that the raw midi kernel driver does not protect against concurrent access which leads to a double realloc (double free) in snd_rawmidi_input_params() and snd_rawmidi_output_status() which are part of snd_rawmidi_ioctl() handler in rawmidi.c file. A malicious local attacker could possibly use this for privilege escalation.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10902",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10902.html",
+					"description": "CVE-2018-10902"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1105322",
+					"description": "SUSE Bug 1105322"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1105323",
+					"description": "SUSE Bug 1105323"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The cdrom_ioctl_media_changed function in drivers/cdrom/cdrom.c in the Linux kernel before 4.16.6 allows local attackers to use a incorrect bounds check in the CDROM driver CDROM_MEDIA_CHANGED ioctl to read out kernel memory.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10940",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10940.html",
+					"description": "CVE-2018-10940"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1092903",
+					"description": "SUSE Bug 1092903"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1107689",
+					"description": "SUSE Bug 1107689"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1113751",
+					"description": "SUSE Bug 1113751"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel through 4.17.3. An Integer Overflow in kernel/time/posix-timers.c in the POSIX timer code is caused by the way the overrun accounting works. Depending on interval and expiry time values, the overrun can be larger than INT_MAX, but the accounting is int based. This basically makes the accounting values, which are visible to user space via timer_getoverrun(2) and siginfo::si_overrun, random. For example, a local user can cause a denial of service (signed integer overflow) via crafted mmap, futex, timer_create, and timer_settime system calls.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-12896",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-12896.html",
+					"description": "CVE-2018-12896"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1099922",
+					"description": "SUSE Bug 1099922"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in fs/xfs/xfs_icache.c in the Linux kernel through 4.17.3. There is a NULL pointer dereference and panic in lookup_slow() on a NULL inode->i_ops pointer when doing pathwalks on a corrupted xfs image. This occurs because of a lack of proper validation that cached inodes are free during allocation.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-13093",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.1",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-13093.html",
+					"description": "CVE-2018-13093"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1100001",
+					"description": "SUSE Bug 1100001"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel through 4.17.10. There is a NULL pointer dereference and panic in hfsplus_lookup() in fs/hfsplus/dir.c when opening a file (that is purportedly a hard link) in an hfs+ filesystem that has malformed catalog data, and is mounted read-only without a metadata directory.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-14617",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.1",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-14617.html",
+					"description": "CVE-2018-14617"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1102870",
+					"description": "SUSE Bug 1102870"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An integer overflow flaw was found in the Linux kernel's create_elf_tables() function. An unprivileged local user with access to SUID (or otherwise privileged) binary could use this flaw to escalate their privileges on the system. Kernel versions 2.6.x, 3.10.x and 4.14.x are believed to be vulnerable.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-14634",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-14634.html",
+					"description": "CVE-2018-14634"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1108912",
+					"description": "SUSE Bug 1108912"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1108963",
+					"description": "SUSE Bug 1108963"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1120323",
+					"description": "SUSE Bug 1120323"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1122265",
+					"description": "SUSE Bug 1122265"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1188063",
+					"description": "SUSE Bug 1188063"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in yurex_read in drivers/usb/misc/yurex.c in the Linux kernel before 4.17.7. Local attackers could use user access read/writes with incorrect bounds checking in the yurex USB driver to crash the kernel or potentially escalate privileges.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-16276",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-16276.html",
+					"description": "CVE-2018-16276"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1106095",
+					"description": "SUSE Bug 1106095"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115593",
+					"description": "SUSE Bug 1115593"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel before 4.18.6. An information leak in cdrom_ioctl_drive_status in drivers/cdrom/cdrom.c could be used by local attackers to read kernel memory because a cast from unsigned long to int interferes with bounds checking. This is similar to CVE-2018-10940.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-16658",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-16658.html",
+					"description": "CVE-2018-16658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1092903",
+					"description": "SUSE Bug 1092903"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1107689",
+					"description": "SUSE Bug 1107689"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1113751",
+					"description": "SUSE Bug 1113751"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Memory leak in the irda_bind function in net/irda/af_irda.c and later in drivers/staging/irda/net/af_irda.c in the Linux kernel before 4.17 allows local users to cause a denial of service (memory consumption) by repeatedly binding an AF_IRDA socket.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-6554",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-6554.html",
+					"description": "CVE-2018-6554"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1106509",
+					"description": "SUSE Bug 1106509"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1106511",
+					"description": "SUSE Bug 1106511"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The irda_setsockopt function in net/irda/af_irda.c and later in drivers/staging/irda/net/af_irda.c in the Linux kernel before 4.17 allows local users to cause a denial of service (ias_object use-after-free and system crash) or possibly have unspecified other impact via an AF_IRDA socket.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-6555",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.104.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.104.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182908-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-6555.html",
+					"description": "CVE-2018-6555"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1106509",
+					"description": "SUSE Bug 1106509"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1106511",
+					"description": "SUSE Bug 1106511"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		}
+	]
+}

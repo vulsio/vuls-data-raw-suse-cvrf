@@ -1,0 +1,1571 @@
+{
+	"document_title": "Security update for xen",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2018:2528-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2018-08-27T10:02:13Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2018-08-27T10:02:13Z",
+		"current_release_date": "2018-08-27T10:02:13Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for xen",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThis update for xen fixes the following issues:\n\nThese security issue were fixed:\n\n- CVE-2018-3646: Systems with microprocessors utilizing speculative execution\n  and address translations may have allowed unauthorized disclosure of\n  information residing in the L1 data cache to an attacker with local user access\n  with guest OS privilege via a terminal page fault and a side-channel analysis\n  (bsc#1091107, bsc#1027519).\n- CVE-2018-12617: An integer overflow that could cause a segmentation\n  fault in qmp_guest_file_read() with g_malloc() in qemu-guest-agent was\n  fixed (bsc#1098744)\n- CVE-2018-3665: System software utilizing Lazy FP state restore technique\n  on systems using Intel Core-based microprocessors may potentially allow\n  a local process to infer data from another process through a speculative\n  execution side channel. (bsc#1095242)\n- CVE-2018-3639: Systems with microprocessors utilizing speculative\n  execution and speculative execution of memory reads before the addresses\n  of all prior memory writes are known may allow unauthorized disclosure\n  of information to an attacker with local user access via a side-channel\n  analysis, aka Speculative Store Bypass (SSB), Variant 4. (bsc#1092631)\n- CVE-2017-5715: Systems with microprocessors utilizing speculative\n  execution and indirect branch prediction may allow unauthorized disclosure\n  of information to an attacker with local user access via a side-channel\n  analysis. (bsc#1074562)\n- CVE-2017-5753: Systems with microprocessors utilizing speculative\n  execution and branch prediction may allow unauthorized disclosure of\n  information to an attacker with local user access via a side-channel\n  analysis. (bsc#1074562)\n- CVE-2017-5754: Systems with microprocessors utilizing speculative\n  execution and indirect branch prediction may allow unauthorized disclosure\n  of information to an attacker with local user access via a side-channel\n  analysis of the data cache. (bsc#1074562)\n- CVE-2018-12891: Certain PV MMU operations may take a long time to\n  process. For that reason Xen explicitly checks for the need to preempt\n  the current vCPU at certain points. A few rarely taken code paths did\n  bypass such checks. By suitably enforcing the conditions through its own\n  page table contents, a malicious guest may cause such bypasses to be used\n  for an unbounded number of iterations. A malicious or buggy PV guest may\n  cause a Denial of Service (DoS) affecting the entire host. Specifically,\n  it may prevent use of a physical CPU for an indeterminate period of\n  time. (bsc#1097521)\n- CVE-2018-12893:  One of the fixes in XSA-260 added some safety checks\n  to help prevent Xen livelocking with debug exceptions. Unfortunately,\n  due to an oversight, at least one of these safety checks can be\n  triggered by a guest. A malicious PV guest can crash Xen, leading to\n  a Denial of Service. Only x86 PV guests can exploit the vulnerability. x86\n  HVM and PVH guests cannot exploit the vulnerability. An attacker\n  needs to be able to control hardware debugging facilities to exploit\n  the vulnerability, but such permissions are typically available to\n  unprivileged users. (bsc#1097522)\n- CVE-2018-11806: m_cat in slirp/mbuf.c in Qemu has a heap-based buffer\n  overflow via incoming fragmented datagrams. (bsc#1096224)\n- CVE-2018-10982: An issue was discovered in Xen allowed x86 HVM guest\n  OS users to cause a denial of service (unexpectedly high interrupt\n  number, array overrun, and hypervisor crash) or possibly gain hypervisor\n  privileges by setting up an HPET timer to deliver interrupts in IO-APIC\n  mode, aka vHPET interrupt injection. (bsc#1090822)\n- CVE-2018-10981: An issue was discovered in Xen that allowed x86 HVM guest OS users to cause a denial of service (host OS infinite loop) in situations where a QEMU device model attempts to make invalid transitions between states of a request. (bsc#1090823)\n\nFollowing bugs were fixed:\n\n- After updating to kernel 3.0.101-0.47.106.32-xen system crashes in check_bugs() (bsc#1097206)\n- bsc#1079730 - in xen-kmp, unplug emulated devices after migration\n  This is required since xen-4.10 and/or qemu-2.10 because the state\n  of unplug is not propagated from one dom0 to another. Without\n  this unplug qemu's block-backend will be unable to open qcow2\n  disks on the receiving dom0\n  ",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "sleposp3-xen-13752,slessp3-xen-13752",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182528-1/",
+			"description": "Link for SUSE-SU-2018:2528-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2018-August/004499.html",
+			"description": "E-Mail link for SUSE-SU-2018:2528-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1027519",
+			"description": "SUSE Bug 1027519"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1074562",
+			"description": "SUSE Bug 1074562"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1079730",
+			"description": "SUSE Bug 1079730"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1090822",
+			"description": "SUSE Bug 1090822"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1090823",
+			"description": "SUSE Bug 1090823"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1091107",
+			"description": "SUSE Bug 1091107"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1092631",
+			"description": "SUSE Bug 1092631"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1095242",
+			"description": "SUSE Bug 1095242"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1096224",
+			"description": "SUSE Bug 1096224"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1097206",
+			"description": "SUSE Bug 1097206"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1097521",
+			"description": "SUSE Bug 1097521"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1097522",
+			"description": "SUSE Bug 1097522"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1098744",
+			"description": "SUSE Bug 1098744"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-5715/",
+			"description": "SUSE CVE CVE-2017-5715 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-5753/",
+			"description": "SUSE CVE CVE-2017-5753 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-5754/",
+			"description": "SUSE CVE CVE-2017-5754 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10981/",
+			"description": "SUSE CVE CVE-2018-10981 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10982/",
+			"description": "SUSE CVE CVE-2018-10982 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-11806/",
+			"description": "SUSE CVE CVE-2018-11806 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-12617/",
+			"description": "SUSE CVE CVE-2018-12617 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-12891/",
+			"description": "SUSE CVE CVE-2018-12891 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-12893/",
+			"description": "SUSE CVE CVE-2018-12893 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-3639/",
+			"description": "SUSE CVE CVE-2018-3639 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-3646/",
+			"description": "SUSE CVE CVE-2018-3646 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-3665/",
+			"description": "SUSE CVE CVE-2018-3665 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Point of Sale 11 SP3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Point of Sale 11 SP3",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Point of Sale 11 SP3",
+							"product_id": "SUSE Linux Enterprise Point of Sale 11 SP3",
+							"cpe": "cpe:/o:suse:sle-pos:11:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 11 SP3-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 11 SP3-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 11 SP3-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 11 SP3-LTSS",
+							"cpe": "cpe:/o:suse:suse_sles_ltss:11:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+				"full_product_name": {
+					"text": "xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+					"product_id": "xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+				"full_product_name": {
+					"text": "xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+					"product_id": "xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-libs-4.2.5_21-45.25.1",
+				"full_product_name": {
+					"text": "xen-libs-4.2.5_21-45.25.1",
+					"product_id": "xen-libs-4.2.5_21-45.25.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-tools-domU-4.2.5_21-45.25.1",
+				"full_product_name": {
+					"text": "xen-tools-domU-4.2.5_21-45.25.1",
+					"product_id": "xen-tools-domU-4.2.5_21-45.25.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-4.2.5_21-45.25.1",
+				"full_product_name": {
+					"text": "xen-4.2.5_21-45.25.1",
+					"product_id": "xen-4.2.5_21-45.25.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-doc-html-4.2.5_21-45.25.1",
+				"full_product_name": {
+					"text": "xen-doc-html-4.2.5_21-45.25.1",
+					"product_id": "xen-doc-html-4.2.5_21-45.25.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-doc-pdf-4.2.5_21-45.25.1",
+				"full_product_name": {
+					"text": "xen-doc-pdf-4.2.5_21-45.25.1",
+					"product_id": "xen-doc-pdf-4.2.5_21-45.25.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-libs-32bit-4.2.5_21-45.25.1",
+				"full_product_name": {
+					"text": "xen-libs-32bit-4.2.5_21-45.25.1",
+					"product_id": "xen-libs-32bit-4.2.5_21-45.25.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-tools-4.2.5_21-45.25.1",
+				"full_product_name": {
+					"text": "xen-tools-4.2.5_21-45.25.1",
+					"product_id": "xen-tools-4.2.5_21-45.25.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "xen-libs-4.2.5_21-45.25.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "xen-tools-domU-4.2.5_21-45.25.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Point of Sale 11 SP3"
+			},
+			{
+				"product_reference": "xen-4.2.5_21-45.25.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "xen-doc-html-4.2.5_21-45.25.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "xen-doc-pdf-4.2.5_21-45.25.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "xen-libs-4.2.5_21-45.25.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "xen-libs-32bit-4.2.5_21-45.25.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "xen-tools-4.2.5_21-45.25.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			},
+			{
+				"product_reference": "xen-tools-domU-4.2.5_21-45.25.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP3-LTSS"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Systems with microprocessors utilizing speculative execution and indirect branch prediction may allow unauthorized disclosure of information to an attacker with local user access via a side-channel analysis.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-5715",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-tools-domU-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-html-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-pdf-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-32bit-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-domU-4.2.5_21-45.25.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.1",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-5715.html",
+					"description": "CVE-2017-5715"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1068032",
+					"description": "SUSE Bug 1068032"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1074562",
+					"description": "SUSE Bug 1074562"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1074578",
+					"description": "SUSE Bug 1074578"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1074701",
+					"description": "SUSE Bug 1074701"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1074741",
+					"description": "SUSE Bug 1074741"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1074919",
+					"description": "SUSE Bug 1074919"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1075006",
+					"description": "SUSE Bug 1075006"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1075007",
+					"description": "SUSE Bug 1075007"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1075262",
+					"description": "SUSE Bug 1075262"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1075419",
+					"description": "SUSE Bug 1075419"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1076115",
+					"description": "SUSE Bug 1076115"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1076372",
+					"description": "SUSE Bug 1076372"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1076606",
+					"description": "SUSE Bug 1076606"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1078353",
+					"description": "SUSE Bug 1078353"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1080039",
+					"description": "SUSE Bug 1080039"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087887",
+					"description": "SUSE Bug 1087887"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087939",
+					"description": "SUSE Bug 1087939"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1088147",
+					"description": "SUSE Bug 1088147"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1089055",
+					"description": "SUSE Bug 1089055"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1095735",
+					"description": "SUSE Bug 1095735"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1102517",
+					"description": "SUSE Bug 1102517"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1105108",
+					"description": "SUSE Bug 1105108"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1126516",
+					"description": "SUSE Bug 1126516"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1173489",
+					"description": "SUSE Bug 1173489"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201457",
+					"description": "SUSE Bug 1201457"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201877",
+					"description": "SUSE Bug 1201877"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1203236",
+					"description": "SUSE Bug 1203236"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Systems with microprocessors utilizing speculative execution and branch prediction may allow unauthorized disclosure of information to an attacker with local user access via a side-channel analysis.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-5753",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-tools-domU-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-html-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-pdf-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-32bit-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-domU-4.2.5_21-45.25.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.6",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-5753.html",
+					"description": "CVE-2017-5753"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1068032",
+					"description": "SUSE Bug 1068032"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1074562",
+					"description": "SUSE Bug 1074562"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1074578",
+					"description": "SUSE Bug 1074578"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1074701",
+					"description": "SUSE Bug 1074701"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1075006",
+					"description": "SUSE Bug 1075006"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1075419",
+					"description": "SUSE Bug 1075419"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1075748",
+					"description": "SUSE Bug 1075748"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1080039",
+					"description": "SUSE Bug 1080039"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087084",
+					"description": "SUSE Bug 1087084"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087939",
+					"description": "SUSE Bug 1087939"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1089055",
+					"description": "SUSE Bug 1089055"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1136865",
+					"description": "SUSE Bug 1136865"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201877",
+					"description": "SUSE Bug 1201877"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1209547",
+					"description": "SUSE Bug 1209547"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Systems with microprocessors utilizing speculative execution and indirect branch prediction may allow unauthorized disclosure of information to an attacker with local user access via a side-channel analysis of the data cache.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-5754",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-tools-domU-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-html-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-pdf-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-32bit-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-domU-4.2.5_21-45.25.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-5754.html",
+					"description": "CVE-2017-5754"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1068032",
+					"description": "SUSE Bug 1068032"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1074562",
+					"description": "SUSE Bug 1074562"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1074578",
+					"description": "SUSE Bug 1074578"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1074701",
+					"description": "SUSE Bug 1074701"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1075006",
+					"description": "SUSE Bug 1075006"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1075008",
+					"description": "SUSE Bug 1075008"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087939",
+					"description": "SUSE Bug 1087939"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1089055",
+					"description": "SUSE Bug 1089055"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115045",
+					"description": "SUSE Bug 1115045"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1136865",
+					"description": "SUSE Bug 1136865"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201877",
+					"description": "SUSE Bug 1201877"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in Xen through 4.10.x allowing x86 HVM guest OS users to cause a denial of service (host OS infinite loop) in situations where a QEMU device model attempts to make invalid transitions between states of a request.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10981",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-tools-domU-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-html-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-pdf-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-32bit-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-domU-4.2.5_21-45.25.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10981.html",
+					"description": "CVE-2018-10981"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1090823",
+					"description": "SUSE Bug 1090823"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in Xen through 4.10.x allowing x86 HVM guest OS users to cause a denial of service (unexpectedly high interrupt number, array overrun, and hypervisor crash) or possibly gain hypervisor privileges by setting up an HPET timer to deliver interrupts in IO-APIC mode, aka vHPET interrupt injection.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10982",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-tools-domU-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-html-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-pdf-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-32bit-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-domU-4.2.5_21-45.25.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10982.html",
+					"description": "CVE-2018-10982"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1090822",
+					"description": "SUSE Bug 1090822"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "m_cat in slirp/mbuf.c in Qemu has a heap-based buffer overflow via incoming fragmented datagrams.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-11806",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-tools-domU-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-html-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-pdf-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-32bit-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-domU-4.2.5_21-45.25.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:H/UI:N/S:C/C:L/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-11806.html",
+					"description": "CVE-2018-11806"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1096223",
+					"description": "SUSE Bug 1096223"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1096224",
+					"description": "SUSE Bug 1096224"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "qmp_guest_file_read in qga/commands-posix.c and qga/commands-win32.c in qemu-ga (aka QEMU Guest Agent) in QEMU 2.12.50 has an integer overflow causing a g_malloc0() call to trigger a segmentation fault when trying to allocate a large memory chunk. The vulnerability can be exploited by sending a crafted QMP command (including guest-file-read with a large count value) to the agent via the listening socket.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-12617",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-tools-domU-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-html-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-pdf-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-32bit-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-domU-4.2.5_21-45.25.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-12617.html",
+					"description": "CVE-2018-12617"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1098735",
+					"description": "SUSE Bug 1098735"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1098744",
+					"description": "SUSE Bug 1098744"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in Xen through 4.10.x. Certain PV MMU operations may take a long time to process. For that reason Xen explicitly checks for the need to preempt the current vCPU at certain points. A few rarely taken code paths did bypass such checks. By suitably enforcing the conditions through its own page table contents, a malicious guest may cause such bypasses to be used for an unbounded number of iterations. A malicious or buggy PV guest may cause a Denial of Service (DoS) affecting the entire host. Specifically, it may prevent use of a physical CPU for an indeterminate period of time. All Xen versions from 3.4 onwards are vulnerable. Xen versions 3.3 and earlier are vulnerable to an even wider class of attacks, due to them lacking preemption checks altogether in the affected code paths. Only x86 systems are affected. ARM systems are not affected. Only multi-vCPU x86 PV guests can leverage the vulnerability. x86 HVM or PVH guests as well as x86 single-vCPU PV ones cannot leverage the vulnerability.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-12891",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-tools-domU-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-html-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-pdf-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-32bit-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-domU-4.2.5_21-45.25.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "2.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-12891.html",
+					"description": "CVE-2018-12891"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1097521",
+					"description": "SUSE Bug 1097521"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in Xen through 4.10.x. One of the fixes in XSA-260 added some safety checks to help prevent Xen livelocking with debug exceptions. Unfortunately, due to an oversight, at least one of these safety checks can be triggered by a guest. A malicious PV guest can crash Xen, leading to a Denial of Service. All Xen systems which have applied the XSA-260 fix are vulnerable. Only x86 systems are vulnerable. ARM systems are not vulnerable. Only x86 PV guests can exploit the vulnerability. x86 HVM and PVH guests cannot exploit the vulnerability. An attacker needs to be able to control hardware debugging facilities to exploit the vulnerability, but such permissions are typically available to unprivileged users.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-12893",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-tools-domU-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-html-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-pdf-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-32bit-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-domU-4.2.5_21-45.25.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-12893.html",
+					"description": "CVE-2018-12893"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1097522",
+					"description": "SUSE Bug 1097522"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Systems with microprocessors utilizing speculative execution and speculative execution of memory reads before the addresses of all prior memory writes are known may allow unauthorized disclosure of information to an attacker with local user access via a side-channel analysis, aka Speculative Store Bypass (SSB), Variant 4.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-3639",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-tools-domU-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-html-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-pdf-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-32bit-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-domU-4.2.5_21-45.25.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-3639.html",
+					"description": "CVE-2018-3639"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1074701",
+					"description": "SUSE Bug 1074701"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1085235",
+					"description": "SUSE Bug 1085235"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1085308",
+					"description": "SUSE Bug 1085308"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087078",
+					"description": "SUSE Bug 1087078"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1092631",
+					"description": "SUSE Bug 1092631"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1092885",
+					"description": "SUSE Bug 1092885"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1094912",
+					"description": "SUSE Bug 1094912"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1098813",
+					"description": "SUSE Bug 1098813"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1100394",
+					"description": "SUSE Bug 1100394"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1102640",
+					"description": "SUSE Bug 1102640"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1105412",
+					"description": "SUSE Bug 1105412"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1111963",
+					"description": "SUSE Bug 1111963"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1172781",
+					"description": "SUSE Bug 1172781"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1172782",
+					"description": "SUSE Bug 1172782"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1172783",
+					"description": "SUSE Bug 1172783"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1173489",
+					"description": "SUSE Bug 1173489"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201877",
+					"description": "SUSE Bug 1201877"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1215674",
+					"description": "SUSE Bug 1215674"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Systems with microprocessors utilizing speculative execution and address translations may allow unauthorized disclosure of information residing in the L1 data cache to an attacker with local user access with guest OS privilege via a terminal page fault and a side-channel analysis.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-3646",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-tools-domU-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-html-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-pdf-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-32bit-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-domU-4.2.5_21-45.25.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.6",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-3646.html",
+					"description": "CVE-2018-3646"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087078",
+					"description": "SUSE Bug 1087078"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087081",
+					"description": "SUSE Bug 1087081"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1089343",
+					"description": "SUSE Bug 1089343"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091107",
+					"description": "SUSE Bug 1091107"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1099306",
+					"description": "SUSE Bug 1099306"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1104365",
+					"description": "SUSE Bug 1104365"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1104894",
+					"description": "SUSE Bug 1104894"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1106548",
+					"description": "SUSE Bug 1106548"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1113534",
+					"description": "SUSE Bug 1113534"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1136865",
+					"description": "SUSE Bug 1136865"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201877",
+					"description": "SUSE Bug 1201877"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "System software utilizing Lazy FP state restore technique on systems using Intel Core-based microprocessors may potentially allow a local process to infer data from another process through a speculative execution side channel.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-3665",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Point of Sale 11 SP3:xen-tools-domU-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-html-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-doc-pdf-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-default-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-kmp-pae-4.2.5_21_3.0.101_0.47.106.43-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-32bit-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-libs-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-4.2.5_21-45.25.1",
+						"SUSE Linux Enterprise Server 11 SP3-LTSS:xen-tools-domU-4.2.5_21-45.25.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20182528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-3665.html",
+					"description": "CVE-2018-3665"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087078",
+					"description": "SUSE Bug 1087078"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087086",
+					"description": "SUSE Bug 1087086"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1090338",
+					"description": "SUSE Bug 1090338"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1095241",
+					"description": "SUSE Bug 1095241"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1095242",
+					"description": "SUSE Bug 1095242"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1096740",
+					"description": "SUSE Bug 1096740"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1100091",
+					"description": "SUSE Bug 1100091"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1100555",
+					"description": "SUSE Bug 1100555"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		}
+	]
+}

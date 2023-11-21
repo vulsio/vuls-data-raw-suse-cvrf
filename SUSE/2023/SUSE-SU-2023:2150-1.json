@@ -1,0 +1,235 @@
+{
+	"document_title": "Security update for shim",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2023:2150-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2023-05-09T15:34:27Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2023-05-09T15:34:27Z",
+		"current_release_date": "2023-05-09T15:34:27Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for shim",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for shim fixes the following issues:\n\n- Updated shim signature after shim 15.7 be signed back:\n  signature-sles.x86_64.asc, signature-sles.aarch64.asc (bsc#1198458)\n\n- Add POST_PROCESS_PE_FLAGS=-N to the build command in shim.spec to\n  disable the NX compatibility flag when using post-process-pe because\n  grub2 is not ready. (bsc#1205588)\n\n- Enable the NX compatibility flag by default. (jsc#PED-127) \n\nUpdate to 15.7 (bsc#1198458) (jsc#PED-127):\n\n- Make SBAT variable payload introspectable\n- Reference MokListRT instead of MokList\n- Add a link to the test plan in the readme.\n- [V3] Enable TDX measurement to RTMR register\n- Discard load-options that start with a NUL\n- Fixed load_cert_file bugs\n- Add -malign-double to IA32 compiler flags\n- pe: Fix image section entry-point validation\n- make-archive: Build reproducible tarball\n- mok: remove MokListTrusted from PCR 7\n\nOther fixes:\n\n- Support enhance shim measurement to TD RTMR. (jsc#PED-1273) \n\n- shim-install: ensure grub.cfg created is not overwritten after installing grub related files\n- Add logic to shim.spec to only set sbat policy when efivarfs is writeable.  (bsc#1201066)\n- Add logic to shim.spec for detecting --set-sbat-policy option before using mokutil to set sbat policy. (bsc#1202120)\n- Change the URL in SBAT section to mail:security@suse.de. (bsc#1193282)\n\nUpdate to 15.6 (bsc#1198458):\n\n- MokManager: removed Locate graphic output protocol fail error message\n- shim: implement SBAT verification for the shim_lock protocol\n- post-process-pe: Fix a missing return code check\n- Update github actions matrix to be more useful\n- post-process-pe: Fix format string warnings on 32-bit platforms\n- Allow MokListTrusted to be enabled by default\n- Re-add ARM AArch64 support\n- Use ASCII as fallback if Unicode Box Drawing characters fail\n- make: don't treat cert.S specially\n- shim: use SHIM_DEVEL_VERBOSE when built in devel mode\n- Break out of the inner sbat loop if we find the entry.\n- Support loading additional certificates\n- Add support for NX (W^X) mitigations.\n- Fix preserve_sbat_uefi_variable() logic\n- SBAT Policy latest should be a one-shot\n- pe: Fix a buffer overflow when SizeOfRawData > VirtualSize\n- pe: Perform image verification earlier when loading grub\n- Update advertised sbat generation number for shim\n- Update SBAT generation requirements for 05/24/22\n- Also avoid CVE-2022-28737 in verify_image() by @vathpela\n\nUpdate to 15.5 (bsc#1198458):\n\n- Broken ia32 relocs and an unimportant submodule change.\n- mok: allocate MOK config table as BootServicesData\n- Don't call QueryVariableInfo() on EFI 1.10 machines (bsc#1187260)\n- Relax the check for import_mok_state()  (bsc#1185261)\n- SBAT.md: trivial changes\n- shim: another attempt to fix load options handling\n- Add tests for our load options parsing.\n- arm/aa64: fix the size of .rela* sections\n- mok: fix potential buffer overrun in import_mok_state\n- mok: relax the maximum variable size check\n- Don't unhook ExitBootServices when EBS protection is disabled\n- fallback: find_boot_option() needs to return the index for the boot entry in optnum\n- httpboot: Ignore case when checking HTTP headers\n- Fallback allocation errors\n- shim: avoid BOOTx64.EFI in message on other architectures\n- str: remove duplicate parameter check\n- fallback: add compile option FALLBACK_NONINTERACTIVE\n- Test mok mirror\n- Modify sbat.md to help with readability.\n- csv: detect end of csv file correctly\n- Specify that the .sbat section is ASCII not UTF-8\n- tests: add 'include-fixed' GCC directory to include directories\n- pe: simplify generate_hash()\n- Don't make shim abort when TPM log event fails (RHBZ #2002265)\n- Fallback to default loader if parsed one does not exist\n- fallback: Fix for BootOrder crash when index returned\n- Better console checks\n- docs: update SBAT UEFI variable name\n- Don't parse load options if invoked from removable media path\n- fallback: fix fallback not passing arguments of the first boot option\n- shim: Don't stop forever at 'Secure Boot not enabled' notification\n- Allocate mokvar table in runtime memory.\n- Remove post-process-pe on 'make clean'\n- pe: missing perror argument\n\n\n- CVE-2022-28737: Fixed a buffer overflow when SizeOfRawData > VirtualSize (bsc#1198458)\n\n- Add mokutil command to post script for setting sbat policy to latest mode\n  when the SbatPolicy-605dab50-e046-4300-abb6-3dd810dd8b23 is not created.\n  (bsc#1198458)\n\n- Updated vendor dbx binary and script (bsc#1198458)\n\n  - Updated dbx-cert.tar.xz and vendor-dbx-sles.bin for adding\n    SLES-UEFI-SIGN-Certificate-2021-05.crt to vendor dbx list.\n  - Updated dbx-cert.tar.xz and vendor-dbx-opensuse.bin for adding\n    openSUSE-UEFI-SIGN-Certificate-2021-05.crt to vendor dbx list.\n  - Updated vendor-dbx.bin for adding SLES-UEFI-SIGN-Certificate-2021-05.crt\n    and openSUSE-UEFI-SIGN-Certificate-2021-05.crt for testing environment.\n  - Updated generate-vendor-dbx.sh script for generating a vendor-dbx.bin\n    file which includes all .der for testing environment.\n\n- avoid buffer overflow when copying data to the MOK config table (bsc#1185232)\n- Disable exporting vendor-dbx to MokListXRT since writing a large RT variable could crash some machines (bsc#1185261)\n- ignore the odd LoadOptions length (bsc#1185232)\n- shim-install: reset def_shim_efi to 'shim.efi' if the given file doesn't exist\n- relax the maximum variable size check for u-boot (bsc#1185621)\n- handle ignore_db and user_insecure_mode correctly (bsc#1185441, bsc#1187071)\n\n- Split the keys in vendor-dbx.bin to vendor-dbx-sles and\n  vendor-dbx-opensuse for shim-sles and shim-opensuse to reduce\n  the size of MokListXRT (bsc#1185261) \n  + Also update generate-vendor-dbx.sh in dbx-cert.tar.xz\n\nUpdate shim to 15.4-4.7.1, Version: 15.4, 'Thu Jul 15 2021'\n\n- Update the SLE signatures\n- Includes fixes for MOK and boot problems (bsc#1187696, bsc#1185261, bsc#1185441,\n  bsc#1187071, bsc#1185621, bsc#1185261, bsc#1185232, bsc#1185261,\n  bsc#1187260, bsc#1185232)\n\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2023-2150,SUSE-SLE-SERVER-12-SP2-BCL-2023-2150",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232150-1/",
+			"description": "Link for SUSE-SU-2023:2150-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-updates/2023-May/029298.html",
+			"description": "E-Mail link for SUSE-SU-2023:2150-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1185232",
+			"description": "SUSE Bug 1185232"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1185261",
+			"description": "SUSE Bug 1185261"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1185441",
+			"description": "SUSE Bug 1185441"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1185621",
+			"description": "SUSE Bug 1185621"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1187071",
+			"description": "SUSE Bug 1187071"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1187260",
+			"description": "SUSE Bug 1187260"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1187696",
+			"description": "SUSE Bug 1187696"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1193282",
+			"description": "SUSE Bug 1193282"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1198458",
+			"description": "SUSE Bug 1198458"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1201066",
+			"description": "SUSE Bug 1201066"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1202120",
+			"description": "SUSE Bug 1202120"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1205588",
+			"description": "SUSE Bug 1205588"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-28737/",
+			"description": "SUSE CVE CVE-2022-28737 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12 SP2-BCL",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12 SP2-BCL",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12 SP2-BCL",
+							"product_id": "SUSE Linux Enterprise Server 12 SP2-BCL",
+							"cpe": "cpe:/o:suse:sles-bcl:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "shim-15.7-22.15.1",
+				"full_product_name": {
+					"text": "shim-15.7-22.15.1",
+					"product_id": "shim-15.7-22.15.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "shim-15.7-22.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-BCL"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "There's a possible overflow in handle_image() when shim tries to load and execute crafted EFI executables; The handle_image() function takes into account the SizeOfRawData field from each section to be loaded. An attacker can leverage this to perform out-of-bound writes into memory. Arbitrary code execution is not discarded in such scenario.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-28737",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 12 SP2-BCL:shim-15.7-22.15.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "8.4",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232150-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-28737.html",
+					"description": "CVE-2022-28737"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1198458",
+					"description": "SUSE Bug 1198458"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1205065",
+					"description": "SUSE Bug 1205065"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1205066",
+					"description": "SUSE Bug 1205066"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1205831",
+					"description": "SUSE Bug 1205831"
+				}
+			]
+		}
+	]
+}

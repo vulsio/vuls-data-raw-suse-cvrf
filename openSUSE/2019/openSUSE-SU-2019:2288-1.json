@@ -1,0 +1,191 @@
+{
+	"document_title": "Security update for singularity",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2019:2288-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2019-10-07T15:31:24Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2019-10-07T15:31:24Z",
+		"current_release_date": "2019-10-07T15:31:24Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for singularity",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for singularity fixes the following issues:\n\nsingularity was updated to version 3.4.1:\n\nThis point release addresses the following issues:\n\n- Fixes an issue where a PID namespace was always being used\n- Fixes compilation on non 64-bit architectures\n- Allows fakeroot builds for zypper, pacstrap, and debootstrap\n- Correctly detects seccomp on OpenSUSE\n- Honors GO_MODFLAGS properly in the mconfig generated makefile\n- Passes the Mac hostname to the VM in MacOS Singularity builds\n- Handles temporary EAGAIN failures when setting up loop devices on\nrecent kernels.\n\nNew version 3.4.0. Many changes since 3.2.1, for the full changelog \n  please read CHANGELOG.md\n\nUpdate to version 3.2.1:\n\nThis point release fixes the following bugs:\n\n- Allows users to join instances with non-suid workflow\n- Removes false warning when seccomp is disabled on the host\n- Fixes an issue in the terminal when piping output to commands\n- Binds NVIDIA persistenced socket when `--nv` is invoked\n\nImprove integration with SUSE Products: add support to create Singularity\nimages with SLE.\n\n* Newer SUSE versions use a different path for the RPM database.\n* When the installation succeeds by an installation scriptlet fails\n  zypper returns error code 107. Don't treat this as an error.\n* In order to specify a repository GPG key, add support for\n  multi line variables.\n* In order to specify a list of additional repos, add support\n  to 'indexed' variables.\n* Improve handling of SUSE repositires:\n\n  - For SLE, use SUSEConnect to get all product repos.\n  - Allow to specify a repository GPG key.\n  - Allow to specify additional installation repositories.\n\n- Add group 'singularity', fix ownerships.\n\nUpdated to singularity v3.2.0\n\n* CVE-2019-11328: Instance files are now stored in user's home directory for privacy and\n  many checks have been added to ensure that a user can't manipulate files\n  to change `starter-suid` behavior when instances are joined (many thanks\n  to Matthias Gerstner from the SUSE security team for finding and securely\n  reporting this vulnerability) (boo#1128598)\n\n* New features / functionalities\n\n  - Introduced a new basic framework for creating and managing plugins\n  - Added the ability to create containers through multi-stage builds\n  - Created the concept of a Sylabs Cloud 'remote' endpoint and added the\n    ability for users and admins to set them through CLI and conf files \n  - Added caching for images from Singularity Hub\n  - Made it possible to compile Singularity outside of `$GOPATH`\n  - Added a json partition to SIF files for OCI configuration when building\n    from an OCI source\n  - Full integration with Singularity desktop for MacOS code base\n\n* New Commands\n\n  - Introduced the `plugin` command group for creating and managing plugins.\n\n* Introduced the `remote` command group to support management of Singularity\n  endpoints.\n* Added to the `key` command group to improve PGP key management.\n* Added the `Stage: <name>` keyword to the definition file header and the\n  `from <stage name>` option/argument pair to the `%files` section to\n  support multistage builds\n* Deprecated / removed commands\n\n  - The `--token/-t` option has been deprecated in favor of the `singularity\n    remote` command group\n\n* Changed defaults / behaviors\n\n  - Ask to confirm password on a newly generated PGP key\n  - Prompt to push a key to the KeyStore when generated\n  - Refuse to push an unsigned container unless overridden with\n    `--allow-unauthenticated/-U` option\n  - Warn and prompt when pulling an unsigned container without the\n       `--allow-unauthenticated/-U` option\nFor more information check:\n   https://github.com/sylabs/singularity/blob/release-3.2/CHANGELOG.md\n\nUpdated to singularity v3.1.1:\n\n* New Commands\n\n  - New hidden `buildcfg` command to display compile-time parameters \n  - Added support for `LDFLAGS`, `CFLAGS`, `CGO_` variables in build system\n  - Added `--nocolor` flag to Singularity client to disable color in logging\n\n* Removed Commands\n\n  - `singularity capability <add/drop> --desc` has been removed\n  - `singularity capability list <--all/--group/--user>` flags have all\n    been removed \n\n* New features / functionalities\n  - The `--builder` flag to the `build` command implicitly sets `--remote`\n  - Repeated binds no longer cause Singularity to exit and fail, just warn\n    instead\n  - Corrected typos and improved docstrings throughout\n  - Removed warning when CWD does not exist on the host system\n  - Added support to spec file for RPM building on SLES 11\n\nUpdate to singularity 3.1.0 what is reimplementaion in go\nso this is a complete new build and just reusing the changelog\nentries, following build differences were made to the upstream\nspec file\n\n* build position independent executable\n* build stripped executable\n\n- Change from /var/singularity to /var/lib/singularity\n- Fix warning on bash-completion file about non-executible script.\n\n- Add bash completions directory to file list for suse_version < 1500\n  to keep the build checker happy.\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "openSUSE-2019-2288",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2019-10/msg00028.html",
+			"description": "E-Mail link for openSUSE-SU-2019:2288-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1125369",
+			"description": "SUSE Bug 1125369"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1128598",
+			"description": "SUSE Bug 1128598"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-11328/",
+			"description": "SUSE CVE CVE-2019-11328 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Package Hub 15",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Package Hub 15",
+						"full_product_name": {
+							"text": "SUSE Package Hub 15",
+							"product_id": "SUSE Package Hub 15"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Package Hub 15 SP1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Package Hub 15 SP1",
+						"full_product_name": {
+							"text": "SUSE Package Hub 15 SP1",
+							"product_id": "SUSE Package Hub 15 SP1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "singularity-3.4.1-bp151.3.3.1",
+				"full_product_name": {
+					"text": "singularity-3.4.1-bp151.3.3.1",
+					"product_id": "singularity-3.4.1-bp151.3.3.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "singularity-3.4.1-bp151.3.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Package Hub 15"
+			},
+			{
+				"product_reference": "singularity-3.4.1-bp151.3.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Package Hub 15 SP1"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in Singularity 3.1.0 to 3.2.0-rc2, a malicious user with local/network access to the host system (e.g. ssh) could exploit this vulnerability due to insecure permissions allowing a user to edit files within `/run/singularity/instances/sing/<user>/<instance>`. The manipulation of those files can change the behavior of the starter-suid program when instances are joined resulting in potential privilege escalation on the host.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-11328",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Package Hub 15 SP1:singularity-3.4.1-bp151.3.3.1",
+						"SUSE Package Hub 15:singularity-3.4.1-bp151.3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "9",
+					"vector_v_2": "AV:N/AC:L/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.8",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2019-10/msg00028.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-11328.html",
+					"description": "CVE-2019-11328"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1128598",
+					"description": "SUSE Bug 1128598"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,1783 @@
+{
+	"document_title": "Security update for kvm",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2017:2963-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2017-11-09T15:17:11Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2017-11-09T15:17:11Z",
+		"current_release_date": "2017-11-09T15:17:11Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for kvm",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for kvm fixes several issues.\n\nThese security issues were fixed:\n\n- CVE-2016-9602: The VirtFS host directory sharing via Plan 9 File System(9pfs) support was vulnerable to an improper link following issue which allowed a privileged user inside guest to access host file system beyond the shared folder and potentially escalating their privileges on a host (bsc#1020427)\n- CVE-2016-9603: A privileged user within the guest VM could have caused a heap overflow in the device model process, potentially escalating their privileges to that of the device model process (bsc#1028656)\n- CVE-2017-10664: qemu-nbd did not ignore SIGPIPE, which allowed remote attackers to cause a denial of service (daemon crash) by disconnecting during a server-to-client reply attempt (bsc#1046636)\n- CVE-2017-10806: Stack-based buffer overflow allowed local guest OS users to cause a denial of service (QEMU process crash) via vectors related to logging debug messages (bsc#1047674).\n- CVE-2017-11334: The address_space_write_continue function allowed local guest OS privileged users to cause a denial of service (out-of-bounds access and guest instance crash) by leveraging use of qemu_map_ram_ptr to access guest ram block area (bsc#1048902).\n- CVE-2017-11434: The dhcp_decode function in slirp/bootp.c allowed local guest OS users to cause a denial of service (out-of-bounds read) via a crafted DHCP options string (bsc#1049381)\n- CVE-2017-13672: The VGA display emulator support allowed local guest OS privileged users to cause a denial of service (out-of-bounds read and QEMU process crash) via vectors involving display update (bsc#1056334).\n- CVE-2017-14167: Integer overflow in the load_multiboot function allowed local guest OS users to execute arbitrary code on the host via crafted multiboot header address values, which trigger an out-of-bounds write (bsc#1057585).\n- CVE-2017-15038: Race condition in the v9fs_xattrwalk function local guest OS users to obtain sensitive information from host heap memory via vectors related to reading extended attributes (bsc#1062069).\n- CVE-2017-15289: The mode4and5 write functions allowed local OS guest privileged users to cause a denial of service (out-of-bounds write access and Qemu process crash) via vectors related to dst calculation (bsc#1063122).\n- CVE-2017-5579: The 16550A UART serial device emulation support was vulnerable to a memory leakage issue allowing a privileged user to cause a DoS and/or potentially crash the Qemu process on the host (bsc#1021741)\n- CVE-2017-5973: A infinite loop while doing control transfer in xhci_kick_epctx allowed privileged user inside the guest to crash the host process resulting in DoS (bsc#1025109)\n- CVE-2017-6505: The ohci_service_ed_list function allowed local guest OS users to cause a denial of service (infinite loop) via vectors involving the number of link endpoint list descriptors (bsc#1028184)\n- CVE-2017-7471: The VirtFS host directory sharing via Plan 9 File System(9pfs) support was vulnerable to an improper access control issue which allowed a privileged user inside guest to access host file system beyond the shared folder and potentially escalating their privileges on a host (bsc#1034866)\n- CVE-2017-7493: The VirtFS, host directory sharing via Plan 9 File System(9pfs) support, was vulnerable to an improper access control issue. It could occur while accessing virtfs metadata files in mapped-file security mode. A guest user could have used this flaw to escalate their privileges inside guest (bsc#1039495)\n- CVE-2017-7718: hw/display/cirrus_vga_rop.h allowed local guest OS privileged users to cause a denial of service (out-of-bounds read and QEMU process crash) via vectors related to copying VGA data via the cirrus_bitblt_rop_fwd_transp_ and cirrus_bitblt_rop_fwd_ functions (bsc#1034908)\n- CVE-2017-7980: An out-of-bounds r/w access issues in the Cirrus CLGD 54xx VGA Emulator support allowed privileged user inside guest to use this flaw to crash the Qemu process resulting in DoS or potentially execute arbitrary code on a host with privileges of Qemu process on the host (bsc#1035406)\n- CVE-2017-8086: A memory leak in the v9fs_list_xattr function in hw/9pfs/9p-xattr.c allowed local guest OS privileged users to cause a denial of service (memory consumption) via vectors involving the orig_value variable (bsc#1035950)\n- CVE-2017-8309: Memory leak in the audio/audio.c allowed remote attackers to cause a denial of service (memory consumption) by repeatedly starting and stopping audio capture (bsc#1037242)\n- CVE-2017-9330: USB OHCI Emulation in qemu allowed local guest OS users to cause a denial of service (infinite loop) by leveraging an incorrect return value (bsc#1042159)\n- CVE-2017-9373: The IDE AHCI Emulation support was vulnerable to a host memory leakage issue, which allowed a privileged user inside guest to leak host memory resulting in DoS (bsc#1042801)\n- CVE-2017-9375: The USB xHCI controller emulator support was vulnerable to an infinite recursive call loop issue, which allowed a privileged user inside guest to crash the Qemu process resulting in DoS (bsc#1042800)\n- CVE-2017-9503: The MegaRAID SAS 8708EM2 Host Bus Adapter emulation support was vulnerable to a null pointer dereference issue which allowed a privileged user inside guest to crash the Qemu process on the host resulting in DoS (bsc#1043296)\n- Privilege escalation in TCG mode (bsc#1030624)\n\nThese non-security issues were fixed:\n\n- bsc#1038396: Fixed 12 tempest tests\n- bsc#1045035: Fixed regression introduced by previous virtfs security fixes\n- bsc#1034044: Prevent KVM guests stuck when waiting for sg_io() completion\n- bsc#1031051: Prevent I/O errors when using pvmove with disk device=lun\n- bsc#1049785: Make virsh dump output readable by crash \n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "slessp4-kvm-13342",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/",
+			"description": "Link for SUSE-SU-2017:2963-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2017-11/msg00014.html",
+			"description": "E-Mail link for SUSE-SU-2017:2963-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1020427",
+			"description": "SUSE Bug 1020427"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1021741",
+			"description": "SUSE Bug 1021741"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1025109",
+			"description": "SUSE Bug 1025109"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1028184",
+			"description": "SUSE Bug 1028184"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1028656",
+			"description": "SUSE Bug 1028656"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1030624",
+			"description": "SUSE Bug 1030624"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031051",
+			"description": "SUSE Bug 1031051"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1034044",
+			"description": "SUSE Bug 1034044"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1034866",
+			"description": "SUSE Bug 1034866"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1034908",
+			"description": "SUSE Bug 1034908"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1035406",
+			"description": "SUSE Bug 1035406"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1035950",
+			"description": "SUSE Bug 1035950"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1037242",
+			"description": "SUSE Bug 1037242"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1038396",
+			"description": "SUSE Bug 1038396"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1039495",
+			"description": "SUSE Bug 1039495"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1042159",
+			"description": "SUSE Bug 1042159"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1042800",
+			"description": "SUSE Bug 1042800"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1042801",
+			"description": "SUSE Bug 1042801"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1043296",
+			"description": "SUSE Bug 1043296"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1045035",
+			"description": "SUSE Bug 1045035"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1046636",
+			"description": "SUSE Bug 1046636"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1047674",
+			"description": "SUSE Bug 1047674"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1048902",
+			"description": "SUSE Bug 1048902"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1049381",
+			"description": "SUSE Bug 1049381"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1049785",
+			"description": "SUSE Bug 1049785"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1056334",
+			"description": "SUSE Bug 1056334"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1057585",
+			"description": "SUSE Bug 1057585"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1062069",
+			"description": "SUSE Bug 1062069"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1063122",
+			"description": "SUSE Bug 1063122"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-9602/",
+			"description": "SUSE CVE CVE-2016-9602 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-9603/",
+			"description": "SUSE CVE CVE-2016-9603 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-10664/",
+			"description": "SUSE CVE CVE-2017-10664 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-10806/",
+			"description": "SUSE CVE CVE-2017-10806 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-11334/",
+			"description": "SUSE CVE CVE-2017-11334 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-11434/",
+			"description": "SUSE CVE CVE-2017-11434 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-13672/",
+			"description": "SUSE CVE CVE-2017-13672 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-14167/",
+			"description": "SUSE CVE CVE-2017-14167 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-15038/",
+			"description": "SUSE CVE CVE-2017-15038 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-15289/",
+			"description": "SUSE CVE CVE-2017-15289 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-5579/",
+			"description": "SUSE CVE CVE-2017-5579 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-5973/",
+			"description": "SUSE CVE CVE-2017-5973 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-6505/",
+			"description": "SUSE CVE CVE-2017-6505 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-7471/",
+			"description": "SUSE CVE CVE-2017-7471 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-7493/",
+			"description": "SUSE CVE CVE-2017-7493 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-7718/",
+			"description": "SUSE CVE CVE-2017-7718 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-7980/",
+			"description": "SUSE CVE CVE-2017-7980 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-8086/",
+			"description": "SUSE CVE CVE-2017-8086 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-8309/",
+			"description": "SUSE CVE CVE-2017-8309 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-9330/",
+			"description": "SUSE CVE CVE-2017-9330 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-9373/",
+			"description": "SUSE CVE CVE-2017-9373 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-9375/",
+			"description": "SUSE CVE CVE-2017-9375 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-9503/",
+			"description": "SUSE CVE CVE-2017-9503 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 11 SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 11 SP4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 11 SP4",
+							"product_id": "SUSE Linux Enterprise Server 11 SP4",
+							"cpe": "cpe:/o:suse:suse_sles:11:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 11 SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 11 SP4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 11 SP4",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 11 SP4",
+							"cpe": "cpe:/o:suse:sles_sap:11:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kvm-1.4.2-60.3.1",
+				"full_product_name": {
+					"text": "kvm-1.4.2-60.3.1",
+					"product_id": "kvm-1.4.2-60.3.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kvm-1.4.2-60.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kvm-1.4.2-60.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Qemu before version 2.9 is vulnerable to an improper link following when built with the VirtFS. A privileged user inside guest could use this flaw to access host file system beyond the shared folder and potentially escalating their privileges on a host.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-9602",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.7",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.8",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-9602.html",
+					"description": "CVE-2016-9602"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020427",
+					"description": "SUSE Bug 1020427"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A heap buffer overflow flaw was found in QEMU's Cirrus CLGD 54xx VGA emulator's VNC display driver support before 2.9; the issue could occur when a VNC client attempted to update its display after a VGA operation is performed by a guest. A privileged user/process inside a guest could use this flaw to crash the QEMU process or, potentially, execute arbitrary code on the host with privileges of the QEMU process.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-9603",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.5",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9.9",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-9603.html",
+					"description": "CVE-2016-9603"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1028655",
+					"description": "SUSE Bug 1028655"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1028656",
+					"description": "SUSE Bug 1028656"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "qemu-nbd in QEMU (aka Quick Emulator) does not ignore SIGPIPE, which allows remote attackers to cause a denial of service (daemon crash) by disconnecting during a server-to-client reply attempt.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-10664",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-10664.html",
+					"description": "CVE-2017-10664"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1046636",
+					"description": "SUSE Bug 1046636"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1046637",
+					"description": "SUSE Bug 1046637"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Stack-based buffer overflow in hw/usb/redirect.c in QEMU (aka Quick Emulator) allows local guest OS users to cause a denial of service (QEMU process crash) via vectors related to logging debug messages.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-10806",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-10806.html",
+					"description": "CVE-2017-10806"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1047674",
+					"description": "SUSE Bug 1047674"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1047675",
+					"description": "SUSE Bug 1047675"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The address_space_write_continue function in exec.c in QEMU (aka Quick Emulator) allows local guest OS privileged users to cause a denial of service (out-of-bounds access and guest instance crash) by leveraging use of qemu_map_ram_ptr to access guest ram block area.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-11334",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-11334.html",
+					"description": "CVE-2017-11334"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1048902",
+					"description": "SUSE Bug 1048902"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1048920",
+					"description": "SUSE Bug 1048920"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The dhcp_decode function in slirp/bootp.c in QEMU (aka Quick Emulator) allows local guest OS users to cause a denial of service (out-of-bounds read and QEMU process crash) via a crafted DHCP options string.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-11434",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.6",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-11434.html",
+					"description": "CVE-2017-11434"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1049381",
+					"description": "SUSE Bug 1049381"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1049578",
+					"description": "SUSE Bug 1049578"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "QEMU (aka Quick Emulator), when built with the VGA display emulator support, allows local guest OS privileged users to cause a denial of service (out-of-bounds read and QEMU process crash) via vectors involving display update.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-13672",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.3",
+					"vector_v_2": "AV:A/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3",
+					"vector_v_3": "CVSS:3.0/AV:A/AC:H/PR:L/UI:N/S:C/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-13672.html",
+					"description": "CVE-2017-13672"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1056334",
+					"description": "SUSE Bug 1056334"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1056336",
+					"description": "SUSE Bug 1056336"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1084604",
+					"description": "SUSE Bug 1084604"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Integer overflow in the load_multiboot function in hw/i386/multiboot.c in QEMU (aka Quick Emulator) allows local guest OS users to execute arbitrary code on the host via crafted multiboot header address values, which trigger an out-of-bounds write.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-14167",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.6",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:N/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-14167.html",
+					"description": "CVE-2017-14167"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1057585",
+					"description": "SUSE Bug 1057585"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Race condition in the v9fs_xattrwalk function in hw/9pfs/9p.c in QEMU (aka Quick Emulator) allows local guest OS users to obtain sensitive information from host heap memory via vectors related to reading extended attributes.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-15038",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.3",
+					"vector_v_2": "AV:A/AC:M/Au:S/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3",
+					"vector_v_3": "CVSS:3.0/AV:A/AC:H/PR:L/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-15038.html",
+					"description": "CVE-2017-15038"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1062069",
+					"description": "SUSE Bug 1062069"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The mode4and5 write functions in hw/display/cirrus_vga.c in Qemu allow local OS guest privileged users to cause a denial of service (out-of-bounds write access and Qemu process crash) via vectors related to dst calculation.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-15289",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:H/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-15289.html",
+					"description": "CVE-2017-15289"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1063122",
+					"description": "SUSE Bug 1063122"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1063123",
+					"description": "SUSE Bug 1063123"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Memory leak in the serial_exit_core function in hw/char/serial.c in QEMU (aka Quick Emulator) allows local guest OS privileged users to cause a denial of service (host memory consumption and QEMU process crash) via a large number of device unplug operations.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-5579",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.3",
+					"vector_v_2": "AV:A/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-5579.html",
+					"description": "CVE-2017-5579"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1021741",
+					"description": "SUSE Bug 1021741"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1022627",
+					"description": "SUSE Bug 1022627"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The xhci_kick_epctx function in hw/usb/hcd-xhci.c in QEMU (aka Quick Emulator) allows local guest OS privileged users to cause a denial of service (infinite loop and QEMU process crash) via vectors related to control transfer descriptor sequence.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-5973",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.3",
+					"vector_v_2": "AV:A/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-5973.html",
+					"description": "CVE-2017-5973"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1025109",
+					"description": "SUSE Bug 1025109"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1025188",
+					"description": "SUSE Bug 1025188"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The ohci_service_ed_list function in hw/usb/hcd-ohci.c in QEMU (aka Quick Emulator) before 2.9.0 allows local guest OS users to cause a denial of service (infinite loop) via vectors involving the number of link endpoint list descriptors, a different vulnerability than CVE-2017-9330.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-6505",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-6505.html",
+					"description": "CVE-2017-6505"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1028184",
+					"description": "SUSE Bug 1028184"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1028235",
+					"description": "SUSE Bug 1028235"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Quick Emulator (Qemu) built with the VirtFS, host directory sharing via Plan 9 File System (9pfs) support, is vulnerable to an improper access control issue. It could occur while accessing files on a shared host directory. A privileged user inside guest could use this flaw to access host file system beyond the shared folder and potentially escalating their privileges on a host.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7471",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9",
+					"vector_v_3": "CVSS:3.1/AV:A/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7471.html",
+					"description": "CVE-2017-7471"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1034866",
+					"description": "SUSE Bug 1034866"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1034990",
+					"description": "SUSE Bug 1034990"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Quick Emulator (Qemu) built with the VirtFS, host directory sharing via Plan 9 File System(9pfs) support, is vulnerable to an improper access control issue. It could occur while accessing virtfs metadata files in mapped-file security mode. A guest user could use this flaw to escalate their privileges inside guest.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7493",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7493.html",
+					"description": "CVE-2017-7493"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1039495",
+					"description": "SUSE Bug 1039495"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "hw/display/cirrus_vga_rop.h in QEMU (aka Quick Emulator) allows local guest OS privileged users to cause a denial of service (out-of-bounds read and QEMU process crash) via vectors related to copying VGA data via the cirrus_bitblt_rop_fwd_transp_ and cirrus_bitblt_rop_fwd_ functions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7718",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.4",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:P/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7718.html",
+					"description": "CVE-2017-7718"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1034908",
+					"description": "SUSE Bug 1034908"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1034994",
+					"description": "SUSE Bug 1034994"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Heap-based buffer overflow in Cirrus CLGD 54xx VGA Emulator in Quick Emulator (Qemu) 2.8 and earlier allows local guest OS users to execute arbitrary code or cause a denial of service (crash) via vectors related to a VNC client updating its display after a VGA operation.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7980",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.1",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:A/AC:H/PR:L/UI:N/S:C/C:L/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7980.html",
+					"description": "CVE-2017-7980"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1035406",
+					"description": "SUSE Bug 1035406"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1035483",
+					"description": "SUSE Bug 1035483"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Memory leak in the v9fs_list_xattr function in hw/9pfs/9p-xattr.c in QEMU (aka Quick Emulator) allows local guest OS privileged users to cause a denial of service (memory consumption) via vectors involving the orig_value variable.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-8086",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-8086.html",
+					"description": "CVE-2017-8086"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1035950",
+					"description": "SUSE Bug 1035950"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Memory leak in the audio/audio.c in QEMU (aka Quick Emulator) allows remote attackers to cause a denial of service (memory consumption) by repeatedly starting and stopping audio capture.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-8309",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-8309.html",
+					"description": "CVE-2017-8309"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1037242",
+					"description": "SUSE Bug 1037242"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1037243",
+					"description": "SUSE Bug 1037243"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "QEMU (aka Quick Emulator) before 2.9.0, when built with the USB OHCI Emulation support, allows local guest OS users to cause a denial of service (infinite loop) by leveraging an incorrect return value, a different vulnerability than CVE-2017-6505.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-9330",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-9330.html",
+					"description": "CVE-2017-9330"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1042159",
+					"description": "SUSE Bug 1042159"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1042160",
+					"description": "SUSE Bug 1042160"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1043157",
+					"description": "SUSE Bug 1043157"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Memory leak in QEMU (aka Quick Emulator), when built with IDE AHCI Emulation support, allows local guest OS privileged users to cause a denial of service (memory consumption) by repeatedly hot-unplugging the AHCI device.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-9373",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-9373.html",
+					"description": "CVE-2017-9373"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1042801",
+					"description": "SUSE Bug 1042801"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "QEMU (aka Quick Emulator), when built with USB xHCI controller emulator support, allows local guest OS privileged users to cause a denial of service (infinite recursive call) via vectors involving control transfer descriptors sequencing.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-9375",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-9375.html",
+					"description": "CVE-2017-9375"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1042800",
+					"description": "SUSE Bug 1042800"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "QEMU (aka Quick Emulator), when built with MegaRAID SAS 8708EM2 Host Bus Adapter emulation support, allows local guest OS privileged users to cause a denial of service (NULL pointer dereference and QEMU process crash) via vectors involving megasas command processing.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-9503",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP4:kvm-1.4.2-60.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kvm-1.4.2-60.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172963-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-9503.html",
+					"description": "CVE-2017-9503"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1043296",
+					"description": "SUSE Bug 1043296"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1043297",
+					"description": "SUSE Bug 1043297"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1043312",
+					"description": "SUSE Bug 1043312"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,1517 @@
+{
+	"document_title": "Security update for Xen",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2015:0944-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2013-03-13T11:27:38Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2013-03-13T11:27:38Z",
+		"current_release_date": "2013-03-13T11:27:38Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for Xen",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nXEN has been updated to fix various bugs and security issues:\n\n    * \n\n      CVE-2013-0153: (XSA 36) To avoid an erratum in early hardware, the\n      Xen AMD IOMMU code by default choose to use a single interrupt\n      remapping table for the whole system. This sharing implied that any\n      guest with a passed through PCI device that is bus mastering capable\n      can inject interrupts into other guests, including domain 0. This has\n      been disabled for AMD chipsets not capable of it.\n\n    * \n\n      CVE-2012-6075: qemu: The e1000 had overflows under some conditions,\n      potentially corrupting memory.\n\n    * \n\n      CVE-2013-0154: (XSA 37) Hypervisor crash due to incorrect ASSERT\n      (debug build only)\n\n    * \n\n      CVE-2012-5634: (XSA-33) A VT-d interrupt remapping source validation\n      flaw was fixed.\n\nAlso the following bugs have been fixed:\n\n    * bnc#805094 - xen hot plug attach/detach fails\n    * bnc#802690 - domain locking can prevent a live migration from\n      completing\n    * bnc#797014 - no way to control live migrations\n          o fix logic error in stdiostream_progress\n          o restore logging in xc_save\n          o add options to control migration tunables\n    * bnc#806736: enabling xentrace crashes hypervisor\n    * Upstream patches from Jan 26287-sched-credit-pick-idle.patch\n      26501-VMX-simplify-CR0-update.patch\n      26502-VMX-disable-SMEP-when-not-paging.patch\n      26516-ACPI-parse-table-retval.patch (Replaces\n      CVE-2013-0153-xsa36.patch) 26517-AMD-IOMMU-clear-irtes.patch\n      (Replaces CVE-2013-0153-xsa36.patch)\n      26518-AMD-IOMMU-disable-if-SATA-combined-mode.patch (Replaces\n      CVE-2013-0153-xsa36.patch)\n      26519-AMD-IOMMU-perdev-intremap-default.patch (Replaces\n      CVE-2013-0153-xsa36.patch) 26526-pvdrv-no-devinit.patch\n      26531-AMD-IOMMU-IVHD-special-missing.patch (Replaces\n      CVE-2013-0153-xsa36.patch)\n    * bnc#798188 - Add $network to xend initscript dependencies\n    * bnc#799694 - Unable to dvd or cdrom-boot DomU after xen-tools update\n      Fixed with update to Xen version 4.1.4\n    * bnc#800156 - L3: HP iLo Generate NMI function not working in XEN\n      kernel\n    * Upstream patches from Jan 26404-x86-forward-both-NMI-kinds.patch\n      26427-x86-AMD-enable-WC+.patch\n    * bnc#793927 - Xen VMs with more than 2 disks randomly fail to start\n    * Upstream patches from Jan 26332-x86-compat-show-guest-stack-mfn.patch\n      26333-x86-get_page_type-assert.patch (Replaces\n      CVE-2013-0154-xsa37.patch)\n      26340-VT-d-intremap-verify-legacy-bridge.patch (Replaces\n      CVE-2012-5634-xsa33.patch) 26370-libxc-x86-initial-mapping-fit.patch\n    * Update to Xen 4.1.4 c/s 23432\n    * Update xenpaging.guest-memusage.patch add rule for xenmem to avoid\n      spurious build failures\n    * Upstream patches from Jan 26179-PCI-find-next-cap.patch\n      26183-x86-HPET-masking.patch 26188-x86-time-scale-asm.patch\n      26200-IOMMU-debug-verbose.patch 26203-x86-HAP-dirty-vram-leak.patch\n      26229-gnttab-version-switch.patch (Replaces\n      CVE-2012-5510-xsa26.patch) 26230-x86-HVM-limit-batches.patch\n      (Replaces CVE-2012-5511-xsa27.patch)\n      26231-memory-exchange-checks.patch (Replaces\n      CVE-2012-5513-xsa29.patch) 26232-x86-mark-PoD-error-path.patch\n      (Replaces CVE-2012-5514-xsa30.patch) 26233-memop-order-checks.patch\n      (Replaces CVE-2012-5515-xsa31.patch)\n      26235-IOMMU-ATS-max-queue-depth.patch\n      26272-x86-EFI-makefile-cflags-filter.patch\n      26294-x86-AMD-Fam15-way-access-filter.patch CVE-2013-0154-xsa37.patch\n    * Restore c/s 25751 in 23614-x86_64-EFI-boot.patch. Modify the EFI\n      Makefile to do additional filtering.\n\nSecurity Issue references:\n\n    * CVE-2013-0153\n      <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-0153>\n    * CVE-2012-6075\n      <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-6075>\n    * CVE-2012-5634\n      <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-5634>\n\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "slessp2-xen",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20150944-1/",
+			"description": "Link for SUSE-SU-2015:0944-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2015-05/msg00025.html",
+			"description": "E-Mail link for SUSE-SU-2015:0944-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/777628",
+			"description": "SUSE Bug 777628"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/789940",
+			"description": "SUSE Bug 789940"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/789944",
+			"description": "SUSE Bug 789944"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/789945",
+			"description": "SUSE Bug 789945"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/789948",
+			"description": "SUSE Bug 789948"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/789950",
+			"description": "SUSE Bug 789950"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/789951",
+			"description": "SUSE Bug 789951"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/789988",
+			"description": "SUSE Bug 789988"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/792476",
+			"description": "SUSE Bug 792476"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/793927",
+			"description": "SUSE Bug 793927"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/794316",
+			"description": "SUSE Bug 794316"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/797014",
+			"description": "SUSE Bug 797014"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/797031",
+			"description": "SUSE Bug 797031"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/797523",
+			"description": "SUSE Bug 797523"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/798188",
+			"description": "SUSE Bug 798188"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/799694",
+			"description": "SUSE Bug 799694"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/800156",
+			"description": "SUSE Bug 800156"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/800275",
+			"description": "SUSE Bug 800275"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/802690",
+			"description": "SUSE Bug 802690"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/805094",
+			"description": "SUSE Bug 805094"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/806736",
+			"description": "SUSE Bug 806736"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/910441",
+			"description": "SUSE Bug 910441"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/927967",
+			"description": "SUSE Bug 927967"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/929339",
+			"description": "SUSE Bug 929339"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2012-5510/",
+			"description": "SUSE CVE CVE-2012-5510 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2012-5511/",
+			"description": "SUSE CVE CVE-2012-5511 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2012-5512/",
+			"description": "SUSE CVE CVE-2012-5512 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2012-5513/",
+			"description": "SUSE CVE CVE-2012-5513 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2012-5514/",
+			"description": "SUSE CVE CVE-2012-5514 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2012-5515/",
+			"description": "SUSE CVE CVE-2012-5515 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2012-5634/",
+			"description": "SUSE CVE CVE-2012-5634 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2012-6075/",
+			"description": "SUSE CVE CVE-2012-6075 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2013-0153/",
+			"description": "SUSE CVE CVE-2013-0153 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-3340/",
+			"description": "SUSE CVE CVE-2015-3340 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-3456/",
+			"description": "SUSE CVE CVE-2015-3456 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 11 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 11 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 11 SP2",
+							"product_id": "SUSE Linux Enterprise Server 11 SP2",
+							"cpe": "cpe:/o:suse:suse_sles:11:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 11 SP2-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 11 SP2-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 11 SP2-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 11 SP2-LTSS",
+							"cpe": "cpe:/o:suse:suse_sles_ltss:11:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 11 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 11 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 11 SP2",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 11 SP2",
+							"cpe": "cpe:/o:suse:sles_sap:11:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-4.1.4_02-0.5.1",
+				"full_product_name": {
+					"text": "xen-4.1.4_02-0.5.1",
+					"product_id": "xen-4.1.4_02-0.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-devel-4.1.6_08-0.11.1",
+				"full_product_name": {
+					"text": "xen-devel-4.1.6_08-0.11.1",
+					"product_id": "xen-devel-4.1.6_08-0.11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-doc-html-4.1.4_02-0.5.1",
+				"full_product_name": {
+					"text": "xen-doc-html-4.1.4_02-0.5.1",
+					"product_id": "xen-doc-html-4.1.4_02-0.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-doc-pdf-4.1.4_02-0.5.1",
+				"full_product_name": {
+					"text": "xen-doc-pdf-4.1.4_02-0.5.1",
+					"product_id": "xen-doc-pdf-4.1.4_02-0.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+				"full_product_name": {
+					"text": "xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+					"product_id": "xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+				"full_product_name": {
+					"text": "xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+					"product_id": "xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+				"full_product_name": {
+					"text": "xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+					"product_id": "xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-libs-4.1.4_02-0.5.1",
+				"full_product_name": {
+					"text": "xen-libs-4.1.4_02-0.5.1",
+					"product_id": "xen-libs-4.1.4_02-0.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-libs-32bit-4.1.4_02-0.5.1",
+				"full_product_name": {
+					"text": "xen-libs-32bit-4.1.4_02-0.5.1",
+					"product_id": "xen-libs-32bit-4.1.4_02-0.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-tools-4.1.4_02-0.5.1",
+				"full_product_name": {
+					"text": "xen-tools-4.1.4_02-0.5.1",
+					"product_id": "xen-tools-4.1.4_02-0.5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-tools-domU-4.1.4_02-0.5.1",
+				"full_product_name": {
+					"text": "xen-tools-domU-4.1.4_02-0.5.1",
+					"product_id": "xen-tools-domU-4.1.4_02-0.5.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "xen-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2"
+			},
+			{
+				"product_reference": "xen-devel-4.1.6_08-0.11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2"
+			},
+			{
+				"product_reference": "xen-doc-html-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2"
+			},
+			{
+				"product_reference": "xen-doc-pdf-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2"
+			},
+			{
+				"product_reference": "xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2"
+			},
+			{
+				"product_reference": "xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2"
+			},
+			{
+				"product_reference": "xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2"
+			},
+			{
+				"product_reference": "xen-libs-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2"
+			},
+			{
+				"product_reference": "xen-libs-32bit-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2"
+			},
+			{
+				"product_reference": "xen-tools-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2"
+			},
+			{
+				"product_reference": "xen-tools-domU-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2"
+			},
+			{
+				"product_reference": "xen-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-devel-4.1.6_08-0.11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-doc-html-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-doc-pdf-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-libs-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-libs-32bit-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-tools-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-tools-domU-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP2"
+			},
+			{
+				"product_reference": "xen-devel-4.1.6_08-0.11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP2"
+			},
+			{
+				"product_reference": "xen-doc-html-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP2"
+			},
+			{
+				"product_reference": "xen-doc-pdf-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP2"
+			},
+			{
+				"product_reference": "xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP2"
+			},
+			{
+				"product_reference": "xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP2"
+			},
+			{
+				"product_reference": "xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP2"
+			},
+			{
+				"product_reference": "xen-libs-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP2"
+			},
+			{
+				"product_reference": "xen-libs-32bit-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP2"
+			},
+			{
+				"product_reference": "xen-tools-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP2"
+			},
+			{
+				"product_reference": "xen-tools-domU-4.1.4_02-0.5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP2"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Xen 4.x, when downgrading the grant table version, does not properly remove the status page from the tracking list when freeing the page, which allows local guest OS administrators to cause a denial of service (hypervisor crash) via unspecified vectors.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2012-5510",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-domU-4.1.4_02-0.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20150944-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2012-5510.html",
+					"description": "CVE-2012-5510"
+				},
+				{
+					"url": "https://bugzilla.suse.com/789945",
+					"description": "SUSE Bug 789945"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Stack-based buffer overflow in the dirty video RAM tracking functionality in Xen 3.4 through 4.1 allows local HVM guest OS administrators to cause a denial of service (crash) via a large bitmap image.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2012-5511",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-domU-4.1.4_02-0.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20150944-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2012-5511.html",
+					"description": "CVE-2012-5511"
+				},
+				{
+					"url": "https://bugzilla.suse.com/789944",
+					"description": "SUSE Bug 789944"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Array index error in the HVMOP_set_mem_access handler in Xen 4.1 allows local HVM guest OS administrators to cause a denial of service (crash) or obtain sensitive information via unspecified vectors.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2012-5512",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-domU-4.1.4_02-0.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.2",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:P/I:N/A:P"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20150944-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2012-5512.html",
+					"description": "CVE-2012-5512"
+				},
+				{
+					"url": "https://bugzilla.suse.com/789940",
+					"description": "SUSE Bug 789940"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The XENMEM_exchange handler in Xen 4.2 and earlier does not properly check the memory address, which allows local PV guest OS administrators to cause a denial of service (crash) or possibly gain privileges via unspecified vectors that overwrite memory in the hypervisor reserved range.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2012-5513",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-domU-4.1.4_02-0.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20150944-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2012-5513.html",
+					"description": "CVE-2012-5513"
+				},
+				{
+					"url": "https://bugzilla.suse.com/789951",
+					"description": "SUSE Bug 789951"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The guest_physmap_mark_populate_on_demand function in Xen 4.2 and earlier does not properly unlock the subject GFNs when checking if they are in use, which allows local guest HVM administrators to cause a denial of service (hang) via unspecified vectors.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2012-5514",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-domU-4.1.4_02-0.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20150944-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2012-5514.html",
+					"description": "CVE-2012-5514"
+				},
+				{
+					"url": "https://bugzilla.suse.com/789948",
+					"description": "SUSE Bug 789948"
+				},
+				{
+					"url": "https://bugzilla.suse.com/789988",
+					"description": "SUSE Bug 789988"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The (1) XENMEM_decrease_reservation, (2) XENMEM_populate_physmap, and (3) XENMEM_exchange hypercalls in Xen 4.2 and earlier allow local guest administrators to cause a denial of service (long loop and hang) via a crafted extent_order value.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2012-5515",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-domU-4.1.4_02-0.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20150944-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2012-5515.html",
+					"description": "CVE-2012-5515"
+				},
+				{
+					"url": "https://bugzilla.suse.com/789950",
+					"description": "SUSE Bug 789950"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Xen 4.2.x, 4.1.x, and 4.0, when using Intel VT-d for PCI passthrough, does not properly configure VT-d when supporting a device that is behind a legacy PCI Bridge, which allows local guests to cause a denial of service to other guests by injecting an interrupt.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2012-5634",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-domU-4.1.4_02-0.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.1",
+					"vector_v_2": "AV:A/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20150944-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2012-5634.html",
+					"description": "CVE-2012-5634"
+				},
+				{
+					"url": "https://bugzilla.suse.com/794316",
+					"description": "SUSE Bug 794316"
+				},
+				{
+					"url": "https://bugzilla.suse.com/800275",
+					"description": "SUSE Bug 800275"
+				},
+				{
+					"url": "https://bugzilla.suse.com/840592",
+					"description": "SUSE Bug 840592"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Buffer overflow in the e1000_receive function in the e1000 device driver (hw/e1000.c) in QEMU 1.3.0-rc2 and other versions, when the SBP and LPE flags are disabled, allows remote attackers to cause a denial of service (guest OS crash) and possibly execute arbitrary guest code via a large packet.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2012-6075",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-domU-4.1.4_02-0.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "critical"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "9.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20150944-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2012-6075.html",
+					"description": "CVE-2012-6075"
+				},
+				{
+					"url": "https://bugzilla.suse.com/797523",
+					"description": "SUSE Bug 797523"
+				},
+				{
+					"url": "https://bugzilla.suse.com/800275",
+					"description": "SUSE Bug 800275"
+				},
+				{
+					"url": "https://bugzilla.suse.com/840592",
+					"description": "SUSE Bug 840592"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The AMD IOMMU support in Xen 4.2.x, 4.1.x, 3.3, and other versions, when using AMD-Vi for PCI passthrough, uses the same interrupt remapping table for the host and all guests, which allows guests to cause a denial of service by injecting an interrupt into other guests.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2013-0153",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-domU-4.1.4_02-0.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20150944-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2013-0153.html",
+					"description": "CVE-2013-0153"
+				},
+				{
+					"url": "https://bugzilla.suse.com/800275",
+					"description": "SUSE Bug 800275"
+				},
+				{
+					"url": "https://bugzilla.suse.com/800802",
+					"description": "SUSE Bug 800802"
+				},
+				{
+					"url": "https://bugzilla.suse.com/840592",
+					"description": "SUSE Bug 840592"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Xen 4.2.x through 4.5.x does not initialize certain fields, which allows certain remote service domains to obtain sensitive information from memory via a (1) XEN_DOMCTL_gettscinfo or (2) XEN_SYSCTL_getdomaininfolist request.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-3340",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-domU-4.1.4_02-0.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.9",
+					"vector_v_2": "AV:A/AC:M/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20150944-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-3340.html",
+					"description": "CVE-2015-3340"
+				},
+				{
+					"url": "https://bugzilla.suse.com/927967",
+					"description": "SUSE Bug 927967"
+				},
+				{
+					"url": "https://bugzilla.suse.com/929339",
+					"description": "SUSE Bug 929339"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The Floppy Disk Controller (FDC) in QEMU, as used in Xen 4.5.x and earlier and KVM, allows local guest users to cause a denial of service (out-of-bounds write and guest crash) or possibly execute arbitrary code via the (1) FD_CMD_READ_ID, (2) FD_CMD_DRIVE_SPECIFICATION_COMMAND, or other unspecified commands, aka VENOM.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-3456",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server 11 SP2:xen-tools-domU-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-devel-4.1.6_08-0.11.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-html-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-doc-pdf-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-default-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-pae-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-kmp-trace-4.1.4_02_3.0.58_0.6.6-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-32bit-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-libs-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-4.1.4_02-0.5.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP2:xen-tools-domU-4.1.4_02-0.5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.7",
+					"vector_v_2": "AV:A/AC:L/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20150944-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-3456.html",
+					"description": "CVE-2015-3456"
+				},
+				{
+					"url": "https://bugzilla.suse.com/929339",
+					"description": "SUSE Bug 929339"
+				},
+				{
+					"url": "https://bugzilla.suse.com/932770",
+					"description": "SUSE Bug 932770"
+				},
+				{
+					"url": "https://bugzilla.suse.com/935900",
+					"description": "SUSE Bug 935900"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,1487 @@
+{
+	"document_title": "Security update for xen",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2016:2528-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2016-10-13T14:16:36Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2016-10-13T14:16:36Z",
+		"current_release_date": "2016-10-13T14:16:36Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for xen",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for xen fixes several issues.\n\nThese security issues were fixed:\n- CVE-2016-7094: Buffer overflow in Xen allowed local x86 HVM guest OS administrators on guests running with shadow paging to cause a denial of service via a pagetable update (bsc#995792)\n- CVE-2016-7092: The get_page_from_l3e function in arch/x86/mm.c in Xen allowed local 32-bit PV guest OS administrators to gain host OS privileges via vectors related to L3 recursive pagetables (bsc#995785)\n- CVE-2016-6258: The PV pagetable code in arch/x86/mm.c in Xen allowed local 32-bit PV guest OS administrators to gain host OS privileges by leveraging fast-paths for updating pagetable entries (bsc#988675)\n- CVE-2016-5338: The (1) esp_reg_read and (2) esp_reg_write functions allowed local guest OS administrators to cause a denial of service (QEMU process crash) or execute arbitrary code on the host via vectors related to the information transfer buffer (bsc#983984)\n- CVE-2016-5238: The get_cmd function in hw/scsi/esp.c might have allowed local guest OS administrators to cause a denial of service (out-of-bounds write and QEMU process crash) via vectors related to reading from the information transfer buffer in non-DMA mode (bsc#982960)\n- CVE-2014-3672: The qemu implementation in libvirt Xen allowed local guest OS users to cause a denial of service (host disk consumption) by writing to stdout or stderr (bsc#981264)\n- CVE-2016-4441: The get_cmd function in the 53C9X Fast SCSI Controller (FSC) support did not properly check DMA length, which allowed local guest OS administrators to cause a denial of service (out-of-bounds write and QEMU process crash) via unspecified vectors, involving an SCSI command (bsc#980724)\n- CVE-2016-4439: The esp_reg_write function in the 53C9X Fast SCSI Controller (FSC) support did not properly check command buffer length, which allowed local guest OS administrators to cause a denial of service (out-of-bounds write and QEMU process crash) or potentially execute arbitrary code on the host via unspecified vectors (bsc#980716)\n- CVE-2016-3710: The VGA module improperly performed bounds checking on banked access to video memory, which allowed local guest OS administrators to execute arbitrary code on the host by changing access modes after setting the bank register, aka the 'Dark Portal' issue (bsc#978164)\n- CVE-2016-4480: The guest_walk_tables function in arch/x86/mm/guest_walk.c in Xen did not properly handle the Page Size (PS) page table entry bit at the L4 and L3 page table levels, which might have allowed local guest OS users to gain privileges via a crafted mapping of memory (bsc#978295)\n- CVE-2016-3960: Integer overflow in the x86 shadow pagetable code allowed local guest OS users to cause a denial of service (host crash) or possibly gain privileges by shadowing a superpage mapping (bsc#974038)\n- CVE-2016-3158: The xrstor function did not properly handle writes to the hardware FSW.ES bit when running on AMD64 processors, which allowed local guest OS users to obtain sensitive register content information from another guest by leveraging pending exception and mask bits (bsc#973188)\n- CVE-2016-4001: Buffer overflow in the stellaris_enet_receive function, when the Stellaris ethernet controller is configured to accept large packets, allowed remote attackers to cause a denial of service (QEMU crash) via a large packet (bsc#975130)\n- CVE-2016-4002: Buffer overflow in the mipsnet_receive function, when the guest NIC is configured to accept large packets, allowed remote attackers to cause a denial of service (memory corruption and QEMU crash) or possibly execute arbitrary code via a packet larger than 1514 bytes (bsc#975138)\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "slessp2-xen-12786",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/",
+			"description": "Link for SUSE-SU-2016:2528-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2016-10/msg00027.html",
+			"description": "E-Mail link for SUSE-SU-2016:2528-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/973188",
+			"description": "SUSE Bug 973188"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/974038",
+			"description": "SUSE Bug 974038"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/975130",
+			"description": "SUSE Bug 975130"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/975138",
+			"description": "SUSE Bug 975138"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/978164",
+			"description": "SUSE Bug 978164"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/978295",
+			"description": "SUSE Bug 978295"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/980716",
+			"description": "SUSE Bug 980716"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/980724",
+			"description": "SUSE Bug 980724"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/981264",
+			"description": "SUSE Bug 981264"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/982960",
+			"description": "SUSE Bug 982960"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/983984",
+			"description": "SUSE Bug 983984"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/988675",
+			"description": "SUSE Bug 988675"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/995785",
+			"description": "SUSE Bug 995785"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/995792",
+			"description": "SUSE Bug 995792"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2014-3615/",
+			"description": "SUSE CVE CVE-2014-3615 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2014-3672/",
+			"description": "SUSE CVE CVE-2014-3672 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-3158/",
+			"description": "SUSE CVE CVE-2016-3158 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-3159/",
+			"description": "SUSE CVE CVE-2016-3159 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-3710/",
+			"description": "SUSE CVE CVE-2016-3710 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-3960/",
+			"description": "SUSE CVE CVE-2016-3960 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4001/",
+			"description": "SUSE CVE CVE-2016-4001 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4002/",
+			"description": "SUSE CVE CVE-2016-4002 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4439/",
+			"description": "SUSE CVE CVE-2016-4439 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4441/",
+			"description": "SUSE CVE CVE-2016-4441 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4480/",
+			"description": "SUSE CVE CVE-2016-4480 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-5238/",
+			"description": "SUSE CVE CVE-2016-5238 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-5338/",
+			"description": "SUSE CVE CVE-2016-5338 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-6258/",
+			"description": "SUSE CVE CVE-2016-6258 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-7092/",
+			"description": "SUSE CVE CVE-2016-7092 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-7094/",
+			"description": "SUSE CVE CVE-2016-7094 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 11 SP2-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 11 SP2-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 11 SP2-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 11 SP2-LTSS",
+							"cpe": "cpe:/o:suse:suse_sles_ltss:11:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-4.1.6_08-29.1",
+				"full_product_name": {
+					"text": "xen-4.1.6_08-29.1",
+					"product_id": "xen-4.1.6_08-29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-devel-4.1.6_08-29.1",
+				"full_product_name": {
+					"text": "xen-devel-4.1.6_08-29.1",
+					"product_id": "xen-devel-4.1.6_08-29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-doc-html-4.1.6_08-29.1",
+				"full_product_name": {
+					"text": "xen-doc-html-4.1.6_08-29.1",
+					"product_id": "xen-doc-html-4.1.6_08-29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-doc-pdf-4.1.6_08-29.1",
+				"full_product_name": {
+					"text": "xen-doc-pdf-4.1.6_08-29.1",
+					"product_id": "xen-doc-pdf-4.1.6_08-29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+				"full_product_name": {
+					"text": "xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+					"product_id": "xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+				"full_product_name": {
+					"text": "xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+					"product_id": "xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+				"full_product_name": {
+					"text": "xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+					"product_id": "xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-libs-4.1.6_08-29.1",
+				"full_product_name": {
+					"text": "xen-libs-4.1.6_08-29.1",
+					"product_id": "xen-libs-4.1.6_08-29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-libs-32bit-4.1.6_08-29.1",
+				"full_product_name": {
+					"text": "xen-libs-32bit-4.1.6_08-29.1",
+					"product_id": "xen-libs-32bit-4.1.6_08-29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-tools-4.1.6_08-29.1",
+				"full_product_name": {
+					"text": "xen-tools-4.1.6_08-29.1",
+					"product_id": "xen-tools-4.1.6_08-29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-tools-domU-4.1.6_08-29.1",
+				"full_product_name": {
+					"text": "xen-tools-domU-4.1.6_08-29.1",
+					"product_id": "xen-tools-domU-4.1.6_08-29.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "xen-4.1.6_08-29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-devel-4.1.6_08-29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-doc-html-4.1.6_08-29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-doc-pdf-4.1.6_08-29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-libs-4.1.6_08-29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-libs-32bit-4.1.6_08-29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-tools-4.1.6_08-29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "xen-tools-domU-4.1.6_08-29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "The VGA emulator in QEMU allows local guest users to read host memory by setting the display to a high resolution.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2014-3615",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.7",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2014-3615.html",
+					"description": "CVE-2014-3615"
+				},
+				{
+					"url": "https://bugzilla.suse.com/895528",
+					"description": "SUSE Bug 895528"
+				},
+				{
+					"url": "https://bugzilla.suse.com/918998",
+					"description": "SUSE Bug 918998"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The qemu implementation in libvirt before 1.3.0 and Xen allows local guest OS users to cause a denial of service (host disk consumption) by writing to stdout or stderr.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2014-3672",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2014-3672.html",
+					"description": "CVE-2014-3672"
+				},
+				{
+					"url": "https://bugzilla.suse.com/981264",
+					"description": "SUSE Bug 981264"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The xrstor function in arch/x86/xstate.c in Xen 4.x does not properly handle writes to the hardware FSW.ES bit when running on AMD64 processors, which allows local guest OS users to obtain sensitive register content information from another guest by leveraging pending exception and mask bits.  NOTE: this vulnerability exists because of an incorrect fix for CVE-2013-2076.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-3158",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.7",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-3158.html",
+					"description": "CVE-2016-3158"
+				},
+				{
+					"url": "https://bugzilla.suse.com/973188",
+					"description": "SUSE Bug 973188"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The fpu_fxrstor function in arch/x86/i387.c in Xen 4.x does not properly handle writes to the hardware FSW.ES bit when running on AMD64 processors, which allows local guest OS users to obtain sensitive register content information from another guest by leveraging pending exception and mask bits.  NOTE: this vulnerability exists because of an incorrect fix for CVE-2013-2076.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-3159",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:P/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-3159.html",
+					"description": "CVE-2016-3159"
+				},
+				{
+					"url": "https://bugzilla.suse.com/973188",
+					"description": "SUSE Bug 973188"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The VGA module in QEMU improperly performs bounds checking on banked access to video memory, which allows local guest OS administrators to execute arbitrary code on the host by changing access modes after setting the bank register, aka the \"Dark Portal\" issue.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-3710",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.5",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-3710.html",
+					"description": "CVE-2016-3710"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978158",
+					"description": "SUSE Bug 978158"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978164",
+					"description": "SUSE Bug 978164"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978167",
+					"description": "SUSE Bug 978167"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Integer overflow in the x86 shadow pagetable code in Xen allows local guest OS users to cause a denial of service (host crash) or possibly gain privileges by shadowing a superpage mapping.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-3960",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-3960.html",
+					"description": "CVE-2016-3960"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1072223",
+					"description": "SUSE Bug 1072223"
+				},
+				{
+					"url": "https://bugzilla.suse.com/974038",
+					"description": "SUSE Bug 974038"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Buffer overflow in the stellaris_enet_receive function in hw/net/stellaris_enet.c in QEMU, when the Stellaris ethernet controller is configured to accept large packets, allows remote attackers to cause a denial of service (QEMU crash) via a large packet.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4001",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.6",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4001.html",
+					"description": "CVE-2016-4001"
+				},
+				{
+					"url": "https://bugzilla.suse.com/975128",
+					"description": "SUSE Bug 975128"
+				},
+				{
+					"url": "https://bugzilla.suse.com/975130",
+					"description": "SUSE Bug 975130"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Buffer overflow in the mipsnet_receive function in hw/net/mipsnet.c in QEMU, when the guest NIC is configured to accept large packets, allows remote attackers to cause a denial of service (memory corruption and QEMU crash) or possibly execute arbitrary code via a packet larger than 1514 bytes.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4002",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4002.html",
+					"description": "CVE-2016-4002"
+				},
+				{
+					"url": "https://bugzilla.suse.com/975136",
+					"description": "SUSE Bug 975136"
+				},
+				{
+					"url": "https://bugzilla.suse.com/975138",
+					"description": "SUSE Bug 975138"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The esp_reg_write function in hw/scsi/esp.c in the 53C9X Fast SCSI Controller (FSC) support in QEMU does not properly check command buffer length, which allows local guest OS administrators to cause a denial of service (out-of-bounds write and QEMU process crash) or potentially execute arbitrary code on the QEMU host via unspecified vectors.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4439",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.5",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4439.html",
+					"description": "CVE-2016-4439"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980711",
+					"description": "SUSE Bug 980711"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980716",
+					"description": "SUSE Bug 980716"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The get_cmd function in hw/scsi/esp.c in the 53C9X Fast SCSI Controller (FSC) support in QEMU does not properly check DMA length, which allows local guest OS administrators to cause a denial of service (out-of-bounds write and QEMU process crash) via unspecified vectors, involving an SCSI command.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4441",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.5",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:H/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4441.html",
+					"description": "CVE-2016-4441"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980723",
+					"description": "SUSE Bug 980723"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980724",
+					"description": "SUSE Bug 980724"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The guest_walk_tables function in arch/x86/mm/guest_walk.c in Xen 4.6.x and earlier does not properly handle the Page Size (PS) page table entry bit at the L4 and L3 page table levels, which might allow local guest OS users to gain privileges via a crafted mapping of memory.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4480",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4480.html",
+					"description": "CVE-2016-4480"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1072198",
+					"description": "SUSE Bug 1072198"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1072223",
+					"description": "SUSE Bug 1072223"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978288",
+					"description": "SUSE Bug 978288"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978295",
+					"description": "SUSE Bug 978295"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The get_cmd function in hw/scsi/esp.c in QEMU might allow local guest OS administrators to cause a denial of service (out-of-bounds write and QEMU process crash) via vectors related to reading from the information transfer buffer in non-DMA mode.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-5238",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.1",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-5238.html",
+					"description": "CVE-2016-5238"
+				},
+				{
+					"url": "https://bugzilla.suse.com/982959",
+					"description": "SUSE Bug 982959"
+				},
+				{
+					"url": "https://bugzilla.suse.com/982960",
+					"description": "SUSE Bug 982960"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The (1) esp_reg_read and (2) esp_reg_write functions in hw/scsi/esp.c in QEMU allow local guest OS administrators to cause a denial of service (QEMU process crash) or execute arbitrary code on the QEMU host via vectors related to the information transfer buffer.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-5338",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.5",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-5338.html",
+					"description": "CVE-2016-5338"
+				},
+				{
+					"url": "https://bugzilla.suse.com/983982",
+					"description": "SUSE Bug 983982"
+				},
+				{
+					"url": "https://bugzilla.suse.com/983984",
+					"description": "SUSE Bug 983984"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The PV pagetable code in arch/x86/mm.c in Xen 4.7.x and earlier allows local 32-bit PV guest OS administrators to gain host OS privileges by leveraging fast-paths for updating pagetable entries.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-6258",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-6258.html",
+					"description": "CVE-2016-6258"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1072198",
+					"description": "SUSE Bug 1072198"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1072223",
+					"description": "SUSE Bug 1072223"
+				},
+				{
+					"url": "https://bugzilla.suse.com/988675",
+					"description": "SUSE Bug 988675"
+				},
+				{
+					"url": "https://bugzilla.suse.com/988692",
+					"description": "SUSE Bug 988692"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The get_page_from_l3e function in arch/x86/mm.c in Xen allows local 32-bit PV guest OS administrators to gain host OS privileges via vectors related to L3 recursive pagetables.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-7092",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-7092.html",
+					"description": "CVE-2016-7092"
+				},
+				{
+					"url": "https://bugzilla.suse.com/995785",
+					"description": "SUSE Bug 995785"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Buffer overflow in Xen 4.7.x and earlier allows local x86 HVM guest OS administrators on guests running with shadow paging to cause a denial of service via a pagetable update.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-7094",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-devel-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-html-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-doc-pdf-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-default-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-pae-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-kmp-trace-4.1.6_08_3.0.101_0.7.40-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-32bit-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-libs-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-4.1.6_08-29.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:xen-tools-domU-4.1.6_08-29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.1",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:H/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162528-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-7094.html",
+					"description": "CVE-2016-7094"
+				},
+				{
+					"url": "https://bugzilla.suse.com/995792",
+					"description": "SUSE Bug 995792"
+				}
+			]
+		}
+	]
+}

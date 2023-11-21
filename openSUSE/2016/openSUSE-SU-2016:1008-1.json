@@ -1,0 +1,1798 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2016:1008-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2016-04-12T07:03:49Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2016-04-12T07:03:49Z",
+		"current_release_date": "2016-04-12T07:03:49Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThe openSUSE Leap 42.1 kernel was updated to 4.1.20 to receive various security and bugfixes.\n\nThe following security bugs were fixed:\n\n- CVE-2015-1339: A memory leak in cuse could be used to exhaust kernel\n  memory. (bsc#969356).\n- CVE-2015-7799: The slhc_init function in drivers/net/slip/slhc.c in\n  the Linux kernel did not ensure that certain slot numbers are valid,\n  which allowed local users to cause a denial of service (NULL pointer\n  dereference and system crash) via a crafted PPPIOCSMAXCID ioctl call\n  (bnc#949936 951638).\n- CVE-2015-7872: The key_gc_unused_keys function in security/keys/gc.c\n  in the Linux kernel allowed local users to cause a denial of service\n  (OOPS) via crafted keyctl commands (bnc#951440).\n- CVE-2015-7884: The vivid_fb_ioctl function in\n  drivers/media/platform/vivid/vivid-osd.c in the Linux kernel did not\n  initialize a certain structure member, which allowed local users to\n  obtain sensitive information from kernel memory via a crafted application\n  (bnc#951626).\n- CVE-2015-8104: The KVM subsystem in the Linux kernel allowed guest OS\n  users to cause a denial of service (host OS panic or hang) by triggering\n  many #DB (aka Debug) exceptions, related to svm.c (bnc#954404).\n- CVE-2015-8709: kernel/ptrace.c in the Linux kernel mishandled uid and\n  gid mappings, which allowed local users to gain privileges by establishing\n  a user namespace, waiting for a root process to enter that namespace\n  with an unsafe uid or gid, and then using the ptrace system call.  NOTE:\n  the vendor states 'there is no kernel bug here (bnc#959709).\n- CVE-2015-8767: net/sctp/sm_sideeffect.c in the Linux kernel did not\n  properly manage the relationship between a lock and a socket, which\n  allowed local users to cause a denial of service (deadlock) via a crafted\n  sctp_accept call. (bsc#961509)\n- CVE-2015-8785: The fuse_fill_write_pages function in fs/fuse/file.c\n  in the Linux kernel allowed local users to cause a denial of service\n  (infinite loop) via a writev system call that triggers a zero length\n  for the first segment of an iov (bnc#963765).\n- CVE-2015-8787: The nf_nat_redirect_ipv4 function in\n  net/netfilter/nf_nat_redirect.c in the Linux kernel allowed remote\n  attackers to cause a denial of service (NULL pointer dereference and\n  system crash) or possibly have unspecified other impact by sending\n  certain IPv4 packets to an incompletely configured interface, a related\n  issue to CVE-2003-1604 (bnc#963931).\n- CVE-2015-8812: A flaw was found in the CXGB3 kernel driver when\n  the network was considered congested.  The kernel would incorrectly\n  misinterpret the congestion as an error condition and incorrectly\n  free/clean up the skb. When the device would then send the skb's\n  queued, these structures would be referenced and may panic the system\n  or allow an attacker to escalate privileges in a use-after-free\n  scenario. (bsc#966437).\n- CVE-2016-0723: Race condition in the tty_ioctl function in\n  drivers/tty/tty_io.c in the Linux kernel allowed local users to obtain\n  sensitive information from kernel memory or cause a denial of service\n  (use-after-free and system crash) by making a TIOCGETD ioctl call during\n  processing of a TIOCSETD ioctl call (bnc#961500).\n- CVE-2016-2069: When Linux invalidated a paging structure that is\n  not in use locally, it could, in principle, race against another\n  CPU that is switching to a process that uses the paging structure in\n  question. (bsc#963767)\n- CVE-2016-2184: A malicious USB device could cause a kernel crash in\n  the alsa usb-audio driver. (bsc#971125)\n- CVE-2016-2383: Incorrect branch fixups for eBPF allow arbitrary read\n  of kernel memory. (bsc#966684)\n- CVE-2016-2384: A malicious USB device could cause a kernel crash in\n  the alsa usb-audio driver. (bsc#966693)\n\nThe following non-security bugs were fixed:\n- alsa: hda - Apply clock gate workaround to Skylake, too (bsc#966137).\n- alsa: hda - disable dynamic clock gating on Broxton before reset (bsc#966137).\n- alsa: hda - Fix playback noise with 24/32 bit sample size on BXT (bsc#966137).\n- alsa: seq: Fix double port list deletion (bsc#968018).\n- alsa: seq: Fix leak of pool buffer at concurrent writes (bsc#968018).\n- alsa: timer: Fix race between stop and interrupt (bsc#968018).\n- alsa: timer: Fix wrong instance passed to slave callbacks (bsc#968018).\n- arm64: Add workaround for Cavium erratum 27456.\n- arm64: Backport arm64 patches from SLE12-SP1-ARM\n- btrfs: teach backref walking about backrefs with underflowed (bsc#966259).\n- cgroup kabi fix for 4.1.19.\n- config: Disable CONFIG_DDR. CONFIG_DDR is selected automatically by drivers which need it.\n- config: Disable MFD_TPS65218 The TPS65218 is a power management IC for 32-bit ARM systems.\n- config: Modularize NF_REJECT_IPV4/V6 There is no reason why these helper modules should be built-in when the rest of netfilter is built as modules.\n- config: Update x86 config files: Enable Intel RAPL This driver is useful when power caping is needed. It was enabled in the SLE kernel 2 years ago.\n- Delete patches.fixes/bridge-module-get-put.patch. As discussed in http://lists.opensuse.org/opensuse-kernel/2015-11/msg00046.html\n- drm/i915: Fix double unref in intelfb_alloc failure path (boo#962866, boo#966179).\n- drm/i915: Fix failure paths around initial fbdev allocation (boo#962866, boo#966179).\n- drm/i915: Pin the ifbdev for the info-&gt;system_base GGTT mmapping (boo#962866, boo#966179).\n- e1000e: Avoid divide by zero error (bsc#965125).\n- e1000e: fix division by zero on jumbo MTUs (bsc#965125).\n- e1000e: fix systim issues (bsc#965125).\n- e1000e: Fix tight loop implementation of systime read algorithm (bsc#965125).\n- ibmvnic: Fix ibmvnic_capability struct.\n- intel: Disable Skylake support in intel_idle driver again (boo#969582) This turned out to bring a regression on some machines, unfortunately. It should be addressed in the upstream at first.\n- intel_idle: allow idle states to be freeze-mode specific (boo#969582).\n- intel_idle: Skylake Client Support (boo#969582).\n- intel_idle: Skylake Client Support - updated (boo#969582).\n- libceph: fix scatterlist last_piece calculation (bsc#963746).\n- lio: Add LIO clustered RBD backend (fate#318836)\n- net kabi fixes for 4.1.19.\n- numa patches updated to v15\n- ocfs2: fix dlmglue deadlock issue(bnc#962257)\n- pci: thunder: Add driver for ThunderX-pass{1,2} on-chip devices\n- pci: thunder: Add PCIe host driver for ThunderX processors\n- sd: Optimal I/O size is in bytes, not sectors (boo#961263).\n- sd: Reject optimal transfer length smaller than page size (boo#961263).\n- series.conf: move cxgb3 patch to network drivers section\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html",
+			"description": "E-Mail link for openSUSE-SU-2016:1008-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 42.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 42.1",
+						"full_product_name": {
+							"text": "openSUSE Leap 42.1",
+							"product_id": "openSUSE Leap 42.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-debug-4.1.20-11.1",
+					"product_id": "kernel-debug-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-base-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-debug-base-4.1.20-11.1",
+					"product_id": "kernel-debug-base-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-devel-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-debug-devel-4.1.20-11.1",
+					"product_id": "kernel-debug-devel-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-default-4.1.20-11.1",
+					"product_id": "kernel-default-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-default-base-4.1.20-11.1",
+					"product_id": "kernel-default-base-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-default-devel-4.1.20-11.1",
+					"product_id": "kernel-default-devel-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-devel-4.1.20-11.1",
+					"product_id": "kernel-devel-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-4.1.20-11.3",
+				"full_product_name": {
+					"text": "kernel-docs-4.1.20-11.3",
+					"product_id": "kernel-docs-4.1.20-11.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-html-4.1.20-11.3",
+				"full_product_name": {
+					"text": "kernel-docs-html-4.1.20-11.3",
+					"product_id": "kernel-docs-html-4.1.20-11.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-pdf-4.1.20-11.3",
+				"full_product_name": {
+					"text": "kernel-docs-pdf-4.1.20-11.3",
+					"product_id": "kernel-docs-pdf-4.1.20-11.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-ec2-4.1.20-11.1",
+					"product_id": "kernel-ec2-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-base-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-ec2-base-4.1.20-11.1",
+					"product_id": "kernel-ec2-base-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-devel-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-ec2-devel-4.1.20-11.1",
+					"product_id": "kernel-ec2-devel-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-macros-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-macros-4.1.20-11.1",
+					"product_id": "kernel-macros-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-build-4.1.20-11.2",
+				"full_product_name": {
+					"text": "kernel-obs-build-4.1.20-11.2",
+					"product_id": "kernel-obs-build-4.1.20-11.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-qa-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-obs-qa-4.1.20-11.1",
+					"product_id": "kernel-obs-qa-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-qa-xen-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-obs-qa-xen-4.1.20-11.1",
+					"product_id": "kernel-obs-qa-xen-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-pae-4.1.20-11.1",
+					"product_id": "kernel-pae-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-base-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-pae-base-4.1.20-11.1",
+					"product_id": "kernel-pae-base-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-devel-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-pae-devel-4.1.20-11.1",
+					"product_id": "kernel-pae-devel-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pv-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-pv-4.1.20-11.1",
+					"product_id": "kernel-pv-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pv-base-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-pv-base-4.1.20-11.1",
+					"product_id": "kernel-pv-base-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pv-devel-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-pv-devel-4.1.20-11.1",
+					"product_id": "kernel-pv-devel-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-source-4.1.20-11.1",
+					"product_id": "kernel-source-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-vanilla-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-source-vanilla-4.1.20-11.1",
+					"product_id": "kernel-source-vanilla-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-syms-4.1.20-11.1",
+					"product_id": "kernel-syms-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-4.1.20-11.1",
+					"product_id": "kernel-vanilla-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-devel-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-devel-4.1.20-11.1",
+					"product_id": "kernel-vanilla-devel-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-xen-4.1.20-11.1",
+					"product_id": "kernel-xen-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-base-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-xen-base-4.1.20-11.1",
+					"product_id": "kernel-xen-base-4.1.20-11.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-devel-4.1.20-11.1",
+				"full_product_name": {
+					"text": "kernel-xen-devel-4.1.20-11.1",
+					"product_id": "kernel-xen-devel-4.1.20-11.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-debug-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-debug-base-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-debug-devel-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-default-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-default-base-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-devel-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-docs-4.1.20-11.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-docs-html-4.1.20-11.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-docs-pdf-4.1.20-11.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-ec2-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-ec2-base-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-ec2-devel-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-macros-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-obs-build-4.1.20-11.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-obs-qa-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-obs-qa-xen-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pae-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pae-base-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pae-devel-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pv-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pv-base-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pv-devel-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-source-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-source-vanilla-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-syms-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-vanilla-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-vanilla-devel-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-xen-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-xen-base-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-xen-devel-4.1.20-11.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Memory leak in the cuse_channel_release function in fs/fuse/cuse.c in the Linux kernel before 4.4 allows local users to cause a denial of service (memory consumption) or possibly have unspecified other impact by opening /dev/cuse many times.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-1339",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-1339.html",
+					"description": "CVE-2015-1339"
+				},
+				{
+					"url": "https://bugzilla.suse.com/969356",
+					"description": "SUSE Bug 969356"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The slhc_init function in drivers/net/slip/slhc.c in the Linux kernel through 4.2.3 does not ensure that certain slot numbers are valid, which allows local users to cause a denial of service (NULL pointer dereference and system crash) via a crafted PPPIOCSMAXCID ioctl call.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-7799",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-7799.html",
+					"description": "CVE-2015-7799"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1052256",
+					"description": "SUSE Bug 1052256"
+				},
+				{
+					"url": "https://bugzilla.suse.com/949936",
+					"description": "SUSE Bug 949936"
+				},
+				{
+					"url": "https://bugzilla.suse.com/951638",
+					"description": "SUSE Bug 951638"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The key_gc_unused_keys function in security/keys/gc.c in the Linux kernel through 4.2.6 allows local users to cause a denial of service (OOPS) via crafted keyctl commands.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-7872",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-7872.html",
+					"description": "CVE-2015-7872"
+				},
+				{
+					"url": "https://bugzilla.suse.com/951440",
+					"description": "SUSE Bug 951440"
+				},
+				{
+					"url": "https://bugzilla.suse.com/951542",
+					"description": "SUSE Bug 951542"
+				},
+				{
+					"url": "https://bugzilla.suse.com/951638",
+					"description": "SUSE Bug 951638"
+				},
+				{
+					"url": "https://bugzilla.suse.com/958463",
+					"description": "SUSE Bug 958463"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The vivid_fb_ioctl function in drivers/media/platform/vivid/vivid-osd.c in the Linux kernel through 4.3.3 does not initialize a certain structure member, which allows local users to obtain sensitive information from kernel memory via a crafted application.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-7884",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.7",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-7884.html",
+					"description": "CVE-2015-7884"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1126909",
+					"description": "SUSE Bug 1126909"
+				},
+				{
+					"url": "https://bugzilla.suse.com/951626",
+					"description": "SUSE Bug 951626"
+				},
+				{
+					"url": "https://bugzilla.suse.com/951627",
+					"description": "SUSE Bug 951627"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The KVM subsystem in the Linux kernel through 4.2.6, and Xen 4.3.x through 4.6.x, allows guest OS users to cause a denial of service (host OS panic or hang) by triggering many #DB (aka Debug) exceptions, related to svm.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-8104",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-8104.html",
+					"description": "CVE-2015-8104"
+				},
+				{
+					"url": "https://bugzilla.suse.com/953527",
+					"description": "SUSE Bug 953527"
+				},
+				{
+					"url": "https://bugzilla.suse.com/954018",
+					"description": "SUSE Bug 954018"
+				},
+				{
+					"url": "https://bugzilla.suse.com/954404",
+					"description": "SUSE Bug 954404"
+				},
+				{
+					"url": "https://bugzilla.suse.com/954405",
+					"description": "SUSE Bug 954405"
+				},
+				{
+					"url": "https://bugzilla.suse.com/962977",
+					"description": "SUSE Bug 962977"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "** DISPUTED ** kernel/ptrace.c in the Linux kernel through 4.4.1 mishandles uid and gid mappings, which allows local users to gain privileges by establishing a user namespace, waiting for a root process to enter that namespace with an unsafe uid or gid, and then using the ptrace system call.  NOTE: the vendor states \"there is no kernel bug here.\"",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-8709",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-8709.html",
+					"description": "CVE-2015-8709"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1010933",
+					"description": "SUSE Bug 1010933"
+				},
+				{
+					"url": "https://bugzilla.suse.com/959709",
+					"description": "SUSE Bug 959709"
+				},
+				{
+					"url": "https://bugzilla.suse.com/960561",
+					"description": "SUSE Bug 960561"
+				},
+				{
+					"url": "https://bugzilla.suse.com/960563",
+					"description": "SUSE Bug 960563"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "net/sctp/sm_sideeffect.c in the Linux kernel before 4.3 does not properly manage the relationship between a lock and a socket, which allows local users to cause a denial of service (deadlock) via a crafted sctp_accept call.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-8767",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-8767.html",
+					"description": "CVE-2015-8767"
+				},
+				{
+					"url": "https://bugzilla.suse.com/961509",
+					"description": "SUSE Bug 961509"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The fuse_fill_write_pages function in fs/fuse/file.c in the Linux kernel before 4.4 allows local users to cause a denial of service (infinite loop) via a writev system call that triggers a zero length for the first segment of an iov.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-8785",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.7",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-8785.html",
+					"description": "CVE-2015-8785"
+				},
+				{
+					"url": "https://bugzilla.suse.com/963765",
+					"description": "SUSE Bug 963765"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The nf_nat_redirect_ipv4 function in net/netfilter/nf_nat_redirect.c in the Linux kernel before 4.4 allows remote attackers to cause a denial of service (NULL pointer dereference and system crash) or possibly have unspecified other impact by sending certain IPv4 packets to an incompletely configured interface, a related issue to CVE-2003-1604.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-8787",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5.4",
+					"vector_v_2": "AV:N/AC:H/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-8787.html",
+					"description": "CVE-2015-8787"
+				},
+				{
+					"url": "https://bugzilla.suse.com/963931",
+					"description": "SUSE Bug 963931"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "drivers/infiniband/hw/cxgb3/iwch_cm.c in the Linux kernel before 4.5 does not properly identify error conditions, which allows remote attackers to execute arbitrary code or cause a denial of service (use-after-free) via crafted packets.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-8812",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-8812.html",
+					"description": "CVE-2015-8812"
+				},
+				{
+					"url": "https://bugzilla.suse.com/966437",
+					"description": "SUSE Bug 966437"
+				},
+				{
+					"url": "https://bugzilla.suse.com/966683",
+					"description": "SUSE Bug 966683"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Race condition in the tty_ioctl function in drivers/tty/tty_io.c in the Linux kernel through 4.4.1 allows local users to obtain sensitive information from kernel memory or cause a denial of service (use-after-free and system crash) by making a TIOCGETD ioctl call during processing of a TIOCSETD ioctl call.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-0723",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-0723.html",
+					"description": "CVE-2016-0723"
+				},
+				{
+					"url": "https://bugzilla.suse.com/961500",
+					"description": "SUSE Bug 961500"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Race condition in arch/x86/mm/tlb.c in the Linux kernel before 4.4.1 allows local users to gain privileges by triggering access to a paging structure by a different CPU.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2069",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.5",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2069.html",
+					"description": "CVE-2016-2069"
+				},
+				{
+					"url": "https://bugzilla.suse.com/870618",
+					"description": "SUSE Bug 870618"
+				},
+				{
+					"url": "https://bugzilla.suse.com/963767",
+					"description": "SUSE Bug 963767"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The create_fixed_stream_quirk function in sound/usb/quirks.c in the snd-usb-audio driver in the Linux kernel before 4.5.1 allows physically proximate attackers to cause a denial of service (NULL pointer dereference or double free, and system crash) via a crafted endpoints value in a USB device descriptor.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2184",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.6",
+					"vector_v_3": "CVSS:3.0/AV:P/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2184.html",
+					"description": "CVE-2016-2184"
+				},
+				{
+					"url": "https://bugzilla.suse.com/971125",
+					"description": "SUSE Bug 971125"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The adjust_branches function in kernel/bpf/verifier.c in the Linux kernel before 4.5 does not consider the delta in the backward-jump case, which allows local users to obtain sensitive information from kernel memory by creating a packet filter and then loading crafted BPF instructions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2383",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.3",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2383.html",
+					"description": "CVE-2016-2383"
+				},
+				{
+					"url": "https://bugzilla.suse.com/966684",
+					"description": "SUSE Bug 966684"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Double free vulnerability in the snd_usbmidi_create function in sound/usb/midi.c in the Linux kernel before 4.5 allows physically proximate attackers to cause a denial of service (panic) or possibly have unspecified other impact via vectors involving an invalid USB descriptor.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2384",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.20-11.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.20-11.2",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.20-11.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.20-11.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.2",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.6",
+					"vector_v_3": "CVSS:3.0/AV:P/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00015.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2384.html",
+					"description": "CVE-2016-2384"
+				},
+				{
+					"url": "https://bugzilla.suse.com/966693",
+					"description": "SUSE Bug 966693"
+				},
+				{
+					"url": "https://bugzilla.suse.com/967773",
+					"description": "SUSE Bug 967773"
+				}
+			]
+		}
+	]
+}

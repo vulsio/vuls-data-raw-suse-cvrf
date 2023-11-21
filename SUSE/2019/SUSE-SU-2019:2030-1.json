@@ -1,0 +1,2000 @@
+{
+	"document_title": "Security update for zypper, libzypp and libsolv",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2019:2030-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2019-07-31T16:34:56Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2019-07-31T16:34:56Z",
+		"current_release_date": "2019-07-31T16:34:56Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for zypper, libzypp and libsolv",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for libzypp and libsolv fixes the following issues:\n\nSecurity issues fixed:\n\n- CVE-2018-20532: Fixed NULL pointer dereference at ext/testcase.c (function testcase_read) (bsc#1120629).\n- CVE-2018-20533: Fixed NULL pointer dereference at ext/testcase.c (function testcase_str2dep_complex) in libsolvext.a (bsc#1120630).\n- CVE-2018-20534: Fixed illegal address access at src/pool.h (function pool_whatprovides) in libsolv.a (bsc#1120631).\n\nFixed bugs and enhancements:\n\n- make cleandeps jobs on patterns work (bnc#1137977)\n- Fixed an issue where libsolv failed to build against swig 4.0 by updating the version to 0.7.5 (bsc#1135749).    \n- Virtualization host upgrade from SLES-15 to SLES-15-SP1 finished with wrong product name shown up (bsc#1131823).\n- Copy pattern categories from the rpm that defines the pattern (fate#323785).\n- Enhance scanning /sys for modaliases (bsc#1130161).\n- Prevent SEGV if the application sets an empty TextLocale (bsc#1127026).\n- Handle libgpgme error when gpg key is not completely read and user hits CTRL + C (bsc#1127220).\n- Added a hint when registration codes have expired (bsc#965786).\n- Adds a better handling of an error when verifying any repository medium (bsc#1065022).\n- Will now only write type field when probing (bsc#1114908).\n- Fixes an issue where zypper has showed the info message 'Installation aborted by user' while the installation was aborted by wicked (bsc#978193).\n- Suppresses reporting `/memfd:` pseudo files (bsc#1123843).\n- Fixes an issue where zypper was not able to install or uninstall packages when rpm is unavailable (bsc#1122471).\n- Fixes an issue where locks were ignored (bsc#1113296).\n- Simplify complex locks so zypper can display them (bsc#1112911).\n- zypper will now set `SYSTEMD_OFFLINE=1` during chrooted commits (bsc#1118758).\n- no-recommends: Nevertheless consider resolver namespaces (hardware, language,..supporting packages) (fate#325513).\n- Removes world-readable bit from /var/log/zypp (bsc#1099019).\n- Does no longer fail service-refresh on a empty repoindex.xml (bsc#1116840).\n- Fixes soname due to libsolv ABI changes (bsc#1115341).\n- Add infrastructure to flag specific packages to trigger a reboot needed hint (fate#326451).\n\nThis update for zypper 1.14.27 fixes the following issues:\n\n- bash-completion: add package completion for addlock (bsc#1047962)\n- bash-completion: fix incorrect detection of command names (bsc#1049826)\n\n- Offer to change the 'runSearchPackages' config option at the prompt\n  (bsc#1119373, FATE#325599)\n- Prompt: provide a 'yes/no/always/never' prompt.\n- Prompt: support '#NUM' as answer to select the NUMth option...\n- Augeas: enable writing back changed option values (to ~/.zypper.conf)\n- removelocale: fix segfault\n- Move needs-restarting command to subpackage (fixes #254)\n- Allow empty string as argument (bsc#1125415)\n- Provide a way to delete cache for volatile repositories (bsc#1053177)\n- Adapt to boost-1.69 requiring explicit casts tribool->bool (fixes #255)\n- Show support status in info if not unknown (bsc#764147)\n- Fix installing plain rpm files with `zypper in` (bsc#1124897)\n- Show only required info in the summary in quiet mode (bsc#993025)\n- Stay with legacy behavior and return ZYPPER_EXIT_INF_REBOOT_NEEDED\n  only for patches. We don't extend this return code to packages,\n  although they may also carry the 'reboot-needed' attribute. The\n  preferred way to test whether the system needs to be rebooted is\n  `zypper needs-rebooting`. (openSUSE/zypper#237)\n- Skip repository on error (bsc#1123967)\n- New commands for locale management: locales addlocale removelocale\n  Inspect and manipulate the systems `requested locales`, aka. the\n  languages software packages should try support by installing\n  translations, dictionaries and tools, as far as they are available.\n- Don't throw, just warn if options are repeated (bsc#1123865)\n- Fix detection whether stdout is a tty (happened too late)\n- Fix broken --plus-content switch (fixes bsc#1123681)\n- Fix broken --replacefiles switch (fixes bsc#1123137)\n- Extend zypper source-install (fixes bsc#663358)\n- Fix inconsistent results for search (bsc#1119873)\n- Show reboot hint in zypper ps and summary (fixes bsc#1120263)\n- Improve handling of partially locked packages (bsc#1113296)\n- Fix wrong default values in help text (bsc#1121611)\n- Fixed broken argument parsing for --reposd-dir (bsc#1122062)\n- Fix wrong zypp::indeterminate use (bsc#1120463)\n- CLI parser: fix broken initialization enforcing 'select by name'\n  (bsc#1119820)\n- zypper.conf: [commit] autoAgreeWithLicenses {=false} (fixes #220)\n- locks: Fix printing of versioned locks (bsc#1112911)\n- locks: create and write versioned locks correctly (bsc#1112911)\n- patch: --with update may implicitly assume --with-optional (bsc#1102261)\n- no-recommends: Nevertheless consider resolver namespaces (hardware,\n  language,..supporting packages) (FATE#325513)\n- Optionally run 'zypper search-packages' after 'search' (FATE#325599)\n- zypper.conf: Add [search]runSearchPackages config variable.\n- Don't iterate twice on --no-cd (bsc#1111319)\n- zypper-log: Make it Python 3 compatible\n- man: mention /etc/zypp/needreboot config file (fate#326451, fixes #140)\n- Add `needs-restarting` shell script and manpage (fate#326451)\n- Add zypper needs-rebooting command (fate#326451)\n- Introduce new zypper command framefork. Migrated commands so far:\n  addlock addrepo addservice clean cleanlocks modifyrepo modifyservice\n  ps refresh refresh-services removelock removerepo removeservice\n  renamerepo repos services\n- MediaChangeReport: fix https URLs causing 2 prompts on error\n  (bsc#1110542)\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Container suse/sle15:15.0-2019-2030,Image SLES15-Azure-BYOS-2019-2030,Image SLES15-EC2-CHOST-HVM-BYOS-2019-2030,Image SLES15-EC2-HVM-BYOS-2019-2030,Image SLES15-GCE-BYOS-2019-2030,Image SLES15-OCI-BYOS-2019-2030,Image SLES15-SAP-Azure-2019-2030,Image SLES15-SAP-Azure-BYOS-2019-2030,Image SLES15-SAP-Azure-LI-BYOS-Production-2019-2030,Image SLES15-SAP-Azure-VLI-BYOS-Production-2019-2030,Image SLES15-SAP-EC2-HVM-2019-2030,Image SLES15-SAP-EC2-HVM-BYOS-2019-2030,Image SLES15-SAP-GCE-2019-2030,Image SLES15-SAP-GCE-BYOS-2019-2030,Image SLES15-SAP-OCI-BYOS-2019-2030,Image SLES15-SP1-SAPCAL-Azure-2019-2030,Image SLES15-SP1-SAPCAL-EC2-HVM-2019-2030,Image SLES15-SP1-SAPCAL-GCE-2019-2030,SUSE-2019-2030,SUSE-SLE-INSTALLER-15-2019-2030,SUSE-SLE-Module-Basesystem-15-2019-2030,SUSE-SLE-Module-Desktop-Applications-15-2019-2030,SUSE-SLE-Module-Development-Tools-15-2019-2030,SUSE-SLE-Module-Development-Tools-OBS-15-2019-2030,SUSE-SLE-Module-Development-Tools-OBS-15-SP1-2019-2030,SUSE-SLE-Product-WE-15-2019-2030",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20192030-1/",
+			"description": "Link for SUSE-SU-2019:2030-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2019-July/005763.html",
+			"description": "E-Mail link for SUSE-SU-2019:2030-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1047962",
+			"description": "SUSE Bug 1047962"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1049826",
+			"description": "SUSE Bug 1049826"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1053177",
+			"description": "SUSE Bug 1053177"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1065022",
+			"description": "SUSE Bug 1065022"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1099019",
+			"description": "SUSE Bug 1099019"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1102261",
+			"description": "SUSE Bug 1102261"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1110542",
+			"description": "SUSE Bug 1110542"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1111319",
+			"description": "SUSE Bug 1111319"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1112911",
+			"description": "SUSE Bug 1112911"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1113296",
+			"description": "SUSE Bug 1113296"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1114908",
+			"description": "SUSE Bug 1114908"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115341",
+			"description": "SUSE Bug 1115341"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1116840",
+			"description": "SUSE Bug 1116840"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1118758",
+			"description": "SUSE Bug 1118758"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1119373",
+			"description": "SUSE Bug 1119373"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1119820",
+			"description": "SUSE Bug 1119820"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1119873",
+			"description": "SUSE Bug 1119873"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120263",
+			"description": "SUSE Bug 1120263"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120463",
+			"description": "SUSE Bug 1120463"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120629",
+			"description": "SUSE Bug 1120629"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120630",
+			"description": "SUSE Bug 1120630"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120631",
+			"description": "SUSE Bug 1120631"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1121611",
+			"description": "SUSE Bug 1121611"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1122062",
+			"description": "SUSE Bug 1122062"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1122471",
+			"description": "SUSE Bug 1122471"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1123137",
+			"description": "SUSE Bug 1123137"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1123681",
+			"description": "SUSE Bug 1123681"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1123843",
+			"description": "SUSE Bug 1123843"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1123865",
+			"description": "SUSE Bug 1123865"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1123967",
+			"description": "SUSE Bug 1123967"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1124897",
+			"description": "SUSE Bug 1124897"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1125415",
+			"description": "SUSE Bug 1125415"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1127026",
+			"description": "SUSE Bug 1127026"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1127155",
+			"description": "SUSE Bug 1127155"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1127220",
+			"description": "SUSE Bug 1127220"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1130161",
+			"description": "SUSE Bug 1130161"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1131823",
+			"description": "SUSE Bug 1131823"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1135749",
+			"description": "SUSE Bug 1135749"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1137977",
+			"description": "SUSE Bug 1137977"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/663358",
+			"description": "SUSE Bug 663358"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/764147",
+			"description": "SUSE Bug 764147"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/965786",
+			"description": "SUSE Bug 965786"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/978193",
+			"description": "SUSE Bug 978193"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/993025",
+			"description": "SUSE Bug 993025"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-20532/",
+			"description": "SUSE CVE CVE-2018-20532 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-20533/",
+			"description": "SUSE CVE CVE-2018-20533 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-20534/",
+			"description": "SUSE CVE CVE-2018-20534 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Container suse/sle15:15.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sle15:15.0",
+						"full_product_name": {
+							"text": "Container suse/sle15:15.0",
+							"product_id": "Container suse/sle15:15.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-Azure-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-Azure-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-Azure-BYOS",
+							"product_id": "Image SLES15-Azure-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-EC2-CHOST-HVM-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-EC2-CHOST-HVM-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-EC2-CHOST-HVM-BYOS",
+							"product_id": "Image SLES15-EC2-CHOST-HVM-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-EC2-HVM-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-EC2-HVM-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-EC2-HVM-BYOS",
+							"product_id": "Image SLES15-EC2-HVM-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-GCE-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-GCE-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-GCE-BYOS",
+							"product_id": "Image SLES15-GCE-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-OCI-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-OCI-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-OCI-BYOS",
+							"product_id": "Image SLES15-OCI-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-Azure",
+							"product_id": "Image SLES15-SAP-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-Azure-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-Azure-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-Azure-BYOS",
+							"product_id": "Image SLES15-SAP-Azure-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-Azure-LI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-Azure-LI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-Azure-LI-BYOS-Production",
+							"product_id": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-Azure-VLI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-Azure-VLI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-Azure-VLI-BYOS-Production",
+							"product_id": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-EC2-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-EC2-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-EC2-HVM",
+							"product_id": "Image SLES15-SAP-EC2-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-EC2-HVM-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-EC2-HVM-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-EC2-HVM-BYOS",
+							"product_id": "Image SLES15-SAP-EC2-HVM-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-GCE",
+							"product_id": "Image SLES15-SAP-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-GCE-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-GCE-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-GCE-BYOS",
+							"product_id": "Image SLES15-SAP-GCE-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-OCI-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-OCI-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-OCI-BYOS",
+							"product_id": "Image SLES15-SAP-OCI-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAPCAL-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAPCAL-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAPCAL-Azure",
+							"product_id": "Image SLES15-SP1-SAPCAL-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAPCAL-EC2-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAPCAL-EC2-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAPCAL-EC2-HVM",
+							"product_id": "Image SLES15-SP1-SAPCAL-EC2-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-SAPCAL-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-SAPCAL-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-SAPCAL-GCE",
+							"product_id": "Image SLES15-SP1-SAPCAL-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Basesystem 15",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Basesystem 15",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Basesystem 15",
+							"product_id": "SUSE Linux Enterprise Module for Basesystem 15",
+							"cpe": "cpe:/o:suse:sle-module-basesystem:15"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Desktop Applications 15",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Desktop Applications 15",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Desktop Applications 15",
+							"product_id": "SUSE Linux Enterprise Module for Desktop Applications 15",
+							"cpe": "cpe:/o:suse:sle-module-desktop-applications:15"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Development Tools 15",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Development Tools 15",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Development Tools 15",
+							"product_id": "SUSE Linux Enterprise Module for Development Tools 15",
+							"cpe": "cpe:/o:suse:sle-module-development-tools:15"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Workstation Extension 15",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Workstation Extension 15",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Workstation Extension 15",
+							"product_id": "SUSE Linux Enterprise Workstation Extension 15",
+							"cpe": "cpe:/o:suse:sle-we:15"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsolv-tools-0.7.5-3.12.2",
+				"full_product_name": {
+					"text": "libsolv-tools-0.7.5-3.12.2",
+					"product_id": "libsolv-tools-0.7.5-3.12.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libzypp-17.12.0-3.23.6",
+				"full_product_name": {
+					"text": "libzypp-17.12.0-3.23.6",
+					"product_id": "libzypp-17.12.0-3.23.6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "zypper-1.14.28-3.18.6",
+				"full_product_name": {
+					"text": "zypper-1.14.28-3.18.6",
+					"product_id": "zypper-1.14.28-3.18.6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"full_product_name": {
+					"text": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+					"product_id": "libyui-ncurses-pkg8-2.48.5.2-3.5.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-solv-0.7.5-3.12.2",
+				"full_product_name": {
+					"text": "python-solv-0.7.5-3.12.2",
+					"product_id": "python-solv-0.7.5-3.12.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"full_product_name": {
+					"text": "yast2-pkg-bindings-4.0.13-3.7.2",
+					"product_id": "yast2-pkg-bindings-4.0.13-3.7.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "PackageKit-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "PackageKit-1.1.10-4.10.4",
+					"product_id": "PackageKit-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "PackageKit-backend-zypp-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "PackageKit-backend-zypp-1.1.10-4.10.4",
+					"product_id": "PackageKit-backend-zypp-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "PackageKit-branding-upstream-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "PackageKit-branding-upstream-1.1.10-4.10.4",
+					"product_id": "PackageKit-branding-upstream-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "PackageKit-devel-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "PackageKit-devel-1.1.10-4.10.4",
+					"product_id": "PackageKit-devel-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "PackageKit-gstreamer-plugin-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "PackageKit-gstreamer-plugin-1.1.10-4.10.4",
+					"product_id": "PackageKit-gstreamer-plugin-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "PackageKit-gtk3-module-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "PackageKit-gtk3-module-1.1.10-4.10.4",
+					"product_id": "PackageKit-gtk3-module-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "PackageKit-lang-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "PackageKit-lang-1.1.10-4.10.4",
+					"product_id": "PackageKit-lang-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpackagekit-glib2-18-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "libpackagekit-glib2-18-1.1.10-4.10.4",
+					"product_id": "libpackagekit-glib2-18-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpackagekit-glib2-18-32bit-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "libpackagekit-glib2-18-32bit-1.1.10-4.10.4",
+					"product_id": "libpackagekit-glib2-18-32bit-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpackagekit-glib2-18-64bit-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "libpackagekit-glib2-18-64bit-1.1.10-4.10.4",
+					"product_id": "libpackagekit-glib2-18-64bit-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpackagekit-glib2-devel-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "libpackagekit-glib2-devel-1.1.10-4.10.4",
+					"product_id": "libpackagekit-glib2-devel-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpackagekit-glib2-devel-32bit-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "libpackagekit-glib2-devel-32bit-1.1.10-4.10.4",
+					"product_id": "libpackagekit-glib2-devel-32bit-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpackagekit-glib2-devel-64bit-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "libpackagekit-glib2-devel-64bit-1.1.10-4.10.4",
+					"product_id": "libpackagekit-glib2-devel-64bit-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsolv-demo-0.7.5-3.12.2",
+				"full_product_name": {
+					"text": "libsolv-demo-0.7.5-3.12.2",
+					"product_id": "libsolv-demo-0.7.5-3.12.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsolv-devel-0.7.5-3.12.2",
+				"full_product_name": {
+					"text": "libsolv-devel-0.7.5-3.12.2",
+					"product_id": "libsolv-devel-0.7.5-3.12.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libyui-ncurses-pkg-devel-2.48.5.2-3.5.2",
+				"full_product_name": {
+					"text": "libyui-ncurses-pkg-devel-2.48.5.2-3.5.2",
+					"product_id": "libyui-ncurses-pkg-devel-2.48.5.2-3.5.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libyui-ncurses-pkg-doc-2.48.5.2-3.5.3",
+				"full_product_name": {
+					"text": "libyui-ncurses-pkg-doc-2.48.5.2-3.5.3",
+					"product_id": "libyui-ncurses-pkg-doc-2.48.5.2-3.5.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libyui-qt-pkg-devel-2.45.15.2-3.5.3",
+				"full_product_name": {
+					"text": "libyui-qt-pkg-devel-2.45.15.2-3.5.3",
+					"product_id": "libyui-qt-pkg-devel-2.45.15.2-3.5.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libyui-qt-pkg-doc-2.45.15.2-3.5.3",
+				"full_product_name": {
+					"text": "libyui-qt-pkg-doc-2.45.15.2-3.5.3",
+					"product_id": "libyui-qt-pkg-doc-2.45.15.2-3.5.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libyui-qt-pkg8-2.45.15.2-3.5.3",
+				"full_product_name": {
+					"text": "libyui-qt-pkg8-2.45.15.2-3.5.3",
+					"product_id": "libyui-qt-pkg8-2.45.15.2-3.5.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libzypp-devel-17.12.0-3.23.6",
+				"full_product_name": {
+					"text": "libzypp-devel-17.12.0-3.23.6",
+					"product_id": "libzypp-devel-17.12.0-3.23.6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libzypp-devel-doc-17.12.0-3.23.6",
+				"full_product_name": {
+					"text": "libzypp-devel-doc-17.12.0-3.23.6",
+					"product_id": "libzypp-devel-doc-17.12.0-3.23.6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "perl-solv-0.7.5-3.12.2",
+				"full_product_name": {
+					"text": "perl-solv-0.7.5-3.12.2",
+					"product_id": "perl-solv-0.7.5-3.12.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python3-solv-0.7.5-3.12.2",
+				"full_product_name": {
+					"text": "python3-solv-0.7.5-3.12.2",
+					"product_id": "python3-solv-0.7.5-3.12.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby-solv-0.7.5-3.12.2",
+				"full_product_name": {
+					"text": "ruby-solv-0.7.5-3.12.2",
+					"product_id": "ruby-solv-0.7.5-3.12.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "typelib-1_0-PackageKitGlib-1_0-1.1.10-4.10.4",
+				"full_product_name": {
+					"text": "typelib-1_0-PackageKitGlib-1_0-1.1.10-4.10.4",
+					"product_id": "typelib-1_0-PackageKitGlib-1_0-1.1.10-4.10.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "yast2-pkg-bindings-devel-doc-4.0.13-3.7.2",
+				"full_product_name": {
+					"text": "yast2-pkg-bindings-devel-doc-4.0.13-3.7.2",
+					"product_id": "yast2-pkg-bindings-devel-doc-4.0.13-3.7.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "zypper-aptitude-1.14.28-3.18.6",
+				"full_product_name": {
+					"text": "zypper-aptitude-1.14.28-3.18.6",
+					"product_id": "zypper-aptitude-1.14.28-3.18.6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "zypper-log-1.14.28-3.18.6",
+				"full_product_name": {
+					"text": "zypper-log-1.14.28-3.18.6",
+					"product_id": "zypper-log-1.14.28-3.18.6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "zypper-needs-restarting-1.14.28-3.18.6",
+				"full_product_name": {
+					"text": "zypper-needs-restarting-1.14.28-3.18.6",
+					"product_id": "zypper-needs-restarting-1.14.28-3.18.6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle15:15.0"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle15:15.0"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle15:15.0"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-Azure-BYOS"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-Azure-BYOS"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-Azure-BYOS"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-Azure-BYOS"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-Azure-BYOS"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-Azure-BYOS"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-CHOST-HVM-BYOS"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-CHOST-HVM-BYOS"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-CHOST-HVM-BYOS"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-GCE-BYOS"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-GCE-BYOS"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-GCE-BYOS"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-GCE-BYOS"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-GCE-BYOS"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-GCE-BYOS"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-OCI-BYOS"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-OCI-BYOS"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-OCI-BYOS"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-OCI-BYOS"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-OCI-BYOS"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-OCI-BYOS"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-Azure"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-EC2-HVM"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-SAPCAL-GCE"
+			},
+			{
+				"product_reference": "libsolv-devel-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15"
+			},
+			{
+				"product_reference": "libsolv-tools-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg-devel-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg-doc-2.48.5.2-3.5.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15"
+			},
+			{
+				"product_reference": "libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15"
+			},
+			{
+				"product_reference": "libyui-qt-pkg-doc-2.45.15.2-3.5.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15"
+			},
+			{
+				"product_reference": "libyui-qt-pkg8-2.45.15.2-3.5.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15"
+			},
+			{
+				"product_reference": "libzypp-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15"
+			},
+			{
+				"product_reference": "libzypp-devel-17.12.0-3.23.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15"
+			},
+			{
+				"product_reference": "python-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15"
+			},
+			{
+				"product_reference": "yast2-pkg-bindings-4.0.13-3.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15"
+			},
+			{
+				"product_reference": "zypper-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15"
+			},
+			{
+				"product_reference": "zypper-log-1.14.28-3.18.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15"
+			},
+			{
+				"product_reference": "PackageKit-1.1.10-4.10.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Desktop Applications 15"
+			},
+			{
+				"product_reference": "PackageKit-backend-zypp-1.1.10-4.10.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Desktop Applications 15"
+			},
+			{
+				"product_reference": "PackageKit-devel-1.1.10-4.10.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Desktop Applications 15"
+			},
+			{
+				"product_reference": "PackageKit-lang-1.1.10-4.10.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Desktop Applications 15"
+			},
+			{
+				"product_reference": "libpackagekit-glib2-18-1.1.10-4.10.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Desktop Applications 15"
+			},
+			{
+				"product_reference": "libpackagekit-glib2-devel-1.1.10-4.10.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Desktop Applications 15"
+			},
+			{
+				"product_reference": "libyui-qt-pkg-devel-2.45.15.2-3.5.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Desktop Applications 15"
+			},
+			{
+				"product_reference": "typelib-1_0-PackageKitGlib-1_0-1.1.10-4.10.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Desktop Applications 15"
+			},
+			{
+				"product_reference": "perl-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15"
+			},
+			{
+				"product_reference": "python3-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15"
+			},
+			{
+				"product_reference": "ruby-solv-0.7.5-3.12.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15"
+			},
+			{
+				"product_reference": "PackageKit-gstreamer-plugin-1.1.10-4.10.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Workstation Extension 15"
+			},
+			{
+				"product_reference": "PackageKit-gtk3-module-1.1.10-4.10.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Workstation Extension 15"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "There is a NULL pointer dereference at ext/testcase.c (function testcase_read) in libsolvext.a in libsolv through 0.7.2 that will cause a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-20532",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container suse/sle15:15.0:libsolv-tools-0.7.5-3.12.2",
+						"Container suse/sle15:15.0:libzypp-17.12.0-3.23.6",
+						"Container suse/sle15:15.0:zypper-1.14.28-3.18.6",
+						"Image SLES15-Azure-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-Azure-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-Azure-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-Azure-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-Azure-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-Azure-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-EC2-CHOST-HVM-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-EC2-CHOST-HVM-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-EC2-CHOST-HVM-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-EC2-HVM-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-EC2-HVM-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-EC2-HVM-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-EC2-HVM-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-EC2-HVM-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-EC2-HVM-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-GCE-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-GCE-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-GCE-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-GCE-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-GCE-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-GCE-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-OCI-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-OCI-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-OCI-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-OCI-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-OCI-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-OCI-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-Azure-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-Azure-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-Azure-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-Azure-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-Azure:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-Azure:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-Azure:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-Azure:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-EC2-HVM-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-EC2-HVM-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-EC2-HVM-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-EC2-HVM:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-EC2-HVM:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-EC2-HVM:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-EC2-HVM:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-EC2-HVM:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-EC2-HVM:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-GCE-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-GCE-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-GCE-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-GCE-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-GCE-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-GCE-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-GCE:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-GCE:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-GCE:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-GCE:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-GCE:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-GCE:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-OCI-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-OCI-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-OCI-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-OCI-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-OCI-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-OCI-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SP1-SAPCAL-Azure:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SP1-SAPCAL-EC2-HVM:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SP1-SAPCAL-GCE:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libsolv-devel-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libsolv-tools-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-ncurses-pkg-devel-2.48.5.2-3.5.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-ncurses-pkg-doc-2.48.5.2-3.5.3",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-qt-pkg-doc-2.45.15.2-3.5.3",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-qt-pkg8-2.45.15.2-3.5.3",
+						"SUSE Linux Enterprise Module for Basesystem 15:libzypp-17.12.0-3.23.6",
+						"SUSE Linux Enterprise Module for Basesystem 15:libzypp-devel-17.12.0-3.23.6",
+						"SUSE Linux Enterprise Module for Basesystem 15:python-solv-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:yast2-pkg-bindings-4.0.13-3.7.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:zypper-1.14.28-3.18.6",
+						"SUSE Linux Enterprise Module for Basesystem 15:zypper-log-1.14.28-3.18.6",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:PackageKit-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:PackageKit-backend-zypp-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:PackageKit-devel-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:PackageKit-lang-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:libpackagekit-glib2-18-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:libpackagekit-glib2-devel-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:libyui-qt-pkg-devel-2.45.15.2-3.5.3",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:typelib-1_0-PackageKitGlib-1_0-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Development Tools 15:perl-solv-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Development Tools 15:python3-solv-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Development Tools 15:ruby-solv-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Workstation Extension 15:PackageKit-gstreamer-plugin-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Workstation Extension 15:PackageKit-gtk3-module-1.1.10-4.10.4"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20192030-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-20532.html",
+					"description": "CVE-2018-20532"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1120629",
+					"description": "SUSE Bug 1120629"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "There is a NULL pointer dereference at ext/testcase.c (function testcase_str2dep_complex) in libsolvext.a in libsolv through 0.7.2 that will cause a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-20533",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container suse/sle15:15.0:libsolv-tools-0.7.5-3.12.2",
+						"Container suse/sle15:15.0:libzypp-17.12.0-3.23.6",
+						"Container suse/sle15:15.0:zypper-1.14.28-3.18.6",
+						"Image SLES15-Azure-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-Azure-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-Azure-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-Azure-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-Azure-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-Azure-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-EC2-CHOST-HVM-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-EC2-CHOST-HVM-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-EC2-CHOST-HVM-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-EC2-HVM-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-EC2-HVM-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-EC2-HVM-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-EC2-HVM-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-EC2-HVM-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-EC2-HVM-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-GCE-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-GCE-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-GCE-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-GCE-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-GCE-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-GCE-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-OCI-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-OCI-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-OCI-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-OCI-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-OCI-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-OCI-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-Azure-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-Azure-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-Azure-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-Azure-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-Azure:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-Azure:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-Azure:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-Azure:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-EC2-HVM-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-EC2-HVM-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-EC2-HVM-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-EC2-HVM:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-EC2-HVM:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-EC2-HVM:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-EC2-HVM:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-EC2-HVM:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-EC2-HVM:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-GCE-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-GCE-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-GCE-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-GCE-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-GCE-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-GCE-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-GCE:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-GCE:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-GCE:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-GCE:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-GCE:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-GCE:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-OCI-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-OCI-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-OCI-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-OCI-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-OCI-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-OCI-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SP1-SAPCAL-Azure:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SP1-SAPCAL-EC2-HVM:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SP1-SAPCAL-GCE:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libsolv-devel-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libsolv-tools-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-ncurses-pkg-devel-2.48.5.2-3.5.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-ncurses-pkg-doc-2.48.5.2-3.5.3",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-qt-pkg-doc-2.45.15.2-3.5.3",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-qt-pkg8-2.45.15.2-3.5.3",
+						"SUSE Linux Enterprise Module for Basesystem 15:libzypp-17.12.0-3.23.6",
+						"SUSE Linux Enterprise Module for Basesystem 15:libzypp-devel-17.12.0-3.23.6",
+						"SUSE Linux Enterprise Module for Basesystem 15:python-solv-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:yast2-pkg-bindings-4.0.13-3.7.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:zypper-1.14.28-3.18.6",
+						"SUSE Linux Enterprise Module for Basesystem 15:zypper-log-1.14.28-3.18.6",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:PackageKit-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:PackageKit-backend-zypp-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:PackageKit-devel-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:PackageKit-lang-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:libpackagekit-glib2-18-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:libpackagekit-glib2-devel-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:libyui-qt-pkg-devel-2.45.15.2-3.5.3",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:typelib-1_0-PackageKitGlib-1_0-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Development Tools 15:perl-solv-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Development Tools 15:python3-solv-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Development Tools 15:ruby-solv-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Workstation Extension 15:PackageKit-gstreamer-plugin-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Workstation Extension 15:PackageKit-gtk3-module-1.1.10-4.10.4"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20192030-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-20533.html",
+					"description": "CVE-2018-20533"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1120630",
+					"description": "SUSE Bug 1120630"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "** DISPUTED ** There is an illegal address access at ext/testcase.c in libsolv.a in libsolv through 0.7.2 that will cause a denial of service. NOTE: third parties dispute this issue stating that the issue affects the test suite and not the underlying library. It cannot be exploited in any real-world application.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-20534",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container suse/sle15:15.0:libsolv-tools-0.7.5-3.12.2",
+						"Container suse/sle15:15.0:libzypp-17.12.0-3.23.6",
+						"Container suse/sle15:15.0:zypper-1.14.28-3.18.6",
+						"Image SLES15-Azure-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-Azure-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-Azure-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-Azure-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-Azure-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-Azure-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-EC2-CHOST-HVM-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-EC2-CHOST-HVM-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-EC2-CHOST-HVM-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-EC2-HVM-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-EC2-HVM-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-EC2-HVM-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-EC2-HVM-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-EC2-HVM-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-EC2-HVM-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-GCE-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-GCE-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-GCE-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-GCE-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-GCE-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-GCE-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-OCI-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-OCI-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-OCI-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-OCI-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-OCI-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-OCI-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-Azure-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-Azure-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-Azure-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-Azure-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-Azure:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-Azure:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-Azure:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-Azure:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-Azure:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-EC2-HVM-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-EC2-HVM-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-EC2-HVM-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-EC2-HVM:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-EC2-HVM:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-EC2-HVM:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-EC2-HVM:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-EC2-HVM:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-EC2-HVM:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-GCE-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-GCE-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-GCE-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-GCE-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-GCE-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-GCE-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-GCE:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-GCE:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-GCE:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-GCE:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-GCE:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-GCE:zypper-1.14.28-3.18.6",
+						"Image SLES15-SAP-OCI-BYOS:libsolv-tools-0.7.5-3.12.2",
+						"Image SLES15-SAP-OCI-BYOS:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SAP-OCI-BYOS:libzypp-17.12.0-3.23.6",
+						"Image SLES15-SAP-OCI-BYOS:python-solv-0.7.5-3.12.2",
+						"Image SLES15-SAP-OCI-BYOS:yast2-pkg-bindings-4.0.13-3.7.2",
+						"Image SLES15-SAP-OCI-BYOS:zypper-1.14.28-3.18.6",
+						"Image SLES15-SP1-SAPCAL-Azure:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SP1-SAPCAL-EC2-HVM:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"Image SLES15-SP1-SAPCAL-GCE:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libsolv-devel-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libsolv-tools-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-ncurses-pkg-devel-2.48.5.2-3.5.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-ncurses-pkg-doc-2.48.5.2-3.5.3",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-ncurses-pkg8-2.48.5.2-3.5.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-qt-pkg-doc-2.45.15.2-3.5.3",
+						"SUSE Linux Enterprise Module for Basesystem 15:libyui-qt-pkg8-2.45.15.2-3.5.3",
+						"SUSE Linux Enterprise Module for Basesystem 15:libzypp-17.12.0-3.23.6",
+						"SUSE Linux Enterprise Module for Basesystem 15:libzypp-devel-17.12.0-3.23.6",
+						"SUSE Linux Enterprise Module for Basesystem 15:python-solv-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:yast2-pkg-bindings-4.0.13-3.7.2",
+						"SUSE Linux Enterprise Module for Basesystem 15:zypper-1.14.28-3.18.6",
+						"SUSE Linux Enterprise Module for Basesystem 15:zypper-log-1.14.28-3.18.6",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:PackageKit-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:PackageKit-backend-zypp-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:PackageKit-devel-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:PackageKit-lang-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:libpackagekit-glib2-18-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:libpackagekit-glib2-devel-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:libyui-qt-pkg-devel-2.45.15.2-3.5.3",
+						"SUSE Linux Enterprise Module for Desktop Applications 15:typelib-1_0-PackageKitGlib-1_0-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Module for Development Tools 15:perl-solv-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Development Tools 15:python3-solv-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Module for Development Tools 15:ruby-solv-0.7.5-3.12.2",
+						"SUSE Linux Enterprise Workstation Extension 15:PackageKit-gstreamer-plugin-1.1.10-4.10.4",
+						"SUSE Linux Enterprise Workstation Extension 15:PackageKit-gtk3-module-1.1.10-4.10.4"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20192030-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-20534.html",
+					"description": "CVE-2018-20534"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1120631",
+					"description": "SUSE Bug 1120631"
+				}
+			]
+		}
+	]
+}

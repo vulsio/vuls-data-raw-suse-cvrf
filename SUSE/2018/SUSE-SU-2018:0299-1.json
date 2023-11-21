@@ -1,0 +1,929 @@
+{
+	"document_title": "Security update for systemd",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2018:0299-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2018-01-30T13:37:19Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2018-01-30T13:37:19Z",
+		"current_release_date": "2018-01-30T13:37:19Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for systemd",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for systemd fixes several issues.\n\nThis security issue was fixed:\n\n- CVE-2018-1049: Prevent race that can lead to DoS when using automounts (bsc#1076308).\n\nThese non-security issues were fixed:\n\n- core: don't choke if a unit another unit triggers vanishes during reload\n- delta: don't ignore PREFIX when the given argument is PREFIX/SUFFIX\n- delta: extend skip logic to work on full directory paths (prefix+suffix) (bsc#1070428)\n- delta: check if a prefix needs to be skipped only once\n- delta: skip symlink paths when split-usr is enabled (#4591)\n- sysctl: use raw file descriptor in sysctl_write (#7753)\n- sd-netlink: don't take possesion of netlink fd from caller on failure (bsc#1074254)\n- Fix the regexp used to detect broken by-id symlinks in /etc/crypttab\n  It was missing the following case: '/dev/disk/by-id/cr_-xxx'.\n- sysctl: disable buffer while writing to /proc (bsc#1071558)\n- Use read_line() and LONG_LINE_MAX to read values configuration files. (bsc#1071558)\n- sysctl: no need to check for eof twice\n- def: add new constant LONG_LINE_MAX\n- fileio: add new helper call read_line() as bounded getline() replacement\n- service: Don't stop unneeded units needed by restarted service (#7526) (bsc#1066156)\n- gpt-auto-generator: fix the handling of the value returned by fstab_has_fstype() in add_swap() (#6280)\n- gpt-auto-generator: disable gpt auto logic for swaps if at least one is defined in fstab (bsc#897422)\n- fstab-util: introduce fstab_has_fstype() helper\n- fstab-generator: ignore root=/dev/nfs (#3591)\n- fstab-generator: don't process root= if it happens to be 'gpt-auto' (#3452)\n- virt: use XENFEAT_dom0 to detect the hardware domain (#6442, #6662) (#7581) (bsc#1048510)\n- analyze: replace --no-man with --man=no in the man page (bsc#1068251)\n- udev: net_setup_link: don't error out when we couldn't apply link config (#7328)\n- Add missing /etc/systemd/network directory\n- Fix parsing of features in detect_vm_xen_dom0 (#7890) (bsc#1048510)\n- sd-bus: use -- when passing arguments to ssh (#6706)\n- systemctl: make sure we terminate the bus connection first, and then close the pager (#3550)\n- sd-bus: bump message queue size (bsc#1075724)\n- tmpfiles: downgrade warning about duplicate line\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-CAASP-ALL-2018-213,SUSE-OpenStack-Cloud-Magnum-Orchestration-7-2018-213,SUSE-SLE-DESKTOP-12-SP2-2018-213,SUSE-SLE-DESKTOP-12-SP3-2018-213,SUSE-SLE-RPI-12-SP2-2018-213,SUSE-SLE-SDK-12-SP2-2018-213,SUSE-SLE-SDK-12-SP3-2018-213,SUSE-SLE-SERVER-12-SP2-2018-213,SUSE-SLE-SERVER-12-SP3-2018-213",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20180299-1/",
+			"description": "Link for SUSE-SU-2018:0299-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2018-January/003686.html",
+			"description": "E-Mail link for SUSE-SU-2018:0299-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1048510",
+			"description": "SUSE Bug 1048510"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1065276",
+			"description": "SUSE Bug 1065276"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1066156",
+			"description": "SUSE Bug 1066156"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1068251",
+			"description": "SUSE Bug 1068251"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1070428",
+			"description": "SUSE Bug 1070428"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1071558",
+			"description": "SUSE Bug 1071558"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1074254",
+			"description": "SUSE Bug 1074254"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1075724",
+			"description": "SUSE Bug 1075724"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1076308",
+			"description": "SUSE Bug 1076308"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/897422",
+			"description": "SUSE Bug 897422"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-15908/",
+			"description": "SUSE CVE CVE-2017-15908 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-1049/",
+			"description": "SUSE CVE CVE-2018-1049 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Desktop 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Desktop 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Desktop 12 SP2",
+							"product_id": "SUSE Linux Enterprise Desktop 12 SP2",
+							"cpe": "cpe:/o:suse:sled:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Desktop 12 SP3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Desktop 12 SP3",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Desktop 12 SP3",
+							"product_id": "SUSE Linux Enterprise Desktop 12 SP3",
+							"cpe": "cpe:/o:suse:sled:12:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12 SP2",
+							"product_id": "SUSE Linux Enterprise Server 12 SP2",
+							"cpe": "cpe:/o:suse:sles:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12 SP3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12 SP3",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12 SP3",
+							"product_id": "SUSE Linux Enterprise Server 12 SP3",
+							"cpe": "cpe:/o:suse:sles:12:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2",
+							"product_id": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2",
+							"cpe": "cpe:/o:suse:sles:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+							"cpe": "cpe:/o:suse:sles_sap:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP3",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 12 SP3",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 12 SP3",
+							"cpe": "cpe:/o:suse:sles_sap:12:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Software Development Kit 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Software Development Kit 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Software Development Kit 12 SP2",
+							"product_id": "SUSE Linux Enterprise Software Development Kit 12 SP2",
+							"cpe": "cpe:/o:suse:sle-sdk:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Software Development Kit 12 SP3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Software Development Kit 12 SP3",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Software Development Kit 12 SP3",
+							"product_id": "SUSE Linux Enterprise Software Development Kit 12 SP3",
+							"cpe": "cpe:/o:suse:sle-sdk:12:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsystemd0-228-150.29.1",
+				"full_product_name": {
+					"text": "libsystemd0-228-150.29.1",
+					"product_id": "libsystemd0-228-150.29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsystemd0-32bit-228-150.29.1",
+				"full_product_name": {
+					"text": "libsystemd0-32bit-228-150.29.1",
+					"product_id": "libsystemd0-32bit-228-150.29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libudev1-228-150.29.1",
+				"full_product_name": {
+					"text": "libudev1-228-150.29.1",
+					"product_id": "libudev1-228-150.29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libudev1-32bit-228-150.29.1",
+				"full_product_name": {
+					"text": "libudev1-32bit-228-150.29.1",
+					"product_id": "libudev1-32bit-228-150.29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "systemd-228-150.29.1",
+				"full_product_name": {
+					"text": "systemd-228-150.29.1",
+					"product_id": "systemd-228-150.29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "systemd-32bit-228-150.29.1",
+				"full_product_name": {
+					"text": "systemd-32bit-228-150.29.1",
+					"product_id": "systemd-32bit-228-150.29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "systemd-bash-completion-228-150.29.1",
+				"full_product_name": {
+					"text": "systemd-bash-completion-228-150.29.1",
+					"product_id": "systemd-bash-completion-228-150.29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "systemd-sysvinit-228-150.29.1",
+				"full_product_name": {
+					"text": "systemd-sysvinit-228-150.29.1",
+					"product_id": "systemd-sysvinit-228-150.29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "udev-228-150.29.1",
+				"full_product_name": {
+					"text": "udev-228-150.29.1",
+					"product_id": "udev-228-150.29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libudev-devel-228-150.29.1",
+				"full_product_name": {
+					"text": "libudev-devel-228-150.29.1",
+					"product_id": "libudev-devel-228-150.29.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "systemd-devel-228-150.29.1",
+				"full_product_name": {
+					"text": "systemd-devel-228-150.29.1",
+					"product_id": "systemd-devel-228-150.29.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "libsystemd0-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "libsystemd0-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "libudev1-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "libudev1-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "systemd-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "systemd-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "systemd-bash-completion-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "systemd-sysvinit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "udev-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "libsystemd0-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP3"
+			},
+			{
+				"product_reference": "libsystemd0-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP3"
+			},
+			{
+				"product_reference": "libudev1-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP3"
+			},
+			{
+				"product_reference": "libudev1-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP3"
+			},
+			{
+				"product_reference": "systemd-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP3"
+			},
+			{
+				"product_reference": "systemd-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP3"
+			},
+			{
+				"product_reference": "systemd-bash-completion-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP3"
+			},
+			{
+				"product_reference": "systemd-sysvinit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP3"
+			},
+			{
+				"product_reference": "udev-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP3"
+			},
+			{
+				"product_reference": "libsystemd0-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "libsystemd0-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "libudev1-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "libudev1-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "systemd-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "systemd-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "systemd-bash-completion-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "systemd-sysvinit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "udev-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "libsystemd0-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP3"
+			},
+			{
+				"product_reference": "libsystemd0-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP3"
+			},
+			{
+				"product_reference": "libudev1-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP3"
+			},
+			{
+				"product_reference": "libudev1-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP3"
+			},
+			{
+				"product_reference": "systemd-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP3"
+			},
+			{
+				"product_reference": "systemd-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP3"
+			},
+			{
+				"product_reference": "systemd-bash-completion-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP3"
+			},
+			{
+				"product_reference": "systemd-sysvinit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP3"
+			},
+			{
+				"product_reference": "udev-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP3"
+			},
+			{
+				"product_reference": "libsystemd0-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "libudev1-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "systemd-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "systemd-bash-completion-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "systemd-sysvinit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "udev-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "libsystemd0-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "libsystemd0-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "libudev1-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "libudev1-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "systemd-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "systemd-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "systemd-bash-completion-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "systemd-sysvinit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "udev-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "libsystemd0-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP3"
+			},
+			{
+				"product_reference": "libsystemd0-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP3"
+			},
+			{
+				"product_reference": "libudev1-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP3"
+			},
+			{
+				"product_reference": "libudev1-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP3"
+			},
+			{
+				"product_reference": "systemd-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP3"
+			},
+			{
+				"product_reference": "systemd-32bit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP3"
+			},
+			{
+				"product_reference": "systemd-bash-completion-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP3"
+			},
+			{
+				"product_reference": "systemd-sysvinit-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP3"
+			},
+			{
+				"product_reference": "udev-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP3"
+			},
+			{
+				"product_reference": "libudev-devel-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12 SP2"
+			},
+			{
+				"product_reference": "systemd-devel-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12 SP2"
+			},
+			{
+				"product_reference": "libudev-devel-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12 SP3"
+			},
+			{
+				"product_reference": "systemd-devel-228-150.29.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12 SP3"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "In systemd 223 through 235, a remote DNS server can respond with a custom crafted DNS NSEC resource record to trigger an infinite loop in the dns_packet_read_type_window() function of the 'systemd-resolved' service and cause a DoS of the affected service.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-15908",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:libsystemd0-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:libudev1-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:systemd-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:udev-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:libsystemd0-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:libudev1-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:systemd-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:udev-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:libsystemd0-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:libudev1-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:systemd-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:udev-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:libsystemd0-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:libudev1-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:systemd-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:udev-228-150.29.1",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:udev-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:libsystemd0-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:libudev1-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:systemd-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:udev-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:libsystemd0-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:libudev1-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:systemd-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:udev-228-150.29.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:libudev-devel-228-150.29.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:systemd-devel-228-150.29.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP3:libudev-devel-228-150.29.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP3:systemd-devel-228-150.29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20180299-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-15908.html",
+					"description": "CVE-2017-15908"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1065276",
+					"description": "SUSE Bug 1065276"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In systemd prior to 234 a race condition exists between .mount and .automount units such that automount requests from kernel may not be serviced by systemd resulting in kernel holding the mountpoint and any processes that try to use said mount will hang. A race condition like this may lead to denial of service, until mount points are unmounted.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-1049",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:libsystemd0-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:libudev1-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:systemd-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP2:udev-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:libsystemd0-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:libudev1-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:systemd-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Desktop 12 SP3:udev-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:libsystemd0-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:libudev1-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:systemd-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP2:udev-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:libsystemd0-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:libudev1-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:systemd-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Server 12 SP3:udev-228-150.29.1",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:udev-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:libsystemd0-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:libudev1-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:systemd-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:udev-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:libsystemd0-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:libsystemd0-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:libudev1-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:libudev1-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:systemd-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:systemd-32bit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:systemd-bash-completion-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:systemd-sysvinit-228-150.29.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP3:udev-228-150.29.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:libudev-devel-228-150.29.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:systemd-devel-228-150.29.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP3:libudev-devel-228-150.29.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP3:systemd-devel-228-150.29.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20180299-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-1049.html",
+					"description": "CVE-2018-1049"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1076308",
+					"description": "SUSE Bug 1076308"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1140475",
+					"description": "SUSE Bug 1140475"
+				}
+			]
+		}
+	]
+}

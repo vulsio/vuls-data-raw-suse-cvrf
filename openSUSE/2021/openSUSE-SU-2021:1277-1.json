@@ -1,0 +1,361 @@
+{
+	"document_title": "Security update for apache2-mod_auth_openidc",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2021:1277-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2021-09-16T10:07:24Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2021-09-16T10:07:24Z",
+		"current_release_date": "2021-09-16T10:07:24Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for apache2-mod_auth_openidc",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for apache2-mod_auth_openidc fixes the following issues:\n\n- CVE-2021-32785: format string bug via hiredis (bsc#1188638)\n- CVE-2021-32786: open redirect in logout functionality (bsc#1188639)\n- CVE-2021-32791: Hardcoded static IV and AAD with a reused key in AES GCM encryption (bsc#1188849)\n- CVE-2021-32792: XSS when using OIDCPreservePost On (bsc#1188848)\n\nThis update was imported from the SUSE:SLE-15-SP1:Update update project.",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "openSUSE-2021-1277",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/4FGDDGUNYC724M4QGEPJORKASFRVKJ5V/",
+			"description": "E-Mail link for openSUSE-SU-2021:1277-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1188638",
+			"description": "SUSE Bug 1188638"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1188639",
+			"description": "SUSE Bug 1188639"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1188848",
+			"description": "SUSE Bug 1188848"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1188849",
+			"description": "SUSE Bug 1188849"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-32785/",
+			"description": "SUSE CVE CVE-2021-32785 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-32786/",
+			"description": "SUSE CVE CVE-2021-32786 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-32791/",
+			"description": "SUSE CVE CVE-2021-32791 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-32792/",
+			"description": "SUSE CVE CVE-2021-32792 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 15.2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 15.2",
+						"full_product_name": {
+							"text": "openSUSE Leap 15.2",
+							"product_id": "openSUSE Leap 15.2",
+							"cpe": "cpe:/o:opensuse:leap:15.2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "apache2-mod_auth_openidc-2.3.8-lp152.5.6.1",
+				"full_product_name": {
+					"text": "apache2-mod_auth_openidc-2.3.8-lp152.5.6.1",
+					"product_id": "apache2-mod_auth_openidc-2.3.8-lp152.5.6.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "apache2-mod_auth_openidc-2.3.8-lp152.5.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.2"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "mod_auth_openidc is an authentication/authorization module for the Apache 2.x HTTP server that functions as an OpenID Connect Relying Party, authenticating users against an OpenID Connect Provider. When mod_auth_openidc versions prior to 2.4.9 are configured to use an unencrypted Redis cache (`OIDCCacheEncrypt off`, `OIDCSessionType server-cache`, `OIDCCacheType redis`), `mod_auth_openidc` wrongly performed argument interpolation before passing Redis requests to `hiredis`, which would perform it again and lead to an uncontrolled format string bug. Initial assessment shows that this bug does not appear to allow gaining arbitrary code execution, but can reliably provoke a denial of service by repeatedly crashing the Apache workers. This bug has been corrected in version 2.4.9 by performing argument interpolation only once, using the `hiredis` API. As a workaround, this vulnerability can be mitigated by setting `OIDCCacheEncrypt` to `on`, as cache keys are cryptographically hashed before use when this option is enabled.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-32785",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 15.2:apache2-mod_auth_openidc-2.3.8-lp152.5.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/4FGDDGUNYC724M4QGEPJORKASFRVKJ5V/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-32785.html",
+					"description": "CVE-2021-32785"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1188638",
+					"description": "SUSE Bug 1188638"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "mod_auth_openidc is an authentication/authorization module for the Apache 2.x HTTP server that functions as an OpenID Connect Relying Party, authenticating users against an OpenID Connect Provider. In versions prior to 2.4.9, `oidc_validate_redirect_url()` does not parse URLs the same way as most browsers do. As a result, this function can be bypassed and leads to an Open Redirect vulnerability in the logout functionality. This bug has been fixed in version 2.4.9 by replacing any backslash of the URL to redirect with slashes to address a particular breaking change between the different specifications (RFC2396 / RFC3986 and WHATWG). As a workaround, this vulnerability can be mitigated by configuring `mod_auth_openidc` to only allow redirection whose destination matches a given regular expression.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-32786",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 15.2:apache2-mod_auth_openidc-2.3.8-lp152.5.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.7",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:N/I:L/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/4FGDDGUNYC724M4QGEPJORKASFRVKJ5V/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-32786.html",
+					"description": "CVE-2021-32786"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1188639",
+					"description": "SUSE Bug 1188639"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "mod_auth_openidc is an authentication/authorization module for the Apache 2.x HTTP server that functions as an OpenID Connect Relying Party, authenticating users against an OpenID Connect Provider. In mod_auth_openidc before version 2.4.9, the AES GCM encryption in mod_auth_openidc uses a static IV and AAD. It is important to fix because this creates a static nonce and since aes-gcm is a stream cipher, this can lead to known cryptographic issues, since the same key is being reused. From 2.4.9 onwards this has been patched to use dynamic values through usage of cjose AES encryption routines.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-32791",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 15.2:apache2-mod_auth_openidc-2.3.8-lp152.5.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/4FGDDGUNYC724M4QGEPJORKASFRVKJ5V/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-32791.html",
+					"description": "CVE-2021-32791"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1188849",
+					"description": "SUSE Bug 1188849"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "mod_auth_openidc is an authentication/authorization module for the Apache 2.x HTTP server that functions as an OpenID Connect Relying Party, authenticating users against an OpenID Connect Provider. In mod_auth_openidc before version 2.4.9, there is an XSS vulnerability in when using `OIDCPreservePost On`.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-32792",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 15.2:apache2-mod_auth_openidc-2.3.8-lp152.5.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.1",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/4FGDDGUNYC724M4QGEPJORKASFRVKJ5V/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-32792.html",
+					"description": "CVE-2021-32792"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1188848",
+					"description": "SUSE Bug 1188848"
+				}
+			]
+		}
+	]
+}

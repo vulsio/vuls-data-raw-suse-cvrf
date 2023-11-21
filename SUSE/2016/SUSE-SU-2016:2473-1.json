@@ -1,0 +1,1221 @@
+{
+	"document_title": "Security update for xen",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2016:2473-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2016-10-07T09:05:05Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2016-10-07T09:05:05Z",
+		"current_release_date": "2016-10-07T09:05:05Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for xen",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for xen fixes several issues.\n\nThese security issues were fixed:\n- CVE-2016-7092: The get_page_from_l3e function in arch/x86/mm.c in Xen allowed local 32-bit PV guest OS administrators to gain host OS privileges via vectors related to L3 recursive pagetables (bsc#995785).\n- CVE-2016-7093: Xen allowed local HVM guest OS administrators to overwrite hypervisor memory and consequently gain host OS privileges by leveraging mishandling of instruction pointer truncation during emulation (bsc#995789).\n- CVE-2016-7094: Buffer overflow in Xen allowed local x86 HVM guest OS administrators on guests running with shadow paging to cause a denial of service via a pagetable update (bsc#995792).\n- CVE-2016-6836: Information leakage in vmxnet3_complete_packet (bsc#994761).\n- CVE-2016-6888: Integer overflow in packet initialisation in VMXNET3 device driver. Aprivileged user inside guest c... (bsc#994772).\n- CVE-2016-6833: Use after free while writing (bsc#994775).\n- CVE-2016-6835: Buffer overflow in vmxnet_tx_pkt_parse_headers() in vmxnet3 deviceemulation. (bsc#994625).\n- CVE-2016-6834: An infinite loop during packet fragmentation (bsc#994421).\n- CVE-2016-6258: The PV pagetable code in arch/x86/mm.c in Xen allowed local 32-bit PV guest OS administrators to gain host OS privileges by leveraging fast-paths for updating pagetable entries (bsc#988675).\n- CVE-2016-6259: Xen did not implement Supervisor Mode Access Prevention (SMAP) whitelisting in 32-bit exception and event delivery, which allowed local 32-bit PV guest OS kernels to cause a denial of service (hypervisor and VM crash) by triggering a safety check (bsc#988676).\n\nThese non-security issues were fixed:\n- bsc#991934: Hypervisor crash in csched_acct\n- bsc#992224: During boot of Xen Hypervisor, failed to get contiguous memory for DMA\n- bsc#955104: Virsh reports error 'one or more references were leaked after disconnect from hypervisor' when 'virsh save' failed due to 'no response from client after 6 keepalive messages'\n- bsc#959552: Migration of HVM guest leads into libvirt segmentation fault\n- bsc#993665: Migration of xen guests finishes in: One or more references were leaked after disconnect from the hypervisor\n- bsc#959330: Guest migrations using virsh results in error 'Internal error: received hangup / error event on socket'\n- bsc#990500: VM virsh migration fails with keepalive error: ':virKeepAliveTimerInternal:143 : No response from client'\n- bsc#953518: Unplug also SCSI disks in qemu-xen-traditional for upstream unplug protocol\n- bsc#953518: xen_platform: unplug also SCSI disks in qemu-xen\n- bsc#971949: xl: Support (by ignoring) xl migrate --live. xl migrations are always live\n- bsc#970135: New virtualization project clock test randomly fails on Xen\n- bsc#990970: Add PMU support for Intel E7-8867 v4 (fam=6, model=79)\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-SLE-DESKTOP-12-SP1-2016-1444,SUSE-SLE-SDK-12-SP1-2016-1444,SUSE-SLE-SERVER-12-SP1-2016-1444",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162473-1/",
+			"description": "Link for SUSE-SU-2016:2473-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2016-10/msg00014.html",
+			"description": "E-Mail link for SUSE-SU-2016:2473-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/953518",
+			"description": "SUSE Bug 953518"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/955104",
+			"description": "SUSE Bug 955104"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/959330",
+			"description": "SUSE Bug 959330"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/959552",
+			"description": "SUSE Bug 959552"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/970135",
+			"description": "SUSE Bug 970135"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/971949",
+			"description": "SUSE Bug 971949"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/988675",
+			"description": "SUSE Bug 988675"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/988676",
+			"description": "SUSE Bug 988676"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/990500",
+			"description": "SUSE Bug 990500"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/990970",
+			"description": "SUSE Bug 990970"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/991934",
+			"description": "SUSE Bug 991934"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/992224",
+			"description": "SUSE Bug 992224"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/993665",
+			"description": "SUSE Bug 993665"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/994421",
+			"description": "SUSE Bug 994421"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/994625",
+			"description": "SUSE Bug 994625"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/994761",
+			"description": "SUSE Bug 994761"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/994772",
+			"description": "SUSE Bug 994772"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/994775",
+			"description": "SUSE Bug 994775"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/995785",
+			"description": "SUSE Bug 995785"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/995789",
+			"description": "SUSE Bug 995789"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/995792",
+			"description": "SUSE Bug 995792"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-6258/",
+			"description": "SUSE CVE CVE-2016-6258 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-6259/",
+			"description": "SUSE CVE CVE-2016-6259 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-6833/",
+			"description": "SUSE CVE CVE-2016-6833 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-6834/",
+			"description": "SUSE CVE CVE-2016-6834 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-6835/",
+			"description": "SUSE CVE CVE-2016-6835 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-6836/",
+			"description": "SUSE CVE CVE-2016-6836 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-6888/",
+			"description": "SUSE CVE CVE-2016-6888 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-7092/",
+			"description": "SUSE CVE CVE-2016-7092 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-7093/",
+			"description": "SUSE CVE CVE-2016-7093 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-7094/",
+			"description": "SUSE CVE CVE-2016-7094 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Desktop 12 SP1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Desktop 12 SP1",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Desktop 12 SP1",
+							"product_id": "SUSE Linux Enterprise Desktop 12 SP1",
+							"cpe": "cpe:/o:suse:sled:12:sp1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12 SP1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12 SP1",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12 SP1",
+							"product_id": "SUSE Linux Enterprise Server 12 SP1",
+							"cpe": "cpe:/o:suse:sles:12:sp1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP1",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 12 SP1",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 12 SP1",
+							"cpe": "cpe:/o:suse:sles_sap:12:sp1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Software Development Kit 12 SP1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Software Development Kit 12 SP1",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Software Development Kit 12 SP1",
+							"product_id": "SUSE Linux Enterprise Software Development Kit 12 SP1",
+							"cpe": "cpe:/o:suse:sle-sdk:12:sp1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-4.5.3_10-20.1",
+				"full_product_name": {
+					"text": "xen-4.5.3_10-20.1",
+					"product_id": "xen-4.5.3_10-20.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+				"full_product_name": {
+					"text": "xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+					"product_id": "xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-libs-4.5.3_10-20.1",
+				"full_product_name": {
+					"text": "xen-libs-4.5.3_10-20.1",
+					"product_id": "xen-libs-4.5.3_10-20.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-libs-32bit-4.5.3_10-20.1",
+				"full_product_name": {
+					"text": "xen-libs-32bit-4.5.3_10-20.1",
+					"product_id": "xen-libs-32bit-4.5.3_10-20.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-devel-4.5.3_10-20.1",
+				"full_product_name": {
+					"text": "xen-devel-4.5.3_10-20.1",
+					"product_id": "xen-devel-4.5.3_10-20.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-doc-html-4.5.3_10-20.1",
+				"full_product_name": {
+					"text": "xen-doc-html-4.5.3_10-20.1",
+					"product_id": "xen-doc-html-4.5.3_10-20.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-tools-4.5.3_10-20.1",
+				"full_product_name": {
+					"text": "xen-tools-4.5.3_10-20.1",
+					"product_id": "xen-tools-4.5.3_10-20.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-tools-domU-4.5.3_10-20.1",
+				"full_product_name": {
+					"text": "xen-tools-domU-4.5.3_10-20.1",
+					"product_id": "xen-tools-domU-4.5.3_10-20.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "xen-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP1"
+			},
+			{
+				"product_reference": "xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP1"
+			},
+			{
+				"product_reference": "xen-libs-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP1"
+			},
+			{
+				"product_reference": "xen-libs-32bit-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP1"
+			},
+			{
+				"product_reference": "xen-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1"
+			},
+			{
+				"product_reference": "xen-doc-html-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1"
+			},
+			{
+				"product_reference": "xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1"
+			},
+			{
+				"product_reference": "xen-libs-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1"
+			},
+			{
+				"product_reference": "xen-libs-32bit-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1"
+			},
+			{
+				"product_reference": "xen-tools-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1"
+			},
+			{
+				"product_reference": "xen-tools-domU-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1"
+			},
+			{
+				"product_reference": "xen-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "xen-doc-html-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "xen-libs-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "xen-libs-32bit-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "xen-tools-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "xen-tools-domU-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "xen-devel-4.5.3_10-20.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12 SP1"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "The PV pagetable code in arch/x86/mm.c in Xen 4.7.x and earlier allows local 32-bit PV guest OS administrators to gain host OS privileges by leveraging fast-paths for updating pagetable entries.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-6258",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP1:xen-devel-4.5.3_10-20.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162473-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-6258.html",
+					"description": "CVE-2016-6258"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1072198",
+					"description": "SUSE Bug 1072198"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1072223",
+					"description": "SUSE Bug 1072223"
+				},
+				{
+					"url": "https://bugzilla.suse.com/988675",
+					"description": "SUSE Bug 988675"
+				},
+				{
+					"url": "https://bugzilla.suse.com/988692",
+					"description": "SUSE Bug 988692"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Xen 4.5.x through 4.7.x do not implement Supervisor Mode Access Prevention (SMAP) whitelisting in 32-bit exception and event delivery, which allows local 32-bit PV guest OS kernels to cause a denial of service (hypervisor and VM crash) by triggering a safety check.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-6259",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP1:xen-devel-4.5.3_10-20.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162473-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-6259.html",
+					"description": "CVE-2016-6259"
+				},
+				{
+					"url": "https://bugzilla.suse.com/988676",
+					"description": "SUSE Bug 988676"
+				},
+				{
+					"url": "https://bugzilla.suse.com/988694",
+					"description": "SUSE Bug 988694"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Use-after-free vulnerability in the vmxnet3_io_bar0_write function in hw/net/vmxnet3.c in QEMU (aka Quick Emulator) allows local guest OS administrators to cause a denial of service (QEMU instance crash) by leveraging failure to check if the device is active.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-6833",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP1:xen-devel-4.5.3_10-20.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.1",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.4",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162473-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-6833.html",
+					"description": "CVE-2016-6833"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994774",
+					"description": "SUSE Bug 994774"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994775",
+					"description": "SUSE Bug 994775"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The net_tx_pkt_do_sw_fragmentation function in hw/net/net_tx_pkt.c in QEMU (aka Quick Emulator) allows local guest OS administrators to cause a denial of service (infinite loop and QEMU process crash) via a zero length for the current fragment length.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-6834",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP1:xen-devel-4.5.3_10-20.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.4",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162473-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-6834.html",
+					"description": "CVE-2016-6834"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994418",
+					"description": "SUSE Bug 994418"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994421",
+					"description": "SUSE Bug 994421"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The vmxnet_tx_pkt_parse_headers function in hw/net/vmxnet_tx_pkt.c in QEMU (aka Quick Emulator) allows local guest OS administrators to cause a denial of service (buffer over-read) by leveraging failure to check IP header length.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-6835",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP1:xen-devel-4.5.3_10-20.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162473-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-6835.html",
+					"description": "CVE-2016-6835"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994605",
+					"description": "SUSE Bug 994605"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994625",
+					"description": "SUSE Bug 994625"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The vmxnet3_complete_packet function in hw/net/vmxnet3.c in QEMU (aka Quick Emulator) allows local guest OS administrators to obtain sensitive host memory information by leveraging failure to initialize the txcq_descr object.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-6836",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP1:xen-devel-4.5.3_10-20.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:C/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162473-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-6836.html",
+					"description": "CVE-2016-6836"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994760",
+					"description": "SUSE Bug 994760"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994761",
+					"description": "SUSE Bug 994761"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Integer overflow in the net_tx_pkt_init function in hw/net/net_tx_pkt.c in QEMU (aka Quick Emulator) allows local guest OS administrators to cause a denial of service (QEMU process crash) via the maximum fragmentation count, which triggers an unchecked multiplication and NULL pointer dereference.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-6888",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP1:xen-devel-4.5.3_10-20.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.4",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162473-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-6888.html",
+					"description": "CVE-2016-6888"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994771",
+					"description": "SUSE Bug 994771"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994772",
+					"description": "SUSE Bug 994772"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The get_page_from_l3e function in arch/x86/mm.c in Xen allows local 32-bit PV guest OS administrators to gain host OS privileges via vectors related to L3 recursive pagetables.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-7092",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP1:xen-devel-4.5.3_10-20.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162473-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-7092.html",
+					"description": "CVE-2016-7092"
+				},
+				{
+					"url": "https://bugzilla.suse.com/995785",
+					"description": "SUSE Bug 995785"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Xen 4.5.3, 4.6.3, and 4.7.x allow local HVM guest OS administrators to overwrite hypervisor memory and consequently gain host OS privileges by leveraging mishandling of instruction pointer truncation during emulation.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-7093",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP1:xen-devel-4.5.3_10-20.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162473-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-7093.html",
+					"description": "CVE-2016-7093"
+				},
+				{
+					"url": "https://bugzilla.suse.com/995789",
+					"description": "SUSE Bug 995789"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Buffer overflow in Xen 4.7.x and earlier allows local x86 HVM guest OS administrators on guests running with shadow paging to cause a denial of service via a pagetable update.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-7094",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Desktop 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-doc-html-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-kmp-default-4.5.3_10_k3.12.62_60.62-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-32bit-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-libs-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:xen-tools-domU-4.5.3_10-20.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP1:xen-devel-4.5.3_10-20.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.1",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:H/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20162473-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-7094.html",
+					"description": "CVE-2016-7094"
+				},
+				{
+					"url": "https://bugzilla.suse.com/995792",
+					"description": "SUSE Bug 995792"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,2205 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2016:1641-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2016-06-21T09:01:13Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2016-06-21T09:01:13Z",
+		"current_release_date": "2016-06-21T09:01:13Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThe openSUSE Leap 42.1 kernel was updated to 4.1.26 to receive various security and bugfixes.\n\nThe following security bugs were fixed:\n- CVE-2016-1583: Prevent the usage of mmap when the lower file system\n  does not allow it. This could have lead to local privilege escalation\n  when ecryptfs-utils was installed and /sbin/mount.ecryptfs_private was\n  setuid (bsc#983143).\n- CVE-2016-4565: The InfiniBand (aka IB) stack in the Linux kernel\n  incorrectly relies on the write system call, which allows local users\n  to cause a denial of service (kernel memory write operation) or possibly\n  have unspecified other impact via a uAPI interface. (bsc#979548)\n- CVE-2016-4805: Use-after-free vulnerability in\n  drivers/net/ppp/ppp_generic.c in the Linux kernel allowed local users\n  to cause a denial of service (memory corruption and system crash,\n  or spinlock) or possibly have unspecified other impact by removing\n  a network namespace, related to the ppp_register_net_channel and\n  ppp_unregister_channel functions.  (bsc#980371).\n- CVE-2016-4951: The tipc_nl_publ_dump function in net/tipc/socket.c\n  in the Linux kernel did not verify socket existence, which allowed\n  local users to cause a denial of service (NULL pointer dereference and\n  system crash) or possibly have unspecified other impact via a dumpit\n  operation. (bsc#981058).\n- CVE-2016-5244: An information leak vulnerability in function\n  rds_inc_info_copy of file net/rds/recv.c was fixed that might have leaked\n  kernel stack data. (bsc#983213).\n- CVE-2016-4580: The x25_negotiate_facilities function in\n  net/x25/x25_facilities.c in the Linux kernel did not properly\n  initialize a certain data structure, which allowed attackers to\n  obtain sensitive information from kernel stack memory via an X.25 Call\n  Request. (bsc#981267).\n- CVE-2016-0758: Tags with indefinite length could have corrupted pointers\n  in asn1_find_indefinite_length (bsc#979867).\n- CVE-2016-2053: The asn1_ber_decoder function in lib/asn1_decoder.c\n  in the Linux kernel allowed attackers to cause a denial of service\n  (panic) via an ASN.1 BER file that lacks a public key, leading\n  to mishandling by the public_key_verify_signature function in\n  crypto/asymmetric_keys/public_key.c (bnc#963762).\n- CVE-2013-7446: Use-after-free vulnerability in net/unix/af_unix.c in\n  the Linux kernel allowed local users to bypass intended AF_UNIX socket\n  permissions or cause a denial of service (panic) via crafted epoll_ctl\n  calls (bnc#955654).\n- CVE-2016-3134: The netfilter subsystem in the Linux kernel did\n  not validate certain offset fields, which allowed local users to gain\n  privileges or cause a denial of service (heap memory corruption) via an\n  IPT_SO_SET_REPLACE setsockopt call (bnc#971126).\n- CVE-2016-3672: The arch_pick_mmap_layout function in arch/x86/mm/mmap.c\n  in the Linux kernel did not properly randomize the legacy base address,\n  which made it easier for local users to defeat the intended restrictions\n  on the ADDR_NO_RANDOMIZE flag, and bypass the ASLR protection mechanism\n  for a setuid or setgid program, by disabling stack-consumption resource\n  limits (bnc#974308).\n- CVE-2016-4482: A kernel information leak in the usbfs devio\n  connectinfo was fixed, which could expose kernel stack memory to\n  userspace. (bnc#978401).\n- CVE-2016-4485: A kernel information leak in llc was fixed (bsc#978821).\n- CVE-2016-4486: A kernel information leak in rtnetlink was fixed,\n  where 4 uninitialized bytes could leak to userspace (bsc#978822).\n- CVE-2016-4557: A use-after-free via double-fdput in\n  replace_map_fd_with_map_ptr() was fixed, which could allow privilege\n  escalation (bsc#979018).\n- CVE-2016-4565: When the 'rdma_ucm' infiniband module is loaded, local\n  attackers could escalate their privileges (bsc#979548).\n- CVE-2016-4569: A kernel information leak in the ALSA timer via events\n  via snd_timer_user_tinterrupt that could leak information to userspace\n  was fixed (bsc#979213).\n- CVE-2016-4578: A kernel information leak in the ALSA timer via events\n  that could leak information to userspace was fixed (bsc#979879).\n- CVE-2016-4581: If the first propogated mount copy was being a slave\n  it could oops the kernel (bsc#979913)\n\nThe following non-security bugs were fixed:\n- ALSA: hda - Add dock support for ThinkPad X260 (boo#979278).\n- ALSA: hda - Apply fix for white noise on Asus N550JV, too (boo#979278).\n- ALSA: hda - Asus N750JV external subwoofer fixup (boo#979278).\n- ALSA: hda - Fix broken reconfig (boo#979278).\n- ALSA: hda - Fix headphone mic input on a few Dell ALC293 machines (boo#979278).\n- ALSA: hda - Fix subwoofer pin on ASUS N751 and N551 (boo#979278).\n- ALSA: hda - Fix white noise on Asus N750JV headphone (boo#979278).\n- ALSA: hda - Fix white noise on Asus UX501VW headset (boo#979278).\n- ALSA: hda/realtek - Add ALC3234 headset mode for Optiplex 9020m (boo#979278).\n- ALSA: hda/realtek - New codecs support for ALC234/ALC274/ALC294 (boo#979278).\n- ALSA: hda/realtek - New codec support of ALC225 (boo#979278).\n- ALSA: hda/realtek - Support headset mode for ALC225 (boo#979278).\n- ALSA: pcxhr: Fix missing mutex unlock (boo#979278).\n- ALSA: usb-audio: Quirk for yet another Phoenix Audio devices (v2) (boo#979278).\n- bluetooth: fix power_on vs close race (bsc#966849).\n- bluetooth: vhci: fix open_timeout vs. hdev race (bsc#971799,bsc#966849).\n- bluetooth: vhci: Fix race at creating hci device (bsc#971799,bsc#966849).\n- bluetooth: vhci: purge unhandled skbs (bsc#971799,bsc#966849).\n- btrfs: do not use src fd for printk (bsc#980348).\n- btrfs: fix crash/invalid memory access on fsync when using overlayfs (bsc#977198)\n- drm: qxl: Workaround for buggy user-space (bsc#981344).\n- enic: set netdev->vlan_features (bsc#966245).\n- fs: add file_dentry() (bsc#977198).\n- IB/IPoIB: Do not set skb truesize since using one linearskb (bsc#980657).\n- input: i8042 - lower log level for 'no controller' message (bsc#945345).\n- kabi: Add kabi/severities entries to ignore sound/hda/*, x509_*, efivar_validate, file_open_root and dax_fault\n- kabi: Add some fixups (module, pci_dev, drm, fuse and thermal)\n- kabi: file_dentry changes (bsc#977198).\n- kABI fixes for 4.1.22\n- mm/page_alloc.c: calculate 'available' memory in a separate function (bsc#982239).\n- net: disable fragment reassembly if high_thresh is zero (bsc#970506).\n- of: iommu: Silence misleading warning.\n- pstore_register() error handling was wrong -- it tried to release lock before it's acquired, causing spinlock / preemption imbalance.  - usb: quirk to stop runtime PM for Intel 7260 (bnc#984460).\n- Revert 'usb: hub: do not clear BOS field during reset device' (boo#979728).\n- usb: core: hub: hub_port_init lock controller instead of bus (bnc#978073).\n- usb: preserve kABI in address0 locking (bnc#978073).\n- usb: usbip: fix potential out-of-bounds write (bnc#975945).\n- USB: xhci: Add broken streams quirk for Frescologic device id 1009  (bnc#982712).\n- virtio_balloon: do not change memory amount visible via /proc/meminfo (bsc#982238).\n- virtio_balloon: export 'available' memory to balloon statistics (bsc#982239).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html",
+			"description": "E-Mail link for openSUSE-SU-2016:1641-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 42.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 42.1",
+						"full_product_name": {
+							"text": "openSUSE Leap 42.1",
+							"product_id": "openSUSE Leap 42.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-debug-4.1.26-21.1",
+					"product_id": "kernel-debug-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-base-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-debug-base-4.1.26-21.1",
+					"product_id": "kernel-debug-base-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-devel-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-debug-devel-4.1.26-21.1",
+					"product_id": "kernel-debug-devel-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-default-4.1.26-21.1",
+					"product_id": "kernel-default-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-default-base-4.1.26-21.1",
+					"product_id": "kernel-default-base-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-default-devel-4.1.26-21.1",
+					"product_id": "kernel-default-devel-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-devel-4.1.26-21.1",
+					"product_id": "kernel-devel-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-4.1.26-21.2",
+				"full_product_name": {
+					"text": "kernel-docs-4.1.26-21.2",
+					"product_id": "kernel-docs-4.1.26-21.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-html-4.1.26-21.2",
+				"full_product_name": {
+					"text": "kernel-docs-html-4.1.26-21.2",
+					"product_id": "kernel-docs-html-4.1.26-21.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-pdf-4.1.26-21.2",
+				"full_product_name": {
+					"text": "kernel-docs-pdf-4.1.26-21.2",
+					"product_id": "kernel-docs-pdf-4.1.26-21.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-ec2-4.1.26-21.1",
+					"product_id": "kernel-ec2-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-base-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-ec2-base-4.1.26-21.1",
+					"product_id": "kernel-ec2-base-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-devel-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-ec2-devel-4.1.26-21.1",
+					"product_id": "kernel-ec2-devel-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-macros-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-macros-4.1.26-21.1",
+					"product_id": "kernel-macros-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-build-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-obs-build-4.1.26-21.1",
+					"product_id": "kernel-obs-build-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-qa-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-obs-qa-4.1.26-21.1",
+					"product_id": "kernel-obs-qa-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-qa-xen-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-obs-qa-xen-4.1.26-21.1",
+					"product_id": "kernel-obs-qa-xen-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-pae-4.1.26-21.1",
+					"product_id": "kernel-pae-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-base-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-pae-base-4.1.26-21.1",
+					"product_id": "kernel-pae-base-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-devel-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-pae-devel-4.1.26-21.1",
+					"product_id": "kernel-pae-devel-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pv-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-pv-4.1.26-21.1",
+					"product_id": "kernel-pv-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pv-base-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-pv-base-4.1.26-21.1",
+					"product_id": "kernel-pv-base-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pv-devel-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-pv-devel-4.1.26-21.1",
+					"product_id": "kernel-pv-devel-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-source-4.1.26-21.1",
+					"product_id": "kernel-source-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-vanilla-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-source-vanilla-4.1.26-21.1",
+					"product_id": "kernel-source-vanilla-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-syms-4.1.26-21.1",
+					"product_id": "kernel-syms-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-4.1.26-21.1",
+					"product_id": "kernel-vanilla-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-devel-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-devel-4.1.26-21.1",
+					"product_id": "kernel-vanilla-devel-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-xen-4.1.26-21.1",
+					"product_id": "kernel-xen-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-base-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-xen-base-4.1.26-21.1",
+					"product_id": "kernel-xen-base-4.1.26-21.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-devel-4.1.26-21.1",
+				"full_product_name": {
+					"text": "kernel-xen-devel-4.1.26-21.1",
+					"product_id": "kernel-xen-devel-4.1.26-21.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-debug-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-debug-base-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-debug-devel-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-default-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-default-base-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-devel-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-docs-4.1.26-21.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-docs-html-4.1.26-21.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-docs-pdf-4.1.26-21.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-ec2-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-ec2-base-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-ec2-devel-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-macros-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-obs-build-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-obs-qa-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-obs-qa-xen-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pae-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pae-base-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pae-devel-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pv-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pv-base-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pv-devel-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-source-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-source-vanilla-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-syms-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-vanilla-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-vanilla-devel-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-xen-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-xen-base-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-xen-devel-4.1.26-21.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Use-after-free vulnerability in net/unix/af_unix.c in the Linux kernel before 4.3.3 allows local users to bypass intended AF_UNIX socket permissions or cause a denial of service (panic) via crafted epoll_ctl calls.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2013-7446",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2013-7446.html",
+					"description": "CVE-2013-7446"
+				},
+				{
+					"url": "https://bugzilla.suse.com/955654",
+					"description": "SUSE Bug 955654"
+				},
+				{
+					"url": "https://bugzilla.suse.com/955837",
+					"description": "SUSE Bug 955837"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Integer overflow in lib/asn1_decoder.c in the Linux kernel before 4.6 allows local users to gain privileges via crafted ASN.1 data.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-0758",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-0758.html",
+					"description": "CVE-2016-0758"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979867",
+					"description": "SUSE Bug 979867"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980856",
+					"description": "SUSE Bug 980856"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The ecryptfs_privileged_open function in fs/ecryptfs/kthread.c in the Linux kernel before 4.6.3 allows local users to gain privileges or cause a denial of service (stack memory consumption) via vectors involving crafted mmap calls for /proc pathnames, leading to recursive pagefault handling.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-1583",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-1583.html",
+					"description": "CVE-2016-1583"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1052256",
+					"description": "SUSE Bug 1052256"
+				},
+				{
+					"url": "https://bugzilla.suse.com/983143",
+					"description": "SUSE Bug 983143"
+				},
+				{
+					"url": "https://bugzilla.suse.com/983144",
+					"description": "SUSE Bug 983144"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The asn1_ber_decoder function in lib/asn1_decoder.c in the Linux kernel before 4.3 allows attackers to cause a denial of service (panic) via an ASN.1 BER file that lacks a public key, leading to mishandling by the public_key_verify_signature function in crypto/asymmetric_keys/public_key.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2053",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.7",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2053.html",
+					"description": "CVE-2016-2053"
+				},
+				{
+					"url": "https://bugzilla.suse.com/963762",
+					"description": "SUSE Bug 963762"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979074",
+					"description": "SUSE Bug 979074"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The netfilter subsystem in the Linux kernel through 4.5.2 does not validate certain offset fields, which allows local users to gain privileges or cause a denial of service (heap memory corruption) via an IPT_SO_SET_REPLACE setsockopt call.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-3134",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.2",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-3134.html",
+					"description": "CVE-2016-3134"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1052256",
+					"description": "SUSE Bug 1052256"
+				},
+				{
+					"url": "https://bugzilla.suse.com/971126",
+					"description": "SUSE Bug 971126"
+				},
+				{
+					"url": "https://bugzilla.suse.com/971793",
+					"description": "SUSE Bug 971793"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986362",
+					"description": "SUSE Bug 986362"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986365",
+					"description": "SUSE Bug 986365"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The arch_pick_mmap_layout function in arch/x86/mm/mmap.c in the Linux kernel through 4.5.2 does not properly randomize the legacy base address, which makes it easier for local users to defeat the intended restrictions on the ADDR_NO_RANDOMIZE flag, and bypass the ASLR protection mechanism for a setuid or setgid program, by disabling stack-consumption resource limits.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-3672",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:P/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-3672.html",
+					"description": "CVE-2016-3672"
+				},
+				{
+					"url": "https://bugzilla.suse.com/974308",
+					"description": "SUSE Bug 974308"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The usbip_recv_xbuff function in drivers/usb/usbip/usbip_common.c in the Linux kernel before 4.5.3 allows remote attackers to cause a denial of service (out-of-bounds write) or possibly have unspecified other impact via a crafted length value in a USB/IP packet.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-3955",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "critical"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "9.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9.8",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-3955.html",
+					"description": "CVE-2016-3955"
+				},
+				{
+					"url": "https://bugzilla.suse.com/975945",
+					"description": "SUSE Bug 975945"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The proc_connectinfo function in drivers/usb/core/devio.c in the Linux kernel through 4.6 does not initialize a certain data structure, which allows local users to obtain sensitive information from kernel stack memory via a crafted USBDEVFS_CONNECTINFO ioctl call.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4482",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4482.html",
+					"description": "CVE-2016-4482"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978401",
+					"description": "SUSE Bug 978401"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978445",
+					"description": "SUSE Bug 978445"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The llc_cmsg_rcv function in net/llc/af_llc.c in the Linux kernel before 4.5.5 does not initialize a certain data structure, which allows attackers to obtain sensitive information from kernel stack memory by reading a message.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4485",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4485.html",
+					"description": "CVE-2016-4485"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978821",
+					"description": "SUSE Bug 978821"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The rtnl_fill_link_ifmap function in net/core/rtnetlink.c in the Linux kernel before 4.5.5 does not initialize a certain data structure, which allows local users to obtain sensitive information from kernel stack memory by reading a Netlink message.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4486",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4486.html",
+					"description": "CVE-2016-4486"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978822",
+					"description": "SUSE Bug 978822"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The replace_map_fd_with_map_ptr function in kernel/bpf/verifier.c in the Linux kernel before 4.5.5 does not properly maintain an fd data structure, which allows local users to gain privileges or cause a denial of service (use-after-free) via crafted BPF instructions that reference an incorrect file descriptor.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4557",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.2",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4557.html",
+					"description": "CVE-2016-4557"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979018",
+					"description": "SUSE Bug 979018"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979077",
+					"description": "SUSE Bug 979077"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The InfiniBand (aka IB) stack in the Linux kernel before 4.5.3 incorrectly relies on the write system call, which allows local users to cause a denial of service (kernel memory write operation) or possibly have unspecified other impact via a uAPI interface.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4565",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.6",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4565.html",
+					"description": "CVE-2016-4565"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979548",
+					"description": "SUSE Bug 979548"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980363",
+					"description": "SUSE Bug 980363"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980883",
+					"description": "SUSE Bug 980883"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The snd_timer_user_params function in sound/core/timer.c in the Linux kernel through 4.6 does not initialize a certain data structure, which allows local users to obtain sensitive information from kernel stack memory via crafted use of the ALSA timer interface.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4569",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4569.html",
+					"description": "CVE-2016-4569"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979213",
+					"description": "SUSE Bug 979213"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979879",
+					"description": "SUSE Bug 979879"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "sound/core/timer.c in the Linux kernel through 4.6 does not initialize certain r1 data structures, which allows local users to obtain sensitive information from kernel stack memory via crafted use of the ALSA timer interface, related to the (1) snd_timer_user_ccallback and (2) snd_timer_user_tinterrupt functions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4578",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4578.html",
+					"description": "CVE-2016-4578"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1052256",
+					"description": "SUSE Bug 1052256"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979879",
+					"description": "SUSE Bug 979879"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The x25_negotiate_facilities function in net/x25/x25_facilities.c in the Linux kernel before 4.5.5 does not properly initialize a certain data structure, which allows attackers to obtain sensitive information from kernel stack memory via an X.25 Call Request.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4580",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4580.html",
+					"description": "CVE-2016-4580"
+				},
+				{
+					"url": "https://bugzilla.suse.com/870618",
+					"description": "SUSE Bug 870618"
+				},
+				{
+					"url": "https://bugzilla.suse.com/981267",
+					"description": "SUSE Bug 981267"
+				},
+				{
+					"url": "https://bugzilla.suse.com/985132",
+					"description": "SUSE Bug 985132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "fs/pnode.c in the Linux kernel before 4.5.4 does not properly traverse a mount propagation tree in a certain case involving a slave mount, which allows local users to cause a denial of service (NULL pointer dereference and OOPS) via a crafted series of mount system calls.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4581",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4581.html",
+					"description": "CVE-2016-4581"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979913",
+					"description": "SUSE Bug 979913"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Use-after-free vulnerability in drivers/net/ppp/ppp_generic.c in the Linux kernel before 4.5.2 allows local users to cause a denial of service (memory corruption and system crash, or spinlock) or possibly have unspecified other impact by removing a network namespace, related to the ppp_register_net_channel and ppp_unregister_channel functions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4805",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.3",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4805.html",
+					"description": "CVE-2016-4805"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980371",
+					"description": "SUSE Bug 980371"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The tipc_nl_publ_dump function in net/tipc/socket.c in the Linux kernel through 4.6 does not verify socket existence, which allows local users to cause a denial of service (NULL pointer dereference and system crash) or possibly have unspecified other impact via a dumpit operation.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4951",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4951.html",
+					"description": "CVE-2016-4951"
+				},
+				{
+					"url": "https://bugzilla.suse.com/981058",
+					"description": "SUSE Bug 981058"
+				},
+				{
+					"url": "https://bugzilla.suse.com/985132",
+					"description": "SUSE Bug 985132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The rds_inc_info_copy function in net/rds/recv.c in the Linux kernel through 4.6.3 does not initialize a certain structure member, which allows remote attackers to obtain sensitive information from kernel stack memory by reading an RDS message.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-5244",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:kernel-debug-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.26-21.2",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-macros-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.26-21.1",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.26-21.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-06/msg00044.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-5244.html",
+					"description": "CVE-2016-5244"
+				},
+				{
+					"url": "https://bugzilla.suse.com/983213",
+					"description": "SUSE Bug 983213"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				}
+			]
+		}
+	]
+}

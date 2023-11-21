@@ -1,0 +1,2867 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2016:2290-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2016-09-12T09:04:53Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2016-09-12T09:04:53Z",
+		"current_release_date": "2016-09-12T09:04:53Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThe openSUSE Leap 42.1 kernel was updated to 4.1.31 to receive various security and bugfixes.\n\nThe following security bugs were fixed:\n- CVE-2016-2847: fs/pipe.c in the Linux kernel did not limit the amount of unread data in pipes, which allowed local users to cause a denial of service (memory consumption) by creating many pipes with non-default sizes (bnc#970948).\n- CVE-2016-3134: The netfilter subsystem in the Linux kernel did not validate certain offset fields, which allowed local users to gain privileges or cause a denial of service (heap memory corruption) via an IPT_SO_SET_REPLACE setsockopt call (bnc#971126).\n- CVE-2016-3156: The IPv4 implementation in the Linux kernel mishandled destruction of device objects, which allowed guest OS users to cause a denial of service (host OS networking outage) by arranging for a large number of IP addresses (bnc#971360).\n- CVE-2016-4485: The llc_cmsg_rcv function in net/llc/af_llc.c in the Linux kernel did not initialize a certain data structure, which allowed attackers to obtain sensitive information from kernel stack memory by reading a message (bnc#978821).\n- CVE-2016-4486: The rtnl_fill_link_ifmap function in net/core/rtnetlink.c in the Linux kernel did not initialize a certain data structure, which allowed local users to obtain sensitive information from kernel stack memory by reading a Netlink message (bnc#978822).\n- CVE-2016-4557: The replace_map_fd_with_map_ptr function in kernel/bpf/verifier.c in the Linux kernel did not properly maintain an fd data structure, which allowed local users to gain privileges or cause a denial of service (use-after-free) via crafted BPF instructions that reference an incorrect file descriptor (bnc#979018).\n- CVE-2016-4580: The x25_negotiate_facilities function in net/x25/x25_facilities.c in the Linux kernel did not properly initialize a certain data structure, which allowed attackers to obtain sensitive information from kernel stack memory via an X.25 Call Request (bnc#981267).\n- CVE-2016-4805: Use-after-free vulnerability in drivers/net/ppp/ppp_generic.c in the Linux kernel allowed local users to cause a denial of service (memory corruption and system crash, or spinlock) or possibly have unspecified other impact by removing a network namespace, related to the ppp_register_net_channel and ppp_unregister_channel functions (bnc#980371).\n- CVE-2016-4951: The tipc_nl_publ_dump function in net/tipc/socket.c in the Linux kernel did not verify socket existence, which allowed local users to cause a denial of service (NULL pointer dereference and system crash) or possibly have unspecified other impact via a dumpit operation (bnc#981058).\n- CVE-2015-8787: The nf_nat_redirect_ipv4 function in net/netfilter/nf_nat_redirect.c in the Linux kernel allowed remote attackers to cause a denial of service (NULL pointer dereference and system crash) or possibly have unspecified other impact by sending certain IPv4 packets to an incompletely configured interface, a related issue to CVE-2003-1604 (bnc#963931).\n- CVE-2016-4569: The snd_timer_user_params function in sound/core/timer.c in the Linux kernel did not initialize a certain data structure, which allowed local users to obtain sensitive information from kernel stack memory via crafted use of the ALSA timer interface (bnc#979213).\n- CVE-2016-4578: sound/core/timer.c in the Linux kernel did not initialize certain r1 data structures, which allowed local users to obtain sensitive information from kernel stack memory via crafted use of the ALSA timer interface, related to the (1) snd_timer_user_ccallback and (2) snd_timer_user_tinterrupt functions (bnc#979879).\n- CVE-2016-6828: A use after free in tcp_xmit_retransmit_queue() was fixed that could be used by local attackers to crash the kernel (bsc#994296).\n- CVE-2016-6480: Race condition in the ioctl_send_fib function in drivers/scsi/aacraid/commctrl.c in the Linux kernel allowed local users to cause a denial of service (out-of-bounds access or system crash) by changing a certain size value, aka a 'double fetch' vulnerability (bnc#991608).\n- CVE-2016-4998: The IPT_SO_SET_REPLACE setsockopt implementation in the netfilter subsystem in the Linux kernel allowed local users to cause a denial of service (out-of-bounds read) or possibly obtain sensitive information from kernel heap memory by leveraging in-container root access to provide a crafted offset value that leads to crossing a ruleset blob boundary (bnc#986362 986365 990058).\n- CVE-2016-5696: net/ipv4/tcp_input.c in the Linux kernel did not properly determine the rate of challenge ACK segments, which made it easier for man-in-the-middle attackers to hijack TCP sessions via a blind in-window attack (bnc#989152).\n- CVE-2016-1237: nfsd in the Linux kernel allowed local users to bypass intended file-permission restrictions by setting a POSIX ACL, related to nfs2acl.c, nfs3acl.c, and nfs4acl.c (bnc#986570).\n\nThe following non-security bugs were fixed:\n- AF_VSOCK: Shrink the area influenced by prepare_to_wait (bsc#994520).\n- KVM: arm/arm64: Handle forward time correction gracefully (bnc#974266).\n- Linux 4.1.29. Refreshed patch: patches.xen/xen3-fixup-xen Deleted patches: patches.fixes/0001-Revert-ecryptfs-forbid-opening-files-without-mmap-ha.patch patches.fixes/0001-ecryptfs-don-t-allow-mmap-when-the-lower-file-system.patch patches.rpmify/Revert-mm-swap.c-flush-lru-pvecs-on-compound-page-ar patches.rpmify/Revert-powerpc-Update-TM-user-feature-bits-in-scan_f\n- Revert 'mm/swap.c: flush lru pvecs on compound page arrival' (boo#989084).\n- Revert 'powerpc: Update TM user feature bits in scan_features()'. Fix the build error of 4.1.28 on ppc.\n- Revive i8042_check_power_owner() for 4.1.31 kabi fix.\n- USB: OHCI: Do not mark EDs as ED_OPER if scheduling fails (bnc#987886).\n- USB: validate wMaxPacketValue entries in endpoint descriptors (bnc#991665).\n- Update patches.fixes/0002-nfsd-check-permissions-when-setting-ACLs.patch (bsc#986570 CVE-2016-1237).\n- Update patches.fixes/0001-posix_acl-Add-set_posix_acl.patch (bsc#986570 CVE-2016-1237).\n- netfilter: x_tables: fix 4.1 stable backport (bsc#989176).\n- nfsd: check permissions when setting ACLs (bsc#986570).\n- posix_acl: Add set_posix_acl (bsc#986570).\n- ppp: defer netns reference release for ppp channel (bsc#980371).\n- series.conf: Move a kABI patch to its own section\n- supported.conf: enable i2c-designware driver (bsc#991110)\n- tcp: enable per-socket rate limiting of all 'challenge acks' (bsc#989152).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html",
+			"description": "E-Mail link for openSUSE-SU-2016:2290-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 42.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 42.1",
+						"full_product_name": {
+							"text": "openSUSE Leap 42.1",
+							"product_id": "openSUSE Leap 42.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "drbd-8.4.6-8.1",
+				"full_product_name": {
+					"text": "drbd-8.4.6-8.1",
+					"product_id": "drbd-8.4.6-8.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+				"full_product_name": {
+					"text": "drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+					"product_id": "drbd-kmp-default-8.4.6_k4.1.31_30-8.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+				"full_product_name": {
+					"text": "drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+					"product_id": "drbd-kmp-pv-8.4.6_k4.1.31_30-8.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+				"full_product_name": {
+					"text": "drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+					"product_id": "drbd-kmp-xen-8.4.6_k4.1.31_30-8.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "hdjmod-1.28-24.1",
+				"full_product_name": {
+					"text": "hdjmod-1.28-24.1",
+					"product_id": "hdjmod-1.28-24.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+				"full_product_name": {
+					"text": "hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+					"product_id": "hdjmod-kmp-default-1.28_k4.1.31_30-24.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+				"full_product_name": {
+					"text": "hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+					"product_id": "hdjmod-kmp-pae-1.28_k4.1.31_30-24.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+				"full_product_name": {
+					"text": "hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+					"product_id": "hdjmod-kmp-pv-1.28_k4.1.31_30-24.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+				"full_product_name": {
+					"text": "hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+					"product_id": "hdjmod-kmp-xen-1.28_k4.1.31_30-24.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ipset-6.25.1-5.1",
+				"full_product_name": {
+					"text": "ipset-6.25.1-5.1",
+					"product_id": "ipset-6.25.1-5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ipset-devel-6.25.1-5.1",
+				"full_product_name": {
+					"text": "ipset-devel-6.25.1-5.1",
+					"product_id": "ipset-devel-6.25.1-5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+				"full_product_name": {
+					"text": "ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+					"product_id": "ipset-kmp-default-6.25.1_k4.1.31_30-5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+				"full_product_name": {
+					"text": "ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+					"product_id": "ipset-kmp-pae-6.25.1_k4.1.31_30-5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+				"full_product_name": {
+					"text": "ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+					"product_id": "ipset-kmp-pv-6.25.1_k4.1.31_30-5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+				"full_product_name": {
+					"text": "ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+					"product_id": "ipset-kmp-xen-6.25.1_k4.1.31_30-5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-debug-4.1.31-30.2",
+					"product_id": "kernel-debug-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-base-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-debug-base-4.1.31-30.2",
+					"product_id": "kernel-debug-base-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-devel-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-debug-devel-4.1.31-30.2",
+					"product_id": "kernel-debug-devel-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-default-4.1.31-30.2",
+					"product_id": "kernel-default-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-default-base-4.1.31-30.2",
+					"product_id": "kernel-default-base-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-default-devel-4.1.31-30.2",
+					"product_id": "kernel-default-devel-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-4.1.31-30.1",
+				"full_product_name": {
+					"text": "kernel-devel-4.1.31-30.1",
+					"product_id": "kernel-devel-4.1.31-30.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-4.1.31-30.3",
+				"full_product_name": {
+					"text": "kernel-docs-4.1.31-30.3",
+					"product_id": "kernel-docs-4.1.31-30.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-html-4.1.31-30.3",
+				"full_product_name": {
+					"text": "kernel-docs-html-4.1.31-30.3",
+					"product_id": "kernel-docs-html-4.1.31-30.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-pdf-4.1.31-30.3",
+				"full_product_name": {
+					"text": "kernel-docs-pdf-4.1.31-30.3",
+					"product_id": "kernel-docs-pdf-4.1.31-30.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-ec2-4.1.31-30.2",
+					"product_id": "kernel-ec2-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-base-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-ec2-base-4.1.31-30.2",
+					"product_id": "kernel-ec2-base-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-devel-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-ec2-devel-4.1.31-30.2",
+					"product_id": "kernel-ec2-devel-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-macros-4.1.31-30.1",
+				"full_product_name": {
+					"text": "kernel-macros-4.1.31-30.1",
+					"product_id": "kernel-macros-4.1.31-30.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-build-4.1.31-30.3",
+				"full_product_name": {
+					"text": "kernel-obs-build-4.1.31-30.3",
+					"product_id": "kernel-obs-build-4.1.31-30.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-qa-4.1.31-30.1",
+				"full_product_name": {
+					"text": "kernel-obs-qa-4.1.31-30.1",
+					"product_id": "kernel-obs-qa-4.1.31-30.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-qa-xen-4.1.31-30.1",
+				"full_product_name": {
+					"text": "kernel-obs-qa-xen-4.1.31-30.1",
+					"product_id": "kernel-obs-qa-xen-4.1.31-30.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-pae-4.1.31-30.2",
+					"product_id": "kernel-pae-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-base-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-pae-base-4.1.31-30.2",
+					"product_id": "kernel-pae-base-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-devel-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-pae-devel-4.1.31-30.2",
+					"product_id": "kernel-pae-devel-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pv-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-pv-4.1.31-30.2",
+					"product_id": "kernel-pv-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pv-base-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-pv-base-4.1.31-30.2",
+					"product_id": "kernel-pv-base-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pv-devel-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-pv-devel-4.1.31-30.2",
+					"product_id": "kernel-pv-devel-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-4.1.31-30.1",
+				"full_product_name": {
+					"text": "kernel-source-4.1.31-30.1",
+					"product_id": "kernel-source-4.1.31-30.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-vanilla-4.1.31-30.1",
+				"full_product_name": {
+					"text": "kernel-source-vanilla-4.1.31-30.1",
+					"product_id": "kernel-source-vanilla-4.1.31-30.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-4.1.31-30.1",
+				"full_product_name": {
+					"text": "kernel-syms-4.1.31-30.1",
+					"product_id": "kernel-syms-4.1.31-30.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-vanilla-4.1.31-30.2",
+					"product_id": "kernel-vanilla-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-devel-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-vanilla-devel-4.1.31-30.2",
+					"product_id": "kernel-vanilla-devel-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-xen-4.1.31-30.2",
+					"product_id": "kernel-xen-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-base-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-xen-base-4.1.31-30.2",
+					"product_id": "kernel-xen-base-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-devel-4.1.31-30.2",
+				"full_product_name": {
+					"text": "kernel-xen-devel-4.1.31-30.2",
+					"product_id": "kernel-xen-devel-4.1.31-30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libipset3-6.25.1-5.1",
+				"full_product_name": {
+					"text": "libipset3-6.25.1-5.1",
+					"product_id": "libipset3-6.25.1-5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "lttng-modules-2.7.0-2.1",
+				"full_product_name": {
+					"text": "lttng-modules-2.7.0-2.1",
+					"product_id": "lttng-modules-2.7.0-2.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+				"full_product_name": {
+					"text": "lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+					"product_id": "lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+				"full_product_name": {
+					"text": "lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+					"product_id": "lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcfclock-0.44-266.1",
+				"full_product_name": {
+					"text": "pcfclock-0.44-266.1",
+					"product_id": "pcfclock-0.44-266.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+				"full_product_name": {
+					"text": "pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+					"product_id": "pcfclock-kmp-default-0.44_k4.1.31_30-266.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+				"full_product_name": {
+					"text": "pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+					"product_id": "pcfclock-kmp-pae-0.44_k4.1.31_30-266.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+				"full_product_name": {
+					"text": "pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+					"product_id": "pcfclock-kmp-pv-0.44_k4.1.31_30-266.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "vhba-kmp-20140928-5.1",
+				"full_product_name": {
+					"text": "vhba-kmp-20140928-5.1",
+					"product_id": "vhba-kmp-20140928-5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "vhba-kmp-default-20140928_k4.1.31_30-5.1",
+				"full_product_name": {
+					"text": "vhba-kmp-default-20140928_k4.1.31_30-5.1",
+					"product_id": "vhba-kmp-default-20140928_k4.1.31_30-5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+				"full_product_name": {
+					"text": "vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+					"product_id": "vhba-kmp-pae-20140928_k4.1.31_30-5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+				"full_product_name": {
+					"text": "vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+					"product_id": "vhba-kmp-pv-20140928_k4.1.31_30-5.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "vhba-kmp-xen-20140928_k4.1.31_30-5.1",
+				"full_product_name": {
+					"text": "vhba-kmp-xen-20140928_k4.1.31_30-5.1",
+					"product_id": "vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "drbd-8.4.6-8.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "hdjmod-1.28-24.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "ipset-6.25.1-5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "ipset-devel-6.25.1-5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-debug-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-debug-base-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-debug-devel-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-default-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-default-base-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-devel-4.1.31-30.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-docs-4.1.31-30.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-docs-html-4.1.31-30.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-docs-pdf-4.1.31-30.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-ec2-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-ec2-base-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-ec2-devel-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-macros-4.1.31-30.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-obs-build-4.1.31-30.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-obs-qa-4.1.31-30.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-obs-qa-xen-4.1.31-30.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pae-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pae-base-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pae-devel-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pv-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pv-base-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-pv-devel-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-source-4.1.31-30.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-source-vanilla-4.1.31-30.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-syms-4.1.31-30.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-vanilla-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-vanilla-devel-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-xen-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-xen-base-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "kernel-xen-devel-4.1.31-30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "libipset3-6.25.1-5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "lttng-modules-2.7.0-2.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "pcfclock-0.44-266.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "vhba-kmp-20140928-5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "vhba-kmp-default-20140928_k4.1.31_30-5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			},
+			{
+				"product_reference": "vhba-kmp-xen-20140928_k4.1.31_30-5.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.1"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "The nf_nat_redirect_ipv4 function in net/netfilter/nf_nat_redirect.c in the Linux kernel before 4.4 allows remote attackers to cause a denial of service (NULL pointer dereference and system crash) or possibly have unspecified other impact by sending certain IPv4 packets to an incompletely configured interface, a related issue to CVE-2003-1604.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-8787",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5.4",
+					"vector_v_2": "AV:N/AC:H/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-8787.html",
+					"description": "CVE-2015-8787"
+				},
+				{
+					"url": "https://bugzilla.suse.com/963931",
+					"description": "SUSE Bug 963931"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "nfsd in the Linux kernel through 4.6.3 allows local users to bypass intended file-permission restrictions by setting a POSIX ACL, related to nfs2acl.c, nfs3acl.c, and nfs4acl.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-1237",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.8",
+					"vector_v_2": "AV:A/AC:M/Au:S/C:P/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-1237.html",
+					"description": "CVE-2016-1237"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986570",
+					"description": "SUSE Bug 986570"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "fs/pipe.c in the Linux kernel before 4.5 does not limit the amount of unread data in pipes, which allows local users to cause a denial of service (memory consumption) by creating many pipes with non-default sizes.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2847",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2847.html",
+					"description": "CVE-2016-2847"
+				},
+				{
+					"url": "https://bugzilla.suse.com/970948",
+					"description": "SUSE Bug 970948"
+				},
+				{
+					"url": "https://bugzilla.suse.com/974646",
+					"description": "SUSE Bug 974646"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The netfilter subsystem in the Linux kernel through 4.5.2 does not validate certain offset fields, which allows local users to gain privileges or cause a denial of service (heap memory corruption) via an IPT_SO_SET_REPLACE setsockopt call.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-3134",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.2",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-3134.html",
+					"description": "CVE-2016-3134"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1052256",
+					"description": "SUSE Bug 1052256"
+				},
+				{
+					"url": "https://bugzilla.suse.com/971126",
+					"description": "SUSE Bug 971126"
+				},
+				{
+					"url": "https://bugzilla.suse.com/971793",
+					"description": "SUSE Bug 971793"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986362",
+					"description": "SUSE Bug 986362"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986365",
+					"description": "SUSE Bug 986365"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The IPv4 implementation in the Linux kernel before 4.5.2 mishandles destruction of device objects, which allows guest OS users to cause a denial of service (host OS networking outage) by arranging for a large number of IP addresses.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-3156",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-3156.html",
+					"description": "CVE-2016-3156"
+				},
+				{
+					"url": "https://bugzilla.suse.com/971360",
+					"description": "SUSE Bug 971360"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The llc_cmsg_rcv function in net/llc/af_llc.c in the Linux kernel before 4.5.5 does not initialize a certain data structure, which allows attackers to obtain sensitive information from kernel stack memory by reading a message.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4485",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4485.html",
+					"description": "CVE-2016-4485"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978821",
+					"description": "SUSE Bug 978821"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The rtnl_fill_link_ifmap function in net/core/rtnetlink.c in the Linux kernel before 4.5.5 does not initialize a certain data structure, which allows local users to obtain sensitive information from kernel stack memory by reading a Netlink message.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4486",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4486.html",
+					"description": "CVE-2016-4486"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978822",
+					"description": "SUSE Bug 978822"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The replace_map_fd_with_map_ptr function in kernel/bpf/verifier.c in the Linux kernel before 4.5.5 does not properly maintain an fd data structure, which allows local users to gain privileges or cause a denial of service (use-after-free) via crafted BPF instructions that reference an incorrect file descriptor.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4557",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.2",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4557.html",
+					"description": "CVE-2016-4557"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979018",
+					"description": "SUSE Bug 979018"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979077",
+					"description": "SUSE Bug 979077"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The snd_timer_user_params function in sound/core/timer.c in the Linux kernel through 4.6 does not initialize a certain data structure, which allows local users to obtain sensitive information from kernel stack memory via crafted use of the ALSA timer interface.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4569",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4569.html",
+					"description": "CVE-2016-4569"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979213",
+					"description": "SUSE Bug 979213"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979879",
+					"description": "SUSE Bug 979879"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "sound/core/timer.c in the Linux kernel through 4.6 does not initialize certain r1 data structures, which allows local users to obtain sensitive information from kernel stack memory via crafted use of the ALSA timer interface, related to the (1) snd_timer_user_ccallback and (2) snd_timer_user_tinterrupt functions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4578",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4578.html",
+					"description": "CVE-2016-4578"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1052256",
+					"description": "SUSE Bug 1052256"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979879",
+					"description": "SUSE Bug 979879"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The x25_negotiate_facilities function in net/x25/x25_facilities.c in the Linux kernel before 4.5.5 does not properly initialize a certain data structure, which allows attackers to obtain sensitive information from kernel stack memory via an X.25 Call Request.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4580",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4580.html",
+					"description": "CVE-2016-4580"
+				},
+				{
+					"url": "https://bugzilla.suse.com/870618",
+					"description": "SUSE Bug 870618"
+				},
+				{
+					"url": "https://bugzilla.suse.com/981267",
+					"description": "SUSE Bug 981267"
+				},
+				{
+					"url": "https://bugzilla.suse.com/985132",
+					"description": "SUSE Bug 985132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Use-after-free vulnerability in drivers/net/ppp/ppp_generic.c in the Linux kernel before 4.5.2 allows local users to cause a denial of service (memory corruption and system crash, or spinlock) or possibly have unspecified other impact by removing a network namespace, related to the ppp_register_net_channel and ppp_unregister_channel functions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4805",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.3",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4805.html",
+					"description": "CVE-2016-4805"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980371",
+					"description": "SUSE Bug 980371"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The tipc_nl_publ_dump function in net/tipc/socket.c in the Linux kernel through 4.6 does not verify socket existence, which allows local users to cause a denial of service (NULL pointer dereference and system crash) or possibly have unspecified other impact via a dumpit operation.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4951",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4951.html",
+					"description": "CVE-2016-4951"
+				},
+				{
+					"url": "https://bugzilla.suse.com/981058",
+					"description": "SUSE Bug 981058"
+				},
+				{
+					"url": "https://bugzilla.suse.com/985132",
+					"description": "SUSE Bug 985132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The compat IPT_SO_SET_REPLACE and IP6T_SO_SET_REPLACE setsockopt implementations in the netfilter subsystem in the Linux kernel before 4.6.3 allow local users to gain privileges or cause a denial of service (memory corruption) by leveraging in-container root access to provide a crafted offset value that triggers an unintended decrement.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4997",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4997.html",
+					"description": "CVE-2016-4997"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986362",
+					"description": "SUSE Bug 986362"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986365",
+					"description": "SUSE Bug 986365"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986377",
+					"description": "SUSE Bug 986377"
+				},
+				{
+					"url": "https://bugzilla.suse.com/990058",
+					"description": "SUSE Bug 990058"
+				},
+				{
+					"url": "https://bugzilla.suse.com/991651",
+					"description": "SUSE Bug 991651"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "net/ipv4/tcp_input.c in the Linux kernel before 4.7 does not properly determine the rate of challenge ACK segments, which makes it easier for remote attackers to hijack TCP sessions via a blind in-window attack.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-5696",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.8",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-5696.html",
+					"description": "CVE-2016-5696"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1175721",
+					"description": "SUSE Bug 1175721"
+				},
+				{
+					"url": "https://bugzilla.suse.com/989152",
+					"description": "SUSE Bug 989152"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994167",
+					"description": "SUSE Bug 994167"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Race condition in the ioctl_send_fib function in drivers/scsi/aacraid/commctrl.c in the Linux kernel through 4.7 allows local users to cause a denial of service (out-of-bounds access or system crash) by changing a certain size value, aka a \"double fetch\" vulnerability.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-6480",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.1",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-6480.html",
+					"description": "CVE-2016-6480"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1004418",
+					"description": "SUSE Bug 1004418"
+				},
+				{
+					"url": "https://bugzilla.suse.com/991608",
+					"description": "SUSE Bug 991608"
+				},
+				{
+					"url": "https://bugzilla.suse.com/991667",
+					"description": "SUSE Bug 991667"
+				},
+				{
+					"url": "https://bugzilla.suse.com/992568",
+					"description": "SUSE Bug 992568"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The tcp_check_send_head function in include/net/tcp.h in the Linux kernel before 4.7.5 does not properly maintain certain SACK state after a failed data copy, which allows local users to cause a denial of service (tcp_xmit_retransmit_queue use-after-free and system crash) via a crafted SACK option.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-6828",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.1:drbd-8.4.6-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-default-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-pv-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:drbd-kmp-xen-8.4.6_k4.1.31_30-8.1",
+						"openSUSE Leap 42.1:hdjmod-1.28-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-default-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pae-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-pv-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:hdjmod-kmp-xen-1.28_k4.1.31_30-24.1",
+						"openSUSE Leap 42.1:ipset-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-devel-6.25.1-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-default-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pae-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-pv-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:ipset-kmp-xen-6.25.1_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:kernel-debug-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-debug-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-default-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-devel-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-docs-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-html-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-docs-pdf-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-ec2-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-ec2-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-macros-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-build-4.1.31-30.3",
+						"openSUSE Leap 42.1:kernel-obs-qa-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-obs-qa-xen-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-pae-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pae-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-pv-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-source-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-source-vanilla-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-syms-4.1.31-30.1",
+						"openSUSE Leap 42.1:kernel-vanilla-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-vanilla-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-base-4.1.31-30.2",
+						"openSUSE Leap 42.1:kernel-xen-devel-4.1.31-30.2",
+						"openSUSE Leap 42.1:libipset3-6.25.1-5.1",
+						"openSUSE Leap 42.1:lttng-modules-2.7.0-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-default-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:lttng-modules-kmp-pv-2.7.0_k4.1.31_30-2.1",
+						"openSUSE Leap 42.1:pcfclock-0.44-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-default-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pae-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:pcfclock-kmp-pv-0.44_k4.1.31_30-266.1",
+						"openSUSE Leap 42.1:vhba-kmp-20140928-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-default-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pae-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-pv-20140928_k4.1.31_30-5.1",
+						"openSUSE Leap 42.1:vhba-kmp-xen-20140928_k4.1.31_30-5.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2016-09/msg00007.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-6828.html",
+					"description": "CVE-2016-6828"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1052256",
+					"description": "SUSE Bug 1052256"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994296",
+					"description": "SUSE Bug 994296"
+				}
+			]
+		}
+	]
+}

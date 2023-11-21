@@ -1,0 +1,3439 @@
+{
+	"document_title": "Security update for samba",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2016:1022-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2016-04-12T18:46:15Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2016-04-12T18:46:15Z",
+		"current_release_date": "2016-04-12T18:46:15Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for samba",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "Samba was updated to the 4.2.x codestream, bringing some new features and security fixes (bsc#973832, FATE#320709).\n\nThese security issues were fixed:\n- CVE-2015-5370: DCERPC server and client were vulnerable to DOS and MITM attacks (bsc#936862).\n- CVE-2016-2110: A man-in-the-middle could have downgraded NTLMSSP authentication (bsc#973031).\n- CVE-2016-2111: Domain controller netlogon member computer could have been spoofed (bsc#973032).\n- CVE-2016-2112: LDAP conenctions were vulnerable to downgrade and MITM attack (bsc#973033).\n- CVE-2016-2113: TLS certificate validation were missing (bsc#973034).\n- CVE-2016-2115: Named pipe IPC were vulnerable to MITM attacks (bsc#973036).\n- CVE-2016-2118: 'Badlock' DCERPC impersonation of authenticated account were possible (bsc#971965).\n\nAlso the following fixes were done:\n- Upgrade on-disk FSRVP server state to new version; (bsc#924519).\n- Fix samba.tests.messaging test and prevent potential tdb corruption by removing obsolete now invalid tdb_close call; (bsc#974629).\n- Align fsrvp feature sources with upstream version.\n- Obsolete libsmbsharemodes0 from samba-libs and libsmbsharemodes-devel from samba-core-devel; (bsc#973832).\n- s3:utils/smbget: Fix recursive download; (bso#6482).\n- s3: smbd: posix_acls: Fix check for setting u:g:o entry on a filesystem with no ACL support; (bso#10489).\n- docs: Add example for domain logins to smbspool man page; (bso#11643).\n- s3-client: Add a KRB5 wrapper for smbspool; (bso#11690).\n- loadparm: Fix memory leak issue; (bso#11708).\n- lib/tsocket: Work around sockets not supporting FIONREAD; (bso#11714).\n- ctdb-scripts: Drop use of 'smbcontrol winbindd ip-dropped ...'; (bso#11719).\n- s3:smbd:open: Skip redundant call to file_set_dosmode when creating a new file; (bso#11727).\n- param: Fix str_list_v3 to accept ';' again; (bso#11732).\n- Real memeory leak(buildup) issue in loadparm; (bso#11740).\n- Obsolete libsmbclient from libsmbclient0 and libpdb-devel from libsamba-passdb-devel while not providing it; (bsc#972197).\n- Getting and setting Windows ACLs on symlinks can change permissions on link\n- Only obsolete but do not provide gplv2/3 package names; (bsc#968973).\n- Enable clustering (CTDB) support; (bsc#966271).\n- s3: smbd: Fix timestamp rounding inside SMB2 create; (bso#11703); (bsc#964023).\n- vfs_fruit: Fix renaming directories with open files; (bso#11065).\n- Fix MacOS finder error 36 when copying folder to Samba; (bso#11347).\n- s3:smbd/oplock: Obey kernel oplock setting when releasing oplocks; (bso#11400).\n- Fix copying files with vfs_fruit when using vfs_streams_xattr without stream prefix and type suffix; (bso#11466).\n- s3:libsmb: Correctly initialize the list head when keeping a list of primary followed by DFS connections; (bso#11624).\n- Reduce the memory footprint of empty string options; (bso#11625).\n- lib/async_req: Do not install async_connect_send_test; (bso#11639).\n- docs: Fix typos in man vfs_gpfs; (bso#11641).\n- smbd: make 'hide dot files' option work with 'store dos attributes = yes'; (bso#11645).\n- smbcacls: Fix uninitialized variable; (bso#11682).\n- s3:smbd: Ignore initial allocation size for directory creation; (bso#11684).\n- Changing log level of two entries to from 1 to 3; (bso#9912).\n- vfs_gpfs: Re-enable share modes; (bso#11243).\n- wafsamba: Also build libraries with RELRO protection; (bso#11346).\n- ctdb: Strip trailing spaces from nodes file; (bso#11365).\n- s3-smbd: Fix old DOS client doing wildcard delete - gives a attribute type of zero; (bso#11452).\n- nss_wins: Do not run into use after free issues when we access memory allocated on the globals and the global being reinitialized; (bso#11563).\n- async_req: Fix non-blocking connect(); (bso#11564).\n- auth: gensec: Fix a memory leak; (bso#11565).\n- lib: util: Make non-critical message a warning; (bso#11566).\n- Fix winbindd crashes with samlogon for trusted domain user; (bso#11569); (bsc#949022).\n- smbd: Send SMB2 oplock breaks unencrypted; (bso#11570).\n- ctdb: Open the RO tracking db with perms 0600 instead of 0000; (bso#11577).\n- manpage: Correct small typo error; (bso#11584).\n- s3: smbd: If EA's are turned off on a share don't allow an SMB2 create containing them; (bso#11589).\n- Backport some valgrind fixes from upstream master; (bso#11597).\n- s3: smbd: have_file_open_below() fails to enumerate open files below an open directory handle; (bso#11615).\n- docs: Fix some typos in the idmap config section of man 5 smb.conf; (bso#11619).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-SLE-DESKTOP-12-2016-605,SUSE-SLE-HA-12-2016-605,SUSE-SLE-SDK-12-2016-605,SUSE-SLE-SERVER-12-2016-605",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20161022-1/",
+			"description": "Link for SUSE-SU-2016:1022-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2016-04/msg00020.html",
+			"description": "E-Mail link for SUSE-SU-2016:1022-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/320709",
+			"description": "SUSE Bug 320709"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/913547",
+			"description": "SUSE Bug 913547"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/919309",
+			"description": "SUSE Bug 919309"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/924519",
+			"description": "SUSE Bug 924519"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/936862",
+			"description": "SUSE Bug 936862"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/942716",
+			"description": "SUSE Bug 942716"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/946051",
+			"description": "SUSE Bug 946051"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/949022",
+			"description": "SUSE Bug 949022"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/964023",
+			"description": "SUSE Bug 964023"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/966271",
+			"description": "SUSE Bug 966271"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/968973",
+			"description": "SUSE Bug 968973"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/971965",
+			"description": "SUSE Bug 971965"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/972197",
+			"description": "SUSE Bug 972197"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/973031",
+			"description": "SUSE Bug 973031"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/973032",
+			"description": "SUSE Bug 973032"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/973033",
+			"description": "SUSE Bug 973033"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/973034",
+			"description": "SUSE Bug 973034"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/973036",
+			"description": "SUSE Bug 973036"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/973832",
+			"description": "SUSE Bug 973832"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/974629",
+			"description": "SUSE Bug 974629"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-5370/",
+			"description": "SUSE CVE CVE-2015-5370 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-2110/",
+			"description": "SUSE CVE CVE-2016-2110 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-2111/",
+			"description": "SUSE CVE CVE-2016-2111 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-2112/",
+			"description": "SUSE CVE CVE-2016-2112 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-2113/",
+			"description": "SUSE CVE CVE-2016-2113 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-2115/",
+			"description": "SUSE CVE CVE-2016-2115 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-2118/",
+			"description": "SUSE CVE CVE-2016-2118 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Desktop 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Desktop 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Desktop 12",
+							"product_id": "SUSE Linux Enterprise Desktop 12",
+							"cpe": "cpe:/o:suse:sled:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Availability Extension 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Availability Extension 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Availability Extension 12",
+							"product_id": "SUSE Linux Enterprise High Availability Extension 12",
+							"cpe": "cpe:/o:suse:sle-ha:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12",
+							"product_id": "SUSE Linux Enterprise Server 12",
+							"cpe": "cpe:/o:suse:sles:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 12",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 12",
+							"cpe": "cpe:/o:suse:sles_sap:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Software Development Kit 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Software Development Kit 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Software Development Kit 12",
+							"product_id": "SUSE Linux Enterprise Software Development Kit 12",
+							"cpe": "cpe:/o:suse:sle-sdk:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-binding0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libdcerpc-binding0-4.2.4-18.17.1",
+					"product_id": "libdcerpc-binding0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-binding0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libdcerpc-binding0-32bit-4.2.4-18.17.1",
+					"product_id": "libdcerpc-binding0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libdcerpc0-4.2.4-18.17.1",
+					"product_id": "libdcerpc0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libdcerpc0-32bit-4.2.4-18.17.1",
+					"product_id": "libdcerpc0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgensec0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libgensec0-4.2.4-18.17.1",
+					"product_id": "libgensec0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgensec0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libgensec0-32bit-4.2.4-18.17.1",
+					"product_id": "libgensec0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-krb5pac0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libndr-krb5pac0-4.2.4-18.17.1",
+					"product_id": "libndr-krb5pac0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-krb5pac0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libndr-krb5pac0-32bit-4.2.4-18.17.1",
+					"product_id": "libndr-krb5pac0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-nbt0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libndr-nbt0-4.2.4-18.17.1",
+					"product_id": "libndr-nbt0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-nbt0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libndr-nbt0-32bit-4.2.4-18.17.1",
+					"product_id": "libndr-nbt0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-standard0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libndr-standard0-4.2.4-18.17.1",
+					"product_id": "libndr-standard0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-standard0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libndr-standard0-32bit-4.2.4-18.17.1",
+					"product_id": "libndr-standard0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libndr0-4.2.4-18.17.1",
+					"product_id": "libndr0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libndr0-32bit-4.2.4-18.17.1",
+					"product_id": "libndr0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libnetapi0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libnetapi0-4.2.4-18.17.1",
+					"product_id": "libnetapi0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libnetapi0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libnetapi0-32bit-4.2.4-18.17.1",
+					"product_id": "libnetapi0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libregistry0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libregistry0-4.2.4-18.17.1",
+					"product_id": "libregistry0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-credentials0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-credentials0-4.2.4-18.17.1",
+					"product_id": "libsamba-credentials0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-credentials0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-credentials0-32bit-4.2.4-18.17.1",
+					"product_id": "libsamba-credentials0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-hostconfig0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-hostconfig0-4.2.4-18.17.1",
+					"product_id": "libsamba-hostconfig0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+					"product_id": "libsamba-hostconfig0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-passdb0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-passdb0-4.2.4-18.17.1",
+					"product_id": "libsamba-passdb0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-passdb0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-passdb0-32bit-4.2.4-18.17.1",
+					"product_id": "libsamba-passdb0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-util0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-util0-4.2.4-18.17.1",
+					"product_id": "libsamba-util0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-util0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-util0-32bit-4.2.4-18.17.1",
+					"product_id": "libsamba-util0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamdb0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamdb0-4.2.4-18.17.1",
+					"product_id": "libsamdb0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamdb0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamdb0-32bit-4.2.4-18.17.1",
+					"product_id": "libsamdb0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbclient-raw0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsmbclient-raw0-4.2.4-18.17.1",
+					"product_id": "libsmbclient-raw0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbclient-raw0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsmbclient-raw0-32bit-4.2.4-18.17.1",
+					"product_id": "libsmbclient-raw0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbclient0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsmbclient0-4.2.4-18.17.1",
+					"product_id": "libsmbclient0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbclient0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsmbclient0-32bit-4.2.4-18.17.1",
+					"product_id": "libsmbclient0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbconf0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsmbconf0-4.2.4-18.17.1",
+					"product_id": "libsmbconf0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbconf0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsmbconf0-32bit-4.2.4-18.17.1",
+					"product_id": "libsmbconf0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbldap0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsmbldap0-4.2.4-18.17.1",
+					"product_id": "libsmbldap0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbldap0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsmbldap0-32bit-4.2.4-18.17.1",
+					"product_id": "libsmbldap0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtevent-util0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libtevent-util0-4.2.4-18.17.1",
+					"product_id": "libtevent-util0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtevent-util0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libtevent-util0-32bit-4.2.4-18.17.1",
+					"product_id": "libtevent-util0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libwbclient0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libwbclient0-4.2.4-18.17.1",
+					"product_id": "libwbclient0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libwbclient0-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libwbclient0-32bit-4.2.4-18.17.1",
+					"product_id": "libwbclient0-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "samba-4.2.4-18.17.1",
+					"product_id": "samba-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "samba-32bit-4.2.4-18.17.1",
+					"product_id": "samba-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-client-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "samba-client-4.2.4-18.17.1",
+					"product_id": "samba-client-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-client-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "samba-client-32bit-4.2.4-18.17.1",
+					"product_id": "samba-client-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-doc-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "samba-doc-4.2.4-18.17.1",
+					"product_id": "samba-doc-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-libs-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "samba-libs-4.2.4-18.17.1",
+					"product_id": "samba-libs-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-libs-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "samba-libs-32bit-4.2.4-18.17.1",
+					"product_id": "samba-libs-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-winbind-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "samba-winbind-4.2.4-18.17.1",
+					"product_id": "samba-winbind-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-winbind-32bit-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "samba-winbind-32bit-4.2.4-18.17.1",
+					"product_id": "samba-winbind-32bit-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ctdb-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "ctdb-4.2.4-18.17.1",
+					"product_id": "ctdb-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ctdb-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "ctdb-devel-4.2.4-18.17.1",
+					"product_id": "ctdb-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-atsvc-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libdcerpc-atsvc-devel-4.2.4-18.17.1",
+					"product_id": "libdcerpc-atsvc-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-atsvc0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libdcerpc-atsvc0-4.2.4-18.17.1",
+					"product_id": "libdcerpc-atsvc0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libdcerpc-devel-4.2.4-18.17.1",
+					"product_id": "libdcerpc-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-samr-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libdcerpc-samr-devel-4.2.4-18.17.1",
+					"product_id": "libdcerpc-samr-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdcerpc-samr0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libdcerpc-samr0-4.2.4-18.17.1",
+					"product_id": "libdcerpc-samr0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgensec-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libgensec-devel-4.2.4-18.17.1",
+					"product_id": "libgensec-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libndr-devel-4.2.4-18.17.1",
+					"product_id": "libndr-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-krb5pac-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libndr-krb5pac-devel-4.2.4-18.17.1",
+					"product_id": "libndr-krb5pac-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-nbt-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libndr-nbt-devel-4.2.4-18.17.1",
+					"product_id": "libndr-nbt-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libndr-standard-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libndr-standard-devel-4.2.4-18.17.1",
+					"product_id": "libndr-standard-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libnetapi-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libnetapi-devel-4.2.4-18.17.1",
+					"product_id": "libnetapi-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libregistry-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libregistry-devel-4.2.4-18.17.1",
+					"product_id": "libregistry-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-credentials-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-credentials-devel-4.2.4-18.17.1",
+					"product_id": "libsamba-credentials-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-hostconfig-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-hostconfig-devel-4.2.4-18.17.1",
+					"product_id": "libsamba-hostconfig-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-passdb-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-passdb-devel-4.2.4-18.17.1",
+					"product_id": "libsamba-passdb-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-policy-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-policy-devel-4.2.4-18.17.1",
+					"product_id": "libsamba-policy-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-policy0-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-policy0-4.2.4-18.17.1",
+					"product_id": "libsamba-policy0-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamba-util-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamba-util-devel-4.2.4-18.17.1",
+					"product_id": "libsamba-util-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsamdb-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsamdb-devel-4.2.4-18.17.1",
+					"product_id": "libsamdb-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbclient-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsmbclient-devel-4.2.4-18.17.1",
+					"product_id": "libsmbclient-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbclient-raw-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsmbclient-raw-devel-4.2.4-18.17.1",
+					"product_id": "libsmbclient-raw-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbconf-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsmbconf-devel-4.2.4-18.17.1",
+					"product_id": "libsmbconf-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsmbldap-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libsmbldap-devel-4.2.4-18.17.1",
+					"product_id": "libsmbldap-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtevent-util-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libtevent-util-devel-4.2.4-18.17.1",
+					"product_id": "libtevent-util-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libwbclient-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "libwbclient-devel-4.2.4-18.17.1",
+					"product_id": "libwbclient-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-core-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "samba-core-devel-4.2.4-18.17.1",
+					"product_id": "samba-core-devel-4.2.4-18.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba-test-devel-4.2.4-18.17.1",
+				"full_product_name": {
+					"text": "samba-test-devel-4.2.4-18.17.1",
+					"product_id": "samba-test-devel-4.2.4-18.17.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "libdcerpc-binding0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libdcerpc-binding0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libdcerpc0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libdcerpc0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libgensec0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libgensec0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libndr-krb5pac0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libndr-krb5pac0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libndr-nbt0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libndr-nbt0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libndr-standard0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libndr-standard0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libndr0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libndr0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libnetapi0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libnetapi0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libregistry0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsamba-credentials0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsamba-credentials0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsamba-hostconfig0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsamba-passdb0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsamba-passdb0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsamba-util0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsamba-util0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsamdb0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsamdb0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsmbclient-raw0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsmbclient-raw0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsmbclient0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsmbclient0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsmbconf0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsmbconf0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsmbldap0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libsmbldap0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libtevent-util0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libtevent-util0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libwbclient0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "libwbclient0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "samba-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "samba-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "samba-client-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "samba-client-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "samba-doc-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "samba-libs-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "samba-libs-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "samba-winbind-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "samba-winbind-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "ctdb-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12"
+			},
+			{
+				"product_reference": "libdcerpc-binding0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libdcerpc-binding0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libdcerpc0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libdcerpc0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libgensec0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libgensec0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libndr-krb5pac0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libndr-krb5pac0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libndr-nbt0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libndr-nbt0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libndr-standard0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libndr-standard0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libndr0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libndr0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libnetapi0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libnetapi0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libregistry0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsamba-credentials0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsamba-credentials0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsamba-hostconfig0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsamba-passdb0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsamba-passdb0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsamba-util0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsamba-util0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsamdb0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsamdb0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsmbclient-raw0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsmbclient-raw0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsmbclient0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsmbclient0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsmbconf0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsmbconf0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsmbldap0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libsmbldap0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libtevent-util0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libtevent-util0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libwbclient0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libwbclient0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "samba-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "samba-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "samba-client-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "samba-client-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "samba-doc-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "samba-libs-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "samba-libs-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "samba-winbind-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "samba-winbind-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "libdcerpc-binding0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libdcerpc-binding0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libdcerpc0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libdcerpc0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libgensec0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libgensec0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libndr-krb5pac0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libndr-krb5pac0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libndr-nbt0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libndr-nbt0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libndr-standard0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libndr-standard0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libndr0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libndr0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libnetapi0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libnetapi0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libregistry0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsamba-credentials0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsamba-credentials0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsamba-hostconfig0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsamba-passdb0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsamba-passdb0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsamba-util0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsamba-util0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsamdb0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsamdb0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsmbclient-raw0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsmbclient-raw0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsmbclient0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsmbclient0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsmbconf0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsmbconf0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsmbldap0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libsmbldap0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libtevent-util0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libtevent-util0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libwbclient0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "libwbclient0-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "samba-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "samba-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "samba-client-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "samba-client-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "samba-doc-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "samba-libs-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "samba-libs-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "samba-winbind-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "samba-winbind-32bit-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "ctdb-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libdcerpc-atsvc-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libdcerpc-atsvc0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libdcerpc-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libdcerpc-samr-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libdcerpc-samr0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libgensec-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libndr-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libndr-krb5pac-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libndr-nbt-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libndr-standard-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libnetapi-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libregistry-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libsamba-credentials-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libsamba-hostconfig-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libsamba-passdb-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libsamba-policy-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libsamba-policy0-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libsamba-util-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libsamdb-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libsmbclient-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libsmbclient-raw-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libsmbconf-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libsmbldap-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libtevent-util-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "libwbclient-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "samba-core-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "samba-test-devel-4.2.4-18.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Samba 3.x and 4.x before 4.2.11, 4.3.x before 4.3.8, and 4.4.x before 4.4.2 does not properly implement the DCE-RPC layer, which allows remote attackers to perform protocol-downgrade attacks, cause a denial of service (application crash or CPU consumption), or possibly execute arbitrary code on a client system via unspecified vectors.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-5370",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise High Availability Extension 12:ctdb-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:ctdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libgensec-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-krb5pac-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-nbt-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-standard-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libnetapi-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libregistry-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-credentials-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-hostconfig-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-passdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-raw-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbconf-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbldap-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libtevent-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libwbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-core-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-test-devel-4.2.4-18.17.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "8.5",
+					"vector_v_2": "AV:N/AC:M/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20161022-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-5370.html",
+					"description": "CVE-2015-5370"
+				},
+				{
+					"url": "https://bugzilla.suse.com/936862",
+					"description": "SUSE Bug 936862"
+				},
+				{
+					"url": "https://bugzilla.suse.com/975276",
+					"description": "SUSE Bug 975276"
+				},
+				{
+					"url": "https://bugzilla.suse.com/977416",
+					"description": "SUSE Bug 977416"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The NTLMSSP authentication implementation in Samba 3.x and 4.x before 4.2.11, 4.3.x before 4.3.8, and 4.4.x before 4.4.2 allows man-in-the-middle attackers to perform protocol-downgrade attacks by modifying the client-server data stream to remove application-layer flags or encryption settings, as demonstrated by clearing the NTLMSSP_NEGOTIATE_SEAL or NTLMSSP_NEGOTIATE_SIGN option to disrupt LDAP security.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2110",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise High Availability Extension 12:ctdb-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:ctdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libgensec-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-krb5pac-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-nbt-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-standard-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libnetapi-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libregistry-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-credentials-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-hostconfig-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-passdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-raw-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbconf-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbldap-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libtevent-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libwbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-core-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-test-devel-4.2.4-18.17.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20161022-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2110.html",
+					"description": "CVE-2016-2110"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1009711",
+					"description": "SUSE Bug 1009711"
+				},
+				{
+					"url": "https://bugzilla.suse.com/973031",
+					"description": "SUSE Bug 973031"
+				},
+				{
+					"url": "https://bugzilla.suse.com/973033",
+					"description": "SUSE Bug 973033"
+				},
+				{
+					"url": "https://bugzilla.suse.com/973036",
+					"description": "SUSE Bug 973036"
+				},
+				{
+					"url": "https://bugzilla.suse.com/975276",
+					"description": "SUSE Bug 975276"
+				},
+				{
+					"url": "https://bugzilla.suse.com/977416",
+					"description": "SUSE Bug 977416"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The NETLOGON service in Samba 3.x and 4.x before 4.2.11, 4.3.x before 4.3.8, and 4.4.x before 4.4.2, when a domain controller is configured, allows remote attackers to spoof the computer name of a secure channel's endpoint, and obtain sensitive session information, by running a crafted application and leveraging the ability to sniff network traffic, a related issue to CVE-2015-0005.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2111",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise High Availability Extension 12:ctdb-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:ctdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libgensec-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-krb5pac-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-nbt-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-standard-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libnetapi-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libregistry-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-credentials-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-hostconfig-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-passdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-raw-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbconf-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbldap-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libtevent-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libwbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-core-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-test-devel-4.2.4-18.17.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20161022-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2111.html",
+					"description": "CVE-2016-2111"
+				},
+				{
+					"url": "https://bugzilla.suse.com/973032",
+					"description": "SUSE Bug 973032"
+				},
+				{
+					"url": "https://bugzilla.suse.com/975276",
+					"description": "SUSE Bug 975276"
+				},
+				{
+					"url": "https://bugzilla.suse.com/977416",
+					"description": "SUSE Bug 977416"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The bundled LDAP client library in Samba 3.x and 4.x before 4.2.11, 4.3.x before 4.3.8, and 4.4.x before 4.4.2 does not recognize the \"client ldap sasl wrapping\" setting, which allows man-in-the-middle attackers to perform LDAP protocol-downgrade attacks by modifying the client-server data stream.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2112",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise High Availability Extension 12:ctdb-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:ctdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libgensec-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-krb5pac-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-nbt-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-standard-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libnetapi-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libregistry-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-credentials-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-hostconfig-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-passdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-raw-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbconf-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbldap-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libtevent-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libwbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-core-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-test-devel-4.2.4-18.17.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:A/AC:M/Au:N/C:P/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20161022-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2112.html",
+					"description": "CVE-2016-2112"
+				},
+				{
+					"url": "https://bugzilla.suse.com/973031",
+					"description": "SUSE Bug 973031"
+				},
+				{
+					"url": "https://bugzilla.suse.com/973033",
+					"description": "SUSE Bug 973033"
+				},
+				{
+					"url": "https://bugzilla.suse.com/975276",
+					"description": "SUSE Bug 975276"
+				},
+				{
+					"url": "https://bugzilla.suse.com/977416",
+					"description": "SUSE Bug 977416"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Samba 4.x before 4.2.11, 4.3.x before 4.3.8, and 4.4.x before 4.4.2 does not verify X.509 certificates from TLS servers, which allows man-in-the-middle attackers to spoof LDAPS and HTTPS servers and obtain sensitive information via a crafted certificate.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2113",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise High Availability Extension 12:ctdb-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:ctdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libgensec-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-krb5pac-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-nbt-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-standard-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libnetapi-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libregistry-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-credentials-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-hostconfig-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-passdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-raw-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbconf-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbldap-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libtevent-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libwbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-core-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-test-devel-4.2.4-18.17.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:A/AC:M/Au:N/C:P/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.4",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20161022-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2113.html",
+					"description": "CVE-2016-2113"
+				},
+				{
+					"url": "https://bugzilla.suse.com/973031",
+					"description": "SUSE Bug 973031"
+				},
+				{
+					"url": "https://bugzilla.suse.com/973033",
+					"description": "SUSE Bug 973033"
+				},
+				{
+					"url": "https://bugzilla.suse.com/973034",
+					"description": "SUSE Bug 973034"
+				},
+				{
+					"url": "https://bugzilla.suse.com/975276",
+					"description": "SUSE Bug 975276"
+				},
+				{
+					"url": "https://bugzilla.suse.com/977416",
+					"description": "SUSE Bug 977416"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Samba 3.x and 4.x before 4.2.11, 4.3.x before 4.3.8, and 4.4.x before 4.4.2 does not require SMB signing within a DCERPC session over ncacn_np, which allows man-in-the-middle attackers to spoof SMB clients by modifying the client-server data stream.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2115",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise High Availability Extension 12:ctdb-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:ctdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libgensec-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-krb5pac-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-nbt-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-standard-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libnetapi-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libregistry-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-credentials-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-hostconfig-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-passdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-raw-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbconf-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbldap-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libtevent-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libwbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-core-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-test-devel-4.2.4-18.17.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20161022-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2115.html",
+					"description": "CVE-2016-2115"
+				},
+				{
+					"url": "https://bugzilla.suse.com/973036",
+					"description": "SUSE Bug 973036"
+				},
+				{
+					"url": "https://bugzilla.suse.com/975276",
+					"description": "SUSE Bug 975276"
+				},
+				{
+					"url": "https://bugzilla.suse.com/977416",
+					"description": "SUSE Bug 977416"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The MS-SAMR and MS-LSAD protocol implementations in Samba 3.x and 4.x before 4.2.11, 4.3.x before 4.3.8, and 4.4.x before 4.4.2 mishandle DCERPC connections, which allows man-in-the-middle attackers to perform protocol-downgrade attacks and impersonate users by modifying the client-server data stream, aka \"BADLOCK.\"",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2118",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Desktop 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise High Availability Extension 12:ctdb-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc-binding0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libdcerpc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libgensec0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-krb5pac0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-nbt0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr-standard0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libndr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libnetapi0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libregistry0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-credentials0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-hostconfig0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-passdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamba-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsamdb0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient-raw0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbconf0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libsmbldap0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libtevent-util0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:libwbclient0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-client-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-doc-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-libs-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-32bit-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:samba-winbind-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:ctdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-atsvc0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libdcerpc-samr0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libgensec-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-krb5pac-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-nbt-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libndr-standard-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libnetapi-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libregistry-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-credentials-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-hostconfig-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-passdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-policy0-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamba-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsamdb-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbclient-raw-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbconf-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libsmbldap-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libtevent-util-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:libwbclient-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-core-devel-4.2.4-18.17.1",
+						"SUSE Linux Enterprise Software Development Kit 12:samba-test-devel-4.2.4-18.17.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2016/suse-su-20161022-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2118.html",
+					"description": "CVE-2016-2118"
+				},
+				{
+					"url": "https://bugzilla.suse.com/971965",
+					"description": "SUSE Bug 971965"
+				},
+				{
+					"url": "https://bugzilla.suse.com/975276",
+					"description": "SUSE Bug 975276"
+				},
+				{
+					"url": "https://bugzilla.suse.com/977416",
+					"description": "SUSE Bug 977416"
+				}
+			]
+		}
+	]
+}

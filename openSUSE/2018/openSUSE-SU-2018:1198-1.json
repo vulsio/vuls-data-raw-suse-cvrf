@@ -1,0 +1,620 @@
+{
+	"document_title": "Security update for apache2",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2018:1198-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2018-05-09T16:27:07Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2018-05-09T16:27:07Z",
+		"current_release_date": "2018-05-09T16:27:07Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for apache2",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for apache2 fixes the following issues:\n\n  * CVE-2018-1283:  when mod_session is configured to forward its session data to CGI applications \n                    (SessionEnv on, not the default), a remote user may influence their content by \n                    using a \\'Session\\' header leading to unexpected behavior [bsc#1086814].\n\n  * CVE-2018-1301: due to an out of bound access after a size limit being reached by reading the HTTP header, \n                   a specially crafted request could lead to remote denial of service. [bsc#1086817]\n  \n  * CVE-2018-1303: a specially crafted HTTP request header could lead to crash due to an out of bound read \n                   while preparing data to be cached in shared memory.[bsc#1086813]\n  \n  * CVE-2017-15715: a regular expression could match '$' to a newline character in a malicious filename, \n                    rather than matching only the end of the filename. leading to corruption of uploaded files.[bsc#1086774]\n  \n  * CVE-2018-1312: when generating an HTTP Digest authentication challenge, the nonce sent to prevent \n                   reply attacks was not correctly generated using a pseudo-random seed. \n                   In a cluster of servers using a common Digest authentication configuration, \n                   HTTP requests could be replayed across servers by an attacker without detection. [bsc#1086775]\n  \n  * CVE-2017-15710: mod_authnz_ldap, if configured with AuthLDAPCharsetConfig, \n                    uses the Accept-Language header value to lookup the right charset encoding when verifying the \n                    user's credentials. If the header value is not present in the charset conversion table, \n                    a fallback mechanism is used to truncate it to a two characters value to allow a quick retry \n                    (for example, 'en-US' is truncated to 'en'). \n                    A header value of less than two characters forces an out of bound write of one NUL byte to a \n                   memory location that is not part of the string. In the worst case, quite unlikely, the process \n                   would crash which could be used as a Denial of Service attack. In the more likely case, this memory \n                   is already reserved for future use and the issue has no effect at all. [bsc#1086820]\n  \n  * CVE-2018-1302: when an HTTP/2 stream was destroyed after being handled, it \n                   could have written a NULL pointer potentially to an already freed memory. \n                   The memory pools maintained by the server make this vulnerability hard to trigger in usual configurations, \n                   the reporter and the team could not reproduce it outside debug builds, so it is classified as low risk. \n                   [bsc#1086820]\n\nThis update was imported from the SUSE:SLE-12-SP2:Update update project.",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-updates/2018-05/msg00023.html",
+			"description": "E-Mail link for openSUSE-SU-2018:1198-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 42.3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 42.3",
+						"full_product_name": {
+							"text": "openSUSE Leap 42.3",
+							"product_id": "openSUSE Leap 42.3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "apache2-2.4.23-22.1",
+				"full_product_name": {
+					"text": "apache2-2.4.23-22.1",
+					"product_id": "apache2-2.4.23-22.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "apache2-devel-2.4.23-22.1",
+				"full_product_name": {
+					"text": "apache2-devel-2.4.23-22.1",
+					"product_id": "apache2-devel-2.4.23-22.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "apache2-doc-2.4.23-22.1",
+				"full_product_name": {
+					"text": "apache2-doc-2.4.23-22.1",
+					"product_id": "apache2-doc-2.4.23-22.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "apache2-event-2.4.23-22.1",
+				"full_product_name": {
+					"text": "apache2-event-2.4.23-22.1",
+					"product_id": "apache2-event-2.4.23-22.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "apache2-example-pages-2.4.23-22.1",
+				"full_product_name": {
+					"text": "apache2-example-pages-2.4.23-22.1",
+					"product_id": "apache2-example-pages-2.4.23-22.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "apache2-prefork-2.4.23-22.1",
+				"full_product_name": {
+					"text": "apache2-prefork-2.4.23-22.1",
+					"product_id": "apache2-prefork-2.4.23-22.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "apache2-utils-2.4.23-22.1",
+				"full_product_name": {
+					"text": "apache2-utils-2.4.23-22.1",
+					"product_id": "apache2-utils-2.4.23-22.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "apache2-worker-2.4.23-22.1",
+				"full_product_name": {
+					"text": "apache2-worker-2.4.23-22.1",
+					"product_id": "apache2-worker-2.4.23-22.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "apache2-2.4.23-22.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "apache2-devel-2.4.23-22.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "apache2-doc-2.4.23-22.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "apache2-event-2.4.23-22.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "apache2-example-pages-2.4.23-22.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "apache2-prefork-2.4.23-22.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "apache2-utils-2.4.23-22.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "apache2-worker-2.4.23-22.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "In Apache httpd 2.0.23 to 2.0.65, 2.2.0 to 2.2.34, and 2.4.0 to 2.4.29, mod_authnz_ldap, if configured with AuthLDAPCharsetConfig, uses the Accept-Language header value to lookup the right charset encoding when verifying the user's credentials. If the header value is not present in the charset conversion table, a fallback mechanism is used to truncate it to a two characters value to allow a quick retry (for example, 'en-US' is truncated to 'en'). A header value of less than two characters forces an out of bound write of one NUL byte to a memory location that is not part of the string. In the worst case, quite unlikely, the process would crash which could be used as a Denial of Service attack. In the more likely case, this memory is already reserved for future use and the issue has no effect at all.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-15710",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.3:apache2-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-devel-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-doc-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-event-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-example-pages-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-prefork-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-utils-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-worker-2.4.23-22.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-updates/2018-05/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-15710.html",
+					"description": "CVE-2017-15710"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1086776",
+					"description": "SUSE Bug 1086776"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In Apache httpd 2.4.0 to 2.4.29, the expression specified in <FilesMatch> could match '$' to a newline character in a malicious filename, rather than matching only the end of the filename. This could be exploited in environments where uploads of some files are are externally blocked, but only by matching the trailing portion of the filename.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-15715",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.3:apache2-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-devel-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-doc-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-event-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-example-pages-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-prefork-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-utils-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-worker-2.4.23-22.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.3",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-updates/2018-05/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-15715.html",
+					"description": "CVE-2017-15715"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1086774",
+					"description": "SUSE Bug 1086774"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In Apache httpd 2.4.0 to 2.4.29, when mod_session is configured to forward its session data to CGI applications (SessionEnv on, not the default), a remote user may influence their content by using a \"Session\" header. This comes from the \"HTTP_SESSION\" variable name used by mod_session to forward its data to CGIs, since the prefix \"HTTP_\" is also used by the Apache HTTP Server to pass HTTP header fields, per CGI specifications.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-1283",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.3:apache2-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-devel-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-doc-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-event-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-example-pages-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-prefork-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-utils-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-worker-2.4.23-22.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.5",
+					"vector_v_2": "AV:N/AC:M/Au:S/C:N/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-updates/2018-05/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-1283.html",
+					"description": "CVE-2018-1283"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1086814",
+					"description": "SUSE Bug 1086814"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A specially crafted request could have crashed the Apache HTTP Server prior to version 2.4.30, due to an out of bound access after a size limit is reached by reading the HTTP header. This vulnerability is considered very hard if not impossible to trigger in non-debug mode (both log and build level), so it is classified as low risk for common server usage.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-1301",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.3:apache2-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-devel-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-doc-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-event-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-example-pages-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-prefork-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-utils-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-worker-2.4.23-22.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-updates/2018-05/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-1301.html",
+					"description": "CVE-2018-1301"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1086817",
+					"description": "SUSE Bug 1086817"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "When an HTTP/2 stream was destroyed after being handled, the Apache HTTP Server prior to version 2.4.30 could have written a NULL pointer potentially to an already freed memory. The memory pools maintained by the server make this vulnerability hard to trigger in usual configurations, the reporter and the team could not reproduce it outside debug builds, so it is classified as low risk.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-1302",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.3:apache2-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-devel-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-doc-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-event-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-example-pages-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-prefork-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-utils-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-worker-2.4.23-22.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.6",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-updates/2018-05/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-1302.html",
+					"description": "CVE-2018-1302"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1086820",
+					"description": "SUSE Bug 1086820"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A specially crafted HTTP request header could have crashed the Apache HTTP Server prior to version 2.4.30 due to an out of bound read while preparing data to be cached in shared memory. It could be used as a Denial of Service attack against users of mod_cache_socache. The vulnerability is considered as low risk since mod_cache_socache is not widely used, mod_cache_disk is not concerned by this vulnerability.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-1303",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.3:apache2-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-devel-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-doc-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-event-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-example-pages-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-prefork-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-utils-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-worker-2.4.23-22.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-updates/2018-05/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-1303.html",
+					"description": "CVE-2018-1303"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1086813",
+					"description": "SUSE Bug 1086813"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In Apache httpd 2.2.0 to 2.4.29, when generating an HTTP Digest authentication challenge, the nonce sent to prevent reply attacks was not correctly generated using a pseudo-random seed. In a cluster of servers using a common Digest authentication configuration, HTTP requests could be replayed across servers by an attacker without detection.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-1312",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.3:apache2-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-devel-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-doc-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-event-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-example-pages-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-prefork-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-utils-2.4.23-22.1",
+						"openSUSE Leap 42.3:apache2-worker-2.4.23-22.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-updates/2018-05/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-1312.html",
+					"description": "CVE-2018-1312"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1086775",
+					"description": "SUSE Bug 1086775"
+				}
+			]
+		}
+	]
+}

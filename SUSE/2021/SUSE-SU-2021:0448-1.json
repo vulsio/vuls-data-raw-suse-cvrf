@@ -1,0 +1,2152 @@
+{
+	"document_title": "Security update for SUSE Manager Server 4.0",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2021:0448-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2021-02-12T10:37:16Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2021-02-12T10:37:16Z",
+		"current_release_date": "2021-02-12T10:37:16Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for SUSE Manager Server 4.0",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update fixes the following issues:\n\ncpu-mitigations-formula:\n\n- Handle unsupported target systems gracefully (bsc#1179273)\n- add mitigations for Xen hypervisor \n\nnutch-core:\n\n- Fix XXE injection in DmozParser CVE-2021-23901 (bsc#1181356)\n\nsmdba:\n\n- Do not remove the database if there is no backup and deal with manifest\n- Fix smdba throws error on mgr-setup/installation \n- Raise an exception on failed external process call\n- Fix TablePrint formatting\n- Rename configuration parameter wal_keep_segments to wal_keep_size (jsc#SLE-17030)\n- Revert modifying cpu_tuple_cost\n- Adapted spec file for RHEL8\n- Adapt recover mechanism for postgresql12 and later\n\nspacecmd:\n\n- Fix spacecmd with no parameters produces traceback on SLE 11 SP4 (bsc#1176823)\n\nspacewalk-backend:\n\n- Reposync: Fixed Kickstart functionality.\n- Reposync: Fixed URLGrabber error handling.\n- Reposync: Fix modular data handling for cloned channels (bsc#1177508)\n- Truncate author name in the changelog (bsc#1180285)\n- Drop Transfer-Encoding header from proxy respone to fix error response messages (bsc#1176906)\n- Prevent tracebacks on missing mail configuration (bsc#1179990)\n- Fix pycurl.error handling in suseLib.py (bsc#1179990)\n- Use sanitized repo label to build reposync repo cache path (bsc#1179410)\n- Quote the proxy settings to be used by Zypper (bsc#1179087)\n- Fix spacewalk-repo-sync to successfully manage and sync ULN repositories\n- Fix errors in spacewalk-debug and align postgresql queries to new DB version\n\nspacewalk-branding:\n\n- Set Copyright year to 2021\n\nspacewalk-certs-tools:\n\n- Improve check for correct CA trust store directory (bsc#1176417)\n\nspacewalk-java:\n\n- Fix modular data handling for cloned channels (bsc#1177508)\n- Fix reboot action race condition (bsc#1177031)\n- Fix availability check for debian repositories (bsc#1180127)\n- Ignore duplicate NEVRAs in package profile update (bsc#1176018)\n- Prevent deletion of CLM environments if they're used in an autoinstallation profile (bsc#1179552)\n- Register saltkey XMLRPC handler and fix behavior of delete salt key (bsc#1179872)\n- Add validation for custom repository labels\n- Fix expanded support detection based on CentOS installations (bsc#1179589)\n- Add translation strings for newly added countries and timezones (jsc#PM-2081)\n- Fix the activation key handling from kickstart profile (bsc#1178647)\n- Update exception message in findSyncedMandatoryChannels\n- Fix check for available products on ISS Slaves (bsc#1177184)\n- Get media.1/products for cloned channels (bsc#1178303)\n- Calculate size to truncate a history message based on the htmlified version (bsc#1178503)\n- Change message 'Minion is down' to be more accurate\n- XMLRPC: Report architecture label in the list of installed packages (bsc#1176898)\n\nspacewalk-reports:\n\n- Fixes no file content in `spacewalk-report config-files`\n- Write `<binary data>` placeholder instead of dumping binary data\n\nspacewalk-utils:\n\n- Fix modular data handling for cloned channels (bsc#1177508)\n\nspacewalk-web:\n\n- Prevent deletion of CLM environments if they're used in an autoinstallation\n  profile (bsc#1179552)\n- Fix mandatory channels JS API to finish loading in case of error (bsc#1178839)\n\nsupportutils-plugin-susemanager:\n\n- Remove checks for obsolete packages\n- Gather new configfiles\n- Add more important informations\n\nsusemanager-doc-indexes:\n\n- Added new section for bootstrap repository for end of life products \n  in Client Configuration Guide\n- Remove old certs before renaming moved to Administration Guide (bsc#1171836)\n- Fixed error in Create and Replace CA and Server Certificates of Administration Guide (bsc#1180001)\n- Combining activation keys works only with traditional clients. \n  Updated in Client Configuration Guide and Reference. (bsc#1164451)\n\nsusemanager-docs_en:\n\n- Added new section for bootstrap repository for end of life products in Client Configuration Guide\n- Remove old certs before renaming moved to Administration Guide (bsc#1171836)\n- Fixed error in Create and Replace CA and Server Certificates of Administration Guide (bsc#1180001)\n- Combining activation keys works only with traditional clients. \n  Updated Client Configuration Guide and Reference. (bsc#1164451)\n\nsusemanager-frontend-libs:\n\n- Update Bootstrap to 3.1.0\n\nsusemanager-schema:\n\n- Add new valid countries and timezones (jsc#PM-2081)\n\nsusemanager-sls:\n\n- Fix apt login for similar channel labels (bsc#1180803)\n- Change behavior of mgrcompat wrapper after deprecation changes on Salt 3002\n- Make autoinstallation provisoning compatible with GRUB and ELILO in addition to GRUB2 only (bsc#1164227)\n- Fix: sync before start action chains (bsc#1177336)\n\nsusemanager-sync-data:\n\n- Change centos 6 URLs to vault.centos.org\n- Add new channel families for CAASP on ARM64 and HPC15 SP2 LTSS\n- Remove duplicate repo definition\n\nHow to apply this update:\n\n1. Log in as root user to the SUSE Manager server.\n2. Stop the Spacewalk service:\n`spacewalk-service stop`\n3. Apply the patch using either zypper patch or YaST Online Update.\n4. Upgrade the database schema:\n`spacewalk-schema-upgrade`\n5. Start the Spacewalk service:\n`spacewalk-service start`\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy-2021-448,Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server-2021-448,Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy-2021-448,Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server-2021-448,Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy-2021-448,Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server-2021-448,SUSE-2021-448,SUSE-SLE-Module-SUSE-Manager-Server-4.0-2021-448",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2021/suse-su-20210448-1/",
+			"description": "Link for SUSE-SU-2021:0448-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2021-February/008319.html",
+			"description": "E-Mail link for SUSE-SU-2021:0448-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1164227",
+			"description": "SUSE Bug 1164227"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1164451",
+			"description": "SUSE Bug 1164451"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1171836",
+			"description": "SUSE Bug 1171836"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1176018",
+			"description": "SUSE Bug 1176018"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1176417",
+			"description": "SUSE Bug 1176417"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1176823",
+			"description": "SUSE Bug 1176823"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1176898",
+			"description": "SUSE Bug 1176898"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1176906",
+			"description": "SUSE Bug 1176906"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1177031",
+			"description": "SUSE Bug 1177031"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1177184",
+			"description": "SUSE Bug 1177184"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1177336",
+			"description": "SUSE Bug 1177336"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1177508",
+			"description": "SUSE Bug 1177508"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1178303",
+			"description": "SUSE Bug 1178303"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1178503",
+			"description": "SUSE Bug 1178503"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1178647",
+			"description": "SUSE Bug 1178647"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1178839",
+			"description": "SUSE Bug 1178839"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1179087",
+			"description": "SUSE Bug 1179087"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1179273",
+			"description": "SUSE Bug 1179273"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1179410",
+			"description": "SUSE Bug 1179410"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1179552",
+			"description": "SUSE Bug 1179552"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1179589",
+			"description": "SUSE Bug 1179589"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1179872",
+			"description": "SUSE Bug 1179872"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1179990",
+			"description": "SUSE Bug 1179990"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1180001",
+			"description": "SUSE Bug 1180001"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1180127",
+			"description": "SUSE Bug 1180127"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1180285",
+			"description": "SUSE Bug 1180285"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1180803",
+			"description": "SUSE Bug 1180803"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1181356",
+			"description": "SUSE Bug 1181356"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-23901/",
+			"description": "SUSE CVE CVE-2021-23901 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy",
+							"product_id": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server",
+							"product_id": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy",
+							"product_id": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server",
+							"product_id": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy",
+							"product_id": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server",
+						"full_product_name": {
+							"text": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server",
+							"product_id": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Manager Server Module 4.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Manager Server Module 4.0",
+						"full_product_name": {
+							"text": "SUSE Manager Server Module 4.0",
+							"product_id": "SUSE Manager Server Module 4.0",
+							"cpe": "cpe:/o:suse:sle-module-suse-manager-server:4.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "python3-spacewalk-backend-libs-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "python3-spacewalk-backend-libs-4.0.36-3.41.2",
+					"product_id": "python3-spacewalk-backend-libs-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python3-spacewalk-certs-tools-4.0.18-3.24.2",
+				"full_product_name": {
+					"text": "python3-spacewalk-certs-tools-4.0.18-3.24.2",
+					"product_id": "python3-spacewalk-certs-tools-4.0.18-3.24.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-base-minimal-4.0.26-3.39.3",
+				"full_product_name": {
+					"text": "spacewalk-base-minimal-4.0.26-3.39.3",
+					"product_id": "spacewalk-base-minimal-4.0.26-3.39.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-base-minimal-config-4.0.26-3.39.3",
+				"full_product_name": {
+					"text": "spacewalk-base-minimal-config-4.0.26-3.39.3",
+					"product_id": "spacewalk-base-minimal-config-4.0.26-3.39.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-certs-tools-4.0.18-3.24.2",
+				"full_product_name": {
+					"text": "spacewalk-certs-tools-4.0.18-3.24.2",
+					"product_id": "spacewalk-certs-tools-4.0.18-3.24.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-proxy-broker-4.0.15-3.13.3",
+				"full_product_name": {
+					"text": "spacewalk-proxy-broker-4.0.15-3.13.3",
+					"product_id": "spacewalk-proxy-broker-4.0.15-3.13.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-proxy-common-4.0.15-3.13.3",
+				"full_product_name": {
+					"text": "spacewalk-proxy-common-4.0.15-3.13.3",
+					"product_id": "spacewalk-proxy-common-4.0.15-3.13.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-proxy-management-4.0.15-3.13.3",
+				"full_product_name": {
+					"text": "spacewalk-proxy-management-4.0.15-3.13.3",
+					"product_id": "spacewalk-proxy-management-4.0.15-3.13.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-proxy-package-manager-4.0.15-3.13.3",
+				"full_product_name": {
+					"text": "spacewalk-proxy-package-manager-4.0.15-3.13.3",
+					"product_id": "spacewalk-proxy-package-manager-4.0.15-3.13.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-proxy-redirect-4.0.15-3.13.3",
+				"full_product_name": {
+					"text": "spacewalk-proxy-redirect-4.0.15-3.13.3",
+					"product_id": "spacewalk-proxy-redirect-4.0.15-3.13.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-proxy-salt-4.0.15-3.13.3",
+				"full_product_name": {
+					"text": "spacewalk-proxy-salt-4.0.15-3.13.3",
+					"product_id": "spacewalk-proxy-salt-4.0.15-3.13.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "supportutils-plugin-susemanager-client-4.0.4-3.6.2",
+				"full_product_name": {
+					"text": "supportutils-plugin-susemanager-client-4.0.4-3.6.2",
+					"product_id": "supportutils-plugin-susemanager-client-4.0.4-3.6.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "supportutils-plugin-susemanager-proxy-4.0.4-3.6.2",
+				"full_product_name": {
+					"text": "supportutils-plugin-susemanager-proxy-4.0.4-3.6.2",
+					"product_id": "supportutils-plugin-susemanager-proxy-4.0.4-3.6.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cpu-mitigations-formula-0.3-4.9.2",
+				"full_product_name": {
+					"text": "cpu-mitigations-formula-0.3-4.9.2",
+					"product_id": "cpu-mitigations-formula-0.3-4.9.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "nutch-core-1.0.1-4.5.2",
+				"full_product_name": {
+					"text": "nutch-core-1.0.1-4.5.2",
+					"product_id": "nutch-core-1.0.1-4.5.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "smdba-1.7.8-0.3.3.2",
+				"full_product_name": {
+					"text": "smdba-1.7.8-0.3.3.2",
+					"product_id": "smdba-1.7.8-0.3.3.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacecmd-4.0.22-3.25.2",
+				"full_product_name": {
+					"text": "spacecmd-4.0.22-3.25.2",
+					"product_id": "spacecmd-4.0.22-3.25.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-app-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-app-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-app-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-applet-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-applet-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-applet-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-config-files-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-config-files-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-config-files-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-config-files-common-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-config-files-common-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-config-files-common-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-config-files-tool-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-config-files-tool-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-config-files-tool-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-iss-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-iss-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-iss-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-iss-export-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-iss-export-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-iss-export-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-package-push-server-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-package-push-server-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-package-push-server-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-server-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-server-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-server-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-sql-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-sql-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-sql-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-sql-postgresql-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-sql-postgresql-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-sql-postgresql-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-tools-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-tools-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-tools-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-xml-export-libs-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-xml-export-libs-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-xml-export-libs-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-xmlrpc-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-xmlrpc-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-xmlrpc-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-base-4.0.26-3.39.3",
+				"full_product_name": {
+					"text": "spacewalk-base-4.0.26-3.39.3",
+					"product_id": "spacewalk-base-4.0.26-3.39.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-branding-4.0.19-3.21.3",
+				"full_product_name": {
+					"text": "spacewalk-branding-4.0.19-3.21.3",
+					"product_id": "spacewalk-branding-4.0.19-3.21.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-html-4.0.26-3.39.3",
+				"full_product_name": {
+					"text": "spacewalk-html-4.0.26-3.39.3",
+					"product_id": "spacewalk-html-4.0.26-3.39.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-java-4.0.41-3.51.2",
+				"full_product_name": {
+					"text": "spacewalk-java-4.0.41-3.51.2",
+					"product_id": "spacewalk-java-4.0.41-3.51.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-java-config-4.0.41-3.51.2",
+				"full_product_name": {
+					"text": "spacewalk-java-config-4.0.41-3.51.2",
+					"product_id": "spacewalk-java-config-4.0.41-3.51.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-java-lib-4.0.41-3.51.2",
+				"full_product_name": {
+					"text": "spacewalk-java-lib-4.0.41-3.51.2",
+					"product_id": "spacewalk-java-lib-4.0.41-3.51.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-java-postgresql-4.0.41-3.51.2",
+				"full_product_name": {
+					"text": "spacewalk-java-postgresql-4.0.41-3.51.2",
+					"product_id": "spacewalk-java-postgresql-4.0.41-3.51.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-reports-4.0.6-3.3.2",
+				"full_product_name": {
+					"text": "spacewalk-reports-4.0.6-3.3.2",
+					"product_id": "spacewalk-reports-4.0.6-3.3.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-taskomatic-4.0.41-3.51.2",
+				"full_product_name": {
+					"text": "spacewalk-taskomatic-4.0.41-3.51.2",
+					"product_id": "spacewalk-taskomatic-4.0.41-3.51.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "supportutils-plugin-susemanager-4.0.5-3.6.2",
+				"full_product_name": {
+					"text": "supportutils-plugin-susemanager-4.0.5-3.6.2",
+					"product_id": "supportutils-plugin-susemanager-4.0.5-3.6.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-doc-indexes-4.0-10.30.2",
+				"full_product_name": {
+					"text": "susemanager-doc-indexes-4.0-10.30.2",
+					"product_id": "susemanager-doc-indexes-4.0-10.30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-docs_en-4.0-10.30.2",
+				"full_product_name": {
+					"text": "susemanager-docs_en-4.0-10.30.2",
+					"product_id": "susemanager-docs_en-4.0-10.30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-docs_en-pdf-4.0-10.30.2",
+				"full_product_name": {
+					"text": "susemanager-docs_en-pdf-4.0-10.30.2",
+					"product_id": "susemanager-docs_en-pdf-4.0-10.30.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-frontend-libs-4.0.3-4.6.2",
+				"full_product_name": {
+					"text": "susemanager-frontend-libs-4.0.3-4.6.2",
+					"product_id": "susemanager-frontend-libs-4.0.3-4.6.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-schema-4.0.24-3.35.2",
+				"full_product_name": {
+					"text": "susemanager-schema-4.0.24-3.35.2",
+					"product_id": "susemanager-schema-4.0.24-3.35.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-sls-4.0.32-3.40.2",
+				"full_product_name": {
+					"text": "susemanager-sls-4.0.32-3.40.2",
+					"product_id": "susemanager-sls-4.0.32-3.40.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-sync-data-4.0.20-3.32.2",
+				"full_product_name": {
+					"text": "susemanager-sync-data-4.0.20-3.32.2",
+					"product_id": "susemanager-sync-data-4.0.20-3.32.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-web-libs-4.0.26-3.39.3",
+				"full_product_name": {
+					"text": "susemanager-web-libs-4.0.26-3.39.3",
+					"product_id": "susemanager-web-libs-4.0.26-3.39.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "hibernate5-kit-06f89f5f40a0b95b08f814879026e8ce444876e5-3.6.2",
+				"full_product_name": {
+					"text": "hibernate5-kit-06f89f5f40a0b95b08f814879026e8ce444876e5-3.6.2",
+					"product_id": "hibernate5-kit-06f89f5f40a0b95b08f814879026e8ce444876e5-3.6.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "nodejs-packaging-1.1.0-3.3.2",
+				"full_product_name": {
+					"text": "nodejs-packaging-1.1.0-3.3.2",
+					"product_id": "nodejs-packaging-1.1.0-3.3.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python2-spacewalk-certs-tools-4.0.18-3.24.2",
+				"full_product_name": {
+					"text": "python2-spacewalk-certs-tools-4.0.18-3.24.2",
+					"product_id": "python2-spacewalk-certs-tools-4.0.18-3.24.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-cdn-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-cdn-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-cdn-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-libs-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-libs-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-libs-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-sql-oracle-4.0.36-3.41.2",
+				"full_product_name": {
+					"text": "spacewalk-backend-sql-oracle-4.0.36-3.41.2",
+					"product_id": "spacewalk-backend-sql-oracle-4.0.36-3.41.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-branding-devel-4.0.19-3.21.3",
+				"full_product_name": {
+					"text": "spacewalk-branding-devel-4.0.19-3.21.3",
+					"product_id": "spacewalk-branding-devel-4.0.19-3.21.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-dobby-4.0.26-3.39.3",
+				"full_product_name": {
+					"text": "spacewalk-dobby-4.0.26-3.39.3",
+					"product_id": "spacewalk-dobby-4.0.26-3.39.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-java-apidoc-sources-4.0.41-3.51.2",
+				"full_product_name": {
+					"text": "spacewalk-java-apidoc-sources-4.0.41-3.51.2",
+					"product_id": "spacewalk-java-apidoc-sources-4.0.41-3.51.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-utils-4.0.19-3.24.2",
+				"full_product_name": {
+					"text": "spacewalk-utils-4.0.19-3.24.2",
+					"product_id": "spacewalk-utils-4.0.19-3.24.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-frontend-libs-devel-4.0.3-4.6.2",
+				"full_product_name": {
+					"text": "susemanager-frontend-libs-devel-4.0.3-4.6.2",
+					"product_id": "susemanager-frontend-libs-devel-4.0.3-4.6.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-schema-sanity-4.0.24-3.35.2",
+				"full_product_name": {
+					"text": "susemanager-schema-sanity-4.0.24-3.35.2",
+					"product_id": "susemanager-schema-sanity-4.0.24-3.35.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-tftpsync-recv-4.0.8-3.11.2",
+				"full_product_name": {
+					"text": "susemanager-tftpsync-recv-4.0.8-3.11.2",
+					"product_id": "susemanager-tftpsync-recv-4.0.8-3.11.2"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "python3-spacewalk-backend-libs-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "python3-spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-backend-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-config-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-broker-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-common-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-management-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-package-manager-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-redirect-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-salt-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "supportutils-plugin-susemanager-client-4.0.4-3.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "supportutils-plugin-susemanager-proxy-4.0.4-3.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy"
+			},
+			{
+				"product_reference": "cpu-mitigations-formula-0.3-4.9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "nutch-core-1.0.1-4.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "python3-spacewalk-backend-libs-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "python3-spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "smdba-1.7.8-0.3.3.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacecmd-4.0.22-3.25.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-app-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-applet-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-common-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-tool-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-iss-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-iss-export-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-package-push-server-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-server-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-sql-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-sql-postgresql-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-tools-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-xml-export-libs-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-xmlrpc-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-base-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-config-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-branding-4.0.19-3.21.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-html-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-java-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-java-config-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-java-lib-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-java-postgresql-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-reports-4.0.6-3.3.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-taskomatic-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "supportutils-plugin-susemanager-4.0.5-3.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-doc-indexes-4.0-10.30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-docs_en-4.0-10.30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-docs_en-pdf-4.0-10.30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-frontend-libs-4.0.3-4.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-schema-4.0.24-3.35.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-sls-4.0.32-3.40.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-sync-data-4.0.20-3.32.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-web-libs-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server"
+			},
+			{
+				"product_reference": "python3-spacewalk-backend-libs-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "python3-spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-backend-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-config-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-broker-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-common-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-management-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-package-manager-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-redirect-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-salt-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "supportutils-plugin-susemanager-client-4.0.4-3.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "supportutils-plugin-susemanager-proxy-4.0.4-3.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy"
+			},
+			{
+				"product_reference": "cpu-mitigations-formula-0.3-4.9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "nutch-core-1.0.1-4.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "python3-spacewalk-backend-libs-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "python3-spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "smdba-1.7.8-0.3.3.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacecmd-4.0.22-3.25.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-app-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-applet-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-common-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-tool-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-iss-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-iss-export-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-package-push-server-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-server-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-sql-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-sql-postgresql-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-tools-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-xml-export-libs-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-xmlrpc-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-base-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-config-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-branding-4.0.19-3.21.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-html-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-java-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-java-config-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-java-lib-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-java-postgresql-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-reports-4.0.6-3.3.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-taskomatic-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "supportutils-plugin-susemanager-4.0.5-3.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-doc-indexes-4.0-10.30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-docs_en-4.0-10.30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-docs_en-pdf-4.0-10.30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-frontend-libs-4.0.3-4.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-schema-4.0.24-3.35.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-sls-4.0.32-3.40.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-sync-data-4.0.20-3.32.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-web-libs-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server"
+			},
+			{
+				"product_reference": "python3-spacewalk-backend-libs-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "python3-spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-backend-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-config-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-broker-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-common-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-management-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-package-manager-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-redirect-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "spacewalk-proxy-salt-4.0.15-3.13.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "supportutils-plugin-susemanager-client-4.0.4-3.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "supportutils-plugin-susemanager-proxy-4.0.4-3.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy"
+			},
+			{
+				"product_reference": "cpu-mitigations-formula-0.3-4.9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "nutch-core-1.0.1-4.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "python3-spacewalk-backend-libs-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "python3-spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "smdba-1.7.8-0.3.3.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacecmd-4.0.22-3.25.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-app-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-applet-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-common-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-tool-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-iss-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-iss-export-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-package-push-server-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-server-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-sql-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-sql-postgresql-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-tools-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-xml-export-libs-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-backend-xmlrpc-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-base-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-config-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-branding-4.0.19-3.21.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-html-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-java-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-java-config-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-java-lib-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-java-postgresql-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-reports-4.0.6-3.3.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "spacewalk-taskomatic-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "supportutils-plugin-susemanager-4.0.5-3.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-doc-indexes-4.0-10.30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-docs_en-4.0-10.30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-docs_en-pdf-4.0-10.30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-frontend-libs-4.0.3-4.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-schema-4.0.24-3.35.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-sls-4.0.32-3.40.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-sync-data-4.0.20-3.32.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "susemanager-web-libs-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server"
+			},
+			{
+				"product_reference": "cpu-mitigations-formula-0.3-4.9.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "nutch-core-1.0.1-4.5.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "python3-spacewalk-backend-libs-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "python3-spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "smdba-1.7.8-0.3.3.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacecmd-4.0.22-3.25.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-app-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-applet-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-common-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-tool-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-iss-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-iss-export-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-package-push-server-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-server-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-sql-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-sql-postgresql-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-tools-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-xml-export-libs-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-xmlrpc-4.0.36-3.41.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-base-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-config-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-branding-4.0.19-3.21.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-certs-tools-4.0.18-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-html-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-java-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-java-config-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-java-lib-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-java-postgresql-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-reports-4.0.6-3.3.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-taskomatic-4.0.41-3.51.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-utils-4.0.19-3.24.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "supportutils-plugin-susemanager-4.0.5-3.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-doc-indexes-4.0-10.30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-docs_en-4.0-10.30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-docs_en-pdf-4.0-10.30.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-frontend-libs-4.0.3-4.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-schema-4.0.24-3.35.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-sls-4.0.32-3.40.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-sync-data-4.0.20-3.32.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-web-libs-4.0.26-3.39.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "An XML external entity (XXE) injection vulnerability was discovered in the Nutch DmozParser and is known to affect Nutch versions < 1.18. XML external entity injection (also known as XXE) is a web security vulnerability that allows an attacker to interfere with an application's processing of XML data. It often allows an attacker to view files on the application server filesystem, and to interact with any back-end or external systems that the application itself can access. This issue is fixed in Apache Nutch 1.18.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-23901",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:python3-spacewalk-backend-libs-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:python3-spacewalk-certs-tools-4.0.18-3.24.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:spacewalk-backend-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:spacewalk-base-minimal-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:spacewalk-base-minimal-config-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:spacewalk-certs-tools-4.0.18-3.24.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:spacewalk-proxy-broker-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:spacewalk-proxy-common-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:spacewalk-proxy-management-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:spacewalk-proxy-package-manager-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:spacewalk-proxy-redirect-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:spacewalk-proxy-salt-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:supportutils-plugin-susemanager-client-4.0.4-3.6.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Proxy:supportutils-plugin-susemanager-proxy-4.0.4-3.6.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:cpu-mitigations-formula-0.3-4.9.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:nutch-core-1.0.1-4.5.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:python3-spacewalk-backend-libs-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:python3-spacewalk-certs-tools-4.0.18-3.24.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:smdba-1.7.8-0.3.3.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacecmd-4.0.22-3.25.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-app-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-applet-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-config-files-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-config-files-common-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-config-files-tool-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-iss-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-iss-export-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-package-push-server-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-server-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-sql-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-sql-postgresql-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-tools-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-xml-export-libs-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-backend-xmlrpc-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-base-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-base-minimal-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-base-minimal-config-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-branding-4.0.19-3.21.3",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-certs-tools-4.0.18-3.24.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-html-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-java-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-java-config-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-java-lib-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-java-postgresql-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-reports-4.0.6-3.3.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:spacewalk-taskomatic-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:supportutils-plugin-susemanager-4.0.5-3.6.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:susemanager-doc-indexes-4.0-10.30.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:susemanager-docs_en-4.0-10.30.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:susemanager-docs_en-pdf-4.0-10.30.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:susemanager-frontend-libs-4.0.3-4.6.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:susemanager-schema-4.0.24-3.35.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:susemanager-sls-4.0.32-3.40.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:susemanager-sync-data-4.0.20-3.32.2",
+						"Image SLES15-SP1-Manager-4-0-Azure-BYOS-Server:susemanager-web-libs-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:python3-spacewalk-backend-libs-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:python3-spacewalk-certs-tools-4.0.18-3.24.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:spacewalk-backend-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:spacewalk-base-minimal-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:spacewalk-base-minimal-config-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:spacewalk-certs-tools-4.0.18-3.24.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:spacewalk-proxy-broker-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:spacewalk-proxy-common-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:spacewalk-proxy-management-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:spacewalk-proxy-package-manager-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:spacewalk-proxy-redirect-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:spacewalk-proxy-salt-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:supportutils-plugin-susemanager-client-4.0.4-3.6.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Proxy:supportutils-plugin-susemanager-proxy-4.0.4-3.6.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:cpu-mitigations-formula-0.3-4.9.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:nutch-core-1.0.1-4.5.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:python3-spacewalk-backend-libs-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:python3-spacewalk-certs-tools-4.0.18-3.24.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:smdba-1.7.8-0.3.3.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacecmd-4.0.22-3.25.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-app-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-applet-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-config-files-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-config-files-common-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-config-files-tool-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-iss-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-iss-export-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-package-push-server-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-server-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-sql-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-sql-postgresql-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-tools-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-xml-export-libs-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-backend-xmlrpc-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-base-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-base-minimal-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-base-minimal-config-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-branding-4.0.19-3.21.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-certs-tools-4.0.18-3.24.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-html-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-java-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-java-config-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-java-lib-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-java-postgresql-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-reports-4.0.6-3.3.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:spacewalk-taskomatic-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:supportutils-plugin-susemanager-4.0.5-3.6.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:susemanager-doc-indexes-4.0-10.30.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:susemanager-docs_en-4.0-10.30.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:susemanager-docs_en-pdf-4.0-10.30.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:susemanager-frontend-libs-4.0.3-4.6.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:susemanager-schema-4.0.24-3.35.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:susemanager-sls-4.0.32-3.40.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:susemanager-sync-data-4.0.20-3.32.2",
+						"Image SLES15-SP1-Manager-4-0-EC2-HVM-BYOS-Server:susemanager-web-libs-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:python3-spacewalk-backend-libs-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:python3-spacewalk-certs-tools-4.0.18-3.24.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:spacewalk-backend-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:spacewalk-base-minimal-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:spacewalk-base-minimal-config-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:spacewalk-certs-tools-4.0.18-3.24.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:spacewalk-proxy-broker-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:spacewalk-proxy-common-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:spacewalk-proxy-management-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:spacewalk-proxy-package-manager-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:spacewalk-proxy-redirect-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:spacewalk-proxy-salt-4.0.15-3.13.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:supportutils-plugin-susemanager-client-4.0.4-3.6.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Proxy:supportutils-plugin-susemanager-proxy-4.0.4-3.6.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:cpu-mitigations-formula-0.3-4.9.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:nutch-core-1.0.1-4.5.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:python3-spacewalk-backend-libs-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:python3-spacewalk-certs-tools-4.0.18-3.24.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:smdba-1.7.8-0.3.3.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacecmd-4.0.22-3.25.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-app-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-applet-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-config-files-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-config-files-common-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-config-files-tool-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-iss-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-iss-export-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-package-push-server-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-server-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-sql-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-sql-postgresql-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-tools-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-xml-export-libs-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-backend-xmlrpc-4.0.36-3.41.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-base-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-base-minimal-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-base-minimal-config-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-branding-4.0.19-3.21.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-certs-tools-4.0.18-3.24.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-html-4.0.26-3.39.3",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-java-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-java-config-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-java-lib-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-java-postgresql-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-reports-4.0.6-3.3.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:spacewalk-taskomatic-4.0.41-3.51.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:supportutils-plugin-susemanager-4.0.5-3.6.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:susemanager-doc-indexes-4.0-10.30.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:susemanager-docs_en-4.0-10.30.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:susemanager-docs_en-pdf-4.0-10.30.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:susemanager-frontend-libs-4.0.3-4.6.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:susemanager-schema-4.0.24-3.35.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:susemanager-sls-4.0.32-3.40.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:susemanager-sync-data-4.0.20-3.32.2",
+						"Image SLES15-SP1-Manager-4-0-GCE-BYOS-Server:susemanager-web-libs-4.0.26-3.39.3",
+						"SUSE Manager Server Module 4.0:cpu-mitigations-formula-0.3-4.9.2",
+						"SUSE Manager Server Module 4.0:nutch-core-1.0.1-4.5.2",
+						"SUSE Manager Server Module 4.0:python3-spacewalk-backend-libs-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:python3-spacewalk-certs-tools-4.0.18-3.24.2",
+						"SUSE Manager Server Module 4.0:smdba-1.7.8-0.3.3.2",
+						"SUSE Manager Server Module 4.0:spacecmd-4.0.22-3.25.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-app-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-applet-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-config-files-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-config-files-common-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-config-files-tool-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-iss-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-iss-export-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-package-push-server-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-server-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-sql-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-sql-postgresql-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-tools-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-xml-export-libs-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-xmlrpc-4.0.36-3.41.2",
+						"SUSE Manager Server Module 4.0:spacewalk-base-4.0.26-3.39.3",
+						"SUSE Manager Server Module 4.0:spacewalk-base-minimal-4.0.26-3.39.3",
+						"SUSE Manager Server Module 4.0:spacewalk-base-minimal-config-4.0.26-3.39.3",
+						"SUSE Manager Server Module 4.0:spacewalk-branding-4.0.19-3.21.3",
+						"SUSE Manager Server Module 4.0:spacewalk-certs-tools-4.0.18-3.24.2",
+						"SUSE Manager Server Module 4.0:spacewalk-html-4.0.26-3.39.3",
+						"SUSE Manager Server Module 4.0:spacewalk-java-4.0.41-3.51.2",
+						"SUSE Manager Server Module 4.0:spacewalk-java-config-4.0.41-3.51.2",
+						"SUSE Manager Server Module 4.0:spacewalk-java-lib-4.0.41-3.51.2",
+						"SUSE Manager Server Module 4.0:spacewalk-java-postgresql-4.0.41-3.51.2",
+						"SUSE Manager Server Module 4.0:spacewalk-reports-4.0.6-3.3.2",
+						"SUSE Manager Server Module 4.0:spacewalk-taskomatic-4.0.41-3.51.2",
+						"SUSE Manager Server Module 4.0:spacewalk-utils-4.0.19-3.24.2",
+						"SUSE Manager Server Module 4.0:supportutils-plugin-susemanager-4.0.5-3.6.2",
+						"SUSE Manager Server Module 4.0:susemanager-doc-indexes-4.0-10.30.2",
+						"SUSE Manager Server Module 4.0:susemanager-docs_en-4.0-10.30.2",
+						"SUSE Manager Server Module 4.0:susemanager-docs_en-pdf-4.0-10.30.2",
+						"SUSE Manager Server Module 4.0:susemanager-frontend-libs-4.0.3-4.6.2",
+						"SUSE Manager Server Module 4.0:susemanager-schema-4.0.24-3.35.2",
+						"SUSE Manager Server Module 4.0:susemanager-sls-4.0.32-3.40.2",
+						"SUSE Manager Server Module 4.0:susemanager-sync-data-4.0.20-3.32.2",
+						"SUSE Manager Server Module 4.0:susemanager-web-libs-4.0.26-3.39.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "critical"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.4",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9.1",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2021/suse-su-20210448-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-23901.html",
+					"description": "CVE-2021-23901"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1181356",
+					"description": "SUSE Bug 1181356"
+				}
+			]
+		}
+	]
+}

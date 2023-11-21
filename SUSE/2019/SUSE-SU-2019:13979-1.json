@@ -1,0 +1,2046 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2019:13979-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2019-03-15T13:49:28Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2019-03-15T13:49:28Z",
+		"current_release_date": "2019-03-15T13:49:28Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\n\nThe SUSE Linux Enterprise 11 SP4 kernel was updated to receive various security and bugfixes.\n\nThe following security bugs were fixed:\n\n- CVE-2016-10741: fs/xfs/xfs_aops.c allowed local users to cause a denial of service (system crash) because there is a race condition between direct and memory-mapped I/O (associated with a hole) that is handled with BUG_ON instead of an I/O failure (bnc#1114920 bnc#1124010).\n- CVE-2017-18360: In change_port_settings in drivers/usb/serial/io_ti.c local users could cause a denial of service by division-by-zero in the serial device layer by trying to set very high baud rates (bnc#1123706).\n- CVE-2018-9568: In sk_clone_lock of sock.c, there is a possible memory corruption due to type confusion. This could lead to local escalation of privilege with no additional execution privileges needed. User interaction is not needed for exploitation. (bnc#1118319).\n- CVE-2018-19407: The vcpu_scan_ioapic function in arch/x86/kvm/x86.c allowed local users to cause a denial of service (NULL pointer dereference and BUG) via crafted system calls that reach a situation where ioapic is uninitialized (bnc#1116841).\n- CVE-2018-19824: A local user could exploit a use-after-free in the ALSA driver by supplying a malicious USB Sound device (with zero interfaces) that is mishandled in usb_audio_probe in sound/usb/card.c (bnc#1118152).\n- CVE-2018-19985: The function hso_probe read if_num from the USB device (as an u8) and used it without a length check to index an array, resulting in an OOB memory read in hso_probe or hso_get_config_data that could be used by local attackers (bnc#1120743).\n- CVE-2018-20169: The USB subsystem mishandled size checks during the reading of an extra descriptor, related to __usb_get_extra_descriptor in drivers/usb/core/usb.c (bnc#1119714).\n- CVE-2019-7222: A information leak in exception handling in KVM could be used to expose host memory to guests. (bnc#1124735).\n\nThe following non-security bugs were fixed:\n\n- aacraid: Fix memory leak in aac_fib_map_free (bsc#1115827).\n- arcmsr: upper 32 of dma address lost (bsc#1115828).\n- block/swim3: Fix -EBUSY error when re-opening device after unmount (bsc#1121997).\n- block/swim: Fix array bounds check (Git-fix).\n- btrfs: Enhance btrfs_trim_fs function to handle error better (Dependency for bsc#1113667).\n- btrfs: Ensure btrfs_trim_fs can trim the whole filesystem (bsc#1113667).\n- cpusets, isolcpus: exclude isolcpus from load balancing in cpusets (bsc#1119255).\n- dasd: fix deadlock in dasd_times_out (bnc#1117943, LTC#174111).\n- drivers: hv: vmbus: check the creation_status in vmbus_establish_gpadl() (bsc#1104098).\n- drm/ast: Remove existing framebuffers before loading driver (boo#1112963)\n- drm/fb-helper: Ignore the value of fb_var_screeninfo.pixclock (bsc#1106886)\n- ext4: add missing brelse() update_backups()'s error path (bsc#1117796).\n- ext4: avoid buffer leak in ext4_orphan_add() after prior errors (bsc#1117802).\n- ext4: avoid possible double brelse() in add_new_gdb() on error path (bsc#1118760).\n- ext4: fix buffer leak in ext4_xattr_move_to_block() on error path (bsc#1117806).\n- ext4: release bs.bh before re-using in ext4_xattr_block_find() (bsc#1117805).\n- fbdev: fbcon: Fix unregister crash when more than one framebuffer (bsc#1106886)\n- fbdev: fbmem: behave better with small rotated displays and many CPUs (bsc#1106886)\n- Fix kabi break cased by NFS: Cache state owners after files are closed (bsc#1031572).\n- fork: record start_time late (bsc#1121872).\n- fscache: Fix dead object requeue (bsc#1107371).\n- fscache: Fix race in fscache_op_complete() due to split atomic_sub & read (git-fixes).\n- fs-cache: Move fscache_report_unexpected_submission() to make it more available (bsc#1107371).\n- fs-cache: When submitting an op, cancel it if the target object is dying (bsc#1107371).\n- fuse: Add missed unlock_page() to fuse_readpages_fill() (git-fixes).\n- fuse: fix blocked_waitq wakeup (git-fixes).\n- fuse: fix leaked notify reply (git-fixes).\n- fuse: Fix oops at process_init_reply() (git-fixes).\n- fuse: fix possibly missed wake-up after abort (git-fixes).\n- fuse: umount should wait for all requests (git-fixes).\n- igb: do not unmap NULL hw_addr (bsc#969471 bsc#969473 ) (bsc#1123702).\n- igb: re-assign hw address pointer on reset after PCI error (bnc#1012382) (bsc#1123702).\n- iommu/amd: Fix IOMMU page flush when detach device from a domain (bsc#1106105).\n- kvm: x86: Fix the duplicated failure path handling in vmx_init (bsc#1104367).\n- lib: add 'on'/'off' support to strtobool (bsc#1125931).\n- megaraid_sas: Fix probing cards without io port (bsc#1115829).\n- net/af_iucv: drop inbound packets with invalid flags (bnc#1114440, LTC#172679).\n- net/af_iucv: fix skb handling on HiperTransport xmit error (bnc#1114440, LTC#172679).\n- nfs: Cache state owners after files are closed (bsc#1031572).\n- nfs: Do not drop CB requests with invalid principals (git-fixes).\n- nfsv4.1: Fix a kfree() of uninitialised pointers in decode_cb_sequence_args (git-fixes).\n- nfsv4: Do not exit the state manager without clearing NFS4CLNT_MANAGER_RUNNING (git-fixes).\n- nfsv4: Keep dropped state owners on the LRU list for a while (bsc#1031572).\n- nlm: Ensure callback code also checks that the files match (git-fixes).\n- ocfs2: fix three small problems in the patch (bsc#1086695)\n- omap2fb: Fix stack memory disclosure (bsc#1106886)\n- pci/ASPM: Fix link_state teardown on device removal (bsc#1109806).\n- powerpc/fadump: handle crash memory ranges array index overflow (git-fixes).\n- powerpc/fadump: Return error when fadump registration fails (git-fixes).\n- powerpc/fadump: Unregister fadump on kexec down path (git-fixes).\n- powerpc/traps: restore recoverability of machine_check interrupts (bsc#1094244).\n- Revert 'NFS: Make close(2) asynchronous when closing NFS O_DIRECT files' (git-fixes).\n- ring-buffer: Always reset iterator to reader page (bsc#1120107).\n- ring-buffer: Fix first commit on sub-buffer having non-zero delta (bsc#1120077).\n- ring-buffer: Fix infinite spin in reading buffer (bsc#1120107).\n- ring-buffer: Have ring_buffer_iter_empty() return true when empty (bsc#1120107).\n- ring-buffer: Mask out the info bits when returning buffer page length (bsc#1120094).\n- ring-buffer: Up rb_iter_peek() loop count to 3 (bsc#1120105).\n- rpm/modprobe-xen.conf: Add --ignore-install.\n- s390: always save and restore all registers on context switch (git-fixes).\n- s390/dasd: fix using offset into zero size array error (git-fixes).\n- s390/decompressor: fix initrd corruption caused by bss clear (git-fixes).\n- s390/qdio: do not release memory in qdio_setup_irq() (git-fixes).\n- s390/qdio: reset old sbal_state flags (bnc#1114440, LTC#171525).\n- s390: qeth_core_mpc: Use ARRAY_SIZE instead of reimplementing its function (bnc#1114440, LTC#172682).\n- s390/qeth: fix length check in SNMP processing (bnc#1117943, LTC#173657).\n- s390: qeth: Fix potential array overrun in cmd/rc lookup (bnc#1114440, LTC#172682).\n- s390/qeth: invoke softirqs after napi_schedule() (git-fixes).\n- s390/qeth: remove outdated portname debug msg (bnc#1117943, LTC#172960).\n- s390/qeth: sanitize strings in debug messages (bnc#1117943, LTC#172960).\n- sched, isolcpu: make cpu_isolated_map visible outside scheduler (bsc#1119255).\n- scsi: aacraid: Fix typo in blink status (bsc#1115830).\n- scsi: aacraid: Reorder Adapter status check (bsc#1115830).\n- scsi: aic94xx: fix an error code in aic94xx_init() (bsc#1115831).\n- scsi: bfa: integer overflow in debugfs (bsc#1115832).\n- scsi: esp_scsi: Track residual for PIO transfers (bsc#1115833).\n- scsi: fas216: fix sense buffer initialization (bsc#1115834).\n- scsi: libfc: Revert ' libfc: use offload EM instance again instead jumping to next EM' (bsc#1115835).\n- scsi: libsas: fix ata xfer length (bsc#1115836).\n- scsi: libsas: fix error when getting phy events (bsc#1115837).\n- scsi: lpfc: Do not return internal MBXERR_ERROR code from probe function (bsc#1115838).\n- scsi: megaraid_sas: Fix data integrity failure for JBOD (passthrough) devices (bsc#1115839).\n- scsi: megaraid_sas: fix macro MEGASAS_IS_LOGICAL to avoid regression (bsc#1115839).\n- scsi: qla2xxx: Fix ISP recovery on unload (bsc#1115840).\n- scsi: qla2xxx: shutdown chip if reset fail (bsc#1115841).\n- scsi: qlogicpti: Fix an error handling path in 'qpti_sbus_probe()' (bsc#1115842).\n- scsi: scsi_dh_emc: return success in clariion_std_inquiry() (bsc#1115843).\n- scsi: zfcp: add handling for FCP_RESID_OVER to the fcp ingress path (git-fixes).\n- scsi: zfcp: fix posting too many status read buffers leading to adapter shutdown (bsc#1123505, LTC#174581).\n- sg: fix dxferp in from_to case (bsc#1115844).\n- sunrpc: Fix a potential race in xprt_connect() (git-fixes).\n- svc: Avoid garbage replies when pc_func() returns rpc_drop_reply (git-fixes).\n- svcrpc: do not leak contexts on PROC_DESTROY (git-fixes).\n- tracepoints: Do not trace when cpu is offline (bsc#1120109).\n- tracing: Add #undef to fix compile error (bsc#1120226).\n- tracing: Allow events to have NULL strings (bsc#1120056).\n- tracing: Do not add event files for modules that fail tracepoints (bsc#1120086).\n- tracing: Fix check for cpu online when event is disabled (bsc#1120109).\n- tracing: Fix regex_match_front() to not over compare the test string (bsc#1120223).\n- tracing/kprobes: Allow to create probe with a module name starting with a digit (bsc#1120336).\n- tracing: Move mutex to protect against resetting of seq data (bsc#1120217).\n- tracing: probeevent: Fix to support minus offset from symbol (bsc#1120347).\n- usb: keyspan: fix overrun-error reporting (bsc#1114672).\n- usb: keyspan: fix tty line-status reporting (bsc#1114672).\n- usb: option: fix Cinterion AHxx enumeration (bsc#1114672).\n- usb: serial: ark3116: fix open error handling (bsc#1114672).\n- usb: serial: ch341: fix control-message error handling (bsc#1114672).\n- usb: serial: ch341: fix initial modem-control state (bsc#1114672).\n- usb: serial: ch341: fix modem-status handling (bsc#1114672).\n- usb: serial: ch341: fix open and resume after B0 (bsc#1114672).\n- usb: serial: ch341: fix resume after reset (bsc#1114672).\n- usb: serial: ch341: fix type promotion bug in ch341_control_in() (bsc#1114672).\n- usb: serial: cyberjack: fix NULL-deref at open (bsc#1114672).\n- usb: serial: fix tty-device error handling at probe (bsc#1114672).\n- usb: serial: ftdi_sio: fix modem-status error handling (bsc#1114672).\n- usb: serial: io_ti: fix another NULL-deref at open (bsc#1114672).\n- usb: serial: io_ti: fix NULL-deref at open (bsc#1114672).\n- usb: serial: keyspan_pda: verify endpoints at probe (bsc#1114672).\n- usb: serial: kl5kusb105: abort on open exception path (bsc#1114672).\n- usb: serial: kl5kusb105: fix open error path (bsc#1114672).\n- usb: serial: kobil_sct: fix NULL-deref in write (bsc#1114672).\n- usb: serial: mct_u232: fix modem-status error handling (bsc#1114672).\n- usb: serial: omninet: fix NULL-derefs at open and disconnect.\n- usb: serial: pl2303: fix NULL-deref at open (bsc#1114672).\n- usb: serial: ti_usb_3410_5052: fix NULL-deref at open (bsc#1114672).\n- vmcore: Remove 'weak' from function declarations (git-fixes).\n- x86, kvm: Remove incorrect redundant assembly constraint (bnc#931850).\n- x86/mm: Simplify p[g4um]xen: d_page() macros (bnc#1087081, bnc#1104684).\n- xen: kabi: x86/speculation/l1tf: Increase l1tf memory limit for Nehalem+ (bnc#1105536).\n- xen: x86, l1tf: Protect PROT_NONE PTEs against speculation fixup (bnc#1104684, bnc#1104818).\n- xen/x86/mm: Prevent kernel Oops in PTDUMP code with HIGHPTE=y (bsc#1106105).\n- xen/x86/mm: Set IBPB upon context switch (bsc#1068032).\n- xen/x86/process: Re-export start_thread() (bsc#1110006).\n- xen/x86/speculation/l1tf: Fix off-by-one error when warning that system has too much RAM (bnc#1105536).\n- xen/x86/speculation/l1tf: Fix overflow in l1tf_pfn_limit() on 32bit (bnc#1087081).\n- xen/x86/speculation/l1tf: Increase l1tf memory limit for Nehalem+ (bnc#1105536).\n- xen/x86/traps: add missing kernel CR3 switch in bad_iret path (bsc#1098658).\n- xfrm: use complete IPv6 addresses for hash (bsc#1109330).\n- xfs: do not BUG() on mixed direct and mapped I/O (bsc#1114920).\n- xfs: fix the logspace waiting algorithm (bsc#1122874).\n- xfs: stop searching for free slots in an inode chunk when there are none (bsc#1115007).\n- xfs: validate sb_logsunit is a multiple of the fs blocksize (bsc#1115038).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "sdksp4-kernel-20190225-13979,slehasp4-kernel-20190225-13979,slertesp4-kernel-20190225-13979,slessp4-kernel-20190225-13979,slexsp3-kernel-20190225-13979",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201913979-1/",
+			"description": "Link for SUSE-SU-2019:13979-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2019-March/005194.html",
+			"description": "E-Mail link for SUSE-SU-2019:13979-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1012382",
+			"description": "SUSE Bug 1012382"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031572",
+			"description": "SUSE Bug 1031572"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1068032",
+			"description": "SUSE Bug 1068032"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1086695",
+			"description": "SUSE Bug 1086695"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1087081",
+			"description": "SUSE Bug 1087081"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1094244",
+			"description": "SUSE Bug 1094244"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1098658",
+			"description": "SUSE Bug 1098658"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1104098",
+			"description": "SUSE Bug 1104098"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1104367",
+			"description": "SUSE Bug 1104367"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1104684",
+			"description": "SUSE Bug 1104684"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1104818",
+			"description": "SUSE Bug 1104818"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1105536",
+			"description": "SUSE Bug 1105536"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1106105",
+			"description": "SUSE Bug 1106105"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1106886",
+			"description": "SUSE Bug 1106886"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1107371",
+			"description": "SUSE Bug 1107371"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1109330",
+			"description": "SUSE Bug 1109330"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1109806",
+			"description": "SUSE Bug 1109806"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1110006",
+			"description": "SUSE Bug 1110006"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1112963",
+			"description": "SUSE Bug 1112963"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1113667",
+			"description": "SUSE Bug 1113667"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1114440",
+			"description": "SUSE Bug 1114440"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1114672",
+			"description": "SUSE Bug 1114672"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1114920",
+			"description": "SUSE Bug 1114920"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115007",
+			"description": "SUSE Bug 1115007"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115038",
+			"description": "SUSE Bug 1115038"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115827",
+			"description": "SUSE Bug 1115827"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115828",
+			"description": "SUSE Bug 1115828"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115829",
+			"description": "SUSE Bug 1115829"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115830",
+			"description": "SUSE Bug 1115830"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115831",
+			"description": "SUSE Bug 1115831"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115832",
+			"description": "SUSE Bug 1115832"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115833",
+			"description": "SUSE Bug 1115833"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115834",
+			"description": "SUSE Bug 1115834"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115835",
+			"description": "SUSE Bug 1115835"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115836",
+			"description": "SUSE Bug 1115836"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115837",
+			"description": "SUSE Bug 1115837"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115838",
+			"description": "SUSE Bug 1115838"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115839",
+			"description": "SUSE Bug 1115839"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115840",
+			"description": "SUSE Bug 1115840"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115841",
+			"description": "SUSE Bug 1115841"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115842",
+			"description": "SUSE Bug 1115842"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115843",
+			"description": "SUSE Bug 1115843"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115844",
+			"description": "SUSE Bug 1115844"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1116841",
+			"description": "SUSE Bug 1116841"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1117796",
+			"description": "SUSE Bug 1117796"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1117802",
+			"description": "SUSE Bug 1117802"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1117805",
+			"description": "SUSE Bug 1117805"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1117806",
+			"description": "SUSE Bug 1117806"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1117943",
+			"description": "SUSE Bug 1117943"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1118152",
+			"description": "SUSE Bug 1118152"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1118319",
+			"description": "SUSE Bug 1118319"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1118760",
+			"description": "SUSE Bug 1118760"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1119255",
+			"description": "SUSE Bug 1119255"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1119714",
+			"description": "SUSE Bug 1119714"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120056",
+			"description": "SUSE Bug 1120056"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120077",
+			"description": "SUSE Bug 1120077"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120086",
+			"description": "SUSE Bug 1120086"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120093",
+			"description": "SUSE Bug 1120093"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120094",
+			"description": "SUSE Bug 1120094"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120105",
+			"description": "SUSE Bug 1120105"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120107",
+			"description": "SUSE Bug 1120107"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120109",
+			"description": "SUSE Bug 1120109"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120217",
+			"description": "SUSE Bug 1120217"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120223",
+			"description": "SUSE Bug 1120223"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120226",
+			"description": "SUSE Bug 1120226"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120336",
+			"description": "SUSE Bug 1120336"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120347",
+			"description": "SUSE Bug 1120347"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120743",
+			"description": "SUSE Bug 1120743"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120950",
+			"description": "SUSE Bug 1120950"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1121872",
+			"description": "SUSE Bug 1121872"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1121997",
+			"description": "SUSE Bug 1121997"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1122874",
+			"description": "SUSE Bug 1122874"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1123505",
+			"description": "SUSE Bug 1123505"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1123702",
+			"description": "SUSE Bug 1123702"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1123706",
+			"description": "SUSE Bug 1123706"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1124010",
+			"description": "SUSE Bug 1124010"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1124735",
+			"description": "SUSE Bug 1124735"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1125931",
+			"description": "SUSE Bug 1125931"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/931850",
+			"description": "SUSE Bug 931850"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/969471",
+			"description": "SUSE Bug 969471"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/969473",
+			"description": "SUSE Bug 969473"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-10741/",
+			"description": "SUSE CVE CVE-2016-10741 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-18360/",
+			"description": "SUSE CVE CVE-2017-18360 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-19407/",
+			"description": "SUSE CVE CVE-2018-19407 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-19824/",
+			"description": "SUSE CVE CVE-2018-19824 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-19985/",
+			"description": "SUSE CVE CVE-2018-19985 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-20169/",
+			"description": "SUSE CVE CVE-2018-20169 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-9568/",
+			"description": "SUSE CVE CVE-2018-9568 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-7222/",
+			"description": "SUSE CVE CVE-2019-7222 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Availability Extension 11 SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Availability Extension 11 SP4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Availability Extension 11 SP4",
+							"product_id": "SUSE Linux Enterprise High Availability Extension 11 SP4",
+							"cpe": "cpe:/a:suse:sle-hae:11:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Real Time 11 SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Real Time 11 SP4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Real Time 11 SP4",
+							"product_id": "SUSE Linux Enterprise Real Time 11 SP4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 11 SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 11 SP4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 11 SP4",
+							"product_id": "SUSE Linux Enterprise Server 11 SP4",
+							"cpe": "cpe:/o:suse:suse_sles:11:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 11 SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 11 SP4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 11 SP4",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 11 SP4",
+							"cpe": "cpe:/o:suse:sles_sap:11:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Software Development Kit 11 SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Software Development Kit 11 SP4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Software Development Kit 11 SP4",
+							"product_id": "SUSE Linux Enterprise Software Development Kit 11 SP4",
+							"cpe": "cpe:/a:suse:sle-sdk:11:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-docs-3.0.101-108.87.1",
+					"product_id": "kernel-docs-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-bigmem-1.6_3.0.101_108.87-0.28.7.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-bigmem-1.6_3.0.101_108.87-0.28.7.1",
+					"product_id": "ocfs2-kmp-bigmem-1.6_3.0.101_108.87-0.28.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-default-1.6_3.0.101_108.87-0.28.7.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-default-1.6_3.0.101_108.87-0.28.7.1",
+					"product_id": "ocfs2-kmp-default-1.6_3.0.101_108.87-0.28.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-pae-1.6_3.0.101_108.87-0.28.7.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-pae-1.6_3.0.101_108.87-0.28.7.1",
+					"product_id": "ocfs2-kmp-pae-1.6_3.0.101_108.87-0.28.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-ppc64-1.6_3.0.101_108.87-0.28.7.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-ppc64-1.6_3.0.101_108.87-0.28.7.1",
+					"product_id": "ocfs2-kmp-ppc64-1.6_3.0.101_108.87-0.28.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-trace-1.6_3.0.101_108.87-0.28.7.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-trace-1.6_3.0.101_108.87-0.28.7.1",
+					"product_id": "ocfs2-kmp-trace-1.6_3.0.101_108.87-0.28.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-xen-1.6_3.0.101_108.87-0.28.7.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-xen-1.6_3.0.101_108.87-0.28.7.1",
+					"product_id": "ocfs2-kmp-xen-1.6_3.0.101_108.87-0.28.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-rt-1.6_3.0.101_rt130_69.42-0.28.7.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-rt-1.6_3.0.101_rt130_69.42-0.28.7.1",
+					"product_id": "ocfs2-kmp-rt-1.6_3.0.101_rt130_69.42-0.28.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-rt_trace-1.6_3.0.101_rt130_69.42-0.28.7.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-rt_trace-1.6_3.0.101_rt130_69.42-0.28.7.1",
+					"product_id": "ocfs2-kmp-rt_trace-1.6_3.0.101_rt130_69.42-0.28.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-bigmem-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-bigmem-3.0.101-108.87.1",
+					"product_id": "kernel-bigmem-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-bigmem-base-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-bigmem-base-3.0.101-108.87.1",
+					"product_id": "kernel-bigmem-base-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-bigmem-devel-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-bigmem-devel-3.0.101-108.87.1",
+					"product_id": "kernel-bigmem-devel-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-default-3.0.101-108.87.1",
+					"product_id": "kernel-default-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-default-base-3.0.101-108.87.1",
+					"product_id": "kernel-default-base-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-default-devel-3.0.101-108.87.1",
+					"product_id": "kernel-default-devel-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-man-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-default-man-3.0.101-108.87.1",
+					"product_id": "kernel-default-man-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-ec2-3.0.101-108.87.1",
+					"product_id": "kernel-ec2-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-base-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-ec2-base-3.0.101-108.87.1",
+					"product_id": "kernel-ec2-base-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-devel-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-ec2-devel-3.0.101-108.87.1",
+					"product_id": "kernel-ec2-devel-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-pae-3.0.101-108.87.1",
+					"product_id": "kernel-pae-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-base-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-pae-base-3.0.101-108.87.1",
+					"product_id": "kernel-pae-base-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-devel-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-pae-devel-3.0.101-108.87.1",
+					"product_id": "kernel-pae-devel-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ppc64-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-ppc64-3.0.101-108.87.1",
+					"product_id": "kernel-ppc64-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ppc64-base-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-ppc64-base-3.0.101-108.87.1",
+					"product_id": "kernel-ppc64-base-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ppc64-devel-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-ppc64-devel-3.0.101-108.87.1",
+					"product_id": "kernel-ppc64-devel-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-source-3.0.101-108.87.1",
+					"product_id": "kernel-source-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-syms-3.0.101-108.87.1",
+					"product_id": "kernel-syms-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-trace-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-trace-3.0.101-108.87.1",
+					"product_id": "kernel-trace-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-trace-base-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-trace-base-3.0.101-108.87.1",
+					"product_id": "kernel-trace-base-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-trace-devel-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-trace-devel-3.0.101-108.87.1",
+					"product_id": "kernel-trace-devel-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-xen-3.0.101-108.87.1",
+					"product_id": "kernel-xen-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-base-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-xen-base-3.0.101-108.87.1",
+					"product_id": "kernel-xen-base-3.0.101-108.87.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-devel-3.0.101-108.87.1",
+				"full_product_name": {
+					"text": "kernel-xen-devel-3.0.101-108.87.1",
+					"product_id": "kernel-xen-devel-3.0.101-108.87.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "ocfs2-kmp-bigmem-1.6_3.0.101_108.87-0.28.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 11 SP4"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-1.6_3.0.101_108.87-0.28.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 11 SP4"
+			},
+			{
+				"product_reference": "ocfs2-kmp-pae-1.6_3.0.101_108.87-0.28.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 11 SP4"
+			},
+			{
+				"product_reference": "ocfs2-kmp-ppc64-1.6_3.0.101_108.87-0.28.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 11 SP4"
+			},
+			{
+				"product_reference": "ocfs2-kmp-trace-1.6_3.0.101_108.87-0.28.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 11 SP4"
+			},
+			{
+				"product_reference": "ocfs2-kmp-xen-1.6_3.0.101_108.87-0.28.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 11 SP4"
+			},
+			{
+				"product_reference": "ocfs2-kmp-rt-1.6_3.0.101_rt130_69.42-0.28.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Real Time 11 SP4"
+			},
+			{
+				"product_reference": "ocfs2-kmp-rt_trace-1.6_3.0.101_rt130_69.42-0.28.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Real Time 11 SP4"
+			},
+			{
+				"product_reference": "kernel-bigmem-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-bigmem-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-bigmem-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-default-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-default-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-default-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-default-man-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-ec2-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-ec2-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-ec2-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-pae-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-pae-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-pae-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-ppc64-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-ppc64-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-ppc64-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-source-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-syms-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-trace-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-trace-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-trace-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-xen-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-xen-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-xen-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP4"
+			},
+			{
+				"product_reference": "kernel-bigmem-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-bigmem-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-bigmem-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-default-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-default-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-default-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-default-man-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-ec2-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-ec2-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-ec2-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-pae-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-pae-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-pae-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-ppc64-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-ppc64-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-ppc64-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-source-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-syms-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-trace-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-trace-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-trace-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-xen-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-xen-base-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-xen-devel-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 11 SP4"
+			},
+			{
+				"product_reference": "kernel-docs-3.0.101-108.87.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 11 SP4"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel before 4.9.3, fs/xfs/xfs_aops.c allows local users to cause a denial of service (system crash) because there is a race condition between direct and memory-mapped I/O (associated with a hole) that is handled with BUG_ON instead of an I/O failure.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-10741",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-bigmem-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-default-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-pae-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-ppc64-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-trace-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-xen-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt_trace-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Software Development Kit 11 SP4:kernel-docs-3.0.101-108.87.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.1",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201913979-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-10741.html",
+					"description": "CVE-2016-10741"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1114920",
+					"description": "SUSE Bug 1114920"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1124010",
+					"description": "SUSE Bug 1124010"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In change_port_settings in drivers/usb/serial/io_ti.c in the Linux kernel before 4.11.3, local users could cause a denial of service by division-by-zero in the serial device layer by trying to set very high baud rates.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-18360",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-bigmem-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-default-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-pae-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-ppc64-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-trace-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-xen-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt_trace-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Software Development Kit 11 SP4:kernel-docs-3.0.101-108.87.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201913979-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-18360.html",
+					"description": "CVE-2017-18360"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1123706",
+					"description": "SUSE Bug 1123706"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The vcpu_scan_ioapic function in arch/x86/kvm/x86.c in the Linux kernel through 4.19.2 allows local users to cause a denial of service (NULL pointer dereference and BUG) via crafted system calls that reach a situation where ioapic is uninitialized.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-19407",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-bigmem-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-default-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-pae-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-ppc64-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-trace-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-xen-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt_trace-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Software Development Kit 11 SP4:kernel-docs-3.0.101-108.87.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201913979-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-19407.html",
+					"description": "CVE-2018-19407"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1116841",
+					"description": "SUSE Bug 1116841"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel through 4.19.6, a local user could exploit a use-after-free in the ALSA driver by supplying a malicious USB Sound device (with zero interfaces) that is mishandled in usb_audio_probe in sound/usb/card.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-19824",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-bigmem-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-default-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-pae-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-ppc64-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-trace-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-xen-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt_trace-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Software Development Kit 11 SP4:kernel-docs-3.0.101-108.87.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.6",
+					"vector_v_3": "CVSS:3.0/AV:P/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201913979-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-19824.html",
+					"description": "CVE-2018-19824"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1118152",
+					"description": "SUSE Bug 1118152"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The function hso_get_config_data in drivers/net/usb/hso.c in the Linux kernel through 4.19.8 reads if_num from the USB device (as a u8) and uses it to index a small array, resulting in an object out-of-bounds (OOB) read that potentially allows arbitrary read in the kernel address space.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-19985",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-bigmem-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-default-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-pae-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-ppc64-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-trace-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-xen-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt_trace-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Software Development Kit 11 SP4:kernel-docs-3.0.101-108.87.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201913979-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-19985.html",
+					"description": "CVE-2018-19985"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1120743",
+					"description": "SUSE Bug 1120743"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel before 4.19.9. The USB subsystem mishandles size checks during the reading of an extra descriptor, related to __usb_get_extra_descriptor in drivers/usb/core/usb.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-20169",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-bigmem-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-default-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-pae-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-ppc64-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-trace-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-xen-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt_trace-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Software Development Kit 11 SP4:kernel-docs-3.0.101-108.87.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.3",
+					"vector_v_3": "CVSS:3.0/AV:P/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201913979-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-20169.html",
+					"description": "CVE-2018-20169"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1119714",
+					"description": "SUSE Bug 1119714"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In sk_clone_lock of sock.c, there is a possible memory corruption due to type confusion. This could lead to local escalation of privilege with no additional execution privileges needed. User interaction is not needed for exploitation. Product: Android. Versions: Android kernel. Android ID: A-113509306. References: Upstream kernel.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-9568",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-bigmem-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-default-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-pae-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-ppc64-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-trace-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-xen-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt_trace-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Software Development Kit 11 SP4:kernel-docs-3.0.101-108.87.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201913979-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-9568.html",
+					"description": "CVE-2018-9568"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1118319",
+					"description": "SUSE Bug 1118319"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1118320",
+					"description": "SUSE Bug 1118320"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The KVM implementation in the Linux kernel through 4.20.5 has an Information Leak.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-7222",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-bigmem-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-default-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-pae-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-ppc64-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-trace-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise High Availability Extension 11 SP4:ocfs2-kmp-xen-1.6_3.0.101_108.87-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:ocfs2-kmp-rt_trace-1.6_3.0.101_rt130_69.42-0.28.7.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-bigmem-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-default-man-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ec2-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-pae-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-ppc64-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-source-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-syms-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-trace-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-base-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Server for SAP Applications 11 SP4:kernel-xen-devel-3.0.101-108.87.1",
+						"SUSE Linux Enterprise Software Development Kit 11 SP4:kernel-docs-3.0.101-108.87.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "2.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-201913979-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-7222.html",
+					"description": "CVE-2019-7222"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1124735",
+					"description": "SUSE Bug 1124735"
+				}
+			]
+		}
+	]
+}

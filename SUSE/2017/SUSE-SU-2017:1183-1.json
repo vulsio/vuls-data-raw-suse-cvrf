@@ -1,0 +1,2629 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2017:1183-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2017-05-05T08:13:00Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2017-05-05T08:13:00Z",
+		"current_release_date": "2017-05-05T08:13:00Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThe SUSE Linux Enterprise 12 SP2 kernel was updated to 4.4.58 to receive various security and bugfixes.\n\nNotable new/improved features:\n- Improved support for Hyper-V\n- Support for Matrox G200eH3\n- Support for tcp_westwood\n\nThe following security bugs were fixed:\n\n- CVE-2017-2671: The ping_unhash function in net/ipv4/ping.c in the Linux kernel was  too late in obtaining a certain lock and consequently could not ensure that disconnect function calls are safe, which allowed local users to cause a denial of service (panic) by leveraging access to the protocol value of IPPROTO_ICMP in a socket system call (bnc#1031003).\n- CVE-2017-7308: The packet_set_ring function in net/packet/af_packet.c in the Linux kernel did not properly validate certain block-size data, which allowed local users to cause a denial of service (overflow) or possibly have unspecified other impact via crafted system calls (bnc#1031579).\n- CVE-2017-7294: The vmw_surface_define_ioctl function in drivers/gpu/drm/vmwgfx/vmwgfx_surface.c in the Linux kernel did not validate addition of certain levels data, which allowed local users to trigger an integer overflow and out-of-bounds write, and cause a denial of service (system hang or crash) or possibly gain privileges, via a crafted ioctl call for a /dev/dri/renderD* device (bnc#1031440).\n- CVE-2017-7261: The vmw_surface_define_ioctl function in drivers/gpu/drm/vmwgfx/vmwgfx_surface.c in the Linux kernel did not check for a zero value of certain levels data, which allowed local users to cause a denial of service (ZERO_SIZE_PTR dereference, and GPF and possibly panic) via a crafted ioctl call for a /dev/dri/renderD* device (bnc#1031052).\n- CVE-2017-7187: The sg_ioctl function in drivers/scsi/sg.c in the Linux kernel allowed local users to cause a denial of service (stack-based buffer overflow) or possibly have unspecified other impact via a large command size in an SG_NEXT_CMD_LEN ioctl call, leading to out-of-bounds write access in the sg_write function (bnc#1030213).\n- CVE-2017-7374: Use-after-free vulnerability in fs/crypto/ in the Linux kernel allowed local users to cause a denial of service (NULL pointer dereference) or possibly gain privileges by revoking keyring keys being used for ext4, f2fs, or ubifs encryption, causing cryptographic transform objects to be freed prematurely (bnc#1032006).\n- CVE-2016-10200: Race condition in the L2TPv3 IP Encapsulation feature in the Linux kernel allowed local users to gain privileges or cause a denial of service (use-after-free) by making multiple bind system calls without properly ascertaining whether a socket has the SOCK_ZAPPED status, related to net/l2tp/l2tp_ip.c and net/l2tp/l2tp_ip6.c (bnc#1028415).\n- CVE-2017-6345: The LLC subsystem in the Linux kernel did not ensure that a certain destructor exists in required circumstances, which allowed local users to cause a denial of service (BUG_ON) or possibly have unspecified other impact via crafted system calls (bnc#1027190).\n- CVE-2017-6346: Race condition in net/packet/af_packet.c in the Linux kernel allowed local users to cause a denial of service (use-after-free) or possibly have unspecified other impact via a multithreaded application that made PACKET_FANOUT setsockopt system calls (bnc#1027189).\n- CVE-2017-6353: net/sctp/socket.c in the Linux kernel did not properly restrict association peel-off operations during certain wait states, which allowed local users to cause a denial of service (invalid unlock and double free) via a multithreaded application. NOTE: this vulnerability exists because of an incorrect fix for CVE-2017-5986 (bnc#1027066).\n- CVE-2017-6214: The tcp_splice_read function in net/ipv4/tcp.c in the Linux kernel allowed remote attackers to cause a denial of service (infinite loop and soft lockup) via vectors involving a TCP packet with the URG flag (bnc#1026722).\n- CVE-2016-2117: The atl2_probe function in drivers/net/ethernet/atheros/atlx/atl2.c in the Linux kernel incorrectly enables scatter/gather I/O, which allowed remote attackers to obtain sensitive information from kernel memory by reading packet data (bnc#968697).\n- CVE-2017-6347: The ip_cmsg_recv_checksum function in net/ipv4/ip_sockglue.c in the Linux kernel had incorrect expectations about skb data layout, which allowed local users to cause a denial of service (buffer over-read) or possibly have unspecified other impact via crafted system calls, as demonstrated by use of the MSG_MORE flag in conjunction with loopback UDP transmission (bnc#1027179).\n- CVE-2016-9191: The cgroup offline implementation in the Linux kernel mishandled certain drain operations, which allowed local users to cause a denial of service (system hang) by leveraging access to a container environment for executing a crafted application (bnc#1008842).\n- CVE-2017-2596: The nested_vmx_check_vmptr function in arch/x86/kvm/vmx.c in the Linux kernel improperly emulated the VMXON instruction, which allowed KVM L1 guest OS users to cause a denial of service (host OS memory consumption) by leveraging the mishandling of page references (bnc#1022785).\n- CVE-2017-6074: The dccp_rcv_state_process function in net/dccp/input.c in the Linux kernel mishandled DCCP_PKT_REQUEST packet data structures in the LISTEN state, which allowed local users to obtain root privileges or cause a denial of service (double free) via an application that made an IPV6_RECVPKTINFO setsockopt system call (bnc#1026024).\n\nThe following non-security bugs were fixed:\n\n- ACPI, ioapic: Clear on-stack resource before using it (bsc#1028819).\n- ACPI: Do not create a platform_device for IOAPIC/IOxAPIC (bsc#1028819).\n- ACPI: Remove platform devices from a bus on removal (bsc#1028819).\n- HID: usbhid: Quirk a AMI virtual mouse and keyboard with ALWAYS_POLL (bsc#1022340).\n- NFS: do not try to cross a mountpount when there isn't one there (bsc#1028041).\n- NFS: flush out dirty data on file fput() (bsc#1021762).\n- PCI: hv: Fix wslot_to_devfn() to fix warnings on device removal (bug#1028217).\n- PCI: hv: Use device serial number as PCI domain (bug#1028217).\n- RAID1: a new I/O barrier implementation to remove resync window (bsc#998106,bsc#1020048,bsc#982783).\n- RAID1: avoid unnecessary spin locks in I/O barrier code (bsc#998106,bsc#1020048,bsc#982783).\n- Revert 'RDMA/core: Fix incorrect structure packing for booleans' (kabi).\n- Revert 'give up on gcc ilog2() constant optimizations' (kabi).\n- Revert 'net/mlx4_en: Avoid unregister_netdev at shutdown flow' (bsc#1028017).\n- Revert 'net: introduce device min_header_len' (kabi).\n- Revert 'nfit, libnvdimm: fix interleave set cookie calculation' (kabi).\n- Revert 'target: Fix NULL dereference during LUN lookup + active I/O shutdown' (kabi).\n- acpi, nfit: fix acpi_nfit_flush_probe() crash (bsc#1031717).\n- acpi, nfit: fix extended status translations for ACPI DSMs (bsc#1031717).\n- arm64: Use full path in KBUILD_IMAGE definition (bsc#1010032).\n- arm64: hugetlb: fix the wrong address for several functions (bsc#1032681).\n- arm64: hugetlb: fix the wrong return value for huge_ptep_set_access_flags (bsc#1032681).\n- arm64: hugetlb: remove the wrong pmd check in find_num_contig() (bsc#1032681).\n- arm: Use full path in KBUILD_IMAGE definition (bsc#1010032).\n- bnx2x: allow adding VLANs while interface is down (bsc#1027273).\n- bonding: fix 802.3ad aggregator reselection (bsc#1029514).\n- btrfs: Change qgroup_meta_rsv to 64bit (bsc#1019614).\n- btrfs: allow unlink to exceed subvolume quota (bsc#1019614).\n- btrfs: backref: Fix soft lockup in __merge_refs function (bsc#1017641).\n- btrfs: incremental send, do not delay rename when parent inode is new (bsc#1028325).\n- btrfs: incremental send, do not issue invalid rmdir operations (bsc#1028325).\n- btrfs: qgroup: Move half of the qgroup accounting time out of commit trans (bsc#1017461).\n- btrfs: qgroups: Retry after commit on getting EDQUOT (bsc#1019614).\n- btrfs: send, fix failure to rename top level inode due to name collision (bsc#1028325).\n- btrfs: serialize subvolume mounts with potentially mismatching rw flags (bsc#951844 bsc#1024015)\n- cgroup/pids: remove spurious suspicious RCU usage warning (bnc#1031831).\n- crypto: algif_hash - avoid zero-sized array (bnc#1007962).\n- cxgb4vf: do not offload Rx checksums for IPv6 fragments (bsc#1026692).\n- device-dax: fix private mapping restriction, permit read-only (bsc#1031717).\n- drm/i915: Add intel_uncore_suspend / resume functions (bsc#1011913).\n- drm/i915: Fix crash after S3 resume with DP MST mode change (bsc#1029634).\n- drm/i915: Listen for PMIC bus access notifications (bsc#1011913).\n- drm/i915: Only enable hotplug interrupts if the display interrupts are enabled (bsc#1031717).\n- drm/mgag200: Added support for the new device G200eH3 (bsc#1007959)\n- ext4: fix fencepost in s_first_meta_bg validation (bsc#1029986).\n- futex: Add missing error handling to FUTEX_REQUEUE_PI (bsc#969755).\n- futex: Fix potential use-after-free in FUTEX_REQUEUE_PI (bsc#969755).\n- hv: export current Hyper-V clocksource (bsc#1031206).\n- hv: util: do not forget to init host_ts.lock (bsc#1031206).\n- hv: vmbus: Prevent sending data on a rescinded channel (bug#1028217).\n- hv_utils: implement Hyper-V PTP source (bsc#1031206).\n- i2c-designware: increase timeout (bsc#1011913).\n- i2c: designware-baytrail: Acquire P-Unit access on bus acquire (bsc#1011913).\n- i2c: designware-baytrail: Call pmic_bus_access_notifier_chain (bsc#1011913).\n- i2c: designware-baytrail: Fix race when resetting the semaphore (bsc#1011913).\n- i2c: designware-baytrail: Only check iosf_mbi_available() for shared hosts (bsc#1011913).\n- i2c: designware: Disable pm for PMIC i2c-bus even if there is no _SEM method (bsc#1011913).\n- i2c: designware: Never suspend i2c-busses used for accessing the system PMIC (bsc#1011913).\n- i2c: designware: Rename accessor_flags to flags (bsc#1011913).\n- iommu/vt-d: Make sure IOMMUs are off when intel_iommu=off (bsc#1031208).\n- kABI: protect struct iscsi_conn (kabi).\n- kABI: protect struct se_node_acl (kabi).\n- kABI: restore can_rx_register parameters (kabi).\n- kgr/module: make a taint flag module-specific\n- kgr: Mark eeh_event_handler() kthread safe using a timeout (bsc#1031662).\n- kgr: remove all arch-specific kgraft header files\n- l2tp: fix address test in __l2tp_ip6_bind_lookup() (bsc#1028415).\n- l2tp: fix lookup for sockets not bound to a device in l2tp_ip (bsc#1028415).\n- l2tp: fix racy socket lookup in l2tp_ip and l2tp_ip6 bind() (bsc#1028415).\n- l2tp: hold socket before dropping lock in l2tp_ip{, 6}_recv() (bsc#1028415).\n- l2tp: hold tunnel socket when handling control frames in l2tp_ip and l2tp_ip6 (bsc#1028415).\n- l2tp: lock socket before checking flags in connect() (bsc#1028415).\n- libnvdimm, pfn: fix memmap reservation size versus 4K alignment (bsc#1031717).\n- locking/semaphore: Add down_interruptible_timeout() (bsc#1031662).\n- md/raid1: Refactor raid1_make_request (bsc#998106,bsc#1020048,bsc#982783).\n- md/raid1: add rcu protection to rdev in fix_read_error (References: bsc#998106,bsc#1020048,bsc#982783).\n- md/raid1: fix a use-after-free bug (bsc#998106,bsc#1020048,bsc#982783).\n- md/raid1: handle flush request correctly (bsc#998106,bsc#1020048,bsc#982783).\n- mm/huge_memory.c: respect FOLL_FORCE/FOLL_COW for thp (bnc#1030118).\n- mm/memblock.c: fix memblock_next_valid_pfn() (bnc#1031200).\n- mm/page_alloc: Remove useless parameter of __free_pages_boot_core (bnc#1027195).\n- mm: fix set pageblock migratetype in deferred struct page init (bnc#1027195).\n- mm: page_alloc: skip over regions of invalid pfns where possible (bnc#1031200).\n- module: move add_taint_module() to a header file\n- net/ena: change condition for host attribute configuration (bsc#1026509).\n- net/ena: change driver's default timeouts (bsc#1026509).\n- net/ena: fix NULL dereference when removing the driver after device reset failed (bsc#1026509).\n- net/ena: fix RSS default hash configuration (bsc#1026509).\n- net/ena: fix ethtool RSS flow configuration (bsc#1026509).\n- net/ena: fix potential access to freed memory during device reset (bsc#1026509).\n- net/ena: fix queues number calculation (bsc#1026509).\n- net/ena: reduce the severity of ena printouts (bsc#1026509).\n- net/ena: refactor ena_get_stats64 to be atomic context safe (bsc#1026509).\n- net/ena: remove ntuple filter support from device feature list (bsc#1026509).\n- net/ena: update driver version to 1.1.2 (bsc#1026509).\n- net/ena: use READ_ONCE to access completion descriptors (bsc#1026509).\n- net/mlx4_core: Avoid command timeouts during VF driver device shutdown (bsc#1028017).\n- net/mlx4_core: Avoid delays during VF driver device shutdown (bsc#1028017).\n- net/mlx4_core: Fix racy CQ (Completion Queue) free (bsc#1028017).\n- net/mlx4_core: Fix when to save some qp context flags for dynamic VST to VGT transitions (bsc#1028017).\n- net/mlx4_core: Use cq quota in SRIOV when creating completion EQs (bsc#1028017).\n- net/mlx4_en: Fix bad WQE issue (bsc#1028017).\n- net: ena: Fix error return code in ena_device_init() (bsc#1026509).\n- net: ena: Remove unnecessary pci_set_drvdata() (bsc#1026509).\n- net: ena: change the return type of ena_set_push_mode() to be void (bsc#1026509).\n- net: ena: remove superfluous check in ena_remove() (bsc#1026509).\n- net: ena: use setup_timer() and mod_timer() (bsc#1026509).\n- netfilter: allow logging from non-init namespaces (bsc#970083).\n- nvme: Do not suspend admin queue that wasn't created (bsc#1026505).\n- nvme: Suspend all queues before deletion (bsc#1026505).\n- ping: implement proper locking (bsc#1031003).\n- powerpc: Blacklist GCC 5.4 6.1 and 6.2 (boo#1028895).\n- rtlwifi: rtl_usb: Fix missing entry in USB driver's private data (bsc#1026462).\n- s390/kmsg: add missing kmsg descriptions (bnc#1025683).\n- s390/mm: fix zone calculation in arch_add_memory() (bnc#1025683).\n- sched/loadavg: Avoid loadavg spikes caused by delayed NO_HZ accounting (bsc#1018419).\n- scsi: do not print 'reservation conflict' for TEST UNIT READY (bsc#1027054).\n- scsi_dh_alua: Do not modify the interval value for retries (bsc#1012910).\n- softirq: Let ksoftirqd do its job (bsc#1019618).\n- x86, mm: fix gup_pte_range() vs DAX mappings (bsc#1026405).\n- x86/apic/uv: Silence a shift wrapping warning (bsc#1023866).\n- x86/ioapic: Change prototype of acpi_ioapic_add() (bsc#1027153, bsc#1027616).\n- x86/ioapic: Fix IOAPIC failing to request resource (bsc#1027153, bsc#1027616).\n- x86/ioapic: Fix incorrect pointers in ioapic_setup_resources() (bsc#1027153, bsc#1027616).\n- x86/ioapic: Fix lost IOAPIC resource after hot-removal and hotadd (bsc#1027153, bsc#1027616).\n- x86/ioapic: Fix setup_res() failing to get resource (bsc#1027153, bsc#1027616).\n- x86/ioapic: Ignore root bridges without a companion ACPI device (bsc#1027153, bsc#1027616).\n- x86/ioapic: Simplify ioapic_setup_resources() (bsc#1027153, bsc#1027616).\n- x86/ioapic: Support hot-removal of IOAPICs present during boot (bsc#1027153, bsc#1027616).\n- x86/ioapic: fix kABI (hide added include) (bsc#1027153, bsc#1027616).\n- x86/mce: Do not print MCEs when mcelog is active (bsc#1013994).\n- x86/mce: Fix copy/paste error in exception table entries\n- x86/mm/gup: Simplify get_user_pages() PTE bit handling (bsc#1026405).\n- x86/platform/UV: Add Support for UV4 Hubless NMIs (bsc#1023866).\n- x86/platform/UV: Add Support for UV4 Hubless systems (bsc#1023866).\n- x86/platform/UV: Add basic CPU NMI health check (bsc#1023866).\n- x86/platform/UV: Clean up the NMI code to match current coding style (bsc#1023866).\n- x86/platform/UV: Clean up the UV APIC code (bsc#1023866).\n- x86/platform/UV: Ensure uv_system_init is called when necessary (bsc#1023866).\n- x86/platform/UV: Fix 2 socket config problem (bsc#1023866).\n- x86/platform/UV: Fix panic with missing UVsystab support (bsc#1023866).\n- x86/platform/UV: Initialize PCH GPP_D_0 NMI Pin to be NMI source (bsc#1023866).\n- x86/platform/UV: Verify NMI action is valid, default is standard (bsc#1023866).\n- x86/platform/intel/iosf_mbi: Add a PMIC bus access notifier (bsc#1011913).\n- x86/platform/intel/iosf_mbi: Add a mutex for P-Unit access (bsc#1011913).\n- x86/platform: Remove warning message for duplicate NMI handlers (bsc#1029220).\n- x86/ras/therm_throt: Do not log a fake MCE for thermal events (bsc#1028027).\n- xen-blkfront: correct maximum segment accounting (bsc#1018263).\n- xen-blkfront: do not call talk_to_blkback when already connected to blkback.\n- xen-blkfront: free resources if xlvbd_alloc_gendisk fails.\n- xen/blkfront: Fix crash if backend does not follow the right states.\n- xen/netback: set default upper limit of tx/rx queues to 8 (bnc#1019163).\n- xen/netfront: set default upper limit of tx/rx queues to 8 (bnc#1019163).\n- xen: Use machine addresses in /sys/kernel/vmcoreinfo when PV (bsc#1014136)\n- xfs: do not take the IOLOCK exclusive for direct I/O page invalidation (bsc#1015609).\n- xgene_enet: remove bogus forward declarations (bsc#1032673).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-OpenStack-Cloud-Magnum-Orchestration-7-2017-697,SUSE-SLE-DESKTOP-12-SP2-2017-697,SUSE-SLE-HA-12-SP2-2017-697,SUSE-SLE-Live-Patching-12-2017-697,SUSE-SLE-RPI-12-SP2-2017-697,SUSE-SLE-SDK-12-SP2-2017-697,SUSE-SLE-SERVER-12-SP2-2017-697,SUSE-SLE-WE-12-SP2-2017-697",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/",
+			"description": "Link for SUSE-SU-2017:1183-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2017-05/msg00011.html",
+			"description": "E-Mail link for SUSE-SU-2017:1183-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1007959",
+			"description": "SUSE Bug 1007959"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1007962",
+			"description": "SUSE Bug 1007962"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1008842",
+			"description": "SUSE Bug 1008842"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1010032",
+			"description": "SUSE Bug 1010032"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1011913",
+			"description": "SUSE Bug 1011913"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1012382",
+			"description": "SUSE Bug 1012382"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1012910",
+			"description": "SUSE Bug 1012910"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1013994",
+			"description": "SUSE Bug 1013994"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1014136",
+			"description": "SUSE Bug 1014136"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1015609",
+			"description": "SUSE Bug 1015609"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1017461",
+			"description": "SUSE Bug 1017461"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1017641",
+			"description": "SUSE Bug 1017641"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1018263",
+			"description": "SUSE Bug 1018263"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1018419",
+			"description": "SUSE Bug 1018419"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1019163",
+			"description": "SUSE Bug 1019163"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1019614",
+			"description": "SUSE Bug 1019614"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1019618",
+			"description": "SUSE Bug 1019618"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1020048",
+			"description": "SUSE Bug 1020048"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1021762",
+			"description": "SUSE Bug 1021762"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1022340",
+			"description": "SUSE Bug 1022340"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1022785",
+			"description": "SUSE Bug 1022785"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1023866",
+			"description": "SUSE Bug 1023866"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1024015",
+			"description": "SUSE Bug 1024015"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1025683",
+			"description": "SUSE Bug 1025683"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1026024",
+			"description": "SUSE Bug 1026024"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1026405",
+			"description": "SUSE Bug 1026405"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1026462",
+			"description": "SUSE Bug 1026462"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1026505",
+			"description": "SUSE Bug 1026505"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1026509",
+			"description": "SUSE Bug 1026509"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1026692",
+			"description": "SUSE Bug 1026692"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1026722",
+			"description": "SUSE Bug 1026722"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1027054",
+			"description": "SUSE Bug 1027054"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1027066",
+			"description": "SUSE Bug 1027066"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1027153",
+			"description": "SUSE Bug 1027153"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1027179",
+			"description": "SUSE Bug 1027179"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1027189",
+			"description": "SUSE Bug 1027189"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1027190",
+			"description": "SUSE Bug 1027190"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1027195",
+			"description": "SUSE Bug 1027195"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1027273",
+			"description": "SUSE Bug 1027273"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1027616",
+			"description": "SUSE Bug 1027616"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1028017",
+			"description": "SUSE Bug 1028017"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1028027",
+			"description": "SUSE Bug 1028027"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1028041",
+			"description": "SUSE Bug 1028041"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1028158",
+			"description": "SUSE Bug 1028158"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1028217",
+			"description": "SUSE Bug 1028217"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1028325",
+			"description": "SUSE Bug 1028325"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1028415",
+			"description": "SUSE Bug 1028415"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1028819",
+			"description": "SUSE Bug 1028819"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1028895",
+			"description": "SUSE Bug 1028895"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1029220",
+			"description": "SUSE Bug 1029220"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1029514",
+			"description": "SUSE Bug 1029514"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1029634",
+			"description": "SUSE Bug 1029634"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1029986",
+			"description": "SUSE Bug 1029986"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1030118",
+			"description": "SUSE Bug 1030118"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1030213",
+			"description": "SUSE Bug 1030213"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031003",
+			"description": "SUSE Bug 1031003"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031052",
+			"description": "SUSE Bug 1031052"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031200",
+			"description": "SUSE Bug 1031200"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031206",
+			"description": "SUSE Bug 1031206"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031208",
+			"description": "SUSE Bug 1031208"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031440",
+			"description": "SUSE Bug 1031440"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031481",
+			"description": "SUSE Bug 1031481"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031579",
+			"description": "SUSE Bug 1031579"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031660",
+			"description": "SUSE Bug 1031660"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031662",
+			"description": "SUSE Bug 1031662"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031717",
+			"description": "SUSE Bug 1031717"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031831",
+			"description": "SUSE Bug 1031831"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1032006",
+			"description": "SUSE Bug 1032006"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1032673",
+			"description": "SUSE Bug 1032673"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1032681",
+			"description": "SUSE Bug 1032681"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/897662",
+			"description": "SUSE Bug 897662"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/951844",
+			"description": "SUSE Bug 951844"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/968697",
+			"description": "SUSE Bug 968697"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/969755",
+			"description": "SUSE Bug 969755"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/970083",
+			"description": "SUSE Bug 970083"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/977572",
+			"description": "SUSE Bug 977572"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/977860",
+			"description": "SUSE Bug 977860"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/978056",
+			"description": "SUSE Bug 978056"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/980892",
+			"description": "SUSE Bug 980892"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/981634",
+			"description": "SUSE Bug 981634"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/982783",
+			"description": "SUSE Bug 982783"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/987899",
+			"description": "SUSE Bug 987899"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/988281",
+			"description": "SUSE Bug 988281"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/991173",
+			"description": "SUSE Bug 991173"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/998106",
+			"description": "SUSE Bug 998106"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-10200/",
+			"description": "SUSE CVE CVE-2016-10200 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-2117/",
+			"description": "SUSE CVE CVE-2016-2117 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-9191/",
+			"description": "SUSE CVE CVE-2016-9191 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-2596/",
+			"description": "SUSE CVE CVE-2017-2596 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-2671/",
+			"description": "SUSE CVE CVE-2017-2671 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-6074/",
+			"description": "SUSE CVE CVE-2017-6074 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-6214/",
+			"description": "SUSE CVE CVE-2017-6214 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-6345/",
+			"description": "SUSE CVE CVE-2017-6345 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-6346/",
+			"description": "SUSE CVE CVE-2017-6346 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-6347/",
+			"description": "SUSE CVE CVE-2017-6347 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-6353/",
+			"description": "SUSE CVE CVE-2017-6353 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-7187/",
+			"description": "SUSE CVE CVE-2017-7187 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-7261/",
+			"description": "SUSE CVE CVE-2017-7261 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-7294/",
+			"description": "SUSE CVE CVE-2017-7294 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-7308/",
+			"description": "SUSE CVE CVE-2017-7308 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-7374/",
+			"description": "SUSE CVE CVE-2017-7374 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Desktop 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Desktop 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Desktop 12 SP2",
+							"product_id": "SUSE Linux Enterprise Desktop 12 SP2",
+							"cpe": "cpe:/o:suse:sled:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Availability Extension 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Availability Extension 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Availability Extension 12 SP2",
+							"product_id": "SUSE Linux Enterprise High Availability Extension 12 SP2",
+							"cpe": "cpe:/o:suse:sle-ha:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Live Patching 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Live Patching 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Live Patching 12",
+							"product_id": "SUSE Linux Enterprise Live Patching 12",
+							"cpe": "cpe:/o:suse:sle-live-patching:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12 SP2",
+							"product_id": "SUSE Linux Enterprise Server 12 SP2",
+							"cpe": "cpe:/o:suse:sles:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2",
+							"product_id": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2",
+							"cpe": "cpe:/o:suse:sles:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+							"cpe": "cpe:/o:suse:sles_sap:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Software Development Kit 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Software Development Kit 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Software Development Kit 12 SP2",
+							"product_id": "SUSE Linux Enterprise Software Development Kit 12 SP2",
+							"cpe": "cpe:/o:suse:sle-sdk:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Workstation Extension 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Workstation Extension 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Workstation Extension 12 SP2",
+							"product_id": "SUSE Linux Enterprise Workstation Extension 12 SP2",
+							"cpe": "cpe:/o:suse:sle-we:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-4.4.59-92.17.3",
+				"full_product_name": {
+					"text": "kernel-default-4.4.59-92.17.3",
+					"product_id": "kernel-default-4.4.59-92.17.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-4.4.59-92.17.3",
+				"full_product_name": {
+					"text": "kernel-default-devel-4.4.59-92.17.3",
+					"product_id": "kernel-default-devel-4.4.59-92.17.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-extra-4.4.59-92.17.3",
+				"full_product_name": {
+					"text": "kernel-default-extra-4.4.59-92.17.3",
+					"product_id": "kernel-default-extra-4.4.59-92.17.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-4.4.59-92.17.2",
+				"full_product_name": {
+					"text": "kernel-devel-4.4.59-92.17.2",
+					"product_id": "kernel-devel-4.4.59-92.17.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-macros-4.4.59-92.17.2",
+				"full_product_name": {
+					"text": "kernel-macros-4.4.59-92.17.2",
+					"product_id": "kernel-macros-4.4.59-92.17.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-4.4.59-92.17.2",
+				"full_product_name": {
+					"text": "kernel-source-4.4.59-92.17.2",
+					"product_id": "kernel-source-4.4.59-92.17.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-4.4.59-92.17.2",
+				"full_product_name": {
+					"text": "kernel-syms-4.4.59-92.17.2",
+					"product_id": "kernel-syms-4.4.59-92.17.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-default-4.4.59-92.17.3",
+				"full_product_name": {
+					"text": "cluster-md-kmp-default-4.4.59-92.17.3",
+					"product_id": "cluster-md-kmp-default-4.4.59-92.17.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-network-kmp-default-4.4.59-92.17.3",
+				"full_product_name": {
+					"text": "cluster-network-kmp-default-4.4.59-92.17.3",
+					"product_id": "cluster-network-kmp-default-4.4.59-92.17.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-default-4.4.59-92.17.3",
+				"full_product_name": {
+					"text": "dlm-kmp-default-4.4.59-92.17.3",
+					"product_id": "dlm-kmp-default-4.4.59-92.17.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-default-4.4.59-92.17.3",
+				"full_product_name": {
+					"text": "gfs2-kmp-default-4.4.59-92.17.3",
+					"product_id": "gfs2-kmp-default-4.4.59-92.17.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-default-4.4.59-92.17.3",
+				"full_product_name": {
+					"text": "ocfs2-kmp-default-4.4.59-92.17.3",
+					"product_id": "ocfs2-kmp-default-4.4.59-92.17.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kgraft-patch-4_4_59-92_17-default-1-2.3",
+				"full_product_name": {
+					"text": "kgraft-patch-4_4_59-92_17-default-1-2.3",
+					"product_id": "kgraft-patch-4_4_59-92_17-default-1-2.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-4.4.59-92.17.3",
+				"full_product_name": {
+					"text": "kernel-default-base-4.4.59-92.17.3",
+					"product_id": "kernel-default-base-4.4.59-92.17.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-4.4.59-92.17.8",
+				"full_product_name": {
+					"text": "kernel-docs-4.4.59-92.17.8",
+					"product_id": "kernel-docs-4.4.59-92.17.8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-build-4.4.59-92.17.3",
+				"full_product_name": {
+					"text": "kernel-obs-build-4.4.59-92.17.3",
+					"product_id": "kernel-obs-build-4.4.59-92.17.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-man-4.4.59-92.17.3",
+				"full_product_name": {
+					"text": "kernel-default-man-4.4.59-92.17.3",
+					"product_id": "kernel-default-man-4.4.59-92.17.3"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-default-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-extra-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "kernel-devel-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "kernel-macros-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "kernel-source-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "kernel-syms-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "cluster-md-kmp-default-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "cluster-network-kmp-default-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "dlm-kmp-default-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "kgraft-patch-4_4_59-92_17-default-1-2.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Live Patching 12"
+			},
+			{
+				"product_reference": "kernel-default-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-base-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-man-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "kernel-devel-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "kernel-macros-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "kernel-source-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "kernel-syms-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-base-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "kernel-devel-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "kernel-macros-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "kernel-source-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "kernel-syms-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-base-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-man-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-devel-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-macros-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-source-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-syms-4.4.59-92.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-docs-4.4.59-92.17.8",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12 SP2"
+			},
+			{
+				"product_reference": "kernel-obs-build-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-extra-4.4.59-92.17.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Workstation Extension 12 SP2"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Race condition in the L2TPv3 IP Encapsulation feature in the Linux kernel before 4.8.14 allows local users to gain privileges or cause a denial of service (use-after-free) by making multiple bind system calls without properly ascertaining whether a socket has the SOCK_ZAPPED status, related to net/l2tp/l2tp_ip.c and net/l2tp/l2tp_ip6.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-10200",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.7",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-10200.html",
+					"description": "CVE-2016-10200"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1028415",
+					"description": "SUSE Bug 1028415"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The atl2_probe function in drivers/net/ethernet/atheros/atlx/atl2.c in the Linux kernel through 4.5.2 incorrectly enables scatter/gather I/O, which allows remote attackers to obtain sensitive information from kernel memory by reading packet data.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2117",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2117.html",
+					"description": "CVE-2016-2117"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				},
+				{
+					"url": "https://bugzilla.suse.com/968697",
+					"description": "SUSE Bug 968697"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The cgroup offline implementation in the Linux kernel through 4.8.11 mishandles certain drain operations, which allows local users to cause a denial of service (system hang) by leveraging access to a container environment for executing a crafted application, as demonstrated by trinity.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-9191",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-9191.html",
+					"description": "CVE-2016-9191"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1008842",
+					"description": "SUSE Bug 1008842"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The nested_vmx_check_vmptr function in arch/x86/kvm/vmx.c in the Linux kernel through 4.9.8 improperly emulates the VMXON instruction, which allows KVM L1 guest OS users to cause a denial of service (host OS memory consumption) by leveraging the mishandling of page references.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-2596",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.8",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-2596.html",
+					"description": "CVE-2017-2596"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1022785",
+					"description": "SUSE Bug 1022785"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The ping_unhash function in net/ipv4/ping.c in the Linux kernel through 4.10.8 is too late in obtaining a certain lock and consequently cannot ensure that disconnect function calls are safe, which allows local users to cause a denial of service (panic) by leveraging access to the protocol value of IPPROTO_ICMP in a socket system call.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-2671",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-2671.html",
+					"description": "CVE-2017-2671"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1031003",
+					"description": "SUSE Bug 1031003"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The dccp_rcv_state_process function in net/dccp/input.c in the Linux kernel through 4.9.11 mishandles DCCP_PKT_REQUEST packet data structures in the LISTEN state, which allows local users to obtain root privileges or cause a denial of service (double free) via an application that makes an IPV6_RECVPKTINFO setsockopt system call.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-6074",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-6074.html",
+					"description": "CVE-2017-6074"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1026024",
+					"description": "SUSE Bug 1026024"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1072204",
+					"description": "SUSE Bug 1072204"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The tcp_splice_read function in net/ipv4/tcp.c in the Linux kernel before 4.9.11 allows remote attackers to cause a denial of service (infinite loop and soft lockup) via vectors involving a TCP packet with the URG flag.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-6214",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-6214.html",
+					"description": "CVE-2017-6214"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1026722",
+					"description": "SUSE Bug 1026722"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The LLC subsystem in the Linux kernel before 4.9.13 does not ensure that a certain destructor exists in required circumstances, which allows local users to cause a denial of service (BUG_ON) or possibly have unspecified other impact via crafted system calls.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-6345",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-6345.html",
+					"description": "CVE-2017-6345"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027190",
+					"description": "SUSE Bug 1027190"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Race condition in net/packet/af_packet.c in the Linux kernel before 4.9.13 allows local users to cause a denial of service (use-after-free) or possibly have unspecified other impact via a multithreaded application that makes PACKET_FANOUT setsockopt system calls.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-6346",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.7",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-6346.html",
+					"description": "CVE-2017-6346"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027189",
+					"description": "SUSE Bug 1027189"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1064388",
+					"description": "SUSE Bug 1064388"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1064392",
+					"description": "SUSE Bug 1064392"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The ip_cmsg_recv_checksum function in net/ipv4/ip_sockglue.c in the Linux kernel before 4.10.1 has incorrect expectations about skb data layout, which allows local users to cause a denial of service (buffer over-read) or possibly have unspecified other impact via crafted system calls, as demonstrated by use of the MSG_MORE flag in conjunction with loopback UDP transmission.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-6347",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.2",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-6347.html",
+					"description": "CVE-2017-6347"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "net/sctp/socket.c in the Linux kernel through 4.10.1 does not properly restrict association peel-off operations during certain wait states, which allows local users to cause a denial of service (invalid unlock and double free) via a multithreaded application.  NOTE: this vulnerability exists because of an incorrect fix for CVE-2017-5986.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-6353",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-6353.html",
+					"description": "CVE-2017-6353"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1025235",
+					"description": "SUSE Bug 1025235"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027066",
+					"description": "SUSE Bug 1027066"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The sg_ioctl function in drivers/scsi/sg.c in the Linux kernel through 4.10.4 allows local users to cause a denial of service (stack-based buffer overflow) or possibly have unspecified other impact via a large command size in an SG_NEXT_CMD_LEN ioctl call, leading to out-of-bounds write access in the sg_write function.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7187",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7187.html",
+					"description": "CVE-2017-7187"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1030213",
+					"description": "SUSE Bug 1030213"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The vmw_surface_define_ioctl function in drivers/gpu/drm/vmwgfx/vmwgfx_surface.c in the Linux kernel through 4.10.5 does not check for a zero value of certain levels data, which allows local users to cause a denial of service (ZERO_SIZE_PTR dereference, and GPF and possibly panic) via a crafted ioctl call for a /dev/dri/renderD* device.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7261",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7261.html",
+					"description": "CVE-2017-7261"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1031052",
+					"description": "SUSE Bug 1031052"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The vmw_surface_define_ioctl function in drivers/gpu/drm/vmwgfx/vmwgfx_surface.c in the Linux kernel through 4.10.6 does not validate addition of certain levels data, which allows local users to trigger an integer overflow and out-of-bounds write, and cause a denial of service (system hang or crash) or possibly gain privileges, via a crafted ioctl call for a /dev/dri/renderD* device.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7294",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.1",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7294.html",
+					"description": "CVE-2017-7294"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1031440",
+					"description": "SUSE Bug 1031440"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1031481",
+					"description": "SUSE Bug 1031481"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The packet_set_ring function in net/packet/af_packet.c in the Linux kernel through 4.10.6 does not properly validate certain block-size data, which allows local users to cause a denial of service (integer signedness error and out-of-bounds write), or gain privileges (if the CAP_NET_RAW capability is held), via crafted system calls.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7308",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.6",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7308.html",
+					"description": "CVE-2017-7308"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1031579",
+					"description": "SUSE Bug 1031579"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1031660",
+					"description": "SUSE Bug 1031660"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Use-after-free vulnerability in fs/crypto/ in the Linux kernel before 4.10.7 allows local users to cause a denial of service (NULL pointer dereference) or possibly gain privileges by revoking keyring keys being used for ext4, f2fs, or ubifs encryption, causing cryptographic transform objects to be freed prematurely.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7374",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-default-extra-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-4_4_59-92_17-default-1-2.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-man-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.59-92.17.2",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-docs-4.4.59-92.17.8",
+						"SUSE Linux Enterprise Software Development Kit 12 SP2:kernel-obs-build-4.4.59-92.17.3",
+						"SUSE Linux Enterprise Workstation Extension 12 SP2:kernel-default-extra-4.4.59-92.17.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.6",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20171183-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7374.html",
+					"description": "CVE-2017-7374"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1027179",
+					"description": "SUSE Bug 1027179"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1032006",
+					"description": "SUSE Bug 1032006"
+				}
+			]
+		}
+	]
+}

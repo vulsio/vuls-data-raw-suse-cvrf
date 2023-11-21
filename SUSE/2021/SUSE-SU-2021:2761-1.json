@@ -1,0 +1,179 @@
+{
+	"document_title": "Security update for rubygem-puma",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2021:2761-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2021-08-17T15:12:24Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2021-08-17T15:12:24Z",
+		"current_release_date": "2021-08-17T15:12:24Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for rubygem-puma",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for rubygem-puma fixes the following issues:\n\n- CVE-2021-29509: Incomplete fix for CVE-2019-16770 allows Denial of Service (bsc#1188527)\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2021-2761,SUSE-OpenStack-Cloud-Crowbar-8-2021-2761",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2021/suse-su-20212761-1/",
+			"description": "Link for SUSE-SU-2021:2761-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2021-August/009303.html",
+			"description": "E-Mail link for SUSE-SU-2021:2761-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1188527",
+			"description": "SUSE Bug 1188527"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-29509/",
+			"description": "SUSE CVE CVE-2021-29509 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE OpenStack Cloud Crowbar 8",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE OpenStack Cloud Crowbar 8",
+						"full_product_name": {
+							"text": "SUSE OpenStack Cloud Crowbar 8",
+							"product_id": "SUSE OpenStack Cloud Crowbar 8",
+							"cpe": "cpe:/o:suse:suse-openstack-cloud-crowbar:8"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby2.1-rubygem-puma-2.16.0-3.12.1",
+				"full_product_name": {
+					"text": "ruby2.1-rubygem-puma-2.16.0-3.12.1",
+					"product_id": "ruby2.1-rubygem-puma-2.16.0-3.12.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby2.1-rubygem-puma-doc-2.16.0-3.12.1",
+				"full_product_name": {
+					"text": "ruby2.1-rubygem-puma-doc-2.16.0-3.12.1",
+					"product_id": "ruby2.1-rubygem-puma-doc-2.16.0-3.12.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "ruby2.1-rubygem-puma-2.16.0-3.12.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE OpenStack Cloud Crowbar 8"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Puma is a concurrent HTTP 1.1 server for Ruby/Rack applications. The fix for CVE-2019-16770 was incomplete. The original fix only protected existing connections that had already been accepted from having their requests starved by greedy persistent-connections saturating all threads in the same process. However, new connections may still be starved by greedy persistent-connections saturating all threads in all processes in the cluster. A `puma` server which received more concurrent `keep-alive` connections than the server had threads in its threadpool would service only a subset of connections, denying service to the unserved connections. This problem has been fixed in `puma` 4.3.8 and 5.3.1. Setting `queue_requests false` also fixes the issue. This is not advised when using `puma` without a reverse proxy, such as `nginx` or `apache`, because you will open yourself to slow client attacks (e.g. slowloris). The fix is very small and a git patch is available for those using unsupported versions of Puma.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-29509",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE OpenStack Cloud Crowbar 8:ruby2.1-rubygem-puma-2.16.0-3.12.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2021/suse-su-20212761-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-29509.html",
+					"description": "CVE-2021-29509"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1188527",
+					"description": "SUSE Bug 1188527"
+				}
+			]
+		}
+	]
+}

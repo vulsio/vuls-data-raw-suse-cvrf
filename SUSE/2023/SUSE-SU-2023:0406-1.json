@@ -1,0 +1,2977 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2023:0406-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2023-02-14T12:02:28Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2023-02-14T12:02:28Z",
+		"current_release_date": "2023-02-14T12:02:28Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "The SUSE Linux Enterprise 15 SP2 LTSS kernel was updated to receive various security and bugfixes.\n\n\nThe following security bugs were fixed:\n\n- CVE-2023-23455: Fixed a denial of service inside atm_tc_enqueue in net/sched/sch_atm.c because of type confusion (non-negative numbers can sometimes indicate a TC_ACT_SHOT condition rather than valid classification results) (bsc#1207125).\n- CVE-2023-23454: Fixed denial or service in cbq_classify in net/sched/sch_cbq.c (bnc#1207036).\n- CVE-2023-0266: Fixed a use-after-free vulnerability inside the ALSA PCM package. SNDRV_CTL_IOCTL_ELEM_{READ|WRITE}32 was missing locks that could have been used in a use-after-free that could have resulted in a priviledge escalation to gain ring0 access from the system user (bsc#1207134).\n- CVE-2022-47929: Fixed NULL pointer dereference bug in the traffic control subsystem (bnc#1207237).\n- CVE-2022-47520: Fixed a out-of-bounds read when parsing a Robust Security Network (RSN) information element from a Netlink packet in the WILC1000 wireless driver (bsc#1206515).\n- CVE-2022-4662: Fixed incorrect access control in the USB core subsystem that could lead a local user to crash the system (bnc#1206664).\n- CVE-2022-42328, CVE-2022-42329: Fixed deadlock inside the netback driver that could have been triggered from a VM guest (bnc#1206114).\n- CVE-2022-3643: Fixed reset/abort/crash via netback from VM guest (bnc#1206113).\n- CVE-2022-3564: Fixed use-after-free in l2cap_core.c of the Bluetooth component (bnc#1206073).\n- CVE-2022-3435: Fixed a out-of-bounds read in function fib_nh_match of the file net/ipv4/fib_semantics.c. It is possible to initiate the attack remotely (bnc#1204171).\n- CVE-2022-3115: Fixed a null pointer dereference inside malidp_crtc_reset in drivers/gpu/drm/arm/malidp_crtc.c that lacked a check of the return value of kzalloc() (bnc#1206393).\n- CVE-2022-3112: Fixed a null pointer dereference in amvdec_set_canvases in drivers/staging/media/meson/vdec/vdec_helpers.c that lacked a check of the return value of kzalloc() (bnc#1206399).\n- CVE-2022-3108: Fixed missing check of return value of kmemdup() (bnc#1206389).\n- CVE-2022-3107: Fixed missing check of return value of kvmalloc_array() (bnc#1206395).\n- CVE-2022-3105: Fixed missing check of kmalloc_array() in uapi_finalize in drivers/infiniband/core/uverbs_uapi.c (bnc#1206398).\n\nThe following non-security bugs were fixed:\n\n- HID: betop: check shape of output reports (git-fixes, bsc#1207186).\n- HID: check empty report_list in bigben_probe() (git-fixes, bsc#1206784).\n- HID: check empty report_list in hid_validate_values() (git-fixes, bsc#1206784).\n- NFS: Handle missing attributes in OPEN reply (bsc#1203740).\n- constraints: increase disk space for all architectures (bsc#1203693).\n- ipv6: ping: fix wrong checksum for large frames (bsc#1203183).\n- mm: /proc/pid/smaps_rollup: fix no vma's null-deref (bsc#1207769).\n- net: sched: atm: dont intepret cls results when asked to drop (bsc#1207036).\n- net: sched: cbq: dont intepret cls results when asked to drop (bsc#1207036).\n- netfilter: nfnetlink_osf: fix possible bogus match in nf_osf_find() (bsc#1204614).\n- rpm: suse-kernel-rpm-scriptlets to kmp buildreqs (boo#1205149).\n- sctp: fail if no bound addresses can be used for a given scope (bsc#1206677).\n- sctp: sysctl: make extra pointers netns aware (bsc#1204760).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Image SLES15-SP2-SAP-Azure-LI-BYOS-Production-2023-406,Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production-2023-406,SUSE-2023-406,SUSE-SLE-Module-Live-Patching-15-SP2-2023-406,SUSE-SLE-Product-HA-15-SP2-2023-406,SUSE-SLE-Product-HPC-15-SP2-LTSS-2023-406,SUSE-SLE-Product-SLES-15-SP2-LTSS-2023-406,SUSE-SLE-Product-SLES_SAP-15-SP2-2023-406,SUSE-Storage-7-2023-406",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/",
+			"description": "Link for SUSE-SU-2023:0406-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2023-February/013757.html",
+			"description": "E-Mail link for SUSE-SU-2023:0406-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1203183",
+			"description": "SUSE Bug 1203183"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1203693",
+			"description": "SUSE Bug 1203693"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1203740",
+			"description": "SUSE Bug 1203740"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1204171",
+			"description": "SUSE Bug 1204171"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1204614",
+			"description": "SUSE Bug 1204614"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1204760",
+			"description": "SUSE Bug 1204760"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1205149",
+			"description": "SUSE Bug 1205149"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206073",
+			"description": "SUSE Bug 1206073"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206113",
+			"description": "SUSE Bug 1206113"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206114",
+			"description": "SUSE Bug 1206114"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206314",
+			"description": "SUSE Bug 1206314"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206389",
+			"description": "SUSE Bug 1206389"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206393",
+			"description": "SUSE Bug 1206393"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206395",
+			"description": "SUSE Bug 1206395"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206398",
+			"description": "SUSE Bug 1206398"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206399",
+			"description": "SUSE Bug 1206399"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206515",
+			"description": "SUSE Bug 1206515"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206664",
+			"description": "SUSE Bug 1206664"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206677",
+			"description": "SUSE Bug 1206677"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206784",
+			"description": "SUSE Bug 1206784"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207036",
+			"description": "SUSE Bug 1207036"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207125",
+			"description": "SUSE Bug 1207125"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207134",
+			"description": "SUSE Bug 1207134"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207186",
+			"description": "SUSE Bug 1207186"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207188",
+			"description": "SUSE Bug 1207188"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207189",
+			"description": "SUSE Bug 1207189"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207190",
+			"description": "SUSE Bug 1207190"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207237",
+			"description": "SUSE Bug 1207237"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207769",
+			"description": "SUSE Bug 1207769"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207823",
+			"description": "SUSE Bug 1207823"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-3105/",
+			"description": "SUSE CVE CVE-2022-3105 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-3107/",
+			"description": "SUSE CVE CVE-2022-3107 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-3108/",
+			"description": "SUSE CVE CVE-2022-3108 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-3112/",
+			"description": "SUSE CVE CVE-2022-3112 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-3115/",
+			"description": "SUSE CVE CVE-2022-3115 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-3435/",
+			"description": "SUSE CVE CVE-2022-3435 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-3564/",
+			"description": "SUSE CVE CVE-2022-3564 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-3643/",
+			"description": "SUSE CVE CVE-2022-3643 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-42328/",
+			"description": "SUSE CVE CVE-2022-42328 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-42329/",
+			"description": "SUSE CVE CVE-2022-42329 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-4662/",
+			"description": "SUSE CVE CVE-2022-4662 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-47520/",
+			"description": "SUSE CVE CVE-2022-47520 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-47929/",
+			"description": "SUSE CVE CVE-2022-47929 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-0266/",
+			"description": "SUSE CVE CVE-2023-0266 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-23454/",
+			"description": "SUSE CVE CVE-2023-23454 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-23455/",
+			"description": "SUSE CVE CVE-2023-23455 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP2-SAP-Azure-LI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP2-SAP-Azure-LI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SP2-SAP-Azure-LI-BYOS-Production",
+							"product_id": "Image SLES15-SP2-SAP-Azure-LI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production",
+							"product_id": "Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Enterprise Storage 7",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Enterprise Storage 7",
+						"full_product_name": {
+							"text": "SUSE Enterprise Storage 7",
+							"product_id": "SUSE Enterprise Storage 7",
+							"cpe": "cpe:/o:suse:ses:7"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Availability Extension 15 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Availability Extension 15 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Availability Extension 15 SP2",
+							"product_id": "SUSE Linux Enterprise High Availability Extension 15 SP2",
+							"cpe": "cpe:/o:suse:sle-ha:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS",
+							"product_id": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS",
+							"cpe": "cpe:/o:suse:sle_hpc-ltss:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Live Patching 15 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Live Patching 15 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Live Patching 15 SP2",
+							"product_id": "SUSE Linux Enterprise Live Patching 15 SP2",
+							"cpe": "cpe:/o:suse:sle-module-live-patching:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 15 SP2-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 15 SP2-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 15 SP2-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 15 SP2-LTSS",
+							"cpe": "cpe:/o:suse:sles-ltss:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 15 SP2",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 15 SP2",
+							"cpe": "cpe:/o:suse:sles_sap:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-default-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "cluster-md-kmp-default-5.3.18-150200.24.142.1",
+					"product_id": "cluster-md-kmp-default-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-default-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "dlm-kmp-default-5.3.18-150200.24.142.1",
+					"product_id": "dlm-kmp-default-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-default-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "gfs2-kmp-default-5.3.18-150200.24.142.1",
+					"product_id": "gfs2-kmp-default-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-default-5.3.18-150200.24.142.1",
+					"product_id": "kernel-default-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-default-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-default-5.3.18-150200.24.142.1",
+					"product_id": "ocfs2-kmp-default-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-preempt-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "cluster-md-kmp-preempt-5.3.18-150200.24.142.1",
+					"product_id": "cluster-md-kmp-preempt-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-preempt-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "dlm-kmp-preempt-5.3.18-150200.24.142.1",
+					"product_id": "dlm-kmp-preempt-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-preempt-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "gfs2-kmp-preempt-5.3.18-150200.24.142.1",
+					"product_id": "gfs2-kmp-preempt-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-debug-5.3.18-150200.24.142.1",
+					"product_id": "kernel-debug-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-devel-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-debug-devel-5.3.18-150200.24.142.1",
+					"product_id": "kernel-debug-devel-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-livepatch-devel-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-debug-livepatch-devel-5.3.18-150200.24.142.1",
+					"product_id": "kernel-debug-livepatch-devel-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+				"full_product_name": {
+					"text": "kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+					"product_id": "kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-rebuild-5.3.18-150200.24.142.1.150200.9.67.1",
+				"full_product_name": {
+					"text": "kernel-default-base-rebuild-5.3.18-150200.24.142.1.150200.9.67.1",
+					"product_id": "kernel-default-base-rebuild-5.3.18-150200.24.142.1.150200.9.67.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-default-devel-5.3.18-150200.24.142.1",
+					"product_id": "kernel-default-devel-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-extra-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-default-extra-5.3.18-150200.24.142.1",
+					"product_id": "kernel-default-extra-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-livepatch-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-default-livepatch-5.3.18-150200.24.142.1",
+					"product_id": "kernel-default-livepatch-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+					"product_id": "kernel-default-livepatch-devel-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-devel-5.3.18-150200.24.142.1",
+					"product_id": "kernel-devel-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-docs-5.3.18-150200.24.142.1",
+					"product_id": "kernel-docs-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-html-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-docs-html-5.3.18-150200.24.142.1",
+					"product_id": "kernel-docs-html-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-kvmsmall-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-kvmsmall-5.3.18-150200.24.142.1",
+					"product_id": "kernel-kvmsmall-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-kvmsmall-devel-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-kvmsmall-devel-5.3.18-150200.24.142.1",
+					"product_id": "kernel-kvmsmall-devel-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-kvmsmall-livepatch-devel-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-kvmsmall-livepatch-devel-5.3.18-150200.24.142.1",
+					"product_id": "kernel-kvmsmall-livepatch-devel-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+				"full_product_name": {
+					"text": "kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+					"product_id": "kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-livepatch-5_3_18-150200_24_142-preempt-1-150200.5.3.1",
+				"full_product_name": {
+					"text": "kernel-livepatch-5_3_18-150200_24_142-preempt-1-150200.5.3.1",
+					"product_id": "kernel-livepatch-5_3_18-150200_24_142-preempt-1-150200.5.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-macros-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-macros-5.3.18-150200.24.142.1",
+					"product_id": "kernel-macros-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-build-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-obs-build-5.3.18-150200.24.142.1",
+					"product_id": "kernel-obs-build-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-qa-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-obs-qa-5.3.18-150200.24.142.1",
+					"product_id": "kernel-obs-qa-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-preempt-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-preempt-5.3.18-150200.24.142.1",
+					"product_id": "kernel-preempt-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-preempt-devel-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-preempt-devel-5.3.18-150200.24.142.1",
+					"product_id": "kernel-preempt-devel-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-preempt-extra-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-preempt-extra-5.3.18-150200.24.142.1",
+					"product_id": "kernel-preempt-extra-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-preempt-livepatch-devel-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-preempt-livepatch-devel-5.3.18-150200.24.142.1",
+					"product_id": "kernel-preempt-livepatch-devel-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-source-5.3.18-150200.24.142.1",
+					"product_id": "kernel-source-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-vanilla-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-source-vanilla-5.3.18-150200.24.142.1",
+					"product_id": "kernel-source-vanilla-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-syms-5.3.18-150200.24.142.1",
+					"product_id": "kernel-syms-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-zfcpdump-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kernel-zfcpdump-5.3.18-150200.24.142.1",
+					"product_id": "kernel-zfcpdump-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kselftests-kmp-default-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kselftests-kmp-default-5.3.18-150200.24.142.1",
+					"product_id": "kselftests-kmp-default-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kselftests-kmp-preempt-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "kselftests-kmp-preempt-5.3.18-150200.24.142.1",
+					"product_id": "kselftests-kmp-preempt-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-preempt-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-preempt-5.3.18-150200.24.142.1",
+					"product_id": "ocfs2-kmp-preempt-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "reiserfs-kmp-default-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "reiserfs-kmp-default-5.3.18-150200.24.142.1",
+					"product_id": "reiserfs-kmp-default-5.3.18-150200.24.142.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "reiserfs-kmp-preempt-5.3.18-150200.24.142.1",
+				"full_product_name": {
+					"text": "reiserfs-kmp-preempt-5.3.18-150200.24.142.1",
+					"product_id": "reiserfs-kmp-preempt-5.3.18-150200.24.142.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "cluster-md-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "dlm-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "kernel-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "cluster-md-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "dlm-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "kernel-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "kernel-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7"
+			},
+			{
+				"product_reference": "kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7"
+			},
+			{
+				"product_reference": "kernel-default-devel-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7"
+			},
+			{
+				"product_reference": "kernel-devel-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7"
+			},
+			{
+				"product_reference": "kernel-docs-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7"
+			},
+			{
+				"product_reference": "kernel-macros-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7"
+			},
+			{
+				"product_reference": "kernel-obs-build-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7"
+			},
+			{
+				"product_reference": "kernel-preempt-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7"
+			},
+			{
+				"product_reference": "kernel-preempt-devel-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7"
+			},
+			{
+				"product_reference": "kernel-source-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7"
+			},
+			{
+				"product_reference": "kernel-syms-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7"
+			},
+			{
+				"product_reference": "reiserfs-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7"
+			},
+			{
+				"product_reference": "cluster-md-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 15 SP2"
+			},
+			{
+				"product_reference": "dlm-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 15 SP2"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 15 SP2"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 15 SP2"
+			},
+			{
+				"product_reference": "kernel-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-devel-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-devel-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-docs-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-macros-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-obs-build-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-preempt-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-preempt-devel-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-source-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-syms-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-livepatch-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Live Patching 15 SP2"
+			},
+			{
+				"product_reference": "kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Live Patching 15 SP2"
+			},
+			{
+				"product_reference": "kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Live Patching 15 SP2"
+			},
+			{
+				"product_reference": "kernel-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-devel-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-devel-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-docs-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-macros-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-obs-build-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-preempt-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-preempt-devel-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-source-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-syms-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "reiserfs-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "kernel-default-devel-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "kernel-devel-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "kernel-docs-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "kernel-macros-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "kernel-obs-build-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "kernel-preempt-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "kernel-preempt-devel-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "kernel-source-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "kernel-syms-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "reiserfs-kmp-default-5.3.18-150200.24.142.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel through 5.16-rc6. uapi_finalize in drivers/infiniband/core/uverbs_uapi.c lacks check of kmalloc_array().",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-3105",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-3105.html",
+					"description": "CVE-2022-3105"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206398",
+					"description": "SUSE Bug 1206398"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel through 5.16-rc6. netvsc_get_ethtool_stats in drivers/net/hyperv/netvsc_drv.c lacks check of the return value of kvmalloc_array() and will cause the null pointer dereference.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-3107",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-3107.html",
+					"description": "CVE-2022-3107"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206395",
+					"description": "SUSE Bug 1206395"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel through 5.16-rc6. kfd_parse_subtype_iolink in drivers/gpu/drm/amd/amdkfd/kfd_crat.c lacks check of the return value of kmemdup().",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-3108",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-3108.html",
+					"description": "CVE-2022-3108"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206389",
+					"description": "SUSE Bug 1206389"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel through 5.16-rc6. amvdec_set_canvases in drivers/staging/media/meson/vdec/vdec_helpers.c lacks check of the return value of kzalloc() and will cause the null pointer dereference.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-3112",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-3112.html",
+					"description": "CVE-2022-3112"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206399",
+					"description": "SUSE Bug 1206399"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel through 5.16-rc6. malidp_crtc_reset in drivers/gpu/drm/arm/malidp_crtc.c lacks check of the return value of kzalloc() and will cause the null pointer dereference.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-3115",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-3115.html",
+					"description": "CVE-2022-3115"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206393",
+					"description": "SUSE Bug 1206393"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A vulnerability classified as problematic has been found in Linux Kernel. This affects the function fib_nh_match of the file net/ipv4/fib_semantics.c of the component IPv4 Handler. The manipulation leads to out-of-bounds read. It is possible to initiate the attack remotely. It is recommended to apply a patch to fix this issue. The identifier VDB-210357 was assigned to this vulnerability.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-3435",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:L/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-3435.html",
+					"description": "CVE-2022-3435"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1204171",
+					"description": "SUSE Bug 1204171"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A vulnerability classified as critical was found in Linux Kernel. Affected by this vulnerability is the function l2cap_reassemble_sdu of the file net/bluetooth/l2cap_core.c of the component Bluetooth. The manipulation leads to use after free. It is recommended to apply a patch to fix this issue. The associated identifier of this vulnerability is VDB-211087.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-3564",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "8",
+					"vector_v_3": "CVSS:3.1/AV:A/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-3564.html",
+					"description": "CVE-2022-3564"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206073",
+					"description": "SUSE Bug 1206073"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206314",
+					"description": "SUSE Bug 1206314"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1208030",
+					"description": "SUSE Bug 1208030"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1208044",
+					"description": "SUSE Bug 1208044"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1208085",
+					"description": "SUSE Bug 1208085"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Guests can trigger NIC interface reset/abort/crash via netback It is possible for a guest to trigger a NIC interface reset/abort/crash in a Linux based network backend by sending certain kinds of packets. It appears to be an (unwritten?) assumption in the rest of the Linux network stack that packet protocol headers are all contained within the linear section of the SKB and some NICs behave badly if this is not the case. This has been reported to occur with Cisco (enic) and Broadcom NetXtrem II BCM5780 (bnx2x) though it may be an issue with other NICs/drivers as well. In case the frontend is sending requests with split headers, netback will forward those violating above mentioned assumption to the networking core, resulting in said misbehavior.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-3643",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.3",
+					"vector_v_3": "CVSS:3.1/AV:A/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-3643.html",
+					"description": "CVE-2022-3643"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206113",
+					"description": "SUSE Bug 1206113"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Guests can trigger deadlock in Linux netback driver T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] The patch for XSA-392 introduced another issue which might result in a deadlock when trying to free the SKB of a packet dropped due to the XSA-392 handling (CVE-2022-42328). Additionally when dropping packages for other reasons the same deadlock could occur in case of netpoll being active for the interface the xen-netback driver is connected to (CVE-2022-42329).",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-42328",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.7",
+					"vector_v_3": "CVSS:3.1/AV:A/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-42328.html",
+					"description": "CVE-2022-42328"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206114",
+					"description": "SUSE Bug 1206114"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Guests can trigger deadlock in Linux netback driver T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] The patch for XSA-392 introduced another issue which might result in a deadlock when trying to free the SKB of a packet dropped due to the XSA-392 handling (CVE-2022-42328). Additionally when dropping packages for other reasons the same deadlock could occur in case of netpoll being active for the interface the xen-netback driver is connected to (CVE-2022-42329).",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-42329",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.7",
+					"vector_v_3": "CVSS:3.1/AV:A/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-42329.html",
+					"description": "CVE-2022-42329"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206114",
+					"description": "SUSE Bug 1206114"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw incorrect access control in the Linux kernel USB core subsystem was found in the way user attaches usb device. A local user could use this flaw to crash the system.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-4662",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "4.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-4662.html",
+					"description": "CVE-2022-4662"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206664",
+					"description": "SUSE Bug 1206664"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel before 6.0.11. Missing offset validation in drivers/net/wireless/microchip/wilc1000/hif.c in the WILC1000 wireless driver can trigger an out-of-bounds read when parsing a Robust Security Network (RSN) information element from a Netlink packet.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-47520",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "8.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:N/I:H/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-47520.html",
+					"description": "CVE-2022-47520"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206515",
+					"description": "SUSE Bug 1206515"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1207823",
+					"description": "SUSE Bug 1207823"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel before 6.1.6, a NULL pointer dereference bug in the traffic control subsystem allows an unprivileged user to trigger a denial of service (system crash) via a crafted traffic control configuration that is set up with \"tc qdisc\" and \"tc class\" commands. This affects qdisc_graft in net/sched/sch_api.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-47929",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "4.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-47929.html",
+					"description": "CVE-2022-47929"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1207237",
+					"description": "SUSE Bug 1207237"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A use after free vulnerability exists in the ALSA PCM package in the Linux Kernel. SNDRV_CTL_IOCTL_ELEM_{READ|WRITE}32 is missing locks that can be used in a use-after-free that can result in a priviledge escalation to gain ring0 access from the system user. We recommend upgrading past commit 56b88b50565cd8b946a2d00b0c83927b7ebb055e\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-0266",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-0266.html",
+					"description": "CVE-2023-0266"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1207134",
+					"description": "SUSE Bug 1207134"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1207190",
+					"description": "SUSE Bug 1207190"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1214128",
+					"description": "SUSE Bug 1214128"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "cbq_classify in net/sched/sch_cbq.c in the Linux kernel through 6.1.4 allows attackers to cause a denial of service (slab-out-of-bounds read) because of type confusion (non-negative numbers can sometimes indicate a TC_ACT_SHOT condition rather than valid classification results).",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-23454",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-23454.html",
+					"description": "CVE-2023-23454"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1207036",
+					"description": "SUSE Bug 1207036"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1207188",
+					"description": "SUSE Bug 1207188"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1208030",
+					"description": "SUSE Bug 1208030"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1208044",
+					"description": "SUSE Bug 1208044"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1208085",
+					"description": "SUSE Bug 1208085"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1211833",
+					"description": "SUSE Bug 1211833"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "atm_tc_enqueue in net/sched/sch_atm.c in the Linux kernel through 6.1.4 allows attackers to cause a denial of service because of type confusion (non-negative numbers can sometimes indicate a TC_ACT_SHOT condition rather than valid classification results).",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-23455",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:kernel-default-5.3.18-150200.24.142.1",
+						"Image SLES15-SP2-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Enterprise Storage 7:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Enterprise Storage 7:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:cluster-md-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:dlm-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:gfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Availability Extension 15 SP2:ocfs2-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-default-livepatch-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Live Patching 15 SP2:kernel-livepatch-5_3_18-150200_24_142-default-1-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:reiserfs-kmp-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-base-5.3.18-150200.24.142.1.150200.9.67.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-default-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-docs-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-macros-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-obs-build-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-preempt-devel-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-source-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:kernel-syms-5.3.18-150200.24.142.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:reiserfs-kmp-default-5.3.18-150200.24.142.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20230406-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-23455.html",
+					"description": "CVE-2023-23455"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1207125",
+					"description": "SUSE Bug 1207125"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1207189",
+					"description": "SUSE Bug 1207189"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1211833",
+					"description": "SUSE Bug 1211833"
+				}
+			]
+		}
+	]
+}

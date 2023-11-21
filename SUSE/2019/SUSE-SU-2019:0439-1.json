@@ -1,0 +1,2396 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2019:0439-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2019-02-19T14:35:53Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2019-02-19T14:35:53Z",
+		"current_release_date": "2019-02-19T14:35:53Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "The SUSE Linux Enterprise 12 SP2 kernel was updated to receive various security and bugfixes.\n\nThe following security bugs were fixed:\n\n- CVE-2018-19985: The function hso_probe read if_num from the USB device (as an u8) and used it without a length check to index an array, resulting in an OOB memory read in hso_probe or hso_get_config_data that could be used by local attackers (bnc#1120743).\n- CVE-2018-16884: NFS41+ shares mounted in different network namespaces at the same time can make bc_svc_process() use wrong back-channel IDs and cause a use-after-free vulnerability. Thus a malicious container user can cause a host kernel memory corruption and a system panic. Due to the nature of the flaw, privilege escalation cannot be fully ruled out (bnc#1119946).\n- CVE-2018-20169: The USB subsystem mishandled size checks during the reading of an extra descriptor, related to __usb_get_extra_descriptor in drivers/usb/core/usb.c (bnc#1119714).\n- CVE-2018-9568: In sk_clone_lock of sock.c, there is a possible memory corruption due to type confusion. This could lead to local escalation of privilege with no additional execution privileges needed. User interaction is not needed for exploitation. (bnc#1118319).\n- CVE-2018-16862: A security flaw was found in a way that the cleancache subsystem clears an inode after the final file truncation (removal). The new file created with the same inode may contain leftover pages from cleancache and the old file data instead of the new one (bnc#1117186).\n- CVE-2018-19824: A local user could exploit a use-after-free in the ALSA driver by supplying a malicious USB Sound device (with zero interfaces) that is mishandled in usb_audio_probe in sound/usb/card.c (bnc#1118152).\n- CVE-2018-18281: The mremap() syscall performs TLB flushes after dropping pagetable locks. If a syscall such as ftruncate() removes entries from the pagetables of a task that is in the middle of mremap(), a stale TLB entry can remain for a short time that permits access to a physical page after it has been released back to the page allocator and reused. (bnc#1113769).\n- CVE-2018-18710: An information leak in cdrom_ioctl_select_disc in drivers/cdrom/cdrom.c could be used by local attackers to read kernel memory because a cast from unsigned long to int interferes with bounds checking. This is similar to CVE-2018-10940 and CVE-2018-16658 (bnc#1113751).\n- CVE-2018-18690: A local attacker able to set attributes on an xfs filesystem could make this filesystem non-operational until the next mount by triggering an unchecked error condition during an xfs attribute change, because xfs_attr_shortform_addname in fs/xfs/libxfs/xfs_attr.c mishandled ATTR_REPLACE operations with conversion of an attr from short to long form (bnc#1105025).\n- CVE-2018-18386: drivers/tty/n_tty.c allowed local attackers (who are able to access pseudo terminals) to hang/block further usage of any pseudo terminal devices due to an EXTPROC versus ICANON confusion in TIOCINQ (bnc#1094825).\n- CVE-2018-9516: In hid_debug_events_read of drivers/hid/hid-debug.c, there is a possible out of bounds write due to a missing bounds check. This could lead to local escalation of privilege with System execution privileges needed. User interaction is not needed for exploitation. (bnc#1108498).\n- CVE-2019-3459, CVE-2019-3460: The Blutooth stack suffered from two remote information leak vulnerabilities in the code that handles incoming L2cap configuration packets (bsc#1120758).\n\nThe following non-security bugs were fixed:\n\n- aio: hold an extra file reference over AIO read/write operations (bsc#1116027).\n- ata: Fix racy link clearance (bsc#1107866).\n- btrfs: Fix wrong first_key parameter in replace_path (follow up fixes for bsc#1084721).\n- cgroup, netclassid: add a preemption point to write_classid (bnc#1098996).\n- cifs: Fix infinite loop when using hard mount option (bsc#1091171).\n- dm round robin: revert 'use percpu 'repeat_count' and 'current_path'' (bsc#1113192)\n- fscache: fix race between enablement and dropping of object (bsc#1107385).\n- ibmvnic: fix index in release_rx_pools (bsc#1115440).\n- ip: hash fragments consistently (bsc#1042286 bsc#1108145).\n- ipv4: ipv6: netfilter: Adjust the frag mem limit when truesize changes (bsc#1110286).\n- ipv6: set rt6i_protocol properly in the route when it is installed (bsc#1114190).\n- ipv6: set rt6i_protocol properly in the route when it is installed (bsc#1114190).\n- ixgbe: Add function for checking to see if we can reuse page (bsc#1100105).\n- ixgbe: Add support for build_skb (bsc#1100105).\n- ixgbe: Add support for padding packet (bsc#1100105).\n- ixgbe: Break out Rx buffer page management (bsc#1100105).\n- ixgbe: Fix output from ixgbe_dump (bsc#1100105).\n- ixgbe: Make use of order 1 pages and 3K buffers independent of FCoE (bsc#1100105).\n- ixgbe: Only DMA sync frame length (bsc#1100105).\n- ixgbe: Update code to better handle incrementing page count (bsc#1100105).\n- ixgbe: Update driver to make use of DMA attributes in Rx path (bsc#1100105).\n- ixgbe: Use length to determine if descriptor is done (bsc#1100105).\n- libfc: sync strings with upstream versions (bsc#1114763).\n- md: reorder flag_bits to match upstream commits The ordering in the patches was backward.\n- mm: add support for releasing multiple instances of a page (bsc#1100105).\n- mm: rename __page_frag functions to __page_frag_cache, drop order from drain (bsc#1100105).\n- net: ipv4: do not handle duplicate fragments as overlapping (bsc#1116345).\n- NFS: add nostatflush mount option (bsc#1065726).\n- nospec: Include <asm/barrier.h> dependency (bsc#1114648).\n- ovl: after setting xattributes, you need to copy the attributes in order to make sure the mode and ctime/mtime is set (bsc#1107299).\n- powerpc/boot: Request no dynamic linker for boot wrapper (bsc#1070805).\n- Revert 'kabi/severities: Ignore missing cpu_tss_tramp (bsc#1099597)' This reverts commit 54da5757cbbb39ab15b3cd09cf922a8a9e32209c.\n- rps: flow_dissector: Fix uninitialized flow_keys used in __skb_get_hash possibly (bsc#1042286 bsc#1108145).\n- scsi: devinfo: apply to HP XP the same flags as Hitachi VSP (bnc#1091197).\n- scsi: libfc: check fc_frame_payload_get() return value for null (bsc#1103624, bsc#1104731).\n- sd: disable logical block provisioning if 'lpbme' is not set (bsc#1086095).\n- tcp: prevent bogus FRTO undos with non-SACK flows (bsc#1086535).\n- Update ibmvnic: Fix RX queue buffer cleanup (bsc#1115440, bsc#1115433).\n- x86/asm/entry/32: Simplify pushes of zeroed pt_regs->REGs (bsc#1105931).\n- x86/entry/64: Clear registers for exceptions/interrupts, to reduce speculation attack surface (bsc#1105931).\n- x86/entry/64/compat: Clear registers for compat syscalls, to reduce speculation attack surface (bsc#1105931).\n- x86/entry/64: sanitize extra registers on syscall entry (bsc#1105931).\n- x86/kaiser: Avoid loosing NMIs when using trampoline stack (bsc#1106293 bsc#1099597).\n- x86,sched: Allow topologies where NUMA nodes share an LLC (bsc#1091158, bsc#1101555, bsc#1117187).\n- xen/blkfront: avoid NULL blkfront_info dereference on device removal (bsc#1111062).\n- xen/blkfront: correct purging of persistent grants (bnc#1065600).\n- xen: fix race in xen_qlock_wait() (bnc#1107256).\n- xen: fix xen_qlock_wait() (bnc#1107256).\n- xen: make xen_qlock_wait() nestable (bnc#1107256).\n- xen/netback: dont overflow meta array (bnc#1099523).\n- xen/netfront: do not bug in case of too many frags (bnc#1012382).\n- xen/netfront: do not cache skb_shinfo() (bnc#1012382).\n- xen/x86: add diagnostic printout to xen_mc_flush() in case of error (bnc#1116183).\n- xfrm: use complete IPv6 addresses for hash (bsc#1109330).\n- xfs/dmapi: restore event in xfs_getbmap (bsc#1095344, bsc#1114763).\n- xfs: fix quotacheck dquot id overflow infinite loop (bsc#1121621).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2019-439,SUSE-OpenStack-Cloud-7-2019-439,SUSE-OpenStack-Cloud-Magnum-Orchestration-7-2019-439,SUSE-SLE-HA-12-SP2-2019-439,SUSE-SLE-SAP-12-SP2-2019-439,SUSE-SLE-SERVER-12-SP2-2019-439,SUSE-SLE-SERVER-12-SP2-BCL-2019-439,SUSE-Storage-4-2019-439",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/",
+			"description": "Link for SUSE-SU-2019:0439-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2019-February/005138.html",
+			"description": "E-Mail link for SUSE-SU-2019:0439-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1012382",
+			"description": "SUSE Bug 1012382"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1023175",
+			"description": "SUSE Bug 1023175"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1042286",
+			"description": "SUSE Bug 1042286"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1065600",
+			"description": "SUSE Bug 1065600"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1065726",
+			"description": "SUSE Bug 1065726"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1070805",
+			"description": "SUSE Bug 1070805"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1084721",
+			"description": "SUSE Bug 1084721"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1086095",
+			"description": "SUSE Bug 1086095"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1086535",
+			"description": "SUSE Bug 1086535"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1091158",
+			"description": "SUSE Bug 1091158"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1091171",
+			"description": "SUSE Bug 1091171"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1091197",
+			"description": "SUSE Bug 1091197"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1094825",
+			"description": "SUSE Bug 1094825"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1095344",
+			"description": "SUSE Bug 1095344"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1098996",
+			"description": "SUSE Bug 1098996"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1099523",
+			"description": "SUSE Bug 1099523"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1099597",
+			"description": "SUSE Bug 1099597"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1100105",
+			"description": "SUSE Bug 1100105"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1101555",
+			"description": "SUSE Bug 1101555"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1103624",
+			"description": "SUSE Bug 1103624"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1104731",
+			"description": "SUSE Bug 1104731"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1105025",
+			"description": "SUSE Bug 1105025"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1105931",
+			"description": "SUSE Bug 1105931"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1106293",
+			"description": "SUSE Bug 1106293"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1107256",
+			"description": "SUSE Bug 1107256"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1107299",
+			"description": "SUSE Bug 1107299"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1107385",
+			"description": "SUSE Bug 1107385"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1107866",
+			"description": "SUSE Bug 1107866"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1108145",
+			"description": "SUSE Bug 1108145"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1108498",
+			"description": "SUSE Bug 1108498"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1109330",
+			"description": "SUSE Bug 1109330"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1110286",
+			"description": "SUSE Bug 1110286"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1110837",
+			"description": "SUSE Bug 1110837"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1111062",
+			"description": "SUSE Bug 1111062"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1113192",
+			"description": "SUSE Bug 1113192"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1113751",
+			"description": "SUSE Bug 1113751"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1113769",
+			"description": "SUSE Bug 1113769"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1114190",
+			"description": "SUSE Bug 1114190"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1114648",
+			"description": "SUSE Bug 1114648"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1114763",
+			"description": "SUSE Bug 1114763"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115433",
+			"description": "SUSE Bug 1115433"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115440",
+			"description": "SUSE Bug 1115440"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1116027",
+			"description": "SUSE Bug 1116027"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1116183",
+			"description": "SUSE Bug 1116183"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1116345",
+			"description": "SUSE Bug 1116345"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1117186",
+			"description": "SUSE Bug 1117186"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1117187",
+			"description": "SUSE Bug 1117187"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1118152",
+			"description": "SUSE Bug 1118152"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1118319",
+			"description": "SUSE Bug 1118319"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1119714",
+			"description": "SUSE Bug 1119714"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1119946",
+			"description": "SUSE Bug 1119946"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1119947",
+			"description": "SUSE Bug 1119947"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120743",
+			"description": "SUSE Bug 1120743"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120758",
+			"description": "SUSE Bug 1120758"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1121621",
+			"description": "SUSE Bug 1121621"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1123161",
+			"description": "SUSE Bug 1123161"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-16862/",
+			"description": "SUSE CVE CVE-2018-16862 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-16884/",
+			"description": "SUSE CVE CVE-2018-16884 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-18281/",
+			"description": "SUSE CVE CVE-2018-18281 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-18386/",
+			"description": "SUSE CVE CVE-2018-18386 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-18690/",
+			"description": "SUSE CVE CVE-2018-18690 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-18710/",
+			"description": "SUSE CVE CVE-2018-18710 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-19824/",
+			"description": "SUSE CVE CVE-2018-19824 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-19985/",
+			"description": "SUSE CVE CVE-2018-19985 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-20169/",
+			"description": "SUSE CVE CVE-2018-20169 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-9516/",
+			"description": "SUSE CVE CVE-2018-9516 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-9568/",
+			"description": "SUSE CVE CVE-2018-9568 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-3459/",
+			"description": "SUSE CVE CVE-2019-3459 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-3460/",
+			"description": "SUSE CVE CVE-2019-3460 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Enterprise Storage 4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Enterprise Storage 4",
+						"full_product_name": {
+							"text": "SUSE Enterprise Storage 4",
+							"product_id": "SUSE Enterprise Storage 4",
+							"cpe": "cpe:/o:suse:ses:4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Availability Extension 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Availability Extension 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Availability Extension 12 SP2",
+							"product_id": "SUSE Linux Enterprise High Availability Extension 12 SP2",
+							"cpe": "cpe:/o:suse:sle-ha:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12 SP2-BCL",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12 SP2-BCL",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12 SP2-BCL",
+							"product_id": "SUSE Linux Enterprise Server 12 SP2-BCL",
+							"cpe": "cpe:/o:suse:sles-bcl:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12 SP2-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12 SP2-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12 SP2-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 12 SP2-LTSS",
+							"cpe": "cpe:/o:suse:sles-ltss:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+							"cpe": "cpe:/o:suse:sles_sap:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE OpenStack Cloud 7",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE OpenStack Cloud 7",
+						"full_product_name": {
+							"text": "SUSE OpenStack Cloud 7",
+							"product_id": "SUSE OpenStack Cloud 7",
+							"cpe": "cpe:/o:suse:suse-openstack-cloud:7"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-debug-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "cluster-md-kmp-debug-4.4.121-92.101.1",
+					"product_id": "cluster-md-kmp-debug-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-default-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "cluster-md-kmp-default-4.4.121-92.101.1",
+					"product_id": "cluster-md-kmp-default-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-vanilla-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "cluster-md-kmp-vanilla-4.4.121-92.101.1",
+					"product_id": "cluster-md-kmp-vanilla-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-network-kmp-debug-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "cluster-network-kmp-debug-4.4.121-92.101.1",
+					"product_id": "cluster-network-kmp-debug-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-network-kmp-default-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "cluster-network-kmp-default-4.4.121-92.101.1",
+					"product_id": "cluster-network-kmp-default-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-network-kmp-vanilla-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "cluster-network-kmp-vanilla-4.4.121-92.101.1",
+					"product_id": "cluster-network-kmp-vanilla-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-debug-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "dlm-kmp-debug-4.4.121-92.101.1",
+					"product_id": "dlm-kmp-debug-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-default-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "dlm-kmp-default-4.4.121-92.101.1",
+					"product_id": "dlm-kmp-default-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-vanilla-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "dlm-kmp-vanilla-4.4.121-92.101.1",
+					"product_id": "dlm-kmp-vanilla-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-debug-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "gfs2-kmp-debug-4.4.121-92.101.1",
+					"product_id": "gfs2-kmp-debug-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-default-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "gfs2-kmp-default-4.4.121-92.101.1",
+					"product_id": "gfs2-kmp-default-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-vanilla-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "gfs2-kmp-vanilla-4.4.121-92.101.1",
+					"product_id": "gfs2-kmp-vanilla-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-debug-4.4.121-92.101.1",
+					"product_id": "kernel-debug-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-base-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-debug-base-4.4.121-92.101.1",
+					"product_id": "kernel-debug-base-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-devel-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-debug-devel-4.4.121-92.101.1",
+					"product_id": "kernel-debug-devel-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-extra-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-debug-extra-4.4.121-92.101.1",
+					"product_id": "kernel-debug-extra-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-kgraft-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-debug-kgraft-4.4.121-92.101.1",
+					"product_id": "kernel-debug-kgraft-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-default-4.4.121-92.101.1",
+					"product_id": "kernel-default-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-default-base-4.4.121-92.101.1",
+					"product_id": "kernel-default-base-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-default-devel-4.4.121-92.101.1",
+					"product_id": "kernel-default-devel-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-extra-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-default-extra-4.4.121-92.101.1",
+					"product_id": "kernel-default-extra-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-kgraft-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-default-kgraft-4.4.121-92.101.1",
+					"product_id": "kernel-default-kgraft-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-man-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-default-man-4.4.121-92.101.1",
+					"product_id": "kernel-default-man-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-devel-4.4.121-92.101.1",
+					"product_id": "kernel-devel-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-docs-4.4.121-92.101.1",
+					"product_id": "kernel-docs-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-html-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-docs-html-4.4.121-92.101.1",
+					"product_id": "kernel-docs-html-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-pdf-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-docs-pdf-4.4.121-92.101.1",
+					"product_id": "kernel-docs-pdf-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-macros-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-macros-4.4.121-92.101.1",
+					"product_id": "kernel-macros-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-build-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-obs-build-4.4.121-92.101.1",
+					"product_id": "kernel-obs-build-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-qa-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-obs-qa-4.4.121-92.101.1",
+					"product_id": "kernel-obs-qa-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-source-4.4.121-92.101.1",
+					"product_id": "kernel-source-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-vanilla-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-source-vanilla-4.4.121-92.101.1",
+					"product_id": "kernel-source-vanilla-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-syms-4.4.121-92.101.1",
+					"product_id": "kernel-syms-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-4.4.121-92.101.1",
+					"product_id": "kernel-vanilla-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-base-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-base-4.4.121-92.101.1",
+					"product_id": "kernel-vanilla-base-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-devel-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-devel-4.4.121-92.101.1",
+					"product_id": "kernel-vanilla-devel-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-zfcpdump-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "kernel-zfcpdump-4.4.121-92.101.1",
+					"product_id": "kernel-zfcpdump-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+				"full_product_name": {
+					"text": "kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+					"product_id": "kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-debug-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-debug-4.4.121-92.101.1",
+					"product_id": "ocfs2-kmp-debug-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-default-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-default-4.4.121-92.101.1",
+					"product_id": "ocfs2-kmp-default-4.4.121-92.101.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-vanilla-4.4.121-92.101.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-vanilla-4.4.121-92.101.1",
+					"product_id": "ocfs2-kmp-vanilla-4.4.121-92.101.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-default-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 4"
+			},
+			{
+				"product_reference": "kernel-default-base-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 4"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 4"
+			},
+			{
+				"product_reference": "kernel-devel-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 4"
+			},
+			{
+				"product_reference": "kernel-macros-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 4"
+			},
+			{
+				"product_reference": "kernel-source-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 4"
+			},
+			{
+				"product_reference": "kernel-syms-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 4"
+			},
+			{
+				"product_reference": "kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 4"
+			},
+			{
+				"product_reference": "cluster-md-kmp-default-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "cluster-network-kmp-default-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "dlm-kmp-default-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-BCL"
+			},
+			{
+				"product_reference": "kernel-default-base-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-BCL"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-BCL"
+			},
+			{
+				"product_reference": "kernel-devel-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-BCL"
+			},
+			{
+				"product_reference": "kernel-macros-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-BCL"
+			},
+			{
+				"product_reference": "kernel-source-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-BCL"
+			},
+			{
+				"product_reference": "kernel-syms-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-BCL"
+			},
+			{
+				"product_reference": "kernel-default-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-base-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-man-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-devel-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-macros-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-source-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-syms-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-LTSS"
+			},
+			{
+				"product_reference": "kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-base-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-devel-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-macros-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-source-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-syms-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "kernel-default-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE OpenStack Cloud 7"
+			},
+			{
+				"product_reference": "kernel-default-base-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE OpenStack Cloud 7"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE OpenStack Cloud 7"
+			},
+			{
+				"product_reference": "kernel-default-man-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE OpenStack Cloud 7"
+			},
+			{
+				"product_reference": "kernel-devel-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE OpenStack Cloud 7"
+			},
+			{
+				"product_reference": "kernel-macros-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE OpenStack Cloud 7"
+			},
+			{
+				"product_reference": "kernel-source-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE OpenStack Cloud 7"
+			},
+			{
+				"product_reference": "kernel-syms-4.4.121-92.101.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE OpenStack Cloud 7"
+			},
+			{
+				"product_reference": "kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE OpenStack Cloud 7"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "A security flaw was found in the Linux kernel in a way that the cleancache subsystem clears an inode after the final file truncation (removal). The new file created with the same inode may contain leftover pages from cleancache and the old file data instead of the new one.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-16862",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 4:kernel-default-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-macros-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-source-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-syms-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-man-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE OpenStack Cloud 7:kernel-default-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-base-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-man-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-macros-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-source-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-syms-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:L/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-16862.html",
+					"description": "CVE-2018-16862"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1117186",
+					"description": "SUSE Bug 1117186"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the Linux kernel's NFS41+ subsystem. NFS41+ shares mounted in different network namespaces at the same time can make bc_svc_process() use wrong back-channel IDs and cause a use-after-free vulnerability. Thus a malicious container user can cause a host kernel memory corruption and a system panic. Due to the nature of the flaw, privilege escalation cannot be fully ruled out.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-16884",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 4:kernel-default-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-macros-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-source-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-syms-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-man-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE OpenStack Cloud 7:kernel-default-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-base-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-man-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-macros-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-source-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-syms-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.7",
+					"vector_v_2": "AV:A/AC:L/Au:S/C:P/I:P/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-16884.html",
+					"description": "CVE-2018-16884"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1119946",
+					"description": "SUSE Bug 1119946"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1119947",
+					"description": "SUSE Bug 1119947"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Since Linux kernel version 3.2, the mremap() syscall performs TLB flushes after dropping pagetable locks. If a syscall such as ftruncate() removes entries from the pagetables of a task that is in the middle of mremap(), a stale TLB entry can remain for a short time that permits access to a physical page after it has been released back to the page allocator and reused. This is fixed in the following kernel versions: 4.9.135, 4.14.78, 4.18.16, 4.19.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-18281",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 4:kernel-default-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-macros-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-source-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-syms-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-man-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE OpenStack Cloud 7:kernel-default-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-base-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-man-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-macros-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-source-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-syms-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.6",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-18281.html",
+					"description": "CVE-2018-18281"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1113769",
+					"description": "SUSE Bug 1113769"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "drivers/tty/n_tty.c in the Linux kernel before 4.14.11 allows local attackers (who are able to access pseudo terminals) to hang/block further usage of any pseudo terminal devices due to an EXTPROC versus ICANON confusion in TIOCINQ.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-18386",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 4:kernel-default-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-macros-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-source-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-syms-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-man-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE OpenStack Cloud 7:kernel-default-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-base-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-man-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-macros-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-source-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-syms-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-18386.html",
+					"description": "CVE-2018-18386"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1094825",
+					"description": "SUSE Bug 1094825"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1112039",
+					"description": "SUSE Bug 1112039"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel before 4.17, a local attacker able to set attributes on an xfs filesystem could make this filesystem non-operational until the next mount by triggering an unchecked error condition during an xfs attribute change, because xfs_attr_shortform_addname in fs/xfs/libxfs/xfs_attr.c mishandles ATTR_REPLACE operations with conversion of an attr from short to long form.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-18690",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 4:kernel-default-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-macros-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-source-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-syms-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-man-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE OpenStack Cloud 7:kernel-default-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-base-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-man-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-macros-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-source-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-syms-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-18690.html",
+					"description": "CVE-2018-18690"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1105025",
+					"description": "SUSE Bug 1105025"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel through 4.19. An information leak in cdrom_ioctl_select_disc in drivers/cdrom/cdrom.c could be used by local attackers to read kernel memory because a cast from unsigned long to int interferes with bounds checking. This is similar to CVE-2018-10940 and CVE-2018-16658.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-18710",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 4:kernel-default-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-macros-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-source-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-syms-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-man-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE OpenStack Cloud 7:kernel-default-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-base-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-man-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-macros-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-source-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-syms-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-18710.html",
+					"description": "CVE-2018-18710"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1113751",
+					"description": "SUSE Bug 1113751"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel through 4.19.6, a local user could exploit a use-after-free in the ALSA driver by supplying a malicious USB Sound device (with zero interfaces) that is mishandled in usb_audio_probe in sound/usb/card.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-19824",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 4:kernel-default-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-macros-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-source-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-syms-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-man-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE OpenStack Cloud 7:kernel-default-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-base-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-man-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-macros-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-source-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-syms-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.6",
+					"vector_v_3": "CVSS:3.0/AV:P/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-19824.html",
+					"description": "CVE-2018-19824"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1118152",
+					"description": "SUSE Bug 1118152"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The function hso_get_config_data in drivers/net/usb/hso.c in the Linux kernel through 4.19.8 reads if_num from the USB device (as a u8) and uses it to index a small array, resulting in an object out-of-bounds (OOB) read that potentially allows arbitrary read in the kernel address space.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-19985",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 4:kernel-default-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-macros-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-source-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-syms-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-man-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE OpenStack Cloud 7:kernel-default-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-base-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-man-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-macros-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-source-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-syms-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-19985.html",
+					"description": "CVE-2018-19985"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1120743",
+					"description": "SUSE Bug 1120743"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel before 4.19.9. The USB subsystem mishandles size checks during the reading of an extra descriptor, related to __usb_get_extra_descriptor in drivers/usb/core/usb.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-20169",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 4:kernel-default-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-macros-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-source-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-syms-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-man-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE OpenStack Cloud 7:kernel-default-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-base-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-man-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-macros-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-source-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-syms-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.3",
+					"vector_v_3": "CVSS:3.0/AV:P/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-20169.html",
+					"description": "CVE-2018-20169"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1119714",
+					"description": "SUSE Bug 1119714"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In hid_debug_events_read of drivers/hid/hid-debug.c, there is a possible out of bounds write due to a missing bounds check. This could lead to local escalation of privilege with System execution privileges needed. User interaction is not needed for exploitation. Product: Android Versions: Android kernel Android ID: A-71361580.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-9516",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 4:kernel-default-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-macros-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-source-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-syms-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-man-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE OpenStack Cloud 7:kernel-default-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-base-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-man-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-macros-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-source-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-syms-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.7",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-9516.html",
+					"description": "CVE-2018-9516"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1108498",
+					"description": "SUSE Bug 1108498"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1123161",
+					"description": "SUSE Bug 1123161"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In sk_clone_lock of sock.c, there is a possible memory corruption due to type confusion. This could lead to local escalation of privilege with no additional execution privileges needed. User interaction is not needed for exploitation. Product: Android. Versions: Android kernel. Android ID: A-113509306. References: Upstream kernel.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-9568",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 4:kernel-default-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-macros-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-source-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-syms-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-man-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE OpenStack Cloud 7:kernel-default-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-base-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-man-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-macros-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-source-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-syms-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-9568.html",
+					"description": "CVE-2018-9568"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1118319",
+					"description": "SUSE Bug 1118319"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1118320",
+					"description": "SUSE Bug 1118320"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A heap address information leak while using L2CAP_GET_CONF_OPT was discovered in the Linux kernel before 5.1-rc1.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-3459",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 4:kernel-default-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-macros-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-source-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-syms-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-man-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE OpenStack Cloud 7:kernel-default-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-base-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-man-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-macros-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-source-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-syms-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.3",
+					"vector_v_2": "AV:A/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "2.6",
+					"vector_v_3": "CVSS:3.0/AV:A/AC:H/PR:N/UI:R/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-3459.html",
+					"description": "CVE-2019-3459"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1120758",
+					"description": "SUSE Bug 1120758"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A heap data infoleak in multiple locations including L2CAP_PARSE_CONF_RSP was found in the Linux kernel before 5.1-rc1.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-3460",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 4:kernel-default-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-devel-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-macros-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-source-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kernel-syms-4.4.121-92.101.1",
+						"SUSE Enterprise Storage 4:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-BCL:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-default-man-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server 12 SP2-LTSS:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-base-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-devel-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-macros-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-source-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kernel-syms-4.4.121-92.101.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:kgraft-patch-4_4_121-92_101-default-1-3.3.1",
+						"SUSE OpenStack Cloud 7:kernel-default-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-base-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-default-man-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-devel-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-macros-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-source-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kernel-syms-4.4.121-92.101.1",
+						"SUSE OpenStack Cloud 7:kgraft-patch-4_4_121-92_101-default-1-3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.3",
+					"vector_v_2": "AV:A/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "2.6",
+					"vector_v_3": "CVSS:3.0/AV:A/AC:H/PR:N/UI:R/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20190439-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-3460.html",
+					"description": "CVE-2019-3460"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1120758",
+					"description": "SUSE Bug 1120758"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1155131",
+					"description": "SUSE Bug 1155131"
+				}
+			]
+		}
+	]
+}

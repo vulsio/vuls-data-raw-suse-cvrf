@@ -1,0 +1,933 @@
+{
+	"document_title": "Security update for ceph",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2019:2994-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2019-11-18T12:34:35Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2019-11-18T12:34:35Z",
+		"current_release_date": "2019-11-18T12:34:35Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for ceph",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\n\nThis update for ceph fixes the following issues:\n\n- A previous update introduced a regression with the potential to cause RocksDB\n  data corruption in Nautilus (bsc#1156282).\n\n- Support for iSCSI target-level CHAP authentication was added (bsc#1145617).\n\n- Implemented validation and rendering of iSCSI controls based 'type'\n  (bsc#1140491).\n\n- Fixed an error while editing iSCSI image advanced settings (bsc#1146656).\n\n- Fixed a ceph-volume regression. SES customers were never exposed to this\n  regression (bsc#1132767).\n\n- Fixed a denial of service vulnerability where an unauthenticated client of\n  Ceph Object Gateway could trigger a crash from an uncaught exception\n  (bsc#1145093, CVE-2019-10222)\n\n- Nautilus-based librbd clients could not open images on Jewel clusters\n  (bsc#1151994).\n\n- The RGW num_rados_handles has been removed (bsc#1151995).\n\n- 'osd_deep_scrub_large_omap_object_key_threshold' has been lowered in Nautilus\n  (bsc#1152002).\n\n- The ceph dashboard now supports silencing Prometheus notifications\n  (bsc#1141174).\n\n- The no{up,down,in,out} related commands have been revamped (bsc#1151990).\n\n- Radosgw-admin got two new subcommands for managing expire-stale objects\n  (bsc#1151991)..\n\n- Deploying a single new BlueStore OSD on a cluster upgraded to SES6 from SES5\n  used to break pool utilization stats reported by ceph df (bsc#1151992).\n\n- Ceph clusters will issue a health warning if CRUSH tunables are older than\n  'hammer' (bsc#1151993).\n\n- Ceph-volume prints errors to stdout with --format json (bsc#1132767).\n\n- Changing rgw-api-host in the dashboard does not get effective without\n  disable/enable dashboard mgr module (bsc#1137503).\n\n- Silenced Alertmanager alerts in the dashboard (bsc#1141174).\n\n- Fixed e2e failures in the dashboard caused by webdriver version (bsc#1145759)\n\n- librbd always tries to acquire exclusive lock when removing image an\n  (bsc#1149093).\n\nFixes in ses-manual_en:\n\n- Added a new chapter with changelogs of Ceph releases. (bsc#1135584)\n- Rewrote rolling updates and replaced running stage.0 with manual commands to prevent infinite loop. (bsc#1134444)\n- Improved name of CaaSP to its fuller version. (bsc#1151439)\n- Verify which OSD's are going to be removed before running stage.5. (bsc#1150406)\n- Added two additional steps to recovering an OSD. (bsc#1147132)\n\nFixes in ceph-iscsi:\n\n- Validate kernel LIO controls type and value (bsc#1140491)\n- TPG lun_id persistence (bsc#1145618)\n- Target level CHAP authentication (bsc#1145617)\n\nceph-iscsi was updated to the upstream 3.2 release:\n\n- Always use host FQDN instead of shortname\n- Validate min/max value for target controls and rbd:user/tcmu-runner image\n  controls (bsc#1140491)\n\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Container ses/6/cephcsi/cephcsi:latest-2019-2994,Container ses/6/rook/ceph:latest-2019-2994,SUSE-2019-2994,SUSE-Storage-6-2019-2994",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20192994-1/",
+			"description": "Link for SUSE-SU-2019:2994-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2019-November/006152.html",
+			"description": "E-Mail link for SUSE-SU-2019:2994-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1132767",
+			"description": "SUSE Bug 1132767"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1134444",
+			"description": "SUSE Bug 1134444"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1135584",
+			"description": "SUSE Bug 1135584"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1137503",
+			"description": "SUSE Bug 1137503"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1140491",
+			"description": "SUSE Bug 1140491"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1141174",
+			"description": "SUSE Bug 1141174"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1145093",
+			"description": "SUSE Bug 1145093"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1145617",
+			"description": "SUSE Bug 1145617"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1145618",
+			"description": "SUSE Bug 1145618"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1145759",
+			"description": "SUSE Bug 1145759"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1146656",
+			"description": "SUSE Bug 1146656"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1147132",
+			"description": "SUSE Bug 1147132"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1149093",
+			"description": "SUSE Bug 1149093"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1150406",
+			"description": "SUSE Bug 1150406"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1151439",
+			"description": "SUSE Bug 1151439"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1151990",
+			"description": "SUSE Bug 1151990"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1151991",
+			"description": "SUSE Bug 1151991"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1151992",
+			"description": "SUSE Bug 1151992"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1151993",
+			"description": "SUSE Bug 1151993"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1151994",
+			"description": "SUSE Bug 1151994"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1151995",
+			"description": "SUSE Bug 1151995"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1152002",
+			"description": "SUSE Bug 1152002"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1156282",
+			"description": "SUSE Bug 1156282"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-10222/",
+			"description": "SUSE CVE CVE-2019-10222 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Container ses/6/cephcsi/cephcsi:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/6/cephcsi/cephcsi:latest",
+						"full_product_name": {
+							"text": "Container ses/6/cephcsi/cephcsi:latest",
+							"product_id": "Container ses/6/cephcsi/cephcsi:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container ses/6/rook/ceph:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container ses/6/rook/ceph:latest",
+						"full_product_name": {
+							"text": "Container ses/6/rook/ceph:latest",
+							"product_id": "Container ses/6/rook/ceph:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Enterprise Storage 6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Enterprise Storage 6",
+						"full_product_name": {
+							"text": "SUSE Enterprise Storage 6",
+							"product_id": "SUSE Enterprise Storage 6",
+							"cpe": "cpe:/o:suse:ses:6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-base-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-base-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-base-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-common-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-common-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-common-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-fuse-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-fuse-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-fuse-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-grafana-dashboards-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-grafana-dashboards-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-grafana-dashboards-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-mds-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-mds-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-mds-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-mgr-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-mgr-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-mgr-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-mgr-dashboard-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-mgr-dashboard-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-mgr-dashboard-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-mgr-diskprediction-local-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-mgr-diskprediction-local-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-mgr-diskprediction-local-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-mgr-rook-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-mgr-rook-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-mgr-rook-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-mon-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-mon-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-mon-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-osd-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-osd-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-osd-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-radosgw-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-radosgw-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-radosgw-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libcephfs2-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "libcephfs2-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "libcephfs2-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "librados2-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "librados2-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "librados2-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "librbd1-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "librbd1-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "librbd1-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "librgw2-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "librgw2-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "librgw2-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python3-ceph-argparse-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "python3-ceph-argparse-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "python3-ceph-argparse-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python3-cephfs-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "python3-cephfs-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "python3-cephfs-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python3-rados-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "python3-rados-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "python3-rados-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python3-rbd-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "python3-rbd-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "python3-rbd-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python3-rgw-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "python3-rgw-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "python3-rgw-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rbd-mirror-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "rbd-mirror-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "rbd-mirror-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rbd-nbd-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "rbd-nbd-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "rbd-nbd-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-dashboard-e2e-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-dashboard-e2e-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-dashboard-e2e-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-iscsi-3.3+1570532654.g93940a4-3.7.1",
+				"full_product_name": {
+					"text": "ceph-iscsi-3.3+1570532654.g93940a4-3.7.1",
+					"product_id": "ceph-iscsi-3.3+1570532654.g93940a4-3.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-mgr-diskprediction-cloud-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-mgr-diskprediction-cloud-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-mgr-diskprediction-cloud-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-mgr-ssh-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-mgr-ssh-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-mgr-ssh-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-prometheus-alerts-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "ceph-prometheus-alerts-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "ceph-prometheus-alerts-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cephfs-shell-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "cephfs-shell-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "cephfs-shell-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libcephfs-devel-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "libcephfs-devel-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "libcephfs-devel-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "librados-devel-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "librados-devel-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "librados-devel-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libradospp-devel-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "libradospp-devel-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "libradospp-devel-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "librbd-devel-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "librbd-devel-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "librbd-devel-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "librgw-devel-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "librgw-devel-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "librgw-devel-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rados-objclass-devel-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "rados-objclass-devel-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "rados-objclass-devel-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rbd-fuse-14.2.4.386+g73475e3ee1-3.6.1",
+				"full_product_name": {
+					"text": "rbd-fuse-14.2.4.386+g73475e3ee1-3.6.1",
+					"product_id": "rbd-fuse-14.2.4.386+g73475e3ee1-3.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ses-admin_en-pdf-6+git145.1558531-3.17.1",
+				"full_product_name": {
+					"text": "ses-admin_en-pdf-6+git145.1558531-3.17.1",
+					"product_id": "ses-admin_en-pdf-6+git145.1558531-3.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ses-deployment_en-pdf-6+git145.1558531-3.17.1",
+				"full_product_name": {
+					"text": "ses-deployment_en-pdf-6+git145.1558531-3.17.1",
+					"product_id": "ses-deployment_en-pdf-6+git145.1558531-3.17.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ses-manual_en-6+git145.1558531-3.17.1",
+				"full_product_name": {
+					"text": "ses-manual_en-6+git145.1558531-3.17.1",
+					"product_id": "ses-manual_en-6+git145.1558531-3.17.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "ceph-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "ceph-base-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "ceph-common-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "ceph-fuse-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "ceph-grafana-dashboards-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "ceph-mds-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "ceph-mgr-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "ceph-mgr-dashboard-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "ceph-mgr-diskprediction-local-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "ceph-mgr-rook-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "ceph-mon-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "ceph-osd-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "ceph-radosgw-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "libcephfs2-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "librados2-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "librbd1-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "librgw2-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "python3-ceph-argparse-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "python3-cephfs-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "python3-rados-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "python3-rbd-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "python3-rgw-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "rbd-mirror-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "rbd-nbd-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/cephcsi/cephcsi:latest"
+			},
+			{
+				"product_reference": "ceph-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "ceph-base-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "ceph-common-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "ceph-fuse-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "ceph-grafana-dashboards-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "ceph-mds-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "ceph-mgr-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "ceph-mgr-dashboard-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "ceph-mgr-diskprediction-local-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "ceph-mgr-rook-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "ceph-mon-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "ceph-osd-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "ceph-radosgw-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "libcephfs2-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "librados2-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "librbd1-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "librgw2-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "python3-ceph-argparse-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "python3-cephfs-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "python3-rados-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "python3-rbd-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "python3-rgw-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "rbd-mirror-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "rbd-nbd-14.2.4.386+g73475e3ee1-3.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container ses/6/rook/ceph:latest"
+			},
+			{
+				"product_reference": "ceph-iscsi-3.3+1570532654.g93940a4-3.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 6"
+			},
+			{
+				"product_reference": "ses-admin_en-pdf-6+git145.1558531-3.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 6"
+			},
+			{
+				"product_reference": "ses-deployment_en-pdf-6+git145.1558531-3.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 6"
+			},
+			{
+				"product_reference": "ses-manual_en-6+git145.1558531-3.17.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 6"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the Ceph RGW configuration with Beast as the front end handling client requests. An unauthenticated attacker could crash the Ceph RGW server by sending valid HTTP headers and terminating the connection, resulting in a remote denial of service for Ceph RGW clients.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-10222",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container ses/6/cephcsi/cephcsi:latest:ceph-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:ceph-base-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:ceph-common-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:ceph-fuse-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:ceph-grafana-dashboards-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:ceph-mds-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:ceph-mgr-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:ceph-mgr-dashboard-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:ceph-mgr-diskprediction-local-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:ceph-mgr-rook-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:ceph-mon-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:ceph-osd-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:ceph-radosgw-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:libcephfs2-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:librados2-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:librbd1-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:librgw2-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:python3-ceph-argparse-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:python3-cephfs-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:python3-rados-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:python3-rbd-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:python3-rgw-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:rbd-mirror-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/cephcsi/cephcsi:latest:rbd-nbd-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:ceph-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:ceph-base-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:ceph-common-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:ceph-fuse-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:ceph-grafana-dashboards-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:ceph-mds-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:ceph-mgr-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:ceph-mgr-dashboard-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:ceph-mgr-diskprediction-local-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:ceph-mgr-rook-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:ceph-mon-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:ceph-osd-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:ceph-radosgw-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:libcephfs2-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:librados2-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:librbd1-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:librgw2-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:python3-ceph-argparse-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:python3-cephfs-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:python3-rados-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:python3-rbd-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:python3-rgw-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:rbd-mirror-14.2.4.386+g73475e3ee1-3.6.1",
+						"Container ses/6/rook/ceph:latest:rbd-nbd-14.2.4.386+g73475e3ee1-3.6.1",
+						"SUSE Enterprise Storage 6:ceph-iscsi-3.3+1570532654.g93940a4-3.7.1",
+						"SUSE Enterprise Storage 6:ses-admin_en-pdf-6+git145.1558531-3.17.1",
+						"SUSE Enterprise Storage 6:ses-deployment_en-pdf-6+git145.1558531-3.17.1",
+						"SUSE Enterprise Storage 6:ses-manual_en-6+git145.1558531-3.17.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20192994-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-10222.html",
+					"description": "CVE-2019-10222"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1139399",
+					"description": "SUSE Bug 1139399"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1145093",
+					"description": "SUSE Bug 1145093"
+				}
+			]
+		}
+	]
+}

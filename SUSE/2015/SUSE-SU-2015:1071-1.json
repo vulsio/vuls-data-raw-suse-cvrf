@@ -1,0 +1,2077 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2015:1071-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2015-06-11T16:05:11Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2015-06-11T16:05:11Z",
+		"current_release_date": "2015-06-11T16:05:11Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "The SUSE Linux Enterprise 12 kernel was updated to version 3.12.43 to receive various security and bugfixes.\n\nFollowing security bugs were fixed:\n\n- CVE-2014-3647: arch/x86/kvm/emulate.c in the KVM subsystem in the Linux kernel through 3.17.2 did not properly perform RIP changes, which allowed guest OS users to cause a denial of service (guest OS crash) via a crafted application (bsc#899192).\n- CVE-2014-8086: Race condition in the ext4_file_write_iter function in fs/ext4/file.c in the Linux kernel through 3.17 allowed local users to cause a denial of service (file unavailability) via a combination of a write action and an F_SETFL fcntl operation for the O_DIRECT flag (bsc#900881).\n- CVE-2014-8159: The InfiniBand (IB) implementation did not properly restrict use of User Verbs for registration of memory regions, which allowed local users to access arbitrary physical memory locations, and consequently cause a denial of service (system crash) or gain privileges, by leveraging permissions on a uverbs device under /dev/infiniband/ (bsc#914742).\n- CVE-2015-1465: The IPv4 implementation in the Linux kernel before 3.18.8 did not properly consider the length of the Read-Copy Update (RCU) grace period for redirecting lookups in the absence of caching, which allowed remote attackers to cause a denial of service (memory consumption or system crash) via a flood of packets (bsc#916225).\n- CVE-2015-2041: net/llc/sysctl_net_llc.c in the Linux kernel before 3.19 used an incorrect data type in a sysctl table, which allowed local users to obtain potentially sensitive information from kernel memory or possibly have unspecified other impact by accessing a sysctl entry (bsc#919007).\n- CVE-2015-2042: net/rds/sysctl.c in the Linux kernel before 3.19 used an incorrect data type in a sysctl table, which allowed local users to obtain potentially sensitive information from kernel memory or possibly have unspecified other impact by accessing a sysctl entry (bsc#919018).\n- CVE-2015-2666: Fixed a flaw that allowed crafted microcode to overflow the kernel stack (bsc#922944).\n- CVE-2015-2830: Fixed int80 fork from 64-bit tasks mishandling (bsc#926240).\n- CVE-2015-2922: Fixed possible denial of service (DoS) attack against IPv6 network stacks due to improper handling of Router Advertisements (bsc#922583).\n- CVE-2015-3331: Fixed buffer overruns in RFC4106 implementation using AESNI (bsc#927257).\n- CVE-2015-3332: Fixed TCP Fast Open local DoS (bsc#928135).\n- CVE-2015-3339: Fixed race condition flaw between the chown() and execve() system calls which could have lead to local privilege escalation (bsc#928130).\n- CVE-2015-3636: Fixed use-after-free in ping sockets which could have lead to local privilege escalation (bsc#929525).\n\nThe following non-security bugs were fixed:\n\n- /proc/stat: convert to single_open_size() (bsc#928122).\n- ACPI / sysfs: Treat the count field of counter_show() as unsigned (bsc#909312).\n- Automatically Provide/Obsolete all subpackages of old flavors (bsc#925567)\n- Btrfs: btrfs_release_extent_buffer_page did not free pages of dummy extent (bsc#930226).\n- Btrfs: fix inode eviction infinite loop after cloning into it (bsc#930224).\n- Btrfs: fix inode eviction infinite loop after extent_same ioctl (bsc#930224).\n- Btrfs: fix log tree corruption when fs mounted with -o discard (bsc#927116).\n- Btrfs: fix up bounds checking in lseek (bsc#927115).\n- Fix rtworkqueues crash. Calling __sched_setscheduler() in interrupt context is forbidden, and destroy_worker() did so in the timer interrupt with a nohz_full config. Preclude that possibility for both boot options.\n- Input: psmouse - add psmouse_matches_pnp_id helper function (bsc#929092).\n- Input: synaptics - fix middle button on Lenovo 2015 products (bsc#929092).\n- Input: synaptics - handle spurious release of trackstick buttons (bsc#929092).\n- Input: synaptics - re-route tracksticks buttons on the Lenovo 2015 series (bsc#929092).\n- Input: synaptics - remove TOPBUTTONPAD property for Lenovos 2015 (bsc#929092).\n- Input: synaptics - retrieve the extended capabilities in query $10 (bsc#929092).\n- NFS: Add attribute update barriers to nfs_setattr_update_inode() (bsc#920262).\n- NFS: restore kabi after change to nfs_setattr_update_inode (bsc#920262).\n- af_iucv: fix AF_IUCV sendmsg() errno (bsc#927308, LTC#123304).\n- audit: do not reject all AUDIT_INODE filter types (bsc#927455).\n- bnx2x: Fix kdump when iommu=on (bsc#921769).\n- cpufreq: fix a NULL pointer dereference in __cpufreq_governor() (bsc#924664).\n- dasd: Fix device having no paths after suspend/resume (bsc#927308, LTC#123896).\n- dasd: Fix inability to set a DASD device offline (bsc#927308, LTC#123905).\n- dasd: Fix unresumed device after suspend/resume (bsc#927308, LTC#123892).\n- dasd: Missing partition after online processing (bsc#917125, LTC#120565).\n- drm/radeon/cik: Add macrotile mode array query (bsc#927285).\n- drm/radeon: fix display tiling setup on SI (bsc#927285).\n- drm/radeon: set correct number of banks for CIK chips in DCE (bsc#927285).\n- iommu/amd: Correctly encode huge pages in iommu page tables (bsc#931014).\n- iommu/amd: Optimize alloc_new_range for new fetch_pte interface (bsc#931014).\n- iommu/amd: Optimize amd_iommu_iova_to_phys for new fetch_pte interface (bsc#931014).\n- iommu/amd: Optimize iommu_unmap_page for new fetch_pte interface (bsc#931014).\n- iommu/amd: Return the pte page-size in fetch_pte (bsc#931014).\n- ipc/shm.c: fix overly aggressive shmdt() when calls span multiple segments (ipc fixes).\n- ipmi: Turn off all activity on an idle ipmi interface (bsc#915540).\n- ixgbe: fix detection of SFP+ capable interfaces (bsc#922734).\n- kgr: add error code to the message in kgr_revert_replaced_funs.\n- kgr: add kgraft annotations to kthreads wait_event_freezable() API calls.\n- kgr: correct error handling of the first patching stage.\n- kgr: handle the delayed patching of the modules.\n- kgr: handle the failure of finalization stage.\n- kgr: return error in kgr_init if notifier registration fails.\n- kgr: take switching of the fops out of kgr_patch_code to new function.\n- kgr: use for_each_process_thread (bsc#929883).\n- kgr: use kgr_in_progress for all threads (bnc#929883).\n- libata: Blacklist queued TRIM on Samsung SSD 850 Pro (bsc#926156).\n- mlx4: Call dev_kfree_skby_any instead of dev_kfree_skb (bsc#928708).\n- mm, numa: really disable NUMA balancing by default on single node machines (Automatic NUMA Balancing).\n- mm: vmscan: do not throttle based on pfmemalloc reserves if node has no reclaimable pages (bsc#924803, VM Functionality).\n- net/mlx4: Cache line CQE/EQE stride fixes (bsc#927084).\n- net/mlx4_core: Cache line EQE size support (bsc#927084).\n- net/mlx4_core: Enable CQE/EQE stride support (bsc#927084).\n- net/mlx4_en: Add mlx4_en_get_cqe helper (bsc#927084).\n- perf/x86/amd/ibs: Update IBS MSRs and feature definitions.\n- powerpc/mm: Fix mmap errno when MAP_FIXED is set and mapping exceeds the allowed address space (bsc#930669).\n- powerpc/numa: Add ability to disable and debug topology updates (bsc#924809).\n- powerpc/numa: Enable CONFIG_HAVE_MEMORYLESS_NODES (bsc#924809).\n- powerpc/numa: Enable USE_PERCPU_NUMA_NODE_ID (bsc#924809).\n- powerpc/numa: check error return from proc_create (bsc#924809).\n- powerpc/numa: ensure per-cpu NUMA mappings are correct on topology update (bsc#924809).\n- powerpc/numa: use cached value of update-&gt;cpu in update_cpu_topology (bsc#924809).\n- powerpc/perf: Cap 64bit userspace backtraces to PERF_MAX_STACK_DEPTH (bsc#928141).\n- powerpc/pseries: Introduce api_version to migration sysfs interface (bsc#926314).\n- powerpc/pseries: Little endian fixes for post mobility device tree update (bsc#926314).\n- powerpc/pseries: Simplify check for suspendability during suspend/migration (bsc#926314).\n- powerpc: Fix sys_call_table declaration to enable syscall tracing.\n- powerpc: Fix warning reported by verify_cpu_node_mapping() (bsc#924809).\n- powerpc: Only set numa node information for present cpus at boottime (bsc#924809).\n- powerpc: reorder per-cpu NUMA information initialization (bsc#924809).\n- powerpc: some changes in numa_setup_cpu() (bsc#924809).\n- quota: Fix use of units in quota getting / setting interfaces (bsc#913232).\n- rpm/kernel-binary.spec.in: Fix build if there is no *.crt file\n- rpm/kernel-obs-qa.spec.in: Do not fail if the kernel versions do not match\n- s390/bpf: Fix ALU_NEG (A = -A) (bsc#917125, LTC#121759).\n- s390/bpf: Fix JMP_JGE_K (A >= K) and JMP_JGT_K (A > K) (bsc#917125, LTC#121759).\n- s390/bpf: Fix JMP_JGE_X (A > X) and JMP_JGT_X (A >= X) (bsc#917125, LTC#121759).\n- s390/bpf: Fix offset parameter for skb_copy_bits() (bsc#917125, LTC#121759).\n- s390/bpf: Fix sk_load_byte_msh() (bsc#917125, LTC#121759).\n- s390/bpf: Fix skb_copy_bits() parameter passing (bsc#917125, LTC#121759).\n- s390/bpf: Zero extend parameters before calling C function (bsc#917125, LTC#121759).\n- s390/sclp: Consolidate early sclp init calls to sclp_early_detect() (bsc#917125, LTC#122429).\n- s390/sclp: Determine HSA size dynamically for zfcpdump (bsc#917125, LTC#122429).\n- s390/sclp: Move declarations for sclp_sdias into separate header file (bsc#917125, LTC#122429).\n- s390/sclp: Move early code from sclp_cmd.c to sclp_early.c (bsc#917125, LTC#122429).\n- s390/sclp: replace uninitialized early_event_mask_sccb variable with sccb_early (bsc#917125, LTC#122429).\n- s390/sclp: revert smp-detect-possible-cpus.patch (bsc#917125, LTC#122429).\n- s390/sclp_early: Add function to detect sclp console capabilities (bsc#917125, LTC#122429).\n- s390/sclp_early: Get rid of sclp_early_read_info_sccb_valid (bsc#917125, LTC#122429).\n- s390/sclp_early: Pass sccb pointer to every *_detect() function (bsc#917125, LTC#122429).\n- s390/sclp_early: Replace early_read_info_sccb with sccb_early (bsc#917125, LTC#122429).\n- s390/sclp_early: Return correct HSA block count also for zero (bsc#917125, LTC#122429).\n- s390/smp: limit number of cpus in possible cpu mask (bsc#917125, LTC#122429).\n- s390: kgr, change the kgraft state only if enabled.\n- sched, time: Fix lock inversion in thread_group_cputime()\n- sched: Fix potential near-infinite distribute_cfs_runtime() loop (bsc#930786)\n- sched: Robustify topology setup (bsc#924809).\n- seqlock: Add irqsave variant of read_seqbegin_or_lock() (Time scalability).\n- storvsc: Set the SRB flags correctly when no data transfer is needed (bsc#931130).\n- x86/apic/uv: Update the APIC UV OEM check (bsc#929145).\n- x86/apic/uv: Update the UV APIC HUB check (bsc#929145).\n- x86/apic/uv: Update the UV APIC driver check (bsc#929145).\n- x86/microcode/intel: Guard against stack overflow in the loader (bsc#922944).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-SLE-DESKTOP-12-2015-269,SUSE-SLE-Live-Patching-12-2015-269,SUSE-SLE-Module-Public-Cloud-12-2015-269,SUSE-SLE-SDK-12-2015-269,SUSE-SLE-SERVER-12-2015-269,SUSE-SLE-WE-12-2015-269",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/",
+			"description": "Link for SUSE-SU-2015:1071-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2015-06/msg00012.html",
+			"description": "E-Mail link for SUSE-SU-2015:1071-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/899192",
+			"description": "SUSE Bug 899192"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/900881",
+			"description": "SUSE Bug 900881"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/909312",
+			"description": "SUSE Bug 909312"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/913232",
+			"description": "SUSE Bug 913232"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/914742",
+			"description": "SUSE Bug 914742"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/915540",
+			"description": "SUSE Bug 915540"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/916225",
+			"description": "SUSE Bug 916225"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/917125",
+			"description": "SUSE Bug 917125"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/919007",
+			"description": "SUSE Bug 919007"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/919018",
+			"description": "SUSE Bug 919018"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/920262",
+			"description": "SUSE Bug 920262"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/921769",
+			"description": "SUSE Bug 921769"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/922583",
+			"description": "SUSE Bug 922583"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/922734",
+			"description": "SUSE Bug 922734"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/922944",
+			"description": "SUSE Bug 922944"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/924664",
+			"description": "SUSE Bug 924664"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/924803",
+			"description": "SUSE Bug 924803"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/924809",
+			"description": "SUSE Bug 924809"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/925567",
+			"description": "SUSE Bug 925567"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/926156",
+			"description": "SUSE Bug 926156"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/926240",
+			"description": "SUSE Bug 926240"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/926314",
+			"description": "SUSE Bug 926314"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/927084",
+			"description": "SUSE Bug 927084"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/927115",
+			"description": "SUSE Bug 927115"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/927116",
+			"description": "SUSE Bug 927116"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/927257",
+			"description": "SUSE Bug 927257"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/927285",
+			"description": "SUSE Bug 927285"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/927308",
+			"description": "SUSE Bug 927308"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/927455",
+			"description": "SUSE Bug 927455"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/928122",
+			"description": "SUSE Bug 928122"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/928130",
+			"description": "SUSE Bug 928130"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/928135",
+			"description": "SUSE Bug 928135"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/928141",
+			"description": "SUSE Bug 928141"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/928708",
+			"description": "SUSE Bug 928708"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/929092",
+			"description": "SUSE Bug 929092"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/929145",
+			"description": "SUSE Bug 929145"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/929525",
+			"description": "SUSE Bug 929525"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/929883",
+			"description": "SUSE Bug 929883"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/930224",
+			"description": "SUSE Bug 930224"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/930226",
+			"description": "SUSE Bug 930226"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/930669",
+			"description": "SUSE Bug 930669"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/930786",
+			"description": "SUSE Bug 930786"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/931014",
+			"description": "SUSE Bug 931014"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/931130",
+			"description": "SUSE Bug 931130"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2014-3647/",
+			"description": "SUSE CVE CVE-2014-3647 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2014-8086/",
+			"description": "SUSE CVE CVE-2014-8086 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2014-8159/",
+			"description": "SUSE CVE CVE-2014-8159 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-1465/",
+			"description": "SUSE CVE CVE-2015-1465 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-2041/",
+			"description": "SUSE CVE CVE-2015-2041 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-2042/",
+			"description": "SUSE CVE CVE-2015-2042 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-2666/",
+			"description": "SUSE CVE CVE-2015-2666 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-2830/",
+			"description": "SUSE CVE CVE-2015-2830 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-2922/",
+			"description": "SUSE CVE CVE-2015-2922 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-3331/",
+			"description": "SUSE CVE CVE-2015-3331 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-3332/",
+			"description": "SUSE CVE CVE-2015-3332 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-3339/",
+			"description": "SUSE CVE CVE-2015-3339 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-3636/",
+			"description": "SUSE CVE CVE-2015-3636 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Desktop 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Desktop 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Desktop 12",
+							"product_id": "SUSE Linux Enterprise Desktop 12",
+							"cpe": "cpe:/o:suse:sled:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Live Patching 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Live Patching 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Live Patching 12",
+							"product_id": "SUSE Linux Enterprise Live Patching 12",
+							"cpe": "cpe:/o:suse:sle-live-patching:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Public Cloud 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Public Cloud 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Public Cloud 12",
+							"product_id": "SUSE Linux Enterprise Module for Public Cloud 12",
+							"cpe": "cpe:/o:suse:sle-module-public-cloud:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12",
+							"product_id": "SUSE Linux Enterprise Server 12",
+							"cpe": "cpe:/o:suse:sles:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 12",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 12",
+							"cpe": "cpe:/o:suse:sles_sap:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Software Development Kit 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Software Development Kit 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Software Development Kit 12",
+							"product_id": "SUSE Linux Enterprise Software Development Kit 12",
+							"cpe": "cpe:/o:suse:sle-sdk:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Workstation Extension 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Workstation Extension 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Workstation Extension 12",
+							"product_id": "SUSE Linux Enterprise Workstation Extension 12",
+							"cpe": "cpe:/o:suse:sle-we:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-default-3.12.43-52.6.1",
+					"product_id": "kernel-default-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-default-devel-3.12.43-52.6.1",
+					"product_id": "kernel-default-devel-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-extra-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-default-extra-3.12.43-52.6.1",
+					"product_id": "kernel-default-extra-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-devel-3.12.43-52.6.1",
+					"product_id": "kernel-devel-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-macros-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-macros-3.12.43-52.6.1",
+					"product_id": "kernel-macros-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-source-3.12.43-52.6.1",
+					"product_id": "kernel-source-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-syms-3.12.43-52.6.1",
+					"product_id": "kernel-syms-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-xen-3.12.43-52.6.1",
+					"product_id": "kernel-xen-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-devel-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-xen-devel-3.12.43-52.6.1",
+					"product_id": "kernel-xen-devel-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kgraft-patch-3_12_43-52_6-default-1-2.3",
+				"full_product_name": {
+					"text": "kgraft-patch-3_12_43-52_6-default-1-2.3",
+					"product_id": "kgraft-patch-3_12_43-52_6-default-1-2.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kgraft-patch-3_12_43-52_6-xen-1-2.3",
+				"full_product_name": {
+					"text": "kgraft-patch-3_12_43-52_6-xen-1-2.3",
+					"product_id": "kgraft-patch-3_12_43-52_6-xen-1-2.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-ec2-3.12.43-52.6.1",
+					"product_id": "kernel-ec2-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-devel-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-ec2-devel-3.12.43-52.6.1",
+					"product_id": "kernel-ec2-devel-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-extra-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-ec2-extra-3.12.43-52.6.1",
+					"product_id": "kernel-ec2-extra-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-3.12.43-52.6.2",
+				"full_product_name": {
+					"text": "kernel-docs-3.12.43-52.6.2",
+					"product_id": "kernel-docs-3.12.43-52.6.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-build-3.12.43-52.6.2",
+				"full_product_name": {
+					"text": "kernel-obs-build-3.12.43-52.6.2",
+					"product_id": "kernel-obs-build-3.12.43-52.6.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-default-base-3.12.43-52.6.1",
+					"product_id": "kernel-default-base-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-man-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-default-man-3.12.43-52.6.1",
+					"product_id": "kernel-default-man-3.12.43-52.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-base-3.12.43-52.6.1",
+				"full_product_name": {
+					"text": "kernel-xen-base-3.12.43-52.6.1",
+					"product_id": "kernel-xen-base-3.12.43-52.6.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-default-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "kernel-default-devel-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "kernel-default-extra-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "kernel-devel-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "kernel-macros-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "kernel-source-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "kernel-syms-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "kernel-xen-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "kernel-xen-devel-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12"
+			},
+			{
+				"product_reference": "kgraft-patch-3_12_43-52_6-default-1-2.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Live Patching 12"
+			},
+			{
+				"product_reference": "kgraft-patch-3_12_43-52_6-xen-1-2.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Live Patching 12"
+			},
+			{
+				"product_reference": "kernel-ec2-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Public Cloud 12"
+			},
+			{
+				"product_reference": "kernel-ec2-devel-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Public Cloud 12"
+			},
+			{
+				"product_reference": "kernel-ec2-extra-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Public Cloud 12"
+			},
+			{
+				"product_reference": "kernel-default-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "kernel-default-base-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "kernel-default-devel-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "kernel-default-man-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "kernel-devel-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "kernel-macros-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "kernel-source-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "kernel-syms-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "kernel-xen-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "kernel-xen-base-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "kernel-xen-devel-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12"
+			},
+			{
+				"product_reference": "kernel-default-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "kernel-default-base-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "kernel-default-devel-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "kernel-default-man-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "kernel-devel-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "kernel-macros-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "kernel-source-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "kernel-syms-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "kernel-xen-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "kernel-xen-base-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "kernel-xen-devel-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12"
+			},
+			{
+				"product_reference": "kernel-docs-3.12.43-52.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "kernel-obs-build-3.12.43-52.6.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12"
+			},
+			{
+				"product_reference": "kernel-default-extra-3.12.43-52.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Workstation Extension 12"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "arch/x86/kvm/emulate.c in the KVM subsystem in the Linux kernel through 3.17.2 does not properly perform RIP changes, which allows guest OS users to cause a denial of service (guest OS crash) via a crafted application.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2014-3647",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-default-1-2.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-xen-1-2.3",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-docs-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-obs-build-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Workstation Extension 12:kernel-default-extra-3.12.43-52.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2014-3647.html",
+					"description": "CVE-2014-3647"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1013038",
+					"description": "SUSE Bug 1013038"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1134834",
+					"description": "SUSE Bug 1134834"
+				},
+				{
+					"url": "https://bugzilla.suse.com/899192",
+					"description": "SUSE Bug 899192"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Race condition in the ext4_file_write_iter function in fs/ext4/file.c in the Linux kernel through 3.17 allows local users to cause a denial of service (file unavailability) via a combination of a write action and an F_SETFL fcntl operation for the O_DIRECT flag.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2014-8086",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-default-1-2.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-xen-1-2.3",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-docs-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-obs-build-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Workstation Extension 12:kernel-default-extra-3.12.43-52.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2014-8086.html",
+					"description": "CVE-2014-8086"
+				},
+				{
+					"url": "https://bugzilla.suse.com/900881",
+					"description": "SUSE Bug 900881"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The InfiniBand (IB) implementation in the Linux kernel package before 2.6.32-504.12.2 on Red Hat Enterprise Linux (RHEL) 6 does not properly restrict use of User Verbs for registration of memory regions, which allows local users to access arbitrary physical memory locations, and consequently cause a denial of service (system crash) or gain privileges, by leveraging permissions on a uverbs device under /dev/infiniband/.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2014-8159",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-default-1-2.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-xen-1-2.3",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-docs-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-obs-build-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Workstation Extension 12:kernel-default-extra-3.12.43-52.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2014-8159.html",
+					"description": "CVE-2014-8159"
+				},
+				{
+					"url": "https://bugzilla.suse.com/903967",
+					"description": "SUSE Bug 903967"
+				},
+				{
+					"url": "https://bugzilla.suse.com/914742",
+					"description": "SUSE Bug 914742"
+				},
+				{
+					"url": "https://bugzilla.suse.com/939241",
+					"description": "SUSE Bug 939241"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The IPv4 implementation in the Linux kernel before 3.18.8 does not properly consider the length of the Read-Copy Update (RCU) grace period for redirecting lookups in the absence of caching, which allows remote attackers to cause a denial of service (memory consumption or system crash) via a flood of packets.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-1465",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-default-1-2.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-xen-1-2.3",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-docs-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-obs-build-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Workstation Extension 12:kernel-default-extra-3.12.43-52.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.8",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-1465.html",
+					"description": "CVE-2015-1465"
+				},
+				{
+					"url": "https://bugzilla.suse.com/916225",
+					"description": "SUSE Bug 916225"
+				},
+				{
+					"url": "https://bugzilla.suse.com/939044",
+					"description": "SUSE Bug 939044"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "net/llc/sysctl_net_llc.c in the Linux kernel before 3.19 uses an incorrect data type in a sysctl table, which allows local users to obtain potentially sensitive information from kernel memory or possibly have unspecified other impact by accessing a sysctl entry.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-2041",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-default-1-2.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-xen-1-2.3",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-docs-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-obs-build-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Workstation Extension 12:kernel-default-extra-3.12.43-52.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-2041.html",
+					"description": "CVE-2015-2041"
+				},
+				{
+					"url": "https://bugzilla.suse.com/903967",
+					"description": "SUSE Bug 903967"
+				},
+				{
+					"url": "https://bugzilla.suse.com/919007",
+					"description": "SUSE Bug 919007"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "net/rds/sysctl.c in the Linux kernel before 3.19 uses an incorrect data type in a sysctl table, which allows local users to obtain potentially sensitive information from kernel memory or possibly have unspecified other impact by accessing a sysctl entry.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-2042",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-default-1-2.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-xen-1-2.3",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-docs-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-obs-build-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Workstation Extension 12:kernel-default-extra-3.12.43-52.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-2042.html",
+					"description": "CVE-2015-2042"
+				},
+				{
+					"url": "https://bugzilla.suse.com/903967",
+					"description": "SUSE Bug 903967"
+				},
+				{
+					"url": "https://bugzilla.suse.com/919018",
+					"description": "SUSE Bug 919018"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Stack-based buffer overflow in the get_matching_model_microcode function in arch/x86/kernel/cpu/microcode/intel_early.c in the Linux kernel before 4.0 allows context-dependent attackers to gain privileges by constructing a crafted microcode header and leveraging root privileges for write access to the initrd.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-2666",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-default-1-2.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-xen-1-2.3",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-docs-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-obs-build-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Workstation Extension 12:kernel-default-extra-3.12.43-52.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-2666.html",
+					"description": "CVE-2015-2666"
+				},
+				{
+					"url": "https://bugzilla.suse.com/922944",
+					"description": "SUSE Bug 922944"
+				},
+				{
+					"url": "https://bugzilla.suse.com/939044",
+					"description": "SUSE Bug 939044"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "arch/x86/kernel/entry_64.S in the Linux kernel before 3.19.2 does not prevent the TS_COMPAT flag from reaching a user-mode task, which might allow local users to bypass the seccomp or audit protection mechanism via a crafted application that uses the (1) fork or (2) close system call, as demonstrated by an attack against seccomp before 3.16.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-2830",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-default-1-2.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-xen-1-2.3",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-docs-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-obs-build-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Workstation Extension 12:kernel-default-extra-3.12.43-52.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:P/A:N"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-2830.html",
+					"description": "CVE-2015-2830"
+				},
+				{
+					"url": "https://bugzilla.suse.com/903967",
+					"description": "SUSE Bug 903967"
+				},
+				{
+					"url": "https://bugzilla.suse.com/926240",
+					"description": "SUSE Bug 926240"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The ndisc_router_discovery function in net/ipv6/ndisc.c in the Neighbor Discovery (ND) protocol implementation in the IPv6 stack in the Linux kernel before 3.19.6 allows remote attackers to reconfigure a hop-limit setting via a small hop_limit value in a Router Advertisement (RA) message.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-2922",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-default-1-2.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-xen-1-2.3",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-docs-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-obs-build-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Workstation Extension 12:kernel-default-extra-3.12.43-52.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.3",
+					"vector_v_2": "AV:A/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-2922.html",
+					"description": "CVE-2015-2922"
+				},
+				{
+					"url": "https://bugzilla.suse.com/903967",
+					"description": "SUSE Bug 903967"
+				},
+				{
+					"url": "https://bugzilla.suse.com/922583",
+					"description": "SUSE Bug 922583"
+				},
+				{
+					"url": "https://bugzilla.suse.com/926223",
+					"description": "SUSE Bug 926223"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The __driver_rfc4106_decrypt function in arch/x86/crypto/aesni-intel_glue.c in the Linux kernel before 3.19.3 does not properly determine the memory locations used for encrypted data, which allows context-dependent attackers to cause a denial of service (buffer overflow and system crash) or possibly execute arbitrary code by triggering a crypto API call, as demonstrated by use of a libkcapi test program with an AF_ALG(aead) socket.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-3331",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-default-1-2.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-xen-1-2.3",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-docs-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-obs-build-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Workstation Extension 12:kernel-default-extra-3.12.43-52.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "9.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-3331.html",
+					"description": "CVE-2015-3331"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				},
+				{
+					"url": "https://bugzilla.suse.com/927257",
+					"description": "SUSE Bug 927257"
+				},
+				{
+					"url": "https://bugzilla.suse.com/931231",
+					"description": "SUSE Bug 931231"
+				},
+				{
+					"url": "https://bugzilla.suse.com/939262",
+					"description": "SUSE Bug 939262"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A certain backport in the TCP Fast Open implementation for the Linux kernel before 3.18 does not properly maintain a count value, which allow local users to cause a denial of service (system crash) via the Fast Open feature, as demonstrated by visiting the chrome://flags/#enable-tcp-fast-open URL when using certain 3.10.x through 3.16.x kernel builds, including longterm-maintenance releases and ckt (aka Canonical Kernel Team) builds.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-3332",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-default-1-2.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-xen-1-2.3",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-docs-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-obs-build-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Workstation Extension 12:kernel-default-extra-3.12.43-52.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-3332.html",
+					"description": "CVE-2015-3332"
+				},
+				{
+					"url": "https://bugzilla.suse.com/903967",
+					"description": "SUSE Bug 903967"
+				},
+				{
+					"url": "https://bugzilla.suse.com/928135",
+					"description": "SUSE Bug 928135"
+				},
+				{
+					"url": "https://bugzilla.suse.com/992991",
+					"description": "SUSE Bug 992991"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Race condition in the prepare_binprm function in fs/exec.c in the Linux kernel before 3.19.6 allows local users to gain privileges by executing a setuid program at a time instant when a chown to root is in progress, and the ownership is changed but the setuid bit is not yet stripped.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-3339",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-default-1-2.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-xen-1-2.3",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-docs-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-obs-build-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Workstation Extension 12:kernel-default-extra-3.12.43-52.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.2",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-3339.html",
+					"description": "CVE-2015-3339"
+				},
+				{
+					"url": "https://bugzilla.suse.com/903967",
+					"description": "SUSE Bug 903967"
+				},
+				{
+					"url": "https://bugzilla.suse.com/928130",
+					"description": "SUSE Bug 928130"
+				},
+				{
+					"url": "https://bugzilla.suse.com/939263",
+					"description": "SUSE Bug 939263"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The ping_unhash function in net/ipv4/ping.c in the Linux kernel before 4.0.3 does not initialize a certain list data structure during an unhash operation, which allows local users to gain privileges or cause a denial of service (use-after-free and system crash) by leveraging the ability to make a SOCK_DGRAM socket system call for the IPPROTO_ICMP or IPPROTO_ICMPV6 protocol, and then making a connect system call after a disconnect.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-3636",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-default-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Desktop 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-default-1-2.3",
+						"SUSE Linux Enterprise Live Patching 12:kgraft-patch-3_12_43-52_6-xen-1-2.3",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-default-man-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-macros-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-source-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-syms-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-base-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12:kernel-xen-devel-3.12.43-52.6.1",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-docs-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Software Development Kit 12:kernel-obs-build-3.12.43-52.6.2",
+						"SUSE Linux Enterprise Workstation Extension 12:kernel-default-extra-3.12.43-52.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2015/suse-su-20151071-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-3636.html",
+					"description": "CVE-2015-3636"
+				},
+				{
+					"url": "https://bugzilla.suse.com/929525",
+					"description": "SUSE Bug 929525"
+				},
+				{
+					"url": "https://bugzilla.suse.com/939277",
+					"description": "SUSE Bug 939277"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994624",
+					"description": "SUSE Bug 994624"
+				}
+			]
+		}
+	]
+}

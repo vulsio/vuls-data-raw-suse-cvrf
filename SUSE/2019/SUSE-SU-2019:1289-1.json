@@ -1,0 +1,4054 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2019:1289-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2019-05-28T11:38:31Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2019-05-28T11:38:31Z",
+		"current_release_date": "2019-05-28T11:38:31Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\n\nThe SUSE Linux Enterprise 12 SP1 LTSS kernel was updated to receive various security and bugfixes.\n\nFour new speculative execution information leak issues have been identified in Intel CPUs. (bsc#1111331)\n\n- CVE-2018-12126: Microarchitectural Store Buffer Data Sampling (MSBDS)\n- CVE-2018-12127: Microarchitectural Fill Buffer Data Sampling (MFBDS)\n- CVE-2018-12130: Microarchitectural Load Port Data Samling (MLPDS)\n- CVE-2019-11091: Microarchitectural Data Sampling Uncacheable Memory (MDSUM)\n\nThis kernel update contains software mitigations for these issues, which also utilize CPU microcode updates shipped in parallel.\n\nFor more information on this set of information leaks, check out https://www.suse.com/support/kb/doc/?id=7023736\n\nThe following security bugs were fixed:\n\n- CVE-2016-10741: fs/xfs/xfs_aops.c allowed local users to cause a denial of service (system crash) because there is a race condition between direct and memory-mapped I/O (associated with a hole) that is handled with BUG_ON instead of an I/O failure (bnc#1114920 bnc#1124010).\n- CVE-2017-1000407: By flooding the diagnostic port 0x80 an exception can be triggered leading to a kernel panic (bnc#1071021).\n- CVE-2017-16533: The usbhid_parse function in drivers/hid/usbhid/hid-core.c allowed local users to cause a denial of service (out-of-bounds read and system crash) or possibly have unspecified other impact via a crafted USB device (bnc#1066674).\n- CVE-2017-7273: The cp_report_fixup function in drivers/hid/hid-cypress.c allowed physically proximate attackers to cause a denial of service (integer underflow) or possibly have unspecified other impact via a crafted HID report (bnc#1031240).\n- CVE-2017-7472: The KEYS subsystem allowed local users to cause a denial of service (memory consumption) via a series of KEY_REQKEY_DEFL_THREAD_KEYRING keyctl_set_reqkey_keyring calls (bnc#1034862).\n- CVE-2018-14633: A security flaw was found in the chap_server_compute_md5() function in the ISCSI target code in the Linux kernel in a way an authentication request from an ISCSI initiator is processed. An unauthenticated remote attacker can cause a stack buffer overflow and smash up to 17 bytes of the stack. The attack requires the iSCSI target to be enabled on the victim host. Depending on how the target's code was built (i.e. depending on a compiler, compile flags and hardware architecture) an attack may lead to a system crash and thus to a denial-of-service or possibly to a non-authorized access to data exported by an iSCSI target. (bnc#1107829).\n- CVE-2018-15572: The spectre_v2_select_mitigation function in arch/x86/kernel/cpu/bugs.c did not always fill RSB upon a context switch, which made it easier for attackers to conduct userspace-userspace spectreRSB attacks (bnc#1102517 bnc#1105296).\n- CVE-2018-16884: NFS41+ shares mounted in different network namespaces at the same time can make bc_svc_process() use wrong back-channel IDs and cause a use-after-free vulnerability. Thus a malicious container user can cause a host kernel memory corruption and a system panic. Due to the nature of the flaw, privilege escalation cannot be fully ruled out (bnc#1119946).\n- CVE-2018-18281: The mremap() syscall performed TLB flushes after dropping pagetable locks. If a syscall such as ftruncate() removes entries from the pagetables of a task that is in the middle of mremap(), a stale TLB entry can remain for a short time that permits access to a physical page after it has been released back to the page allocator and reused. (bnc#1113769).\n- CVE-2018-18386: drivers/tty/n_tty.c allowed local attackers (who are able to access pseudo terminals) to hang/block further usage of any pseudo terminal devices due to an EXTPROC versus ICANON confusion in TIOCINQ (bnc#1094825).\n- CVE-2018-18690: A local attacker able to set attributes on an xfs filesystem could make this filesystem non-operational until the next mount by triggering an unchecked error condition during an xfs attribute change, because xfs_attr_shortform_addname in fs/xfs/libxfs/xfs_attr.c mishandled ATTR_REPLACE operations with conversion of an attr from short to long form (bnc#1105025).\n- CVE-2018-18710: An information leak in cdrom_ioctl_select_disc in drivers/cdrom/cdrom.c could be used by local attackers to read kernel memory because a cast from unsigned long to int interferes with bounds checking. This is similar to CVE-2018-10940 and CVE-2018-16658 (bnc#1113751).\n- CVE-2018-19407: The vcpu_scan_ioapic function in arch/x86/kvm/x86.c allowed local users to cause a denial of service (NULL pointer dereference and BUG) via crafted system calls that reach a situation where ioapic is uninitialized (bnc#1116841).\n- CVE-2018-19824: A local user could exploit a use-after-free in the ALSA driver by supplying a malicious USB Sound device (with zero interfaces) that is mishandled in usb_audio_probe in sound/usb/card.c (bnc#1118152).\n- CVE-2018-19985: The function hso_get_config_data in drivers/net/usb/hso.c read if_num from the USB device (as a u8) and uses it to index a small array, resulting in an object out-of-bounds (OOB) read that potentially allowed arbitrary read in the kernel address space (bnc#1120743).\n- CVE-2018-20169: The USB subsystem mishandled size checks during the reading of an extra descriptor, related to __usb_get_extra_descriptor in drivers/usb/core/usb.c (bnc#1119714).\n- CVE-2018-5391: The Linux kernel was vulnerable to a denial of service attack with low rates of specially modified packets targeting IP fragment re-assembly. An attacker may cause a denial of service condition by sending specially crafted IP fragments. Various vulnerabilities in IP fragmentation have been discovered and fixed over the years. The current vulnerability (CVE-2018-5391) became exploitable in the Linux kernel with the increase of the IP fragment reassembly queue size (bnc#1103097).\n- CVE-2018-9516: In hid_debug_events_read of drivers/hid/hid-debug.c, there is a possible out of bounds write due to a missing bounds check. This could lead to local escalation of privilege with System execution privileges needed. User interaction is not needed for exploitation. (bnc#1108498).\n- CVE-2018-9568: In sk_clone_lock of sock.c, there is a possible memory corruption due to type confusion. This could lead to local escalation of privilege with no additional execution privileges needed. User interaction is not needed for exploitation. (bnc#1118319).\n- CVE-2019-11486: The Siemens R3964 line discipline driver in drivers/tty/n_r3964.c had multiple race conditions (bnc#1133188). The line discipline was disabled.\n- CVE-2019-3459: A heap address information leak while using L2CAP_GET_CONF_OPT was discovered (bnc#1120758).\n- CVE-2019-3460: A heap data infoleak in multiple locations including L2CAP_PARSE_CONF_RSP was found (bnc#1120758).\n- CVE-2019-3882: A flaw was found vfio interface implementation that permitted violation of the user's locked memory limit. If a device is bound to a vfio driver, such as vfio-pci, and the local attacker is administratively granted ownership of the device, it may cause a system memory exhaustion and thus a denial of service (DoS). (bnc#1131416 bnc#1131427).\n- CVE-2019-6974: kvm_ioctl_create_device in virt/kvm/kvm_main.c mishandled reference counting because of a race condition, leading to a use-after-free (bnc#1124728).\n- CVE-2019-7221: The KVM implementation had a Use-after-Free (bnc#1124732).\n- CVE-2019-7222: The KVM implementation had an Information Leak (bnc#1124735).\n- CVE-2019-9213: expand_downwards in mm/mmap.c lacked a check for the mmap minimum address, which made it easier for attackers to exploit kernel NULL pointer dereferences on non-SMAP platforms. This is related to a capability check for the wrong task (bnc#1128166).\n- CVE-2019-9503: Multiple brcmfmac frame validation bypasses have been fixed (bnc#1132828).\n\nThe following non-security bugs were fixed:\n\n- cifs: Check for timeout on Negotiate stage (bsc#1091171 bsc#1126890).\n- fix pgd underflow (bnc#1104475) (bsc#1104475, bsc#1110768).\n- kvm: x86: Report STIBP on GET_SUPPORTED_CPUID (bsc#1111331).\n- locking/atomics, asm-generic: Move some macros from <linux/bitops.h> to a new <linux/bits.h> file (bsc#1111331).\n- net: ipv4: do not handle duplicate fragments as overlapping (bsc#1116345).\n- sched/core: Optimize SCHED_SMT (bsc#1111331)\n- sched/smt: Expose sched_smt_present static key (bsc#1106913).\n- sched/smt: Make sched_smt_present track topology (bsc#1106913).\n- sched/smt: Update sched_smt_present at runtime (bsc#1111331)\n- tcp: prevent bogus FRTO undos with non-SACK flows (bsc#1086535).\n- x86/bugs: Rename SSBD_NO to SSB_NO (bsc#1111331)\n- x86/cpu: Sanitize FAM6_ATOM naming (bsc#1111331).\n- x86/kvm: Expose X86_FEATURE_MD_CLEAR to guests (bsc#1111331).\n- x86/kvm/vmx: Add MDS protection when L1D Flush is not active (bsc#1111331).\n- x86/mce: Improve error message when kernel cannot recover, p2 (bsc#1114648).\n- x86/msr-index: Cleanup bit defines (bsc#1111331).\n- x86/spec_ctrl: Fix spec_ctrl reporting (bsc#1106913, bsc#1111516).\n- x86/speculation: Apply IBPB more strictly to avoid cross-process data leak (bsc#1106913).\n- x86/speculation: Consolidate CPU whitelists (bsc#1111331).\n- x86/speculation: Enable cross-hyperthread spectre v2 STIBP mitigation (bsc#1106913).\n- x86/speculation/mds: Add basic bug infrastructure for MDS (bsc#1111331).\n- x86/speculation/mds: Add BUG_MSBDS_ONLY (bsc#1111331).\n- x86/speculation/mds: Add mds_clear_cpu_buffers() (bsc#1111331).\n- x86/speculation/mds: Add mitigation control for MDS (bsc#1111331).\n- x86/speculation/mds: Add mitigation mode VMWERV (bsc#1111331).\n- x86/speculation/mds: Add sysfs reporting for MDS (bsc#1111331).\n- x86/speculation/mds: Clear CPU buffers on exit to user (bsc#1111331).\n- x86/speculation/mds: Conditionally clear CPU buffers on idle entry (bsc#1111331).\n- x86/speculation: Remove redundant arch_smt_update() invocation (bsc#1111331).\n- x86/speculation: Rework SMT state change (bsc#1111331).\n- x86/speculation: Simplify the CPU bug detection logic (bsc#1111331).\n- x86/uaccess: Do not leak the AC flag into __put_user() value evaluation (bsc#1114648).\n- xfs: do not BUG() on mixed direct and mapped I/O (bsc#1114920).\n- xfs: fix quotacheck dquot id overflow infinite loop (bsc#1121621).\n- xfs: stop searching for free slots in an inode chunk when there are none (bsc#1115007).\n- xfs: xfs_iget_check_free_state: Use correct sign for errors (bsc#1122015, bsc#1100001).\n- xfs: validate sb_logsunit is a multiple of the fs blocksize (bsc#1115038).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2019-1289,SUSE-SLE-Module-Public-Cloud-12-2019-1289,SUSE-SLE-SAP-12-SP1-2019-1289,SUSE-SLE-SERVER-12-SP1-2019-1289",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/",
+			"description": "Link for SUSE-SU-2019:1289-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2019-May/005476.html",
+			"description": "E-Mail link for SUSE-SU-2019:1289-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1031240",
+			"description": "SUSE Bug 1031240"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1034862",
+			"description": "SUSE Bug 1034862"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1066674",
+			"description": "SUSE Bug 1066674"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1071021",
+			"description": "SUSE Bug 1071021"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1086535",
+			"description": "SUSE Bug 1086535"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1091171",
+			"description": "SUSE Bug 1091171"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1094825",
+			"description": "SUSE Bug 1094825"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1100001",
+			"description": "SUSE Bug 1100001"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1102517",
+			"description": "SUSE Bug 1102517"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1103097",
+			"description": "SUSE Bug 1103097"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1104475",
+			"description": "SUSE Bug 1104475"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1105025",
+			"description": "SUSE Bug 1105025"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1105296",
+			"description": "SUSE Bug 1105296"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1106913",
+			"description": "SUSE Bug 1106913"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1107829",
+			"description": "SUSE Bug 1107829"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1108498",
+			"description": "SUSE Bug 1108498"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1110768",
+			"description": "SUSE Bug 1110768"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1111331",
+			"description": "SUSE Bug 1111331"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1111516",
+			"description": "SUSE Bug 1111516"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1113751",
+			"description": "SUSE Bug 1113751"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1113769",
+			"description": "SUSE Bug 1113769"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1114648",
+			"description": "SUSE Bug 1114648"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1114920",
+			"description": "SUSE Bug 1114920"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115007",
+			"description": "SUSE Bug 1115007"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1115038",
+			"description": "SUSE Bug 1115038"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1116345",
+			"description": "SUSE Bug 1116345"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1116841",
+			"description": "SUSE Bug 1116841"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1118152",
+			"description": "SUSE Bug 1118152"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1118319",
+			"description": "SUSE Bug 1118319"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1119714",
+			"description": "SUSE Bug 1119714"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1119946",
+			"description": "SUSE Bug 1119946"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120743",
+			"description": "SUSE Bug 1120743"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1120758",
+			"description": "SUSE Bug 1120758"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1121621",
+			"description": "SUSE Bug 1121621"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1122015",
+			"description": "SUSE Bug 1122015"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1123161",
+			"description": "SUSE Bug 1123161"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1124010",
+			"description": "SUSE Bug 1124010"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1124728",
+			"description": "SUSE Bug 1124728"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1124732",
+			"description": "SUSE Bug 1124732"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1124735",
+			"description": "SUSE Bug 1124735"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1126890",
+			"description": "SUSE Bug 1126890"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1128166",
+			"description": "SUSE Bug 1128166"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1131416",
+			"description": "SUSE Bug 1131416"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1131427",
+			"description": "SUSE Bug 1131427"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1132828",
+			"description": "SUSE Bug 1132828"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1133188",
+			"description": "SUSE Bug 1133188"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-10741/",
+			"description": "SUSE CVE CVE-2016-10741 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-1000407/",
+			"description": "SUSE CVE CVE-2017-1000407 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-16533/",
+			"description": "SUSE CVE CVE-2017-16533 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-7273/",
+			"description": "SUSE CVE CVE-2017-7273 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-7472/",
+			"description": "SUSE CVE CVE-2017-7472 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-12126/",
+			"description": "SUSE CVE CVE-2018-12126 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-12127/",
+			"description": "SUSE CVE CVE-2018-12127 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-12130/",
+			"description": "SUSE CVE CVE-2018-12130 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-14633/",
+			"description": "SUSE CVE CVE-2018-14633 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-15572/",
+			"description": "SUSE CVE CVE-2018-15572 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-16884/",
+			"description": "SUSE CVE CVE-2018-16884 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-18281/",
+			"description": "SUSE CVE CVE-2018-18281 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-18386/",
+			"description": "SUSE CVE CVE-2018-18386 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-18690/",
+			"description": "SUSE CVE CVE-2018-18690 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-18710/",
+			"description": "SUSE CVE CVE-2018-18710 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-19407/",
+			"description": "SUSE CVE CVE-2018-19407 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-19824/",
+			"description": "SUSE CVE CVE-2018-19824 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-19985/",
+			"description": "SUSE CVE CVE-2018-19985 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-20169/",
+			"description": "SUSE CVE CVE-2018-20169 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-5391/",
+			"description": "SUSE CVE CVE-2018-5391 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-9516/",
+			"description": "SUSE CVE CVE-2018-9516 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-9568/",
+			"description": "SUSE CVE CVE-2018-9568 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-11091/",
+			"description": "SUSE CVE CVE-2019-11091 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-11486/",
+			"description": "SUSE CVE CVE-2019-11486 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-3459/",
+			"description": "SUSE CVE CVE-2019-3459 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-3460/",
+			"description": "SUSE CVE CVE-2019-3460 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-3882/",
+			"description": "SUSE CVE CVE-2019-3882 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-6974/",
+			"description": "SUSE CVE CVE-2019-6974 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-7221/",
+			"description": "SUSE CVE CVE-2019-7221 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-7222/",
+			"description": "SUSE CVE CVE-2019-7222 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-8564/",
+			"description": "SUSE CVE CVE-2019-8564 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-9213/",
+			"description": "SUSE CVE CVE-2019-9213 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-9503/",
+			"description": "SUSE CVE CVE-2019-9503 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Public Cloud 12",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Public Cloud 12",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Public Cloud 12",
+							"product_id": "SUSE Linux Enterprise Module for Public Cloud 12",
+							"cpe": "cpe:/o:suse:sle-module-public-cloud:12"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12 SP1-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12 SP1-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12 SP1-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 12 SP1-LTSS",
+							"cpe": "cpe:/o:suse:sles-ltss:12:sp1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP1",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 12 SP1",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 12 SP1",
+							"cpe": "cpe:/o:suse:sles_sap:12:sp1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-debug-3.12.74-60.64.110.1",
+					"product_id": "kernel-debug-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-base-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-debug-base-3.12.74-60.64.110.1",
+					"product_id": "kernel-debug-base-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-devel-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-debug-devel-3.12.74-60.64.110.1",
+					"product_id": "kernel-debug-devel-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-extra-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-debug-extra-3.12.74-60.64.110.1",
+					"product_id": "kernel-debug-extra-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-default-3.12.74-60.64.110.1",
+					"product_id": "kernel-default-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-default-base-3.12.74-60.64.110.1",
+					"product_id": "kernel-default-base-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-default-devel-3.12.74-60.64.110.1",
+					"product_id": "kernel-default-devel-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-extra-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-default-extra-3.12.74-60.64.110.1",
+					"product_id": "kernel-default-extra-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-man-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-default-man-3.12.74-60.64.110.1",
+					"product_id": "kernel-default-man-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-devel-3.12.74-60.64.110.1",
+					"product_id": "kernel-devel-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-docs-3.12.74-60.64.110.1",
+					"product_id": "kernel-docs-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-ec2-3.12.74-60.64.110.1",
+					"product_id": "kernel-ec2-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-base-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-ec2-base-3.12.74-60.64.110.1",
+					"product_id": "kernel-ec2-base-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-devel-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-ec2-devel-3.12.74-60.64.110.1",
+					"product_id": "kernel-ec2-devel-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-extra-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-ec2-extra-3.12.74-60.64.110.1",
+					"product_id": "kernel-ec2-extra-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-macros-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-macros-3.12.74-60.64.110.1",
+					"product_id": "kernel-macros-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-build-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-obs-build-3.12.74-60.64.110.1",
+					"product_id": "kernel-obs-build-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-qa-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-obs-qa-3.12.74-60.64.110.1",
+					"product_id": "kernel-obs-qa-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-source-3.12.74-60.64.110.1",
+					"product_id": "kernel-source-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-vanilla-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-source-vanilla-3.12.74-60.64.110.1",
+					"product_id": "kernel-source-vanilla-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-syms-3.12.74-60.64.110.1",
+					"product_id": "kernel-syms-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-3.12.74-60.64.110.1",
+					"product_id": "kernel-vanilla-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-devel-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-devel-3.12.74-60.64.110.1",
+					"product_id": "kernel-vanilla-devel-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-xen-3.12.74-60.64.110.1",
+					"product_id": "kernel-xen-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-base-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-xen-base-3.12.74-60.64.110.1",
+					"product_id": "kernel-xen-base-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-devel-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-xen-devel-3.12.74-60.64.110.1",
+					"product_id": "kernel-xen-devel-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-extra-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-xen-extra-3.12.74-60.64.110.1",
+					"product_id": "kernel-xen-extra-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-zfcpdump-3.12.74-60.64.110.1",
+				"full_product_name": {
+					"text": "kernel-zfcpdump-3.12.74-60.64.110.1",
+					"product_id": "kernel-zfcpdump-3.12.74-60.64.110.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+				"full_product_name": {
+					"text": "kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+					"product_id": "kgraft-patch-3_12_74-60_64_110-default-1-2.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+				"full_product_name": {
+					"text": "kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+					"product_id": "kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "lttng-modules-2.7.0-4.4.1",
+				"full_product_name": {
+					"text": "lttng-modules-2.7.0-4.4.1",
+					"product_id": "lttng-modules-2.7.0-4.4.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "lttng-modules-kmp-compute-2.7.0_k3.12.49_2-4.4.1",
+				"full_product_name": {
+					"text": "lttng-modules-kmp-compute-2.7.0_k3.12.49_2-4.4.1",
+					"product_id": "lttng-modules-kmp-compute-2.7.0_k3.12.49_2-4.4.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+				"full_product_name": {
+					"text": "lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+					"product_id": "lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "lttng-modules-kmp-rt-2.7.0_k3.12.49_2-4.4.1",
+				"full_product_name": {
+					"text": "lttng-modules-kmp-rt-2.7.0_k3.12.49_2-4.4.1",
+					"product_id": "lttng-modules-kmp-rt-2.7.0_k3.12.49_2-4.4.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-ec2-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Public Cloud 12"
+			},
+			{
+				"product_reference": "kernel-ec2-devel-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Public Cloud 12"
+			},
+			{
+				"product_reference": "kernel-ec2-extra-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Public Cloud 12"
+			},
+			{
+				"product_reference": "kernel-default-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-base-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-devel-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-man-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-devel-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-macros-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-source-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-syms-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-base-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-devel-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "lttng-modules-2.7.0-4.4.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP1-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "kernel-default-base-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "kernel-default-devel-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "kernel-devel-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "kernel-macros-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "kernel-source-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "kernel-syms-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "kernel-xen-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "kernel-xen-base-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "kernel-xen-devel-3.12.74-60.64.110.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "lttng-modules-2.7.0-4.4.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			},
+			{
+				"product_reference": "lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP1"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel before 4.9.3, fs/xfs/xfs_aops.c allows local users to cause a denial of service (system crash) because there is a race condition between direct and memory-mapped I/O (associated with a hole) that is handled with BUG_ON instead of an I/O failure.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-10741",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.1",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-10741.html",
+					"description": "CVE-2016-10741"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1114920",
+					"description": "SUSE Bug 1114920"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1124010",
+					"description": "SUSE Bug 1124010"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The Linux Kernel 2.6.32 and later are affected by a denial of service, by flooding the diagnostic port 0x80 an exception can be triggered leading to a kernel panic.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-1000407",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-1000407.html",
+					"description": "CVE-2017-1000407"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1071021",
+					"description": "SUSE Bug 1071021"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The usbhid_parse function in drivers/hid/usbhid/hid-core.c in the Linux kernel before 4.13.8 allows local users to cause a denial of service (out-of-bounds read and system crash) or possibly have unspecified other impact via a crafted USB device.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-16533",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.6",
+					"vector_v_3": "CVSS:3.0/AV:P/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-16533.html",
+					"description": "CVE-2017-16533"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1066674",
+					"description": "SUSE Bug 1066674"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1146519",
+					"description": "SUSE Bug 1146519"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The cp_report_fixup function in drivers/hid/hid-cypress.c in the Linux kernel 3.2 and 4.x before 4.9.4 allows physically proximate attackers to cause a denial of service (integer underflow) or possibly have unspecified other impact via a crafted HID report.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7273",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.6",
+					"vector_v_3": "CVSS:3.1/AV:P/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7273.html",
+					"description": "CVE-2017-7273"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1031240",
+					"description": "SUSE Bug 1031240"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The KEYS subsystem in the Linux kernel before 4.10.13 allows local users to cause a denial of service (memory consumption) via a series of KEY_REQKEY_DEFL_THREAD_KEYRING keyctl_set_reqkey_keyring calls.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7472",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7472.html",
+					"description": "CVE-2017-7472"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1034862",
+					"description": "SUSE Bug 1034862"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Microarchitectural Store Buffer Data Sampling (MSBDS): Store buffers on some microprocessors utilizing speculative execution may allow an authenticated user to potentially enable information disclosure via a side channel with local access. A list of impacted products can be found here: https://www.intel.com/content/dam/www/public/us/en/documents/corporate-information/SA00233-microcode-update-guidance_05132019.pdf",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-12126",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-12126.html",
+					"description": "CVE-2018-12126"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1103186",
+					"description": "SUSE Bug 1103186"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1111331",
+					"description": "SUSE Bug 1111331"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1132686",
+					"description": "SUSE Bug 1132686"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1135409",
+					"description": "SUSE Bug 1135409"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1135524",
+					"description": "SUSE Bug 1135524"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1137916",
+					"description": "SUSE Bug 1137916"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1138534",
+					"description": "SUSE Bug 1138534"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1141977",
+					"description": "SUSE Bug 1141977"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1149725",
+					"description": "SUSE Bug 1149725"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1149726",
+					"description": "SUSE Bug 1149726"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1149729",
+					"description": "SUSE Bug 1149729"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201877",
+					"description": "SUSE Bug 1201877"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Microarchitectural Load Port Data Sampling (MLPDS): Load ports on some microprocessors utilizing speculative execution may allow an authenticated user to potentially enable information disclosure via a side channel with local access. A list of impacted products can be found here: https://www.intel.com/content/dam/www/public/us/en/documents/corporate-information/SA00233-microcode-update-guidance_05132019.pdf",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-12127",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-12127.html",
+					"description": "CVE-2018-12127"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1103186",
+					"description": "SUSE Bug 1103186"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1111331",
+					"description": "SUSE Bug 1111331"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1132686",
+					"description": "SUSE Bug 1132686"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1135409",
+					"description": "SUSE Bug 1135409"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1138534",
+					"description": "SUSE Bug 1138534"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1141977",
+					"description": "SUSE Bug 1141977"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201877",
+					"description": "SUSE Bug 1201877"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Microarchitectural Fill Buffer Data Sampling (MFBDS): Fill buffers on some microprocessors utilizing speculative execution may allow an authenticated user to potentially enable information disclosure via a side channel with local access. A list of impacted products can be found here: https://www.intel.com/content/dam/www/public/us/en/documents/corporate-information/SA00233-microcode-update-guidance_05132019.pdf",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-12130",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-12130.html",
+					"description": "CVE-2018-12130"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1103186",
+					"description": "SUSE Bug 1103186"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1111331",
+					"description": "SUSE Bug 1111331"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1132686",
+					"description": "SUSE Bug 1132686"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1135409",
+					"description": "SUSE Bug 1135409"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1137916",
+					"description": "SUSE Bug 1137916"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1138534",
+					"description": "SUSE Bug 1138534"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1141977",
+					"description": "SUSE Bug 1141977"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201877",
+					"description": "SUSE Bug 1201877"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A security flaw was found in the chap_server_compute_md5() function in the ISCSI target code in the Linux kernel in a way an authentication request from an ISCSI initiator is processed. An unauthenticated remote attacker can cause a stack buffer overflow and smash up to 17 bytes of the stack. The attack requires the iSCSI target to be enabled on the victim host. Depending on how the target's code was built (i.e. depending on a compiler, compile flags and hardware architecture) an attack may lead to a system crash and thus to a denial-of-service or possibly to a non-authorized access to data exported by an iSCSI target. Due to the nature of the flaw, privilege escalation cannot be fully ruled out, although we believe it is highly unlikely. Kernel versions 4.18.x, 4.14.x and 3.10.x are believed to be vulnerable.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-14633",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "8.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.8",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-14633.html",
+					"description": "CVE-2018-14633"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1107829",
+					"description": "SUSE Bug 1107829"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1107832",
+					"description": "SUSE Bug 1107832"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The spectre_v2_select_mitigation function in arch/x86/kernel/cpu/bugs.c in the Linux kernel before 4.18.1 does not always fill RSB upon a context switch, which makes it easier for attackers to conduct userspace-userspace spectreRSB attacks.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-15572",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.7",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-15572.html",
+					"description": "CVE-2018-15572"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1102517",
+					"description": "SUSE Bug 1102517"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1105296",
+					"description": "SUSE Bug 1105296"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the Linux kernel's NFS41+ subsystem. NFS41+ shares mounted in different network namespaces at the same time can make bc_svc_process() use wrong back-channel IDs and cause a use-after-free vulnerability. Thus a malicious container user can cause a host kernel memory corruption and a system panic. Due to the nature of the flaw, privilege escalation cannot be fully ruled out.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-16884",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.7",
+					"vector_v_2": "AV:A/AC:L/Au:S/C:P/I:P/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-16884.html",
+					"description": "CVE-2018-16884"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1119946",
+					"description": "SUSE Bug 1119946"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1119947",
+					"description": "SUSE Bug 1119947"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Since Linux kernel version 3.2, the mremap() syscall performs TLB flushes after dropping pagetable locks. If a syscall such as ftruncate() removes entries from the pagetables of a task that is in the middle of mremap(), a stale TLB entry can remain for a short time that permits access to a physical page after it has been released back to the page allocator and reused. This is fixed in the following kernel versions: 4.9.135, 4.14.78, 4.18.16, 4.19.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-18281",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.6",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-18281.html",
+					"description": "CVE-2018-18281"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1113769",
+					"description": "SUSE Bug 1113769"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "drivers/tty/n_tty.c in the Linux kernel before 4.14.11 allows local attackers (who are able to access pseudo terminals) to hang/block further usage of any pseudo terminal devices due to an EXTPROC versus ICANON confusion in TIOCINQ.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-18386",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-18386.html",
+					"description": "CVE-2018-18386"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1094825",
+					"description": "SUSE Bug 1094825"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1112039",
+					"description": "SUSE Bug 1112039"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel before 4.17, a local attacker able to set attributes on an xfs filesystem could make this filesystem non-operational until the next mount by triggering an unchecked error condition during an xfs attribute change, because xfs_attr_shortform_addname in fs/xfs/libxfs/xfs_attr.c mishandles ATTR_REPLACE operations with conversion of an attr from short to long form.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-18690",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-18690.html",
+					"description": "CVE-2018-18690"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1105025",
+					"description": "SUSE Bug 1105025"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel through 4.19. An information leak in cdrom_ioctl_select_disc in drivers/cdrom/cdrom.c could be used by local attackers to read kernel memory because a cast from unsigned long to int interferes with bounds checking. This is similar to CVE-2018-10940 and CVE-2018-16658.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-18710",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-18710.html",
+					"description": "CVE-2018-18710"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1113751",
+					"description": "SUSE Bug 1113751"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The vcpu_scan_ioapic function in arch/x86/kvm/x86.c in the Linux kernel through 4.19.2 allows local users to cause a denial of service (NULL pointer dereference and BUG) via crafted system calls that reach a situation where ioapic is uninitialized.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-19407",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-19407.html",
+					"description": "CVE-2018-19407"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1116841",
+					"description": "SUSE Bug 1116841"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel through 4.19.6, a local user could exploit a use-after-free in the ALSA driver by supplying a malicious USB Sound device (with zero interfaces) that is mishandled in usb_audio_probe in sound/usb/card.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-19824",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.6",
+					"vector_v_3": "CVSS:3.0/AV:P/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-19824.html",
+					"description": "CVE-2018-19824"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1118152",
+					"description": "SUSE Bug 1118152"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The function hso_get_config_data in drivers/net/usb/hso.c in the Linux kernel through 4.19.8 reads if_num from the USB device (as a u8) and uses it to index a small array, resulting in an object out-of-bounds (OOB) read that potentially allows arbitrary read in the kernel address space.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-19985",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-19985.html",
+					"description": "CVE-2018-19985"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1120743",
+					"description": "SUSE Bug 1120743"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel before 4.19.9. The USB subsystem mishandles size checks during the reading of an extra descriptor, related to __usb_get_extra_descriptor in drivers/usb/core/usb.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-20169",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.3",
+					"vector_v_3": "CVSS:3.0/AV:P/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-20169.html",
+					"description": "CVE-2018-20169"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1119714",
+					"description": "SUSE Bug 1119714"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The Linux kernel, versions 3.9+, is vulnerable to a denial of service attack with low rates of specially modified packets targeting IP fragment re-assembly. An attacker may cause a denial of service condition by sending specially crafted IP fragments. Various vulnerabilities in IP fragmentation have been discovered and fixed over the years. The current vulnerability (CVE-2018-5391) became exploitable in the Linux kernel with the increase of the IP fragment reassembly queue size.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-5391",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.8",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-5391.html",
+					"description": "CVE-2018-5391"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1102340",
+					"description": "SUSE Bug 1102340"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1103097",
+					"description": "SUSE Bug 1103097"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1103098",
+					"description": "SUSE Bug 1103098"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1108654",
+					"description": "SUSE Bug 1108654"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1114071",
+					"description": "SUSE Bug 1114071"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1121102",
+					"description": "SUSE Bug 1121102"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1134140",
+					"description": "SUSE Bug 1134140"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1181460",
+					"description": "SUSE Bug 1181460"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In hid_debug_events_read of drivers/hid/hid-debug.c, there is a possible out of bounds write due to a missing bounds check. This could lead to local escalation of privilege with System execution privileges needed. User interaction is not needed for exploitation. Product: Android Versions: Android kernel Android ID: A-71361580.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-9516",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.7",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-9516.html",
+					"description": "CVE-2018-9516"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1108498",
+					"description": "SUSE Bug 1108498"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1123161",
+					"description": "SUSE Bug 1123161"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In sk_clone_lock of sock.c, there is a possible memory corruption due to type confusion. This could lead to local escalation of privilege with no additional execution privileges needed. User interaction is not needed for exploitation. Product: Android. Versions: Android kernel. Android ID: A-113509306. References: Upstream kernel.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-9568",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-9568.html",
+					"description": "CVE-2018-9568"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1118319",
+					"description": "SUSE Bug 1118319"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1118320",
+					"description": "SUSE Bug 1118320"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Microarchitectural Data Sampling Uncacheable Memory (MDSUM): Uncacheable memory on some microprocessors utilizing speculative execution may allow an authenticated user to potentially enable information disclosure via a side channel with local access. A list of impacted products can be found here: https://www.intel.com/content/dam/www/public/us/en/documents/corporate-information/SA00233-microcode-update-guidance_05132019.pdf",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-11091",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-11091.html",
+					"description": "CVE-2019-11091"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1103186",
+					"description": "SUSE Bug 1103186"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1111331",
+					"description": "SUSE Bug 1111331"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1132686",
+					"description": "SUSE Bug 1132686"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1133319",
+					"description": "SUSE Bug 1133319"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1135394",
+					"description": "SUSE Bug 1135394"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1138043",
+					"description": "SUSE Bug 1138043"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1138534",
+					"description": "SUSE Bug 1138534"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1141977",
+					"description": "SUSE Bug 1141977"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201877",
+					"description": "SUSE Bug 1201877"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The Siemens R3964 line discipline driver in drivers/tty/n_r3964.c in the Linux kernel before 5.0.8 has multiple race conditions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-11486",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-11486.html",
+					"description": "CVE-2019-11486"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1133188",
+					"description": "SUSE Bug 1133188"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1156434",
+					"description": "SUSE Bug 1156434"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1173667",
+					"description": "SUSE Bug 1173667"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A heap address information leak while using L2CAP_GET_CONF_OPT was discovered in the Linux kernel before 5.1-rc1.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-3459",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.3",
+					"vector_v_2": "AV:A/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "2.6",
+					"vector_v_3": "CVSS:3.0/AV:A/AC:H/PR:N/UI:R/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-3459.html",
+					"description": "CVE-2019-3459"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1120758",
+					"description": "SUSE Bug 1120758"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A heap data infoleak in multiple locations including L2CAP_PARSE_CONF_RSP was found in the Linux kernel before 5.1-rc1.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-3460",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.3",
+					"vector_v_2": "AV:A/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "2.6",
+					"vector_v_3": "CVSS:3.0/AV:A/AC:H/PR:N/UI:R/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-3460.html",
+					"description": "CVE-2019-3460"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1120758",
+					"description": "SUSE Bug 1120758"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1155131",
+					"description": "SUSE Bug 1155131"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the Linux kernel's vfio interface implementation that permits violation of the user's locked memory limit. If a device is bound to a vfio driver, such as vfio-pci, and the local attacker is administratively granted ownership of the device, it may cause a system memory exhaustion and thus a denial of service (DoS). Versions 3.10, 4.14 and 4.18 are vulnerable.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-3882",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.7",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-3882.html",
+					"description": "CVE-2019-3882"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1131416",
+					"description": "SUSE Bug 1131416"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1131427",
+					"description": "SUSE Bug 1131427"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1133319",
+					"description": "SUSE Bug 1133319"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel before 4.20.8, kvm_ioctl_create_device in virt/kvm/kvm_main.c mishandles reference counting because of a race condition, leading to a use-after-free.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-6974",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-6974.html",
+					"description": "CVE-2019-6974"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1124728",
+					"description": "SUSE Bug 1124728"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1124729",
+					"description": "SUSE Bug 1124729"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The KVM implementation in the Linux kernel through 4.20.5 has a Use-after-Free.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-7221",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:H/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-7221.html",
+					"description": "CVE-2019-7221"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1124732",
+					"description": "SUSE Bug 1124732"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1124734",
+					"description": "SUSE Bug 1124734"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The KVM implementation in the Linux kernel through 4.20.5 has an Information Leak.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-7222",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "2.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-7222.html",
+					"description": "CVE-2019-7222"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1124735",
+					"description": "SUSE Bug 1124735"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A logic issue was addressed with improved validation. This issue is fixed in macOS Mojave 10.14.4, Security Update 2019-002 High Sierra, Security Update 2019-002 Sierra. An attacker in a privileged network position can modify driver state.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-8564",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.2",
+					"vector_v_3": "CVSS:3.0/AV:A/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-8564.html",
+					"description": "CVE-2019-8564"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1132673",
+					"description": "SUSE Bug 1132673"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1132828",
+					"description": "SUSE Bug 1132828"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel before 4.20.14, expand_downwards in mm/mmap.c lacks a check for the mmap minimum address, which makes it easier for attackers to exploit kernel NULL pointer dereferences on non-SMAP platforms. This is related to a capability check for the wrong task.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-9213",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-9213.html",
+					"description": "CVE-2019-9213"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1128166",
+					"description": "SUSE Bug 1128166"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1128378",
+					"description": "SUSE Bug 1128378"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1129016",
+					"description": "SUSE Bug 1129016"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The Broadcom brcmfmac WiFi driver prior to commit a4176ec356c73a46c07c181c6d04039fafa34a9f is vulnerable to a frame validation bypass. If the brcmfmac driver receives a firmware event frame from a remote source, the is_wlc_event_frame function will cause this frame to be discarded and unprocessed. If the driver receives the firmware event frame from the host, the appropriate handler is called. This frame validation can be bypassed if the bus used is USB (for instance by a wifi dongle). This can allow firmware event frames from a remote source to be processed. In the worst case scenario, by sending specially-crafted WiFi packets, a remote, unauthenticated attacker may be able to execute arbitrary code on a vulnerable system. More typically, this vulnerability will result in denial-of-service conditions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-9503",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Module for Public Cloud 12:kernel-ec2-extra-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-default-man-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server 12 SP1-LTSS:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-default-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-macros-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-source-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-syms-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-base-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kernel-xen-devel-3.12.74-60.64.110.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-default-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:kgraft-patch-3_12_74-60_64_110-xen-1-2.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-2.7.0-4.4.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP1:lttng-modules-kmp-default-2.7.0_k3.12.74_60.64.110-4.4.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.9",
+					"vector_v_2": "AV:A/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.7",
+					"vector_v_3": "CVSS:3.0/AV:A/AC:H/PR:N/UI:N/S:C/C:L/I:L/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191289-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-9503.html",
+					"description": "CVE-2019-9503"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1132673",
+					"description": "SUSE Bug 1132673"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1132828",
+					"description": "SUSE Bug 1132828"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1133319",
+					"description": "SUSE Bug 1133319"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1156653",
+					"description": "SUSE Bug 1156653"
+				}
+			]
+		}
+	]
+}

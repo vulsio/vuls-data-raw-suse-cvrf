@@ -1,0 +1,1398 @@
+{
+	"document_title": "Security update for postgresql13",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2023:4455-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2023-11-16T05:41:20Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2023-11-16T05:41:20Z",
+		"current_release_date": "2023-11-16T05:41:20Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for postgresql13",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for postgresql13 fixes the following issues:\n\nSecurity issues fixed:\n\n* CVE-2023-5868: Fix handling of unknown-type\n  arguments in DISTINCT 'any' aggregate functions. This error led\n  to a text-type value being interpreted as an unknown-type value\n  (that is, a zero-terminated string) at runtime. This could\n  result in disclosure of server memory following the text value. (bsc#1216962)\n* CVE-2023-5869: Detect integer overflow while\n  computing new array dimensions. When assigning new elements to\n  array subscripts that are outside the current array bounds, an\n  undetected integer overflow could occur in edge cases. Memory\n  stomps that are potentially exploitable for arbitrary code\n  execution are possible, and so is disclosure of server memory. (bsc#1216961)\n* CVE-2023-5870: Prevent the pg_signal_backend role\n  from signalling background workers and autovacuum processes.\n  The documentation says that pg_signal_backend cannot issue\n  signals to superuser-owned processes. It was able to signal\n  these background  processes, though, because they advertise a\n  role OID of zero. Treat that as indicating superuser ownership.\n  The security implications of cancelling one of these process\n  types are fairly small so far as the core code goes (we'll just\n  start another one), but extensions might add background workers\n  that are more vulnerable.\n  Also ensure that the is_superuser parameter is set correctly in\n  such processes. No specific security consequences are known for\n  that oversight, but it might be significant for some extensions.\n  (bsc#1216960)\n\n\n- Updated to 13.13: https://www.postgresql.org/docs/13/release-13-13.html\n\n- Overhaul postgresql-README.SUSE and move it from the binary\n  package to the noarch wrapper package.\n- Change the unix domain socket location from /var/run to /run.\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2023-4455,SUSE-SLE-Module-Legacy-15-SP4-2023-4455,SUSE-SLE-Product-HPC-15-SP2-LTSS-2023-4455,SUSE-SLE-Product-HPC-15-SP3-ESPOS-2023-4455,SUSE-SLE-Product-HPC-15-SP3-LTSS-2023-4455,SUSE-SLE-Product-SLES-15-SP2-LTSS-2023-4455,SUSE-SLE-Product-SLES-15-SP3-LTSS-2023-4455,SUSE-SLE-Product-SLES-15-SP5-ERICSSON-2023-4455,SUSE-SLE-Product-SLES_SAP-15-SP2-2023-4455,SUSE-SLE-Product-SLES_SAP-15-SP3-2023-4455,SUSE-Storage-7.1-2023-4455,openSUSE-SLE-15.4-2023-4455,openSUSE-SLE-15.5-2023-4455",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20234455-1/",
+			"description": "Link for SUSE-SU-2023:4455-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2023-November/017044.html",
+			"description": "E-Mail link for SUSE-SU-2023:4455-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1216022",
+			"description": "SUSE Bug 1216022"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1216734",
+			"description": "SUSE Bug 1216734"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1216960",
+			"description": "SUSE Bug 1216960"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1216961",
+			"description": "SUSE Bug 1216961"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1216962",
+			"description": "SUSE Bug 1216962"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-5868/",
+			"description": "SUSE CVE CVE-2023-5868 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-5869/",
+			"description": "SUSE CVE CVE-2023-5869 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-5870/",
+			"description": "SUSE CVE CVE-2023-5870 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Enterprise Storage 7.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Enterprise Storage 7.1",
+						"full_product_name": {
+							"text": "SUSE Enterprise Storage 7.1",
+							"product_id": "SUSE Enterprise Storage 7.1",
+							"cpe": "cpe:/o:suse:ses:7.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS",
+							"product_id": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS",
+							"cpe": "cpe:/o:suse:sle_hpc-ltss:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS",
+							"product_id": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS",
+							"cpe": "cpe:/o:suse:sle_hpc-espos:15:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS",
+							"product_id": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS",
+							"cpe": "cpe:/o:suse:sle_hpc-ltss:15:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Legacy 15 SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Legacy 15 SP4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Legacy 15 SP4",
+							"product_id": "SUSE Linux Enterprise Module for Legacy 15 SP4",
+							"cpe": "cpe:/o:suse:sle-module-legacy:15:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 15 SP2-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 15 SP2-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 15 SP2-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 15 SP2-LTSS",
+							"cpe": "cpe:/o:suse:sles-ltss:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 15 SP3-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 15 SP3-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 15 SP3-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 15 SP3-LTSS",
+							"cpe": "cpe:/o:suse:sles-ltss:15:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 15 SP2",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 15 SP2",
+							"cpe": "cpe:/o:suse:sles_sap:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP3",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 15 SP3",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 15 SP3",
+							"cpe": "cpe:/o:suse:sles_sap:15:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 15.4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 15.4",
+						"full_product_name": {
+							"text": "openSUSE Leap 15.4",
+							"product_id": "openSUSE Leap 15.4",
+							"cpe": "cpe:/o:opensuse:leap:15.4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 15.5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 15.5",
+						"full_product_name": {
+							"text": "openSUSE Leap 15.5",
+							"product_id": "openSUSE Leap 15.5",
+							"cpe": "cpe:/o:opensuse:leap:15.5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql13-13.13-150200.5.50.1",
+				"full_product_name": {
+					"text": "postgresql13-13.13-150200.5.50.1",
+					"product_id": "postgresql13-13.13-150200.5.50.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql13-contrib-13.13-150200.5.50.1",
+				"full_product_name": {
+					"text": "postgresql13-contrib-13.13-150200.5.50.1",
+					"product_id": "postgresql13-contrib-13.13-150200.5.50.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql13-devel-13.13-150200.5.50.1",
+				"full_product_name": {
+					"text": "postgresql13-devel-13.13-150200.5.50.1",
+					"product_id": "postgresql13-devel-13.13-150200.5.50.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql13-docs-13.13-150200.5.50.1",
+				"full_product_name": {
+					"text": "postgresql13-docs-13.13-150200.5.50.1",
+					"product_id": "postgresql13-docs-13.13-150200.5.50.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql13-llvmjit-13.13-150200.5.50.1",
+				"full_product_name": {
+					"text": "postgresql13-llvmjit-13.13-150200.5.50.1",
+					"product_id": "postgresql13-llvmjit-13.13-150200.5.50.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+				"full_product_name": {
+					"text": "postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+					"product_id": "postgresql13-llvmjit-devel-13.13-150200.5.50.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql13-plperl-13.13-150200.5.50.1",
+				"full_product_name": {
+					"text": "postgresql13-plperl-13.13-150200.5.50.1",
+					"product_id": "postgresql13-plperl-13.13-150200.5.50.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql13-plpython-13.13-150200.5.50.1",
+				"full_product_name": {
+					"text": "postgresql13-plpython-13.13-150200.5.50.1",
+					"product_id": "postgresql13-plpython-13.13-150200.5.50.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql13-pltcl-13.13-150200.5.50.1",
+				"full_product_name": {
+					"text": "postgresql13-pltcl-13.13-150200.5.50.1",
+					"product_id": "postgresql13-pltcl-13.13-150200.5.50.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql13-server-13.13-150200.5.50.1",
+				"full_product_name": {
+					"text": "postgresql13-server-13.13-150200.5.50.1",
+					"product_id": "postgresql13-server-13.13-150200.5.50.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql13-server-devel-13.13-150200.5.50.1",
+				"full_product_name": {
+					"text": "postgresql13-server-devel-13.13-150200.5.50.1",
+					"product_id": "postgresql13-server-devel-13.13-150200.5.50.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql13-test-13.13-150200.5.50.1",
+				"full_product_name": {
+					"text": "postgresql13-test-13.13-150200.5.50.1",
+					"product_id": "postgresql13-test-13.13-150200.5.50.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "postgresql13-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "postgresql13-contrib-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "postgresql13-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "postgresql13-docs-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "postgresql13-plperl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "postgresql13-plpython-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "postgresql13-pltcl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "postgresql13-server-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "postgresql13-server-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "postgresql13-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-contrib-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-docs-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-plperl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-plpython-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-pltcl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-server-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-server-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS"
+			},
+			{
+				"product_reference": "postgresql13-contrib-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS"
+			},
+			{
+				"product_reference": "postgresql13-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS"
+			},
+			{
+				"product_reference": "postgresql13-docs-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS"
+			},
+			{
+				"product_reference": "postgresql13-plperl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS"
+			},
+			{
+				"product_reference": "postgresql13-plpython-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS"
+			},
+			{
+				"product_reference": "postgresql13-pltcl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS"
+			},
+			{
+				"product_reference": "postgresql13-server-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS"
+			},
+			{
+				"product_reference": "postgresql13-server-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS"
+			},
+			{
+				"product_reference": "postgresql13-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-contrib-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-docs-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-plperl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-plpython-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-pltcl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-server-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-server-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP4"
+			},
+			{
+				"product_reference": "postgresql13-contrib-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP4"
+			},
+			{
+				"product_reference": "postgresql13-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP4"
+			},
+			{
+				"product_reference": "postgresql13-docs-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP4"
+			},
+			{
+				"product_reference": "postgresql13-llvmjit-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP4"
+			},
+			{
+				"product_reference": "postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP4"
+			},
+			{
+				"product_reference": "postgresql13-plperl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP4"
+			},
+			{
+				"product_reference": "postgresql13-plpython-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP4"
+			},
+			{
+				"product_reference": "postgresql13-pltcl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP4"
+			},
+			{
+				"product_reference": "postgresql13-server-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP4"
+			},
+			{
+				"product_reference": "postgresql13-server-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Legacy 15 SP4"
+			},
+			{
+				"product_reference": "postgresql13-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-contrib-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-docs-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-plperl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-plpython-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-pltcl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-server-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-server-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-contrib-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-docs-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-plperl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-plpython-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-pltcl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-server-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-server-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "postgresql13-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "postgresql13-contrib-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "postgresql13-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "postgresql13-docs-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "postgresql13-plperl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "postgresql13-plpython-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "postgresql13-pltcl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "postgresql13-server-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "postgresql13-server-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "postgresql13-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "postgresql13-contrib-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "postgresql13-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "postgresql13-docs-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "postgresql13-plperl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "postgresql13-plpython-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "postgresql13-pltcl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "postgresql13-server-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "postgresql13-server-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "postgresql13-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "postgresql13-contrib-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "postgresql13-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "postgresql13-docs-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "postgresql13-llvmjit-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "postgresql13-plperl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "postgresql13-plpython-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "postgresql13-pltcl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "postgresql13-server-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "postgresql13-server-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "postgresql13-test-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "postgresql13-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "postgresql13-contrib-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "postgresql13-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "postgresql13-docs-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "postgresql13-llvmjit-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "postgresql13-plperl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "postgresql13-plpython-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "postgresql13-pltcl-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "postgresql13-server-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "postgresql13-server-devel-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "postgresql13-test-13.13-150200.5.50.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "** RESERVED ** This candidate has been reserved by an organization or individual that will use it when announcing a new security problem. When the candidate has been publicized, the details for this candidate will be provided.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-5868",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:postgresql13-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-llvmjit-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-server-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-contrib-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-docs-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-llvmjit-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-plperl-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-plpython-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-pltcl-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-server-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-server-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-test-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-contrib-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-docs-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-llvmjit-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-plperl-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-plpython-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-pltcl-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-server-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-server-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-test-13.13-150200.5.50.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20234455-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-5868.html",
+					"description": "CVE-2023-5868"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1216962",
+					"description": "SUSE Bug 1216962"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "** RESERVED ** This candidate has been reserved by an organization or individual that will use it when announcing a new security problem. When the candidate has been publicized, the details for this candidate will be provided.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-5869",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:postgresql13-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-llvmjit-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-server-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-contrib-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-docs-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-llvmjit-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-plperl-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-plpython-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-pltcl-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-server-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-server-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-test-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-contrib-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-docs-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-llvmjit-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-plperl-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-plpython-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-pltcl-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-server-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-server-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-test-13.13-150200.5.50.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "critical"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "9.8",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20234455-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-5869.html",
+					"description": "CVE-2023-5869"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1216961",
+					"description": "SUSE Bug 1216961"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "** RESERVED ** This candidate has been reserved by an organization or individual that will use it when announcing a new security problem. When the candidate has been publicized, the details for this candidate will be provided.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-5870",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:postgresql13-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Enterprise Storage 7.1:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-llvmjit-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Module for Legacy 15 SP4:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:postgresql13-server-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-contrib-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-devel-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-docs-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-plperl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-plpython-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-pltcl-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-server-13.13-150200.5.50.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:postgresql13-server-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-contrib-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-docs-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-llvmjit-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-plperl-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-plpython-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-pltcl-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-server-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-server-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.4:postgresql13-test-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-contrib-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-docs-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-llvmjit-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-llvmjit-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-plperl-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-plpython-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-pltcl-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-server-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-server-devel-13.13-150200.5.50.1",
+						"openSUSE Leap 15.5:postgresql13-test-13.13-150200.5.50.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20234455-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-5870.html",
+					"description": "CVE-2023-5870"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1216960",
+					"description": "SUSE Bug 1216960"
+				}
+			]
+		}
+	]
+}

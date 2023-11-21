@@ -1,0 +1,249 @@
+{
+	"document_title": "Security update for libheimdal",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2017:2180-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2017-08-16T18:07:07Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2017-08-16T18:07:07Z",
+		"current_release_date": "2017-08-16T18:07:07Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for libheimdal",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for libheimdal fixes the following issues:\n\n    - Fix CVE-2017-11103: Orpheus' Lyre KDC-REP service name\n      validation.\n      This is a critical vulnerability.\n      In _krb5_extract_ticket() the KDC-REP service name must be\n      obtained from encrypted version stored in 'enc_part' instead\n      of the unencrypted version stored in 'ticket'.\n      Use of the unecrypted version provides an opportunity for\n      successful server impersonation and other attacks.\n      Identified by Jeffrey Altman, Viktor Duchovni and\n      Nico Williams.\n      See https://www.orpheus-lyre.info/ for more details. (bsc#1048278)\n\n    - Fix CVE-2017-6594: transit path validation inadvertently \n      caused the previous hop realm to not be added\n      to the transit path of issued tickets. This may, in some\n      cases, enable bypass of capath policy in Heimdal versions 1.5\n      through 7.2.\n      Note, this may break sites that rely on the bug. With the bug\n      some incomplete [capaths] worked, that should not have.\n      These may now break authentication in some cross-realm\n      configurations.\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-updates/2017-08/msg00062.html",
+			"description": "E-Mail link for openSUSE-SU-2017:2180-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 42.2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 42.2",
+						"full_product_name": {
+							"text": "openSUSE Leap 42.2",
+							"product_id": "openSUSE Leap 42.2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 42.3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 42.3",
+						"full_product_name": {
+							"text": "openSUSE Leap 42.3",
+							"product_id": "openSUSE Leap 42.3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libheimdal-7.4.0-3.1",
+				"full_product_name": {
+					"text": "libheimdal-7.4.0-3.1",
+					"product_id": "libheimdal-7.4.0-3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libheimdal-devel-7.4.0-3.1",
+				"full_product_name": {
+					"text": "libheimdal-devel-7.4.0-3.1",
+					"product_id": "libheimdal-devel-7.4.0-3.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "libheimdal-7.4.0-3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "libheimdal-devel-7.4.0-3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "libheimdal-7.4.0-3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			},
+			{
+				"product_reference": "libheimdal-devel-7.4.0-3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.3"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Heimdal before 7.4 allows remote attackers to impersonate services with Orpheus' Lyre attacks because it obtains service-principal names in a way that violates the Kerberos 5 protocol specification. In _krb5_extract_ticket() the KDC-REP service name must be obtained from the encrypted version stored in 'enc_part' instead of the unencrypted version stored in 'ticket'. Use of the unencrypted version provides an opportunity for successful server impersonation and other attacks. NOTE: this CVE is only for Heimdal and other products that embed Heimdal code; it does not apply to other instances in which this part of the Kerberos 5 protocol specification is violated.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-11103",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:libheimdal-7.4.0-3.1",
+						"openSUSE Leap 42.2:libheimdal-devel-7.4.0-3.1",
+						"openSUSE Leap 42.3:libheimdal-7.4.0-3.1",
+						"openSUSE Leap 42.3:libheimdal-devel-7.4.0-3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.1",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-updates/2017-08/msg00062.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-11103.html",
+					"description": "CVE-2017-11103"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1048278",
+					"description": "SUSE Bug 1048278"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The transit path validation code in Heimdal before 7.3 might allow attackers to bypass the capath policy protection mechanism by leveraging failure to add the previous hop realm to the transit path of issued tickets.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-6594",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:libheimdal-7.4.0-3.1",
+						"openSUSE Leap 42.2:libheimdal-devel-7.4.0-3.1",
+						"openSUSE Leap 42.3:libheimdal-7.4.0-3.1",
+						"openSUSE Leap 42.3:libheimdal-devel-7.4.0-3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-updates/2017-08/msg00062.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-6594.html",
+					"description": "CVE-2017-6594"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1048278",
+					"description": "SUSE Bug 1048278"
+				}
+			]
+		}
+	]
+}

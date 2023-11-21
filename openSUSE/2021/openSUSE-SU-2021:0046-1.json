@@ -1,0 +1,857 @@
+{
+	"document_title": "Security update for cobbler",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2021:0046-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2021-01-11T09:25:38Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2021-01-11T09:25:38Z",
+		"current_release_date": "2021-01-11T09:25:38Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for cobbler",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for cobbler fixes the following issues:\n\n- Add cobbler-tests subpackage for unit testing for openSUSE/SLE \n- Adds LoadModule definitions for openSUSE/SLE\n- Switch to new refactored auth module.\n\n- use systemctl to restart cobblerd on logfile rotation (boo#1169207)\n  Mainline logrotate conf file uses already /sbin/service instead of\n  outdated: /etc/init.d/cobblerd\n- Fix cobbler sync for DHCP or DNS (boo#1169553)\n  Fixed mainline by commit 2d6cfe42da\n- Signatures file now uses 'default_autoinstall' which fixes import\n  problem happening with some distributions (boo#1159010)\n  \n- Fix for kernel and initrd detection (boo#1159010)\n\n- New:\n  * For the distro there is now a parameter remote_boot_initrd and remote_boot_kernel ()\n  * For the profile there is now a parameter filename for DHCP. (#2280)\n  * Signatures for ESXi 6 and 7 (#2308)\n  * The hardlink command is now detected more dynamically and thus more error resistant (#2297)\n  * HTTPBoot will now work in some cases out of the bug. (#2295)\n  * Additional DNS query for a case where the wrong record was queried in the nsupdate system case (#2285)\n- Changes:\n  * Enabled a lot of tests, removed some and implemented new. (#2202)\n  * Removed not used files from the codebase. (#2302)\n  * Exchanged mkisofs to xorrisofs. (#2296)\n  * Removed duplicate code. (#2224)\n  * Removed unreachable code. (#2223)\n  * Snippet creation and deletion now works again via xmlrpc. (#2244)\n  * Replace createrepo with createrepo_c. (#2266)\n  * Enable Kerberos through having a case sensitive users.conf. (#2272)\n- Bugfixes:\n  * General various Bugfixes (#2331, )\n  * Makefile usage and commands. (#2344, #2304)\n  * Fix the dhcp template. (#2314)\n  * Creation of the management classes and gPXE. (#2310)\n  * Fix the scm_track module. (#2275, #2279)\n  * Fix passing the netdevice parameter correctly to the linuxrc. (#2263)\n  * powerstatus from cobbler now works thanks to a wrapper for ipmitool. (#2267)\n  * In case the LDAP is used for auth, it now works with ADs. (#2274)\n  * Fix passthru authentication. (#2271)\n- Other:\n  * Add Codecov. (#2229)\n  * Documentation updates. (#2333, #2326, #2305, #2249, #2268)\n  * Buildprocess:\n    *  Recreation and cleanup of Grub2. (#2278)\n    *  Fix small errors for openSUSE Leap. (#2233)\n    *  Fix rpmlint errors. (#2237)\n    *  Maximum compatibility for debbuild package creation. (#2255, #2292, #2242, #2300)\n  * Fixes related to our CI Pipeline (#2254, #2269)\n  * Internal Code cleanup (#2273, #2270)\n- Breaking Changes:\n  * Hash handling in users.digest file. (#2299) \n\n- Updated to version 3.1.1.\n  * Introduce new packaging from upstream\n  * Changelog see below\n- New:\n  * We are now having a cross-distro specfile which can be build in the OBS\n    (#2220) - before rewritten it was improved by #2144 & #2174\n  * Grub Submenu for net-booting machines (#2217)\n  * Building the Cent-OS RPMs in Docker (#2190 #2189)\n  * Reintroduced manpage build in setup.py (#2185)\n  * mgmt_parameters are now passed to the dhcp template (#2182)\n  * Using the standard Pyhton3 logger instead of a custom one (#2160 #2139 #2151)\n  * Script for converting the settings file from 3.0.0 to 3.0.1 (#2154)\n  * Docs now inside the repo instead of cobbler.github.io and improved with sphinx (#2117)\n- Changes:\n  * The default tftpboot directory is now /var/lib/tftpboot instead of previously /srv/tftpboot (#2220)\n  * Distro signatures were adjusted where necessary (#2219 #2134)\n  * Removed requirements.txt and placed the requirements in setup.py (#2204)\n  * Display only entries in grub which are from the same arch (#2191 #2216)\n  * Change the name of the cobbler manpage form cobbler-cli to cobbler back and move it to section 8 (#2188 #2186)\n- Bugfixes:\n  * Incremented Version to 3.1.1 from 3.0.1\n  * S390 Support was cleaned up (#2207 #2178)\n  * PowerPC Support was cleaned up (#2178)\n  * Added a missing import while importing a distro with cobbler import (#2201)\n  * Fixed a case where a stacktrace would be produced so pass none instead (#2203)\n  * Rename of suse_kopts_textmode_overwrite to kops_overwrite to utils (#2143 #2200)\n  * Fix rsync subprocess call (#2199 #2179)\n  * Fixed an error where the template rendering did not work (#2176)\n  * Fixed some cobbler import errors (#2172)\n  * Wrong shebang in various scripts (#2148)\n  * Fix some imports which fixes errors introduced by the remodularization (#2150 #2153)\n- Other:\n  * Issue Templates for Github (#2187)\n\n- Update to latest git HEAD code base\n  This version (from mainline so for quite a while already)\n  also includes fixes for 'boo#1149075' and boo#1151875\n\n- Fix for cobbler import and buildiso (boo#1156574)\n- Adjusted manpage creation (needs sphinx as BuildRequires)\n- Fix cobbler sync for dhcp and dns enabled due to latest module\n  renaming patches\n\n- Update to latest git HEAD\n   - Fixes permission denied in apache2 context when trying to write\n     cobbler log\n   - Fixes a bad import in import_signature (item)\n   - Fixes bad shebang bash path in mkgrub.sh (used in post section)\n\n- Now track Github master branch\n  WARNING: This release contains breaking changes for your settings file! \n  * Notable changes:\n    - Now using standard python logger\n    - Updated dhcpd.template \n- Removed fix_shebang.patch: now in upstream. \n- added -s parameter to fdupes call to prevent hardlink across \n  partititons\n\n- Update to latest v3.0.0 cobbler release\n- Add previouly added patch: exclude_get-loaders_command.patch to\n  the list of patches to apply.\n\n- Fix log file world readable (as suggested by Matthias Gerstner)\n  and change file attributes via attr in spec file\n- Do not allow get-loaders command (download of third party\n  provided network boot loaders we do not trust)\n- Mainline fixes:\n  3172d1df9b9cc8 Add missing help text in redhat_management_key field\n  c8f5490e507a72 Set default interface if cobbler system add has no\n                 --interface= param\n  31a1aa31d26c4a Remove apache IfVersion tags from apache configs\n\n- Integrated fixes that came in from mainline from other products\n  (to calm down obs regression checker):\n  CVE-2011-4953, fate#312397, boo#660126, boo#671212, boo#672471, boo#682665\n  boo#687891, boo#695955, boo#722443, boo#722445, boo#757062, boo#763610\n  boo#783671, boo#790545, boo#796773, boo#811025, boo#812948, boo#842699\n  boo#846580, boo#869371, boo#884051, boo#976826, boo#984998\n  Some older bugs need boo# references as well:\n  boo#660126, boo#671212, boo#672471, boo#682665\n  boo#687891, boo#695955, boo#722443, boo#722445, boo#757062, boo#763610\n  boo#783671, boo#790545, boo#796773, boo#811025, boo#812948, boo#842699\n  boo#846580, boo#869371, boo#884051\n\n- Fix for redhat_management_key not being listed as a choice\n  during profile rename (boo#1134588)\n- Added:\n  * rhn-mngmnt-key-field-fix.diff\n\n- Fixes distribution detection in setup.py for SLESo\n- Added:\n  * changes-detection-to-distro-like-for-suse-distributions.diff\n\n- Moving to pytest and adding Docker test integration\n- Added:\n  * add-docker-integration-testing.diff\n  * refactor-unittest-to-pytest.diff\n\n- Additional compatability changes for old Koan versions.\n- Modified:\n  * renamed-methods-alias-part2.patch\n\n- Old Koan versions not only need method aliases, but also need\n  compatible responses\n- Added:\n  * renamed-methods-alias-part2.patch\n\n- Add the redhat_managment_* fields again to enable templating in SUMA.\n- Added:\n  * revert-redhat-management-removal.patch  \n\n- Changes return of last_modified_time RPC to float\n- Added:\n  * changes-return-to-float.diff\n\n- provide old name aliases for all renamed methods:\n  - get_distro_for_koan     =>  get_distro_as_rendered\n  - get_profile_for_koan    =>  get_profile_as_rendered\n  - get_system_for_koan     =>  get_system_as_rendered\n  - get_repo_for_koan       =>  get_repo_as_rendered\n  - get_image_for_koan      =>  get_image_as_rendered\n  - get_mgmtclass_for_koan  =>  get_mgmtclass_as_rendered\n  - get_package_for_koan    =>  get_package_as_rendered\n  - get_file_for_koan       =>  get_file_as_rendered\n- Renamed:\n  get_system_for_koan.patch => renamed-methods-alias.patch\n\n- provide renamed method 'get_system_for_koan' under old name\n  for old clients.\n- Added:\n  * get_system_for_koan.patch\n\n- Bring back power_system method in the XML-RPC API\n- Changed lanplus option to lanplus=true in fence_ipmitool.template\n- Added:\n  * power_system_xmlrpc_api.patch\n- Changed:\n  * fence_ipmitool.template\n\n- Disables nsupdate_enabled by default\n- Added:\n  * disable_nsupdate_enabled_by_default.diff\n\n- Fixes issue in distribution detection with 'lower' function call.\n- Modified:\n  * remodeled-distro-detection.diff  \n\n- Adds imporoved distribution detection. Since now all base products\n  get detected correctly, we no longer need the SUSE Manager patch.\n- Added:\n  * remodeled-distro-detection.diff  \n\n- fix grub directory layout\n- Added:\n  * create-system-directory-at-the-correct-place.patch\n\n- fix HTTP status code of XMLRPC service\n- Added:\n  * fix-http-status-code.patch\n\n- touch /etc/genders when it not exists (boo#1128926)\n- Add patches to fix logging\n- Added:\n  * return-the-name-of-the-unknown-method.patch\n  * call-with-logger-where-possible.patch\n\n- Switching version schema from 3.0 to 3.0.0\n\n- Fixes case where distribution detection returns None (boo#1130658)\n- Added:\n  * fixes-distro-none-case.diff\n\n- Removes newline from token, which caused authentication error (boo#1128754)\n- Added:\n  * remove-newline-from-token.diff\n\n- Added a patch which fixes an exception when login in with a non-root user.\n- Added:\n  * fix-login-error.patch\n\n- Added a patch which fixes an exception when login in with a non-root user.\n- Added:\n  * fix-login-error.patch\n  \n\n- Remove patch merged at upstream:\n  * 0001-return-token-as-string.patch\n\n- change grub2-x86_64-efi dependency to Recommends\n\n- grub2-i386pc is not really required. Changed to recommended\n  to allow building for architectures other than x86_64\n\n- Use cdrtools starting with SLE-15 and Leap-15 again. (boo#1081739)\n- Update cobbler loaders server hostname (boo#980577)\n- Update outdated apache config (boo#956264)\n- Replace builddate with changelog date to fix build-compare (boo#969538)\n- LOCKFILE usage removed on openSUSE (boo#714618)\n- Power management subsystem completely re-worked to prevent\n  command-injection (CVE-2012-2395)\n- Removed patch merged at upstream:\n  * cobblerd_needs_apache2_service_started.patch\n\n- Checking bug fixes of released products are in latest develop pkg:\n  - remove fix-nameserver-search.fix; bug is invalid (boo#1029276)\n    -> not needed anymore\n  - fix cobbler yaboot handling (boo#968406, boo#966622)\n    -> no yaboot support anymore\n  - support UEFI boot with cobbler generated tftp tree (boo#1020376)\n    -> upstream\n  - Enabling PXE grub2 support for PowerPC (boo#986978)\n    -> We have grub2 support for ppc64le\n  - (boo#1048183) fix missing args and location for xen\n    -> is in\n  - no koan support anymore:\n    boo#969541, boo#924118, boo#967523\n  - not installed (boo#966841)\n    works.\n- These still have to be looked at:\n  SUSE system as systemd only (boo#952844)\n  handle list value for kernel options \n  correctly (boo#973413) \n  entry in pxe menu (boo#988889)\n- This still has to be switched off (at least in internal cobbler versions):\n  Disabling 'get-loaders' command and 'check' fixed. boo#973418\n\n- Add explicity require to tftp, so it is used for both SLE\n  and openSUSE (originally from jgonzalez@suse.com)\n- Moved Recommends according to spec_cleaner\n\n- Require latest apache2-mod_wsgi-python3 package\n  This fixes interface to http://localhost/cblr/svc/...\n- Use latest github cobbler/cobbler master branch in _service file\n- cobblerd_needs_apache2_service_started.patch reverted, that is mainline\n  now:\n- Only recommend grub2-arm and grub2-ppc packages or we might not be\n  able to build on factory where arm/ppc might not be built\n- Remove genders package requires. A genders file is generated, but\n  we do not need/use the genders package.\n\n- Update to latest cobbler version 3.0 mainline git HEAD version\n  and remove already integrated or not needed anymore patches.\n- Serial console support added, did some testing already\n  Things should start to work as expected\n\n- Add general grub2 support\n\n- Put mkgrub.* into mkgrub.sh\n\n- Add git date and commit to version string for now\n\n- Add grub2 mkimage scripts:\nmkgrub.i386-pc\nmkgrub.powerpc-ieee1275\nmkgrub.x86_64-efi\nmkgrub.arm64-efi\n  and generate grub executables with them in the %post section\n  \n\n- build server wants explicite package in BuildRequires; use tftp\n- require tftp(server) instead of atftp\n- cleanup: cobbler is noarch, so arch specific requires do not make\n  sense\n- SLES15 is using /etc/os-release instead of /etc/SuSE-release, use\n  this one for checking also\n- add sles15 distro profile (boo#1090205)\n- fix signature for SLES15 (boo#1075014)\n- fix signature for SLES15 (boo#1075014)\n- fix koan wait parameter initialization\n- Fix koan shebang\n- Escape shell parameters provided by the user for the\n  reposync action (CVE-2017-1000469) (boo#1074594)\n- detect if there is already another instance of 'cobbler sync'\n  running and exit with failure if so (boo#1081714)\n- do not try to hardlink to a symlink. The result will be a\n  dangling symlink in the general case (boo#1097733)\n- fix service restart after logrotate for cobblerd (boo#1113747)\n- rotate cobbler logs at higher frequency to prevent disk fillup\n  (boo#1113747)\n- Forbid exposure of private methods in the API (CVE-2018-10931)\n  (CVE-2018-1000225) (boo#1104287) (boo#1104189) (boo#1105442)\n- Check access token when calling 'modify_setting' API endpoint\n  (boo#1104190) (boo#1105440) (CVE-2018-1000226)\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "openSUSE-2021-46",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/KL7UG4FHNZKUU44UQUG34HXRAOJ27FI2/",
+			"description": "E-Mail link for openSUSE-SU-2021:0046-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1020376",
+			"description": "SUSE Bug 1020376"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1029276",
+			"description": "SUSE Bug 1029276"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1048183",
+			"description": "SUSE Bug 1048183"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1074594",
+			"description": "SUSE Bug 1074594"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1075014",
+			"description": "SUSE Bug 1075014"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1081714",
+			"description": "SUSE Bug 1081714"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1081739",
+			"description": "SUSE Bug 1081739"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1090205",
+			"description": "SUSE Bug 1090205"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1097733",
+			"description": "SUSE Bug 1097733"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1101670",
+			"description": "SUSE Bug 1101670"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1104189",
+			"description": "SUSE Bug 1104189"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1104190",
+			"description": "SUSE Bug 1104190"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1104287",
+			"description": "SUSE Bug 1104287"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1105440",
+			"description": "SUSE Bug 1105440"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1105442",
+			"description": "SUSE Bug 1105442"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1113747",
+			"description": "SUSE Bug 1113747"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1128754",
+			"description": "SUSE Bug 1128754"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1128926",
+			"description": "SUSE Bug 1128926"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1130658",
+			"description": "SUSE Bug 1130658"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1134588",
+			"description": "SUSE Bug 1134588"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1149075",
+			"description": "SUSE Bug 1149075"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1151875",
+			"description": "SUSE Bug 1151875"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1156574",
+			"description": "SUSE Bug 1156574"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1159010",
+			"description": "SUSE Bug 1159010"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1169207",
+			"description": "SUSE Bug 1169207"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1169553",
+			"description": "SUSE Bug 1169553"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1169779",
+			"description": "SUSE Bug 1169779"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1170462",
+			"description": "SUSE Bug 1170462"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/660126",
+			"description": "SUSE Bug 660126"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/671212",
+			"description": "SUSE Bug 671212"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/672471",
+			"description": "SUSE Bug 672471"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/682665",
+			"description": "SUSE Bug 682665"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/687891",
+			"description": "SUSE Bug 687891"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/695955",
+			"description": "SUSE Bug 695955"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/714618",
+			"description": "SUSE Bug 714618"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/722443",
+			"description": "SUSE Bug 722443"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/722445",
+			"description": "SUSE Bug 722445"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/757062",
+			"description": "SUSE Bug 757062"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/763610",
+			"description": "SUSE Bug 763610"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/783671",
+			"description": "SUSE Bug 783671"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/790545",
+			"description": "SUSE Bug 790545"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/796773",
+			"description": "SUSE Bug 796773"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/811025",
+			"description": "SUSE Bug 811025"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/812948",
+			"description": "SUSE Bug 812948"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/842699",
+			"description": "SUSE Bug 842699"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/846580",
+			"description": "SUSE Bug 846580"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/869371",
+			"description": "SUSE Bug 869371"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/884051",
+			"description": "SUSE Bug 884051"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/924118",
+			"description": "SUSE Bug 924118"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/952844",
+			"description": "SUSE Bug 952844"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/956264",
+			"description": "SUSE Bug 956264"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/966622",
+			"description": "SUSE Bug 966622"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/966841",
+			"description": "SUSE Bug 966841"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/967523",
+			"description": "SUSE Bug 967523"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/968406",
+			"description": "SUSE Bug 968406"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/969538",
+			"description": "SUSE Bug 969538"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/969541",
+			"description": "SUSE Bug 969541"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/973413",
+			"description": "SUSE Bug 973413"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/973418",
+			"description": "SUSE Bug 973418"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/976826",
+			"description": "SUSE Bug 976826"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/980577",
+			"description": "SUSE Bug 980577"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/984998",
+			"description": "SUSE Bug 984998"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/986978",
+			"description": "SUSE Bug 986978"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/988889",
+			"description": "SUSE Bug 988889"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2011-4953/",
+			"description": "SUSE CVE CVE-2011-4953 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2012-2395/",
+			"description": "SUSE CVE CVE-2012-2395 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-1000469/",
+			"description": "SUSE CVE CVE-2017-1000469 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-1000225/",
+			"description": "SUSE CVE CVE-2018-1000225 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-1000226/",
+			"description": "SUSE CVE CVE-2018-1000226 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10931/",
+			"description": "SUSE CVE CVE-2018-10931 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 15.2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 15.2",
+						"full_product_name": {
+							"text": "openSUSE Leap 15.2",
+							"product_id": "openSUSE Leap 15.2",
+							"cpe": "cpe:/o:opensuse:leap:15.2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "cobbler-3.1.2-lp152.6.3.1",
+				"full_product_name": {
+					"text": "cobbler-3.1.2-lp152.6.3.1",
+					"product_id": "cobbler-3.1.2-lp152.6.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cobbler-tests-3.1.2-lp152.6.3.1",
+				"full_product_name": {
+					"text": "cobbler-tests-3.1.2-lp152.6.3.1",
+					"product_id": "cobbler-tests-3.1.2-lp152.6.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cobbler-web-3.1.2-lp152.6.3.1",
+				"full_product_name": {
+					"text": "cobbler-web-3.1.2-lp152.6.3.1",
+					"product_id": "cobbler-web-3.1.2-lp152.6.3.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "cobbler-3.1.2-lp152.6.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.2"
+			},
+			{
+				"product_reference": "cobbler-tests-3.1.2-lp152.6.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.2"
+			},
+			{
+				"product_reference": "cobbler-web-3.1.2-lp152.6.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.2"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "The set_mgmt_parameters function in item.py in cobbler before 2.2.2 allows context-dependent attackers to execute arbitrary code via vectors related to the use of the yaml.load function instead of the yaml.safe_load function, as demonstrated using Puppet.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2011-4953",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 15.2:cobbler-3.1.2-lp152.6.3.1",
+						"openSUSE Leap 15.2:cobbler-tests-3.1.2-lp152.6.3.1",
+						"openSUSE Leap 15.2:cobbler-web-3.1.2-lp152.6.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/KL7UG4FHNZKUU44UQUG34HXRAOJ27FI2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2011-4953.html",
+					"description": "CVE-2011-4953"
+				},
+				{
+					"url": "https://bugzilla.suse.com/757062",
+					"description": "SUSE Bug 757062"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Incomplete blacklist vulnerability in action_power.py in Cobbler 2.2.0 allows remote attackers to execute arbitrary commands via shell metacharacters in the (1) username or (2) password fields to the power_system method in the xmlrpc API.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2012-2395",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 15.2:cobbler-3.1.2-lp152.6.3.1",
+						"openSUSE Leap 15.2:cobbler-tests-3.1.2-lp152.6.3.1",
+						"openSUSE Leap 15.2:cobbler-web-3.1.2-lp152.6.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/KL7UG4FHNZKUU44UQUG34HXRAOJ27FI2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2012-2395.html",
+					"description": "CVE-2012-2395"
+				},
+				{
+					"url": "https://bugzilla.suse.com/763610",
+					"description": "SUSE Bug 763610"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Cobbler version up to 2.8.2 is vulnerable to a command injection vulnerability in the \"add repo\" component resulting in arbitrary code execution as root user.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-1000469",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 15.2:cobbler-3.1.2-lp152.6.3.1",
+						"openSUSE Leap 15.2:cobbler-tests-3.1.2-lp152.6.3.1",
+						"openSUSE Leap 15.2:cobbler-web-3.1.2-lp152.6.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "10",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.3",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/KL7UG4FHNZKUU44UQUG34HXRAOJ27FI2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-1000469.html",
+					"description": "CVE-2017-1000469"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1074594",
+					"description": "SUSE Bug 1074594"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Cobbler version Verified as present in Cobbler versions 2.6.11+, but code inspection suggests at least 2.0.0+ or possibly even older versions may be vulnerable contains a Cross Site Scripting (XSS) vulnerability in cobbler-web that can result in Privilege escalation to admin.. This attack appear to be exploitable via \"network connectivity\". Sending unauthenticated JavaScript payload to the Cobbler XMLRPC API (/cobbler_api).",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-1000225",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 15.2:cobbler-3.1.2-lp152.6.3.1",
+						"openSUSE Leap 15.2:cobbler-tests-3.1.2-lp152.6.3.1",
+						"openSUSE Leap 15.2:cobbler-web-3.1.2-lp152.6.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "critical"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9.8",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/KL7UG4FHNZKUU44UQUG34HXRAOJ27FI2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-1000225.html",
+					"description": "CVE-2018-1000225"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1104190",
+					"description": "SUSE Bug 1104190"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1104287",
+					"description": "SUSE Bug 1104287"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1105442",
+					"description": "SUSE Bug 1105442"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Cobbler version Verified as present in Cobbler versions 2.6.11+, but code inspection suggests at least 2.0.0+ or possibly even older versions may be vulnerable contains a Incorrect Access Control vulnerability in XMLRPC API (/cobbler_api) that can result in Privilege escalation, data manipulation or exfiltration, LDAP credential harvesting. This attack appear to be exploitable via \"network connectivity\". Taking advantage of improper validation of security tokens in API endpoints. Please note this is a different issue than CVE-2018-10931.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-1000226",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 15.2:cobbler-3.1.2-lp152.6.3.1",
+						"openSUSE Leap 15.2:cobbler-tests-3.1.2-lp152.6.3.1",
+						"openSUSE Leap 15.2:cobbler-web-3.1.2-lp152.6.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9.1",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/KL7UG4FHNZKUU44UQUG34HXRAOJ27FI2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-1000226.html",
+					"description": "CVE-2018-1000226"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1104190",
+					"description": "SUSE Bug 1104190"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1104287",
+					"description": "SUSE Bug 1104287"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1105440",
+					"description": "SUSE Bug 1105440"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1105442",
+					"description": "SUSE Bug 1105442"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1131852",
+					"description": "SUSE Bug 1131852"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "It was found that cobbler 2.6.x exposed all functions from its CobblerXMLRPCInterface class over XMLRPC. A remote, unauthenticated attacker could use this flaw to gain high privileges within cobbler, upload files to arbitrary location in the context of the daemon.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10931",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 15.2:cobbler-3.1.2-lp152.6.3.1",
+						"openSUSE Leap 15.2:cobbler-tests-3.1.2-lp152.6.3.1",
+						"openSUSE Leap 15.2:cobbler-web-3.1.2-lp152.6.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "critical"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9.8",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/KL7UG4FHNZKUU44UQUG34HXRAOJ27FI2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10931.html",
+					"description": "CVE-2018-10931"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1104189",
+					"description": "SUSE Bug 1104189"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1104190",
+					"description": "SUSE Bug 1104190"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1104287",
+					"description": "SUSE Bug 1104287"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1105440",
+					"description": "SUSE Bug 1105440"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1105442",
+					"description": "SUSE Bug 1105442"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1130105",
+					"description": "SUSE Bug 1130105"
+				}
+			]
+		}
+	]
+}

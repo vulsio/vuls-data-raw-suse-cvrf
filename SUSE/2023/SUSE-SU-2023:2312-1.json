@@ -1,0 +1,2887 @@
+{
+	"document_title": "Security update for go1.18-openssl",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2023:2312-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2023-05-30T06:54:51Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2023-05-30T06:54:51Z",
+		"current_release_date": "2023-05-30T06:54:51Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for go1.18-openssl",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for go1.18-openssl fixes the following issues:\n\n- Add subpackage go1.x-libstd compiled shared object libstd.so (jsc#PED-1962)\n  * Main go1.x package included libstd.so in previous versions\n  * Split libstd.so into subpackage that can be installed standalone\n  * Continues the slimming down of main go1.x package by 40 Mb\n  * Experimental and not recommended for general use, Go currently has no ABI\n  * Upstream Go has not committed to support buildmode=shared long-term\n  * Do not use in packaging, build static single binaries (the default)\n  * Upstream Go go1.x binary releases do not include libstd.so\n  * go1.x Suggests go1.x-libstd so not installed by default Recommends\n  * go1.x-libstd does not Require: go1.x so can install standalone\n  * Provides go-libstd unversioned package name\n  * Fix build step -buildmode=shared std to omit -linkshared\n- Packaging improvements:\n  * go1.x Suggests go1.x-doc so not installed by default Recommends\n  * Use Group: Development/Languages/Go instead of Other\n\n- Improvements to go1.x packaging spec:\n  * On Tumbleweed bootstrap with current default gcc13 and gccgo118\n  * On SLE-12 aarch64 ppc64le ppc64 remove overrides to bootstrap\n    using go1.x package (%bcond_without gccgo). This is no longer\n    needed on current SLE-12:Update and removing will consolidate\n    the build configurations used.\n  * Change source URLs to go.dev as per Go upstream\n  * On x86_64 export GOAMD64=v1 as per the current baseline.\n    At this time forgo GOAMD64=v3 option for x86_64_v3 support.\n  * On x86_64 %define go_amd64=v1 as current instruction baseline\n\n- Update to version 1.18.10.1 cut from the go1.18-openssl-fips\n  branch at the revision tagged go1.18.10-1-openssl-fips.\n  * Merge branch dev.boringcrypto.go1.18 into go1.18-openssl-fips\n  * Merge go1.18.10 into dev.boringcrypto.go1.18\n\n- go1.18.10 (released 2023-01-10) includes fixes to cgo, the\n  compiler, the linker, and the crypto/x509, net/http, and syscall\n  packages.\n  Refs bsc#1193742 go1.18 release tracking\n  * go#57705 misc/cgo: backport needed for dlltool fix\n  * go#57426 crypto/x509: Verify on macOS does not return typed errors\n  * go#57344 cmd/compile: the loong64 intrinsic for CompareAndSwapUint32 function needs to sign extend its 'old' argument.\n  * go#57338 syscall, internal/poll: accept4-to-accept fallback removal broke Go code on Synology DSM 6.2 ARM devices\n  * go#57213 os: TestLstat failure on Linux Aarch64\n  * go#57211 reflect: sort.SliceStable sorts incorrectly on arm64 with less function created with reflect.MakeFunc and slice of sufficient length\n  * go#57057 cmd/go: remove test dependency on gopkg.in service\n  * go#57054 cmd/go: TestScript/version_buildvcs_git_gpg (if enabled) fails on linux longtest builders\n  * go#57044 cgo: malformed DWARF TagVariable entry\n  * go#57028 cmd/cgo: Wrong types in compiler errors with clang 14\n  * go#56833 cmd/link/internal/ppc64: too-far trampoline is reused\n  * go#56711 net: reenable TestLookupDotsWithRemoteSource and TestLookupGoogleSRV with a different target\n  * go#56323 net/http: bad handling of HEAD requests with a body\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2023-2312,SUSE-SLE-Module-Development-Tools-15-SP4-2023-2312,SUSE-SLE-Product-HPC-15-SP3-ESPOS-2023-2312,SUSE-SLE-Product-HPC-15-SP3-LTSS-2023-2312,SUSE-SLE-Product-RT-15-SP3-2023-2312,SUSE-SLE-Product-SLES-15-SP3-LTSS-2023-2312,SUSE-SLE-Product-SLES_SAP-15-SP3-2023-2312,SUSE-Storage-7.1-2023-2312,openSUSE-SLE-15.4-2023-2312,openSUSE-SLE-15.5-2023-2312",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/",
+			"description": "Link for SUSE-SU-2023:2312-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2023-May/015005.html",
+			"description": "E-Mail link for SUSE-SU-2023:2312-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1183043",
+			"description": "SUSE Bug 1183043"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1193742",
+			"description": "SUSE Bug 1193742"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1198423",
+			"description": "SUSE Bug 1198423"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1198424",
+			"description": "SUSE Bug 1198424"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1198427",
+			"description": "SUSE Bug 1198427"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1199413",
+			"description": "SUSE Bug 1199413"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1200134",
+			"description": "SUSE Bug 1200134"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1200135",
+			"description": "SUSE Bug 1200135"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1200136",
+			"description": "SUSE Bug 1200136"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1200137",
+			"description": "SUSE Bug 1200137"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1201434",
+			"description": "SUSE Bug 1201434"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1201436",
+			"description": "SUSE Bug 1201436"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1201437",
+			"description": "SUSE Bug 1201437"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1201440",
+			"description": "SUSE Bug 1201440"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1201443",
+			"description": "SUSE Bug 1201443"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1201444",
+			"description": "SUSE Bug 1201444"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1201445",
+			"description": "SUSE Bug 1201445"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1201447",
+			"description": "SUSE Bug 1201447"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1201448",
+			"description": "SUSE Bug 1201448"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1202035",
+			"description": "SUSE Bug 1202035"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1203185",
+			"description": "SUSE Bug 1203185"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1204023",
+			"description": "SUSE Bug 1204023"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1204024",
+			"description": "SUSE Bug 1204024"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1204025",
+			"description": "SUSE Bug 1204025"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1204941",
+			"description": "SUSE Bug 1204941"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206134",
+			"description": "SUSE Bug 1206134"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206135",
+			"description": "SUSE Bug 1206135"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1208270",
+			"description": "SUSE Bug 1208270"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1208271",
+			"description": "SUSE Bug 1208271"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1208272",
+			"description": "SUSE Bug 1208272"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1208491",
+			"description": "SUSE Bug 1208491"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-1705/",
+			"description": "SUSE CVE CVE-2022-1705 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-1962/",
+			"description": "SUSE CVE CVE-2022-1962 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-24675/",
+			"description": "SUSE CVE CVE-2022-24675 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-27536/",
+			"description": "SUSE CVE CVE-2022-27536 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-27664/",
+			"description": "SUSE CVE CVE-2022-27664 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-28131/",
+			"description": "SUSE CVE CVE-2022-28131 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-28327/",
+			"description": "SUSE CVE CVE-2022-28327 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-2879/",
+			"description": "SUSE CVE CVE-2022-2879 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-2880/",
+			"description": "SUSE CVE CVE-2022-2880 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-29526/",
+			"description": "SUSE CVE CVE-2022-29526 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-29804/",
+			"description": "SUSE CVE CVE-2022-29804 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-30580/",
+			"description": "SUSE CVE CVE-2022-30580 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-30629/",
+			"description": "SUSE CVE CVE-2022-30629 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-30630/",
+			"description": "SUSE CVE CVE-2022-30630 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-30631/",
+			"description": "SUSE CVE CVE-2022-30631 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-30632/",
+			"description": "SUSE CVE CVE-2022-30632 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-30633/",
+			"description": "SUSE CVE CVE-2022-30633 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-30634/",
+			"description": "SUSE CVE CVE-2022-30634 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-30635/",
+			"description": "SUSE CVE CVE-2022-30635 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-32148/",
+			"description": "SUSE CVE CVE-2022-32148 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-32189/",
+			"description": "SUSE CVE CVE-2022-32189 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-41715/",
+			"description": "SUSE CVE CVE-2022-41715 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-41716/",
+			"description": "SUSE CVE CVE-2022-41716 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-41717/",
+			"description": "SUSE CVE CVE-2022-41717 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-41720/",
+			"description": "SUSE CVE CVE-2022-41720 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-41723/",
+			"description": "SUSE CVE CVE-2022-41723 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-41724/",
+			"description": "SUSE CVE CVE-2022-41724 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-41725/",
+			"description": "SUSE CVE CVE-2022-41725 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Enterprise Storage 7.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Enterprise Storage 7.1",
+						"full_product_name": {
+							"text": "SUSE Enterprise Storage 7.1",
+							"product_id": "SUSE Enterprise Storage 7.1",
+							"cpe": "cpe:/o:suse:ses:7.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS",
+							"product_id": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS",
+							"cpe": "cpe:/o:suse:sle_hpc-espos:15:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS",
+							"product_id": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS",
+							"cpe": "cpe:/o:suse:sle_hpc-ltss:15:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Development Tools 15 SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Development Tools 15 SP4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Development Tools 15 SP4",
+							"product_id": "SUSE Linux Enterprise Module for Development Tools 15 SP4",
+							"cpe": "cpe:/o:suse:sle-module-development-tools:15:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Real Time 15 SP3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Real Time 15 SP3",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Real Time 15 SP3",
+							"product_id": "SUSE Linux Enterprise Real Time 15 SP3",
+							"cpe": "cpe:/o:suse:sle_rt:15:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 15 SP3-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 15 SP3-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 15 SP3-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 15 SP3-LTSS",
+							"cpe": "cpe:/o:suse:sles-ltss:15:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP3",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 15 SP3",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 15 SP3",
+							"cpe": "cpe:/o:suse:sles_sap:15:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 15.4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 15.4",
+						"full_product_name": {
+							"text": "openSUSE Leap 15.4",
+							"product_id": "openSUSE Leap 15.4",
+							"cpe": "cpe:/o:opensuse:leap:15.4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 15.5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 15.5",
+						"full_product_name": {
+							"text": "openSUSE Leap 15.5",
+							"product_id": "openSUSE Leap 15.5",
+							"cpe": "cpe:/o:opensuse:leap:15.5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "go1.18-openssl-1.18.10.1-150000.1.9.1",
+				"full_product_name": {
+					"text": "go1.18-openssl-1.18.10.1-150000.1.9.1",
+					"product_id": "go1.18-openssl-1.18.10.1-150000.1.9.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+				"full_product_name": {
+					"text": "go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+					"product_id": "go1.18-openssl-doc-1.18.10.1-150000.1.9.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+				"full_product_name": {
+					"text": "go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+					"product_id": "go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "go1.18-openssl-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "go1.18-openssl-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS"
+			},
+			{
+				"product_reference": "go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS"
+			},
+			{
+				"product_reference": "go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS"
+			},
+			{
+				"product_reference": "go1.18-openssl-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "go1.18-openssl-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP4"
+			},
+			{
+				"product_reference": "go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP4"
+			},
+			{
+				"product_reference": "go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP4"
+			},
+			{
+				"product_reference": "go1.18-openssl-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Real Time 15 SP3"
+			},
+			{
+				"product_reference": "go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Real Time 15 SP3"
+			},
+			{
+				"product_reference": "go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Real Time 15 SP3"
+			},
+			{
+				"product_reference": "go1.18-openssl-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "go1.18-openssl-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "go1.18-openssl-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "go1.18-openssl-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Acceptance of some invalid Transfer-Encoding headers in the HTTP/1 client in net/http before Go 1.17.12 and Go 1.18.4 allows HTTP request smuggling if combined with an intermediate server that also improperly fails to reject the header as invalid.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-1705",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-1705.html",
+					"description": "CVE-2022-1705"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201434",
+					"description": "SUSE Bug 1201434"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Uncontrolled recursion in the Parse functions in go/parser before Go 1.17.12 and Go 1.18.4 allow an attacker to cause a panic due to stack exhaustion via deeply nested types or declarations.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-1962",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-1962.html",
+					"description": "CVE-2022-1962"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201448",
+					"description": "SUSE Bug 1201448"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "encoding/pem in Go before 1.17.9 and 1.18.x before 1.18.1 has a Decode stack overflow via a large amount of PEM data.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-24675",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-24675.html",
+					"description": "CVE-2022-24675"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1198423",
+					"description": "SUSE Bug 1198423"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Certificate.Verify in crypto/x509 in Go 1.18.x before 1.18.1 can be caused to panic on macOS when presented with certain malformed certificates. This allows a remote TLS server to cause a TLS client to panic.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-27536",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-27536.html",
+					"description": "CVE-2022-27536"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1198427",
+					"description": "SUSE Bug 1198427"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In net/http in Go before 1.18.6 and 1.19.x before 1.19.1, attackers can cause a denial of service because an HTTP/2 connection can hang during closing if shutdown were preempted by a fatal error.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-27664",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-27664.html",
+					"description": "CVE-2022-27664"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1203185",
+					"description": "SUSE Bug 1203185"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1203293",
+					"description": "SUSE Bug 1203293"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Uncontrolled recursion in Decoder.Skip in encoding/xml before Go 1.17.12 and Go 1.18.4 allows an attacker to cause a panic due to stack exhaustion via a deeply nested XML document.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-28131",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-28131.html",
+					"description": "CVE-2022-28131"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201443",
+					"description": "SUSE Bug 1201443"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The generic P-256 feature in crypto/elliptic in Go before 1.17.9 and 1.18.x before 1.18.1 allows a panic via long scalar input.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-28327",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-28327.html",
+					"description": "CVE-2022-28327"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1198424",
+					"description": "SUSE Bug 1198424"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Reader.Read does not set a limit on the maximum size of file headers. A maliciously crafted archive could cause Read to allocate unbounded amounts of memory, potentially causing resource exhaustion or panics. After fix, Reader.Read limits the maximum size of header blocks to 1 MiB.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-2879",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-2879.html",
+					"description": "CVE-2022-2879"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1204024",
+					"description": "SUSE Bug 1204024"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Requests forwarded by ReverseProxy include the raw query parameters from the inbound request, including unparsable parameters rejected by net/http. This could permit query parameter smuggling when a Go proxy forwards a parameter with an unparsable value. After fix, ReverseProxy sanitizes the query parameters in the forwarded query when the outbound request's Form field is set after the ReverseProxy. Director function returns, indicating that the proxy has parsed the query parameters. Proxies which do not parse query parameters continue to forward the original query parameters unchanged.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-2880",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-2880.html",
+					"description": "CVE-2022-2880"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1204025",
+					"description": "SUSE Bug 1204025"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1204076",
+					"description": "SUSE Bug 1204076"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Go before 1.17.10 and 1.18.x before 1.18.2 has Incorrect Privilege Assignment. When called with a non-zero flags parameter, the Faccessat function could incorrectly report that a file is accessible.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-29526",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-29526.html",
+					"description": "CVE-2022-29526"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199413",
+					"description": "SUSE Bug 1199413"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Incorrect conversion of certain invalid paths to valid, absolute paths in Clean in path/filepath before Go 1.17.11 and Go 1.18.3 on Windows allows potential directory traversal attack.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-29804",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "4.8",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-29804.html",
+					"description": "CVE-2022-29804"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1200137",
+					"description": "SUSE Bug 1200137"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Code injection in Cmd.Start in os/exec before Go 1.17.11 and Go 1.18.3 allows execution of any binaries in the working directory named either \"..com\" or \"..exe\" by calling Cmd.Run, Cmd.Start, Cmd.Output, or Cmd.CombinedOutput when Cmd.Path is unset.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-30580",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-30580.html",
+					"description": "CVE-2022-30580"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1200136",
+					"description": "SUSE Bug 1200136"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Non-random values for ticket_age_add in session tickets in crypto/tls before Go 1.17.11 and Go 1.18.3 allow an attacker that can observe TLS handshakes to correlate successive connections by comparing ticket ages during session resumption.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-30629",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "3.7",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-30629.html",
+					"description": "CVE-2022-30629"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1200135",
+					"description": "SUSE Bug 1200135"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Uncontrolled recursion in Glob in io/fs before Go 1.17.12 and Go 1.18.4 allows an attacker to cause a panic due to stack exhaustion via a path which contains a large number of path separators.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-30630",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-30630.html",
+					"description": "CVE-2022-30630"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201447",
+					"description": "SUSE Bug 1201447"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Uncontrolled recursion in Reader.Read in compress/gzip before Go 1.17.12 and Go 1.18.4 allows an attacker to cause a panic due to stack exhaustion via an archive containing a large number of concatenated 0-length compressed files.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-30631",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-30631.html",
+					"description": "CVE-2022-30631"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201437",
+					"description": "SUSE Bug 1201437"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Uncontrolled recursion in Glob in path/filepath before Go 1.17.12 and Go 1.18.4 allows an attacker to cause a panic due to stack exhaustion via a path containing a large number of path separators.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-30632",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-30632.html",
+					"description": "CVE-2022-30632"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201445",
+					"description": "SUSE Bug 1201445"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Uncontrolled recursion in Unmarshal in encoding/xml before Go 1.17.12 and Go 1.18.4 allows an attacker to cause a panic due to stack exhaustion via unmarshalling an XML document into a Go struct which has a nested field that uses the 'any' field tag.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-30633",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-30633.html",
+					"description": "CVE-2022-30633"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201440",
+					"description": "SUSE Bug 1201440"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Infinite loop in Read in crypto/rand before Go 1.17.11 and Go 1.18.3 on Windows allows attacker to cause an indefinite hang by passing a buffer larger than 1 << 32 - 1 bytes.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-30634",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "2.9",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-30634.html",
+					"description": "CVE-2022-30634"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1200134",
+					"description": "SUSE Bug 1200134"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Uncontrolled recursion in Decoder.Decode in encoding/gob before Go 1.17.12 and Go 1.18.4 allows an attacker to cause a panic due to stack exhaustion via a message which contains deeply nested structures.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-30635",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-30635.html",
+					"description": "CVE-2022-30635"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201444",
+					"description": "SUSE Bug 1201444"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Improper exposure of client IP addresses in net/http before Go 1.17.12 and Go 1.18.4 can be triggered by calling httputil.ReverseProxy.ServeHTTP with a Request.Header map containing a nil value for the X-Forwarded-For header, which causes ReverseProxy to set the client IP as the value of the X-Forwarded-For header.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-32148",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-32148.html",
+					"description": "CVE-2022-32148"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201436",
+					"description": "SUSE Bug 1201436"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A too-short encoded message can cause a panic in Float.GobDecode and Rat GobDecode in math/big in Go before 1.17.13 and 1.18.5, potentially allowing a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-32189",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-32189.html",
+					"description": "CVE-2022-32189"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1202035",
+					"description": "SUSE Bug 1202035"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Programs which compile regular expressions from untrusted sources may be vulnerable to memory exhaustion or denial of service. The parsed regexp representation is linear in the size of the input, but in some cases the constant factor can be as high as 40,000, making relatively small regexps consume much larger amounts of memory. After fix, each regexp being parsed is limited to a 256 MB memory footprint. Regular expressions whose representation would use more space than that are rejected. Normal use of regular expressions is unaffected.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-41715",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-41715.html",
+					"description": "CVE-2022-41715"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1204023",
+					"description": "SUSE Bug 1204023"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1208441",
+					"description": "SUSE Bug 1208441"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Due to unsanitized NUL values, attackers may be able to maliciously set environment variables on Windows. In syscall.StartProcess and os/exec.Cmd, invalid environment variable values containing NUL values are not properly checked for. A malicious environment variable value can exploit this behavior to set a value for a different environment variable. For example, the environment variable string \"A=B\\x00C=D\" sets the variables \"A=B\" and \"C=D\".",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-41716",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "0",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-41716.html",
+					"description": "CVE-2022-41716"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1204941",
+					"description": "SUSE Bug 1204941"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests. HTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-41717",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-41717.html",
+					"description": "CVE-2022-41717"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206135",
+					"description": "SUSE Bug 1206135"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "On Windows, restricted files can be accessed via os.DirFS and http.Dir. The os.DirFS function and http.Dir type provide access to a tree of files rooted at a given directory. These functions permit access to Windows device files under that root. For example, os.DirFS(\"C:/tmp\").Open(\"COM1\") opens the COM1 device. Both os.DirFS and http.Dir only provide read-only filesystem access. In addition, on Windows, an os.DirFS for the directory (the root of the current drive) can permit a maliciously crafted path to escape from the drive and access any path on the system. With fix applied, the behavior of os.DirFS(\"\") has changed. Previously, an empty root was treated equivalently to \"/\", so os.DirFS(\"\").Open(\"tmp\") would open the path \"/tmp\". This now returns an error.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-41720",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-41720.html",
+					"description": "CVE-2022-41720"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206134",
+					"description": "SUSE Bug 1206134"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-41723",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-41723.html",
+					"description": "CVE-2022-41723"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1208270",
+					"description": "SUSE Bug 1208270"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1215588",
+					"description": "SUSE Bug 1215588"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Large handshake records may cause panics in crypto/tls. Both clients and servers may send large TLS handshake records which cause servers and clients, respectively, to panic when attempting to construct responses. This affects all TLS 1.3 clients, TLS 1.2 clients which explicitly enable session resumption (by setting Config.ClientSessionCache to a non-nil value), and TLS 1.3 servers which request client certificates (by setting Config.ClientAuth >= RequestClientCert).",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-41724",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-41724.html",
+					"description": "CVE-2022-41724"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1208271",
+					"description": "SUSE Bug 1208271"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A denial of service is possible from excessive resource consumption in net/http and mime/multipart. Multipart form parsing with mime/multipart.Reader.ReadForm can consume largely unlimited amounts of memory and disk files. This also affects form parsing in the net/http package with the Request methods FormFile, FormValue, ParseMultipartForm, and PostFormValue. ReadForm takes a maxMemory parameter, and is documented as storing \"up to maxMemory bytes +10MB (reserved for non-file parts) in memory\". File parts which cannot be stored in memory are stored on disk in temporary files. The unconfigurable 10MB reserved for non-file parts is excessively large and can potentially open a denial of service vector on its own. However, ReadForm did not properly account for all memory consumed by a parsed form, such as map entry overhead, part names, and MIME headers, permitting a maliciously crafted form to consume well over 10MB. In addition, ReadForm contained no limit on the number of disk files created, permitting a relatively small request body to create a large number of disk temporary files. With fix, ReadForm now properly accounts for various forms of memory overhead, and should now stay within its documented limit of 10MB + maxMemory bytes of memory consumption. Users should still be aware that this limit is high and may still be hazardous. In addition, ReadForm now creates at most one on-disk temporary file, combining multiple form parts into a single temporary file. The mime/multipart.File interface type's documentation states, \"If stored on disk, the File's underlying concrete type will be an *os.File.\". This is no longer the case when a form contains more than one file part, due to this coalescing of parts into a single file. The previous behavior of using distinct files for each form part may be reenabled with the environment variable GODEBUG=multipartfiles=distinct. Users should be aware that multipart.ReadForm and the http.Request methods that call it do not limit the amount of disk consumed by temporary files. Callers can limit the size of form data with http.MaxBytesReader.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-41725",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Enterprise Storage 7.1:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-ESPOS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Real Time 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.4:go1.18-openssl-race-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-doc-1.18.10.1-150000.1.9.1",
+						"openSUSE Leap 15.5:go1.18-openssl-race-1.18.10.1-150000.1.9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20232312-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-41725.html",
+					"description": "CVE-2022-41725"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1208272",
+					"description": "SUSE Bug 1208272"
+				}
+			]
+		}
+	]
+}

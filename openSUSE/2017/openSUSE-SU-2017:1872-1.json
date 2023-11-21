@@ -1,0 +1,2164 @@
+{
+	"document_title": "Security update for qemu",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2017:1872-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2017-07-14T18:43:09Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2017-07-14T18:43:09Z",
+		"current_release_date": "2017-07-14T18:43:09Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for qemu",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for qemu fixes several issues.\n\nThese security issues were fixed:\n\n- CVE-2017-9330: USB OHCI Emulation in qemu allowed local guest OS users to cause a denial of service (infinite loop) by leveraging an incorrect return value (bsc#1042159).\n- CVE-2017-8379: Memory leak in the keyboard input event handlers support allowed local guest OS privileged users to cause a denial of service (host memory consumption) by rapidly generating large keyboard events (bsc#1037334).\n- CVE-2017-8309: Memory leak in the audio/audio.c allowed remote attackers to cause a denial of service (memory consumption) by repeatedly starting and stopping audio capture (bsc#1037242).\n- CVE-2017-7493: The VirtFS, host directory sharing via Plan 9 File System(9pfs) support, was vulnerable to an improper access control issue. It could occur while accessing virtfs metadata files in mapped-file security mode. A guest user could have used this flaw to escalate their privileges inside guest (bsc#1039495).\n- CVE-2017-7377: The v9fs_create and v9fs_lcreate functions in hw/9pfs/9p.c allowed local guest OS privileged users to cause a denial of service (file descriptor or memory consumption) via vectors related to an already in-use fid (bsc#1032075).\n- CVE-2017-8086: A memory leak in the v9fs_list_xattr function in hw/9pfs/9p-xattr.c allowed local guest OS privileged users to cause a denial of service (memory consumption) via vectors involving the orig_value variable (bsc#1035950).\n- CVE-2017-5973: A infinite loop while doing control transfer in xhci_kick_epctx allowed privileged user inside the guest to crash the host process resulting in DoS (bsc#1025109)\n- CVE-2017-5987: The sdhci_sdma_transfer_multi_blocks function in hw/sd/sdhci.c allowed local OS guest privileged users to cause a denial of service (infinite loop and QEMU process crash) via vectors involving the transfer mode register during multi block transfer (bsc#1025311).\n- CVE-2017-6505: The ohci_service_ed_list function in hw/usb/hcd-ohci.c allowed local guest OS users to cause a denial of service (infinite loop) via vectors involving the number of link endpoint list descriptors (bsc#1028184)\n- CVE-2016-9603: A privileged user within the guest VM could have caused a heap overflow in the device model process, potentially escalating their privileges to that of the device model process (bsc#1028656)\n- CVE-2017-7718: hw/display/cirrus_vga_rop.h allowed local guest OS privileged users to cause a denial of service (out-of-bounds read and QEMU process crash) via vectors related to copying VGA data via the cirrus_bitblt_rop_fwd_transp_ and cirrus_bitblt_rop_fwd_ functions (bsc#1034908)\n- CVE-2017-7980: An out-of-bounds r/w access issues in the Cirrus CLGD 54xx VGA Emulator support allowed privileged user inside guest to use this flaw to crash the Qemu process resulting in DoS or potentially execute arbitrary code on a host with privileges of Qemu process on the host (bsc#1035406)\n- CVE-2017-8112: hw/scsi/vmw_pvscsi.c allowed local guest OS privileged users to cause a denial of service (infinite loop and CPU consumption) via the message ring page count (bsc#1036211).\n- CVE-2017-9375: The USB xHCI controller emulator support was vulnerable to an infinite recursive call loop issue, which allowed a privileged user inside guest to crash the Qemu process resulting in DoS (bsc#1042800).\n- CVE-2017-9374: Missing free of 's->ipacket', causes a host memory leak, allowing for DoS (bsc#1043073).\n- CVE-2017-9373: The IDE AHCI Emulation support was vulnerable to a host memory leakage issue, which allowed a privileged user inside guest to leak host memory resulting in DoS (bsc#1042801).\n- CVE-2017-8380: The MegaRAID SAS 8708EM2 Host Bus Adapter emulation support was vulnerable to an out-of-bounds read access issue which allowed a privileged user inside guest to read host memory resulting in DoS (bsc#1037336).\n- CVE-2016-9602: The VirtFS host directory sharing via Plan 9 File System(9pfs) support was vulnerable to an improper link following issue which allowed a privileged user inside guest to access host file system beyond the shared folder and potentially escalating their privileges on a host (bsc#1020427).\n- CVE-2017-7471: The VirtFS host directory sharing via Plan 9 File System(9pfs) support was vulnerable to an improper access control issue which allowed a privileged user inside guest to access host file system beyond the shared folder and potentially escalating their privileges on a host (bsc#1034866).\n- Fix privilege escalation in TCG mode of QEMU. This is not considered a security issue by the upstream project, but is included as additional hardening (bsc#1030624)\n- Fix potential DoS in virtfs\n- CVE-2016-10028: The Virtio GPU Device emulator support was vulnerable to an out of bounds memory access issue allowing a guest user to crash the Qemu process instance on a host, resulting in DoS (bsc#1017084, bsc#1016503)\n- CVE-2016-10029: The Virtio GPU Device emulator support was vulnerable to an OOB read issue allowing a guest user to crash the Qemu process instance resulting in Dos (bsc#1017081, bsc#1016504)\n- CVE-2017-5579: The 16550A UART serial device emulation support was vulnerable to a memory leakage issue allowing a privileged user to cause a DoS and/or potentially crash the Qemu process on the host (bsc#1021741)\n- CVE-2017-9503: The MegaRAID SAS 8708EM2 Host Bus Adapter emulation support was vulnerable to a null pointer dereference issue which allowed a privileged user inside guest to crash the Qemu process on the host resulting in DoS (bsc#1043296).\n\nThis non-security issue was fixed:\n\n- Enable MONITOR/MWAIT support for guests (bsc#1031142)\n\nThis update was imported from the SUSE:SLE-12-SP2:Update update project.",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html",
+			"description": "E-Mail link for openSUSE-SU-2017:1872-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 42.2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 42.2",
+						"full_product_name": {
+							"text": "openSUSE Leap 42.2",
+							"product_id": "openSUSE Leap 42.2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-2.6.2-31.3.3",
+					"product_id": "qemu-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-arm-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-arm-2.6.2-31.3.3",
+					"product_id": "qemu-arm-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-block-curl-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-block-curl-2.6.2-31.3.3",
+					"product_id": "qemu-block-curl-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-block-dmg-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-block-dmg-2.6.2-31.3.3",
+					"product_id": "qemu-block-dmg-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-block-iscsi-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-block-iscsi-2.6.2-31.3.3",
+					"product_id": "qemu-block-iscsi-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-block-rbd-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-block-rbd-2.6.2-31.3.3",
+					"product_id": "qemu-block-rbd-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-block-ssh-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-block-ssh-2.6.2-31.3.3",
+					"product_id": "qemu-block-ssh-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-extra-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-extra-2.6.2-31.3.3",
+					"product_id": "qemu-extra-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-guest-agent-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-guest-agent-2.6.2-31.3.3",
+					"product_id": "qemu-guest-agent-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-ipxe-1.0.0-31.3.3",
+				"full_product_name": {
+					"text": "qemu-ipxe-1.0.0-31.3.3",
+					"product_id": "qemu-ipxe-1.0.0-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-kvm-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-kvm-2.6.2-31.3.3",
+					"product_id": "qemu-kvm-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-lang-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-lang-2.6.2-31.3.3",
+					"product_id": "qemu-lang-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-linux-user-2.6.2-31.3.1",
+				"full_product_name": {
+					"text": "qemu-linux-user-2.6.2-31.3.1",
+					"product_id": "qemu-linux-user-2.6.2-31.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-ppc-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-ppc-2.6.2-31.3.3",
+					"product_id": "qemu-ppc-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-s390-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-s390-2.6.2-31.3.3",
+					"product_id": "qemu-s390-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-seabios-1.9.1-31.3.3",
+				"full_product_name": {
+					"text": "qemu-seabios-1.9.1-31.3.3",
+					"product_id": "qemu-seabios-1.9.1-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-sgabios-8-31.3.3",
+				"full_product_name": {
+					"text": "qemu-sgabios-8-31.3.3",
+					"product_id": "qemu-sgabios-8-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-testsuite-2.6.2-31.3.6",
+				"full_product_name": {
+					"text": "qemu-testsuite-2.6.2-31.3.6",
+					"product_id": "qemu-testsuite-2.6.2-31.3.6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-tools-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-tools-2.6.2-31.3.3",
+					"product_id": "qemu-tools-2.6.2-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-vgabios-1.9.1-31.3.3",
+				"full_product_name": {
+					"text": "qemu-vgabios-1.9.1-31.3.3",
+					"product_id": "qemu-vgabios-1.9.1-31.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-x86-2.6.2-31.3.3",
+				"full_product_name": {
+					"text": "qemu-x86-2.6.2-31.3.3",
+					"product_id": "qemu-x86-2.6.2-31.3.3"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "qemu-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-arm-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-block-curl-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-block-dmg-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-block-iscsi-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-block-rbd-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-block-ssh-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-extra-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-guest-agent-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-ipxe-1.0.0-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-kvm-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-lang-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-linux-user-2.6.2-31.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-ppc-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-s390-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-seabios-1.9.1-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-sgabios-8-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-testsuite-2.6.2-31.3.6",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-tools-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-vgabios-1.9.1-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			},
+			{
+				"product_reference": "qemu-x86-2.6.2-31.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 42.2"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "The virgl_cmd_get_capset function in hw/display/virtio-gpu-3d.c in QEMU (aka Quick Emulator) built with Virtio GPU Device emulator support allows local guest OS users to cause a denial of service (out-of-bounds read and process crash) via a VIRTIO_GPU_CMD_GET_CAPSET command with a maximum capabilities size with a value of 0.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-10028",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-10028.html",
+					"description": "CVE-2016-10028"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1017084",
+					"description": "SUSE Bug 1017084"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1017085",
+					"description": "SUSE Bug 1017085"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The virtio_gpu_set_scanout function in QEMU (aka Quick Emulator) built with Virtio GPU Device emulator support allows local guest OS users to cause a denial of service (out-of-bounds read and process crash) via a scanout id in a VIRTIO_GPU_CMD_SET_SCANOUT command larger than num_scanouts.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-10029",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-10029.html",
+					"description": "CVE-2016-10029"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1017081",
+					"description": "SUSE Bug 1017081"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1017082",
+					"description": "SUSE Bug 1017082"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Qemu before version 2.9 is vulnerable to an improper link following when built with the VirtFS. A privileged user inside guest could use this flaw to access host file system beyond the shared folder and potentially escalating their privileges on a host.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-9602",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.7",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.8",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-9602.html",
+					"description": "CVE-2016-9602"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020427",
+					"description": "SUSE Bug 1020427"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A heap buffer overflow flaw was found in QEMU's Cirrus CLGD 54xx VGA emulator's VNC display driver support before 2.9; the issue could occur when a VNC client attempted to update its display after a VGA operation is performed by a guest. A privileged user/process inside a guest could use this flaw to crash the QEMU process or, potentially, execute arbitrary code on the host with privileges of the QEMU process.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-9603",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.5",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9.9",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-9603.html",
+					"description": "CVE-2016-9603"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1028655",
+					"description": "SUSE Bug 1028655"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1028656",
+					"description": "SUSE Bug 1028656"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Memory leak in the serial_exit_core function in hw/char/serial.c in QEMU (aka Quick Emulator) allows local guest OS privileged users to cause a denial of service (host memory consumption and QEMU process crash) via a large number of device unplug operations.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-5579",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.3",
+					"vector_v_2": "AV:A/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-5579.html",
+					"description": "CVE-2017-5579"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1021741",
+					"description": "SUSE Bug 1021741"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1022627",
+					"description": "SUSE Bug 1022627"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The xhci_kick_epctx function in hw/usb/hcd-xhci.c in QEMU (aka Quick Emulator) allows local guest OS privileged users to cause a denial of service (infinite loop and QEMU process crash) via vectors related to control transfer descriptor sequence.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-5973",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.3",
+					"vector_v_2": "AV:A/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-5973.html",
+					"description": "CVE-2017-5973"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1025109",
+					"description": "SUSE Bug 1025109"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1025188",
+					"description": "SUSE Bug 1025188"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The sdhci_sdma_transfer_multi_blocks function in hw/sd/sdhci.c in QEMU (aka Quick Emulator) allows local OS guest privileged users to cause a denial of service (infinite loop and QEMU process crash) via vectors involving the transfer mode register during multi block transfer.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-5987",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-5987.html",
+					"description": "CVE-2017-5987"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1025311",
+					"description": "SUSE Bug 1025311"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The ohci_service_ed_list function in hw/usb/hcd-ohci.c in QEMU (aka Quick Emulator) before 2.9.0 allows local guest OS users to cause a denial of service (infinite loop) via vectors involving the number of link endpoint list descriptors, a different vulnerability than CVE-2017-9330.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-6505",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-6505.html",
+					"description": "CVE-2017-6505"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1028184",
+					"description": "SUSE Bug 1028184"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1028235",
+					"description": "SUSE Bug 1028235"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The (1) v9fs_create and (2) v9fs_lcreate functions in hw/9pfs/9p.c in QEMU (aka Quick Emulator) allow local guest OS privileged users to cause a denial of service (file descriptor or memory consumption) via vectors related to an already in-use fid.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7377",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:H/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7377.html",
+					"description": "CVE-2017-7377"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1032075",
+					"description": "SUSE Bug 1032075"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Quick Emulator (Qemu) built with the VirtFS, host directory sharing via Plan 9 File System (9pfs) support, is vulnerable to an improper access control issue. It could occur while accessing files on a shared host directory. A privileged user inside guest could use this flaw to access host file system beyond the shared folder and potentially escalating their privileges on a host.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7471",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9",
+					"vector_v_3": "CVSS:3.0/AV:A/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7471.html",
+					"description": "CVE-2017-7471"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1034866",
+					"description": "SUSE Bug 1034866"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1034990",
+					"description": "SUSE Bug 1034990"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Quick Emulator (Qemu) built with the VirtFS, host directory sharing via Plan 9 File System(9pfs) support, is vulnerable to an improper access control issue. It could occur while accessing virtfs metadata files in mapped-file security mode. A guest user could use this flaw to escalate their privileges inside guest.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7493",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7493.html",
+					"description": "CVE-2017-7493"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1039495",
+					"description": "SUSE Bug 1039495"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "hw/display/cirrus_vga_rop.h in QEMU (aka Quick Emulator) allows local guest OS privileged users to cause a denial of service (out-of-bounds read and QEMU process crash) via vectors related to copying VGA data via the cirrus_bitblt_rop_fwd_transp_ and cirrus_bitblt_rop_fwd_ functions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7718",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.4",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:P/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7718.html",
+					"description": "CVE-2017-7718"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1034908",
+					"description": "SUSE Bug 1034908"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1034994",
+					"description": "SUSE Bug 1034994"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Heap-based buffer overflow in Cirrus CLGD 54xx VGA Emulator in Quick Emulator (Qemu) 2.8 and earlier allows local guest OS users to execute arbitrary code or cause a denial of service (crash) via vectors related to a VNC client updating its display after a VGA operation.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-7980",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.1",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-7980.html",
+					"description": "CVE-2017-7980"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1035406",
+					"description": "SUSE Bug 1035406"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1035483",
+					"description": "SUSE Bug 1035483"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Memory leak in the v9fs_list_xattr function in hw/9pfs/9p-xattr.c in QEMU (aka Quick Emulator) allows local guest OS privileged users to cause a denial of service (memory consumption) via vectors involving the orig_value variable.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-8086",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-8086.html",
+					"description": "CVE-2017-8086"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1035950",
+					"description": "SUSE Bug 1035950"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "hw/scsi/vmw_pvscsi.c in QEMU (aka Quick Emulator) allows local guest OS privileged users to cause a denial of service (infinite loop and CPU consumption) via the message ring page count.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-8112",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-8112.html",
+					"description": "CVE-2017-8112"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1036211",
+					"description": "SUSE Bug 1036211"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1036470",
+					"description": "SUSE Bug 1036470"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Memory leak in the audio/audio.c in QEMU (aka Quick Emulator) allows remote attackers to cause a denial of service (memory consumption) by repeatedly starting and stopping audio capture.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-8309",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-8309.html",
+					"description": "CVE-2017-8309"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1037242",
+					"description": "SUSE Bug 1037242"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1037243",
+					"description": "SUSE Bug 1037243"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Memory leak in the keyboard input event handlers support in QEMU (aka Quick Emulator) allows local guest OS privileged users to cause a denial of service (host memory consumption) by rapidly generating large keyboard events.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-8379",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.5",
+					"vector_v_2": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-8379.html",
+					"description": "CVE-2017-8379"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1037334",
+					"description": "SUSE Bug 1037334"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Buffer overflow in the \"megasas_mmio_write\" function in Qemu 2.9.0 allows remote attackers to have unspecified impact via unknown vectors.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-8380",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9.8",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-8380.html",
+					"description": "CVE-2017-8380"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1037336",
+					"description": "SUSE Bug 1037336"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "QEMU (aka Quick Emulator) before 2.9.0, when built with the USB OHCI Emulation support, allows local guest OS users to cause a denial of service (infinite loop) by leveraging an incorrect return value, a different vulnerability than CVE-2017-6505.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-9330",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-9330.html",
+					"description": "CVE-2017-9330"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1042159",
+					"description": "SUSE Bug 1042159"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1042160",
+					"description": "SUSE Bug 1042160"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1043157",
+					"description": "SUSE Bug 1043157"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Memory leak in QEMU (aka Quick Emulator), when built with IDE AHCI Emulation support, allows local guest OS privileged users to cause a denial of service (memory consumption) by repeatedly hot-unplugging the AHCI device.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-9373",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-9373.html",
+					"description": "CVE-2017-9373"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1042801",
+					"description": "SUSE Bug 1042801"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Memory leak in QEMU (aka Quick Emulator), when built with USB EHCI Emulation support, allows local guest OS privileged users to cause a denial of service (memory consumption) by repeatedly hot-unplugging the device.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-9374",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.7",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-9374.html",
+					"description": "CVE-2017-9374"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1043073",
+					"description": "SUSE Bug 1043073"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1043074",
+					"description": "SUSE Bug 1043074"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "QEMU (aka Quick Emulator), when built with USB xHCI controller emulator support, allows local guest OS privileged users to cause a denial of service (infinite recursive call) via vectors involving control transfer descriptors sequencing.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-9375",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-9375.html",
+					"description": "CVE-2017-9375"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1042800",
+					"description": "SUSE Bug 1042800"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "QEMU (aka Quick Emulator), when built with MegaRAID SAS 8708EM2 Host Bus Adapter emulation support, allows local guest OS privileged users to cause a denial of service (NULL pointer dereference and QEMU process crash) via vectors involving megasas command processing.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-9503",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Leap 42.2:qemu-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-arm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-curl-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-dmg-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-iscsi-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-rbd-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-block-ssh-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-extra-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-guest-agent-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-ipxe-1.0.0-31.3.3",
+						"openSUSE Leap 42.2:qemu-kvm-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-lang-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-linux-user-2.6.2-31.3.1",
+						"openSUSE Leap 42.2:qemu-ppc-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-s390-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-seabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-sgabios-8-31.3.3",
+						"openSUSE Leap 42.2:qemu-testsuite-2.6.2-31.3.6",
+						"openSUSE Leap 42.2:qemu-tools-2.6.2-31.3.3",
+						"openSUSE Leap 42.2:qemu-vgabios-1.9.1-31.3.3",
+						"openSUSE Leap 42.2:qemu-x86-2.6.2-31.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "Please Install the update.",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/opensuse-security-announce/2017-07/msg00023.html"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-9503.html",
+					"description": "CVE-2017-9503"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1043296",
+					"description": "SUSE Bug 1043296"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1043297",
+					"description": "SUSE Bug 1043297"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1043312",
+					"description": "SUSE Bug 1043312"
+				}
+			]
+		}
+	]
+}

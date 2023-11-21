@@ -1,0 +1,1919 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2022:0080-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2022-01-14T11:08:11Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2022-01-14T11:08:11Z",
+		"current_release_date": "2022-01-14T11:08:11Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThe SUSE Linux Enterprise 12 SP5 kernel was updated.\n\nThe following security bugs were fixed:\n\n- CVE-2021-4083: Fixed a race condition with Unix domain socket garbage collection that can lead to read memory after free. (bsc#1193727)\n- CVE-2021-4149: Fixed an improper lock operation in btrfs which allows users to crash the kernel or deadlock the system. (bsc#1194001)\n- CVE-2021-45485: Fixed an information leak because of certain use of a hash table which use IPv6 source addresses. (bsc#1194094)\n- CVE-2021-45486: Fixed an information leak because the hash table is very small in net/ipv4/route.c. (bsc#1194087)\n- CVE-2021-0920: Fixed a local privilege escalation due to an use after free bug in unix_gc. (bsc#1193731) \n- CVE-2021-28715: Fixed an issue where a guest could force Linux netback driver to hog large amounts of kernel memory by do not queueing unlimited number of packages. (bsc#1193442)\n- CVE-2021-28714: Fixed an issue where a guest could force Linux netback driver to hog large amounts of kernel memory by fixing rx queue stall detection. (bsc#1193442)\n- CVE-2021-28713: Fixed a rogue backends that could cause DoS of guests via high frequency events by hardening hvc_xen against event channel storms. (bsc#1193440)\n- CVE-2021-28712: Fixed a rogue backends that could cause DoS of guests via high frequency events by hardening netfront against event channel storms. (bsc#1193440)\n- CVE-2021-28711: Fixed a rogue backends that could cause DoS of guests via high frequency events by hardening blkfront against event channel storms. (bsc#1193440)\n- CVE-2018-25020: Fixed an issue in the BPF subsystem in the Linux kernel mishandled situations with a long jump over an instruction sequence where inner instructions require substantial expansions into multiple BPF instructions, leading to an overflow. (bsc#1193575)\n- CVE-2021-4002: Added a missing TLB flush that could lead to leak or corruption of data in hugetlbfs. (bsc#1192946)\n- CVE-2021-0935: Fixed out of bounds write due to a use after free which could lead to local escalation of privilege with System execution privileges needed in ip6_xmit. (bsc#1192032)\n- CVE-2019-15126: Fixed a vulnerability in Broadcom and Cypress Wi-Fi chips, used in RPi family of devices aka 'Kr00k'. (bsc#1167162)\n- CVE-2021-33098: Fixed a potential denial of service in Intel(R) Ethernet ixgbe driver due to improper input validation. (bsc#1192877)\n- CVE-2021-43975: Fixed a flaw in hw_atl_utils_fw_rpc_wait that could allow an attacker (who can introduce a crafted device) to trigger an out-of-bounds write via a crafted length value. (bsc#1192845)\n- CVE-2021-43976: Fixed a flaw that could allow an attacker (who can connect a crafted USB device) to cause a denial of service. (bsc#1192847)\n- CVE-2020-27820: Fixed a vulnerability where a use-after-frees in nouveau's postclose() handler could happen if removing device. (bsc#1179599)\n\nThe following non-security bugs were fixed:\n\n- blk-mq: do not deactivate hctx if managed irq isn't used (bsc#1185762).\n- bpf: Add kconfig knob for disabling unpriv bpf by default (jsc#SLE-22913)\n- bpf: Disallow unprivileged bpf by default (jsc#SLE-22913).\n- cifs: Add new mount parameter 'acdirmax' to allow caching directory metadata (bsc#1190317).\n- cifs: Add new parameter 'acregmax' for distinct file and directory metadata timeout (bsc#1190317).\n- cifs: convert list_for_each to entry variant (jsc#SLE-20656).\n- cifs: convert revalidate of directories to using directory metadata cache timeout (bsc#1190317).\n- cifs: Do not leak EDEADLK to dgetents64 for STATUS_USER_SESSION_DELETED (bsc#1190317).\n- cifs: fiemap: do not return EINVAL if get nothing (bsc#1190317).\n- cifs: Fix a potencially linear read overflow (git-fixes).\n- cifs: fix a sign extension bug (git-fixes).\n- cifs: fix incorrect check for null pointer in header_assemble (bsc#1190317).\n- cifs: fix memory leak of smb3_fs_context_dup::server_hostname (bsc#1190317).\n- cifs: fix missed refcounting of ipc tcon (git-fixes).\n- cifs: fix potential use-after-free bugs (jsc#SLE-20656).\n- cifs: fix print of hdr_flags in dfscache_proc_show() (jsc#SLE-20656).\n- cifs: fix wrong release in sess_alloc_buffer() failed path (bsc#1190317).\n- cifs: for compound requests, use open handle if possible (bsc#1190317).\n- cifs: introduce new helper for cifs_reconnect() (jsc#SLE-20656).\n- cifs: move to generic async completion (bsc#1190317).\n- cifs: nosharesock should be set on new server (git-fixes).\n- cifs: nosharesock should not share socket with future sessions (bsc#1190317).\n- cifs: On cifs_reconnect, resolve the hostname again (bsc#1190317).\n- cifs: properly invalidate cached root handle when closing it (bsc#1190317).\n- cifs: release lock earlier in dequeue_mid error case (bsc#1190317).\n- cifs: set a minimum of 120s for next dns resolution (bsc#1190317).\n- cifs: Simplify reconnect code when dfs upcall is enabled (bsc#1190317).\n- cifs: split out dfs code from cifs_reconnect() (jsc#SLE-20656).\n- cifs: support nested dfs links over reconnect (jsc#SLE-20656).\n- cifs: support share failover when remounting (jsc#SLE-20656).\n- cifs: To match file servers, make sure the server hostname matches (bsc#1190317).\n- config: disable unprivileged BPF by default (jsc#SLE-22913) Backport of mainline commit 8a03e56b253e ('bpf: Disallow unprivileged bpf by default') only changes kconfig default, used e.g. for 'make oldconfig' when the config option is missing, but does not update our kernel configs used for build. Update also these to make sure unprivileged BPF is really disabled by default.\n- config: INPUT_EVBUG=n (bsc#1192974). Debug driver unsuitable for production, only enabled on ppc64.\n- constraints: Build aarch64 on recent ARMv8.1 builders. Request asimdrdm feature which is available only on recent ARMv8.1 CPUs. This should prevent scheduling the kernel on an older slower builder.\n- cred: allow get_cred() and put_cred() to be given NULL (git-fixes).\n- EDAC/amd64: Handle three rank interleaving mode (bsc#1114648).\n- elfcore: correct reference to CONFIG_UML (git-fixes).\n- elfcore: fix building with clang (bsc#1169514).\n- fuse: release pipe buf after last use (bsc#1193318).\n- genirq: Move initial affinity setup to irq_startup() (bsc#1193231).\n- genirq: Provide IRQCHIP_AFFINITY_PRE_STARTUP (bsc#1193231).\n- genirq: Remove mask argument from setup_affinity() (bsc#1193231).\n- genirq: Rename setup_affinity() to irq_setup_affinity() (bsc#1193231).\n- genirq: Split out irq_startup() code (bsc#1193231).\n- kprobes: Limit max data_size of the kretprobe instances (bsc#1193669).\n- lpfc: Reintroduce old IRQ probe logic (bsc#1183897).\n- md: fix a lock order reversal in md_alloc (git-fixes).\n- net: hso: fix control-request directions (git-fixes).\n- net: hso: fix muxed tty registration (git-fixes).\n- net: lan78xx: fix division by zero in send path (git-fixes).\n- net: mana: Allow setting the number of queues while the NIC is down (jsc#SLE-18779, bsc#1185727).\n- net: mana: Fix spelling mistake 'calledd' -> 'called' (jsc#SLE-18779, bsc#1185727).\n- net: mana: Fix the netdev_err()'s vPort argument in mana_init_port() (jsc#SLE-18779, bsc#1185727).\n- net: mana: Improve the HWC error handling (jsc#SLE-18779, bsc#1185727).\n- net: mana: Support hibernation and kexec (jsc#SLE-18779, bsc#1185727).\n- net: mana: Use kcalloc() instead of kzalloc() (jsc#SLE-18779, bsc#1185727).\n- net: pegasus: fix uninit-value in get_interrupt_interval (git-fixes).\n- net: usb: lan78xx: lan78xx_phy_init(): use PHY_POLL instead of '0' if no IRQ is available (git-fixes).\n- nfsd: do not alloc under spinlock in rpc_parse_scope_id (git-fixes).\n- nfsd: Handle the NFSv4 READDIR 'dircount' hint being zero (git-fixes).\n- nvme-fc: avoid race between time out and tear down (bsc#1185762).\n- nvme-fc: remove freeze/unfreeze around update_nr_hw_queues (bsc#1185762).\n- nvme-fc: update hardware queues before using them (bsc#1185762).\n- nvme-fc: wait for queues to freeze before calling update_hr_hw_queues (bsc#1183678).\n- nvme-pci: add NO APST quirk for Kioxia device (git-fixes).\n- objtool: Support Clang non-section symbols in ORC generation (bsc#1169514).\n- platform/x86: hp_accel: Fix an error handling path in 'lis3lv02d_probe()' (git-fixes).\n- platform/x86: thinkpad_acpi: Fix bitwise vs. logical warning (git-fixes).\n- pnfs/flexfiles: Fix misplaced barrier in nfs4_ff_layout_prepare_ds (git-fixes).\n- printk: Remove printk.h inclusion in percpu.h (bsc#1192987).\n- rndis_host: set proper input size for OID_GEN_PHYSICAL_MEDIUM request (git-fixes).\n- scsi: core: Fix bad pointer dereference when ehandler kthread is invalid (git-fixes).\n- scsi: core: Put LLD module refcnt after SCSI device is released (git-fixes).\n- scsi: iscsi: Adjust iface sysfs attr detection (git-fixes).\n- scsi: lpfc: Add additional debugfs support for CMF (bsc1192145).\n- scsi: lpfc: Adjust CMF total bytes and rxmonitor (bsc1192145).\n- scsi: lpfc: Cap CMF read bytes to MBPI (bsc1192145).\n- scsi: lpfc: Change return code on I/Os received during link bounce (bsc1192145).\n- scsi: lpfc: Fix leaked lpfc_dmabuf mbox allocations with NPIV (bsc1192145).\n- scsi: lpfc: Fix lpfc_force_rscn ndlp kref imbalance (bsc1192145).\n- scsi: lpfc: Fix non-recovery of remote ports following an unsolicited LOGO (bsc#1189126).\n- scsi: lpfc: Fix NPIV port deletion crash (bsc1192145).\n- scsi: lpfc: Trigger SLI4 firmware dump before doing driver cleanup (bsc1192145).\n- scsi: lpfc: Update lpfc version to 14.0.0.4 (bsc1192145).\n- scsi: mpt3sas: Fix kernel panic during drive powercycle test (git-fixes).\n- scsi: qla2xxx: edif: Fix app start delay (git-fixes).\n- scsi: qla2xxx: edif: Fix app start fail (git-fixes).\n- scsi: qla2xxx: edif: Fix EDIF bsg (git-fixes).\n- scsi: qla2xxx: edif: Fix off by one bug in qla_edif_app_getfcinfo() (git-fixes).\n- scsi: qla2xxx: edif: Flush stale events and msgs on session down (git-fixes).\n- scsi: qla2xxx: edif: Increase ELS payload (git-fixes).\n- scsi: qla2xxx: Fix gnl list corruption (git-fixes).\n- scsi: qla2xxx: Fix mailbox direction flags in qla2xxx_get_adapter_id() (git-fixes).\n- scsi: qla2xxx: Format log strings only if needed (git-fixes).\n- scsi: qla2xxx: Relogin during fabric disturbance (git-fixes).\n- smb3: add additional null check in SMB2_ioctl (bsc#1190317).\n- smb3: add additional null check in SMB2_open (bsc#1190317).\n- smb3: add additional null check in SMB2_tcon (bsc#1190317).\n- smb3: correct server pointer dereferencing check to be more consistent (bsc#1190317).\n- smb3: correct smb3 ACL security descriptor (bsc#1190317).\n- smb3: do not error on fsync when readonly (bsc#1190317).\n- smb3: remove trivial dfs compile warning (jsc#SLE-20656).\n- SUNRPC: async tasks mustn't block waiting for memory (bsc#1191876 bsc#1192866).\n- SUNRPC: async tasks mustn't block waiting for memory (bsc#1191876 bsc#1192866).\n- SUNRPC: async tasks mustn't block waiting for memory (bsc#1191876 bsc#1192866).\n- SUNRPC: improve 'swap' handling: scheduling and PF_MEMALLOC (bsc#1191876 bsc#1192866).\n- swiotlb-xen: avoid double free (git-fixes).\n- tracing: Check pid filtering when creating events (git-fixes).\n- tracing: Fix pid filtering when triggers are attached (git-fixes).\n- tracing: use %ps format string to print symbols (git-fixes).\n- tty: hvc: replace BUG_ON() with negative return value (git-fixes).\n- USB: Add compatibility quirk flags for iODD 2531/2541 (git-fixes).\n- USB: dwc2: hcd_queue: Fix use of floating point literal (git-fixes).\n- USB: serial: option: add Fibocom FM101-GL variants (git-fixes).\n- USB: serial: option: add prod. id for Quectel EG91 (git-fixes).\n- USB: serial: option: add Quectel EC200S-CN module support (git-fixes).\n- USB: serial: option: add Telit LE910Cx composition 0x1204 (git-fixes).\n- USB: serial: option: add Telit LE910S1 0x9200 composition (git-fixes).\n- USB: serial: qcserial: add EM9191 QDL support (git-fixes).\n- x86/msi: Force affinity setup before startup (bsc#1193231).\n- x86/pkey: Fix undefined behaviour with PKRU_WD_BIT (bsc#1114648).\n- x86/sme: Explicitly map new EFI memmap table as encrypted (bsc#1114648).\n- x86/xen: Add xenpv_restore_regs_and_return_to_usermode() (bsc#1114648).\n- x86/xen: Mark cpu_bringup_and_idle() as dead_end_function (bsc#1169514).\n- x86/xen: swap NX determination and GDT setup on BSP (git-fixes).\n- xen-pciback: redo VF placement in the virtual topology (git-fixes).\n- xen: sync include/xen/interface/io/ring.h with Xen's newest version (git-fixes).\n- xen/blkfront: do not take local copy of a request from the ring page (git-fixes).\n- xen/blkfront: do not trust the backend response data blindly (git-fixes).\n- xen/blkfront: read response from backend only once (git-fixes).\n- xen/netfront: disentangle tx_skb_freelist (git-fixes).\n- xen/netfront: do not read data from request on the ring page (git-fixes).\n- xen/netfront: do not trust the backend response data blindly (git-fixes).\n- xen/netfront: read response from backend only once (git-fixes).\n- xen/x86: fix PV trap handling on secondary processors (git-fixes).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Image SLES12-SP5-Azure-Basic-On-Demand-2022-80,Image SLES12-SP5-Azure-HPC-On-Demand-2022-80,Image SLES12-SP5-Azure-Standard-On-Demand-2022-80,SUSE-2022-80,SUSE-SLE-SERVER-12-SP5-2022-80",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/",
+			"description": "Link for SUSE-SU-2022:0080-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2022-January/010005.html",
+			"description": "E-Mail link for SUSE-SU-2022:0080-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1114648",
+			"description": "SUSE Bug 1114648"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1124431",
+			"description": "SUSE Bug 1124431"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1167162",
+			"description": "SUSE Bug 1167162"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1169514",
+			"description": "SUSE Bug 1169514"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1172073",
+			"description": "SUSE Bug 1172073"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1179599",
+			"description": "SUSE Bug 1179599"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1183678",
+			"description": "SUSE Bug 1183678"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1183897",
+			"description": "SUSE Bug 1183897"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1184804",
+			"description": "SUSE Bug 1184804"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1185727",
+			"description": "SUSE Bug 1185727"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1185762",
+			"description": "SUSE Bug 1185762"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1187167",
+			"description": "SUSE Bug 1187167"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1189126",
+			"description": "SUSE Bug 1189126"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1189158",
+			"description": "SUSE Bug 1189158"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1189305",
+			"description": "SUSE Bug 1189305"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1189841",
+			"description": "SUSE Bug 1189841"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1190317",
+			"description": "SUSE Bug 1190317"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1190358",
+			"description": "SUSE Bug 1190358"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1190428",
+			"description": "SUSE Bug 1190428"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1191229",
+			"description": "SUSE Bug 1191229"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1191384",
+			"description": "SUSE Bug 1191384"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1191731",
+			"description": "SUSE Bug 1191731"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1191876",
+			"description": "SUSE Bug 1191876"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1192032",
+			"description": "SUSE Bug 1192032"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1192145",
+			"description": "SUSE Bug 1192145"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1192267",
+			"description": "SUSE Bug 1192267"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1192740",
+			"description": "SUSE Bug 1192740"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1192845",
+			"description": "SUSE Bug 1192845"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1192847",
+			"description": "SUSE Bug 1192847"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1192866",
+			"description": "SUSE Bug 1192866"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1192877",
+			"description": "SUSE Bug 1192877"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1192946",
+			"description": "SUSE Bug 1192946"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1192974",
+			"description": "SUSE Bug 1192974"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1192987",
+			"description": "SUSE Bug 1192987"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1193231",
+			"description": "SUSE Bug 1193231"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1193306",
+			"description": "SUSE Bug 1193306"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1193318",
+			"description": "SUSE Bug 1193318"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1193440",
+			"description": "SUSE Bug 1193440"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1193442",
+			"description": "SUSE Bug 1193442"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1193575",
+			"description": "SUSE Bug 1193575"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1193669",
+			"description": "SUSE Bug 1193669"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1193727",
+			"description": "SUSE Bug 1193727"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1193731",
+			"description": "SUSE Bug 1193731"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1194001",
+			"description": "SUSE Bug 1194001"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1194087",
+			"description": "SUSE Bug 1194087"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1194094",
+			"description": "SUSE Bug 1194094"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-25020/",
+			"description": "SUSE CVE CVE-2018-25020 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-15126/",
+			"description": "SUSE CVE CVE-2019-15126 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2020-27820/",
+			"description": "SUSE CVE CVE-2020-27820 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-0920/",
+			"description": "SUSE CVE CVE-2021-0920 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-0935/",
+			"description": "SUSE CVE CVE-2021-0935 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-28711/",
+			"description": "SUSE CVE CVE-2021-28711 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-28712/",
+			"description": "SUSE CVE CVE-2021-28712 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-28713/",
+			"description": "SUSE CVE CVE-2021-28713 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-28714/",
+			"description": "SUSE CVE CVE-2021-28714 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-28715/",
+			"description": "SUSE CVE CVE-2021-28715 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-33098/",
+			"description": "SUSE CVE CVE-2021-33098 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-4002/",
+			"description": "SUSE CVE CVE-2021-4002 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-4083/",
+			"description": "SUSE CVE CVE-2021-4083 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-4149/",
+			"description": "SUSE CVE CVE-2021-4149 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-43975/",
+			"description": "SUSE CVE CVE-2021-43975 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-43976/",
+			"description": "SUSE CVE CVE-2021-43976 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-45485/",
+			"description": "SUSE CVE CVE-2021-45485 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-45486/",
+			"description": "SUSE CVE CVE-2021-45486 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-Azure-Basic-On-Demand",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-Azure-Basic-On-Demand",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-Azure-Basic-On-Demand",
+							"product_id": "Image SLES12-SP5-Azure-Basic-On-Demand"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-Azure-HPC-On-Demand",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-Azure-HPC-On-Demand",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-Azure-HPC-On-Demand",
+							"product_id": "Image SLES12-SP5-Azure-HPC-On-Demand"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-Azure-Standard-On-Demand",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-Azure-Standard-On-Demand",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-Azure-Standard-On-Demand",
+							"product_id": "Image SLES12-SP5-Azure-Standard-On-Demand"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12 SP5",
+							"product_id": "SUSE Linux Enterprise Server 12 SP5",
+							"cpe": "cpe:/o:suse:sles:12:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 12 SP5",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 12 SP5",
+							"cpe": "cpe:/o:suse:sles_sap:12:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-azure-4.12.14-16.85.1",
+				"full_product_name": {
+					"text": "kernel-azure-4.12.14-16.85.1",
+					"product_id": "kernel-azure-4.12.14-16.85.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-azure-4.12.14-16.85.1",
+				"full_product_name": {
+					"text": "cluster-md-kmp-azure-4.12.14-16.85.1",
+					"product_id": "cluster-md-kmp-azure-4.12.14-16.85.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-azure-4.12.14-16.85.1",
+				"full_product_name": {
+					"text": "dlm-kmp-azure-4.12.14-16.85.1",
+					"product_id": "dlm-kmp-azure-4.12.14-16.85.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-azure-4.12.14-16.85.1",
+				"full_product_name": {
+					"text": "gfs2-kmp-azure-4.12.14-16.85.1",
+					"product_id": "gfs2-kmp-azure-4.12.14-16.85.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-azure-base-4.12.14-16.85.1",
+				"full_product_name": {
+					"text": "kernel-azure-base-4.12.14-16.85.1",
+					"product_id": "kernel-azure-base-4.12.14-16.85.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-azure-devel-4.12.14-16.85.1",
+				"full_product_name": {
+					"text": "kernel-azure-devel-4.12.14-16.85.1",
+					"product_id": "kernel-azure-devel-4.12.14-16.85.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-azure-extra-4.12.14-16.85.1",
+				"full_product_name": {
+					"text": "kernel-azure-extra-4.12.14-16.85.1",
+					"product_id": "kernel-azure-extra-4.12.14-16.85.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-azure-kgraft-devel-4.12.14-16.85.1",
+				"full_product_name": {
+					"text": "kernel-azure-kgraft-devel-4.12.14-16.85.1",
+					"product_id": "kernel-azure-kgraft-devel-4.12.14-16.85.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-azure-4.12.14-16.85.1",
+				"full_product_name": {
+					"text": "kernel-devel-azure-4.12.14-16.85.1",
+					"product_id": "kernel-devel-azure-4.12.14-16.85.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-azure-4.12.14-16.85.1",
+				"full_product_name": {
+					"text": "kernel-source-azure-4.12.14-16.85.1",
+					"product_id": "kernel-source-azure-4.12.14-16.85.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-azure-4.12.14-16.85.1",
+				"full_product_name": {
+					"text": "kernel-syms-azure-4.12.14-16.85.1",
+					"product_id": "kernel-syms-azure-4.12.14-16.85.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kselftests-kmp-azure-4.12.14-16.85.1",
+				"full_product_name": {
+					"text": "kselftests-kmp-azure-4.12.14-16.85.1",
+					"product_id": "kselftests-kmp-azure-4.12.14-16.85.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-azure-4.12.14-16.85.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-azure-4.12.14-16.85.1",
+					"product_id": "ocfs2-kmp-azure-4.12.14-16.85.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-azure-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-Basic-On-Demand"
+			},
+			{
+				"product_reference": "kernel-azure-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-HPC-On-Demand"
+			},
+			{
+				"product_reference": "kernel-azure-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-Standard-On-Demand"
+			},
+			{
+				"product_reference": "kernel-azure-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-azure-base-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-azure-devel-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-devel-azure-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-source-azure-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-syms-azure-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-azure-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "kernel-azure-base-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "kernel-azure-devel-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "kernel-devel-azure-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "kernel-source-azure-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "kernel-syms-azure-4.12.14-16.85.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "The BPF subsystem in the Linux kernel before 4.17 mishandles situations with a long jump over an instruction sequence where inner instructions require substantial expansions into multiple BPF instructions, leading to an overflow. This affects kernel/bpf/core.c and net/core/filter.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-25020",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-25020.html",
+					"description": "CVE-2018-25020"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1193575",
+					"description": "SUSE Bug 1193575"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered on Broadcom Wi-Fi client devices. Specifically timed and handcrafted traffic can cause internal errors (related to state transitions) in a WLAN device that lead to improper layer 2 Wi-Fi encryption with a consequent possibility of information disclosure over the air for a discrete set of traffic, a different vulnerability than CVE-2019-9500, CVE-2019-9501, CVE-2019-9502, and CVE-2019-9503.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-15126",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.9",
+					"vector_v_2": "AV:A/AC:M/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.1",
+					"vector_v_3": "CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-15126.html",
+					"description": "CVE-2019-15126"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1167162",
+					"description": "SUSE Bug 1167162"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A vulnerability was found in Linux kernel, where a use-after-frees in nouveau's postclose() handler could happen if removing device (that is not common to remove video card physically without power-off, but same happens if \"unbind\" the driver).",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2020-27820",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.1",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:R/S:U/C:N/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2020-27820.html",
+					"description": "CVE-2020-27820"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1179599",
+					"description": "SUSE Bug 1179599"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In unix_scm_to_skb of af_unix.c, there is a possible use after free bug due to a race condition. This could lead to local escalation of privilege with System execution privileges needed. User interaction is not needed for exploitation.Product: AndroidVersions: Android kernelAndroid ID: A-196926917References: Upstream kernel",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-0920",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-0920.html",
+					"description": "CVE-2021-0920"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1193731",
+					"description": "SUSE Bug 1193731"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1194463",
+					"description": "SUSE Bug 1194463"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1195939",
+					"description": "SUSE Bug 1195939"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199255",
+					"description": "SUSE Bug 1199255"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1200084",
+					"description": "SUSE Bug 1200084"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In ip6_xmit of ip6_output.c, there is a possible out of bounds write due to a use after free. This could lead to local escalation of privilege with System execution privileges needed. User interaction is not needed for exploitation.Product: AndroidVersions: Android kernelAndroid ID: A-168607263References: Upstream kernel",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-0935",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-0935.html",
+					"description": "CVE-2021-0935"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1192032",
+					"description": "SUSE Bug 1192032"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1192042",
+					"description": "SUSE Bug 1192042"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196722",
+					"description": "SUSE Bug 1196722"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Rogue backends can cause DoS of guests via high frequency events T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Xen offers the ability to run PV backends in regular unprivileged guests, typically referred to as \"driver domains\". Running PV backends in driver domains has one primary security advantage: if a driver domain gets compromised, it doesn't have the privileges to take over the system. However, a malicious driver domain could try to attack other guests via sending events at a high frequency leading to a Denial of Service in the guest due to trying to service interrupts for elongated amounts of time. There are three affected backends: * blkfront patch 1, CVE-2021-28711 * netfront patch 2, CVE-2021-28712 * hvc_xen (console) patch 3, CVE-2021-28713",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-28711",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-28711.html",
+					"description": "CVE-2021-28711"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1193440",
+					"description": "SUSE Bug 1193440"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Rogue backends can cause DoS of guests via high frequency events T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Xen offers the ability to run PV backends in regular unprivileged guests, typically referred to as \"driver domains\". Running PV backends in driver domains has one primary security advantage: if a driver domain gets compromised, it doesn't have the privileges to take over the system. However, a malicious driver domain could try to attack other guests via sending events at a high frequency leading to a Denial of Service in the guest due to trying to service interrupts for elongated amounts of time. There are three affected backends: * blkfront patch 1, CVE-2021-28711 * netfront patch 2, CVE-2021-28712 * hvc_xen (console) patch 3, CVE-2021-28713",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-28712",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-28712.html",
+					"description": "CVE-2021-28712"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Rogue backends can cause DoS of guests via high frequency events T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Xen offers the ability to run PV backends in regular unprivileged guests, typically referred to as \"driver domains\". Running PV backends in driver domains has one primary security advantage: if a driver domain gets compromised, it doesn't have the privileges to take over the system. However, a malicious driver domain could try to attack other guests via sending events at a high frequency leading to a Denial of Service in the guest due to trying to service interrupts for elongated amounts of time. There are three affected backends: * blkfront patch 1, CVE-2021-28711 * netfront patch 2, CVE-2021-28712 * hvc_xen (console) patch 3, CVE-2021-28713",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-28713",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-28713.html",
+					"description": "CVE-2021-28713"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Guest can force Linux netback driver to hog large amounts of kernel memory T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Incoming data packets for a guest in the Linux kernel's netback driver are buffered until the guest is ready to process them. There are some measures taken for avoiding to pile up too much data, but those can be bypassed by the guest: There is a timeout how long the client side of an interface can stop consuming new packets before it is assumed to have stalled, but this timeout is rather long (60 seconds by default). Using a UDP connection on a fast interface can easily accumulate gigabytes of data in that time. (CVE-2021-28715) The timeout could even never trigger if the guest manages to have only one free slot in its RX queue ring page and the next package would require more than one free slot, which may be the case when using GSO, XDP, or software hashing. (CVE-2021-28714)",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-28714",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-28714.html",
+					"description": "CVE-2021-28714"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1193442",
+					"description": "SUSE Bug 1193442"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Guest can force Linux netback driver to hog large amounts of kernel memory T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Incoming data packets for a guest in the Linux kernel's netback driver are buffered until the guest is ready to process them. There are some measures taken for avoiding to pile up too much data, but those can be bypassed by the guest: There is a timeout how long the client side of an interface can stop consuming new packets before it is assumed to have stalled, but this timeout is rather long (60 seconds by default). Using a UDP connection on a fast interface can easily accumulate gigabytes of data in that time. (CVE-2021-28715) The timeout could even never trigger if the guest manages to have only one free slot in its RX queue ring page and the next package would require more than one free slot, which may be the case when using GSO, XDP, or software hashing. (CVE-2021-28714)",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-28715",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-28715.html",
+					"description": "CVE-2021-28715"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Improper input validation in the Intel(R) Ethernet ixgbe driver for Linux before version 3.17.3 may allow an authenticated user to potentially enable denial of service via local access.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-33098",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-33098.html",
+					"description": "CVE-2021-33098"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1192877",
+					"description": "SUSE Bug 1192877"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A memory leak flaw in the Linux kernel's hugetlbfs memory usage was found in the way the user maps some regions of memory twice using shmget() which are aligned to PUD alignment with the fault of some of the memory pages. A local user could use this flaw to get unauthorized access to some data.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-4002",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.1",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-4002.html",
+					"description": "CVE-2021-4002"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1192946",
+					"description": "SUSE Bug 1192946"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1192973",
+					"description": "SUSE Bug 1192973"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A read-after-free memory flaw was found in the Linux kernel's garbage collection for Unix domain socket file handlers in the way users call close() and fget() simultaneously and can potentially trigger a race condition. This flaw allows a local user to crash the system or escalate their privileges on the system. This flaw affects Linux kernel versions prior to 5.16-rc4.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-4083",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.4",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-4083.html",
+					"description": "CVE-2021-4083"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1193727",
+					"description": "SUSE Bug 1193727"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1194460",
+					"description": "SUSE Bug 1194460"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196722",
+					"description": "SUSE Bug 1196722"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A vulnerability was found in btrfs_alloc_tree_b in fs/btrfs/extent-tree.c in the Linux kernel due to an improper lock operation in btrfs. In this flaw, a user with a local privilege may cause a denial of service (DOS) due to a deadlock problem.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-4149",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-4149.html",
+					"description": "CVE-2021-4149"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1194001",
+					"description": "SUSE Bug 1194001"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel through 5.15.2, hw_atl_utils_fw_rpc_wait in drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_utils.c allows an attacker (who can introduce a crafted device) to trigger an out-of-bounds write via a crafted length value.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-43975",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-43975.html",
+					"description": "CVE-2021-43975"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1192845",
+					"description": "SUSE Bug 1192845"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel through 5.15.2, mwifiex_usb_recv in drivers/net/wireless/marvell/mwifiex/usb.c allows an attacker (who can connect a crafted USB device) to cause a denial of service (skb_over_panic).",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-43976",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-43976.html",
+					"description": "CVE-2021-43976"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1192847",
+					"description": "SUSE Bug 1192847"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the IPv6 implementation in the Linux kernel before 5.13.3, net/ipv6/output_core.c has an information leak because of certain use of a hash table which, although big, doesn't properly consider that IPv6-based attackers can typically choose among many IPv6 source addresses.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-45485",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.7",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-45485.html",
+					"description": "CVE-2021-45485"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1194094",
+					"description": "SUSE Bug 1194094"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the IPv4 implementation in the Linux kernel before 5.12.4, net/ipv4/route.c has an information leak because the hash table is very small.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-45486",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-Basic-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-HPC-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"Image SLES12-SP5-Azure-Standard-On-Demand:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-base-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-azure-devel-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-azure-4.12.14-16.85.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-azure-4.12.14-16.85.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.7",
+					"vector_v_2": "AV:A/AC:L/Au:S/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.7",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20220080-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-45486.html",
+					"description": "CVE-2021-45486"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1194087",
+					"description": "SUSE Bug 1194087"
+				}
+			]
+		}
+	]
+}

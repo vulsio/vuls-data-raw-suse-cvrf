@@ -1,0 +1,1004 @@
+{
+	"document_title": "Security update for SUSE Manager Server 4.0",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2021:2114-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2021-06-21T17:32:37Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2021-06-21T17:32:37Z",
+		"current_release_date": "2021-06-21T17:32:37Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for SUSE Manager Server 4.0",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThis update fixes the following issues:\n\ncobbler:\n\n- Make 'fence_ipmitool' a wrapper for 'fence_ipmilan' using always lanplus (bsc#1184361)\n- Remove unused template for fence_ipmitool.\n- Prevent some race conditions when writing tftpboot files and\n  the destination directory is not existing (bsc#1186124)\n- Fix trail stripping in case of using UTF symbols (bsc#1184561)\n\ngrafana-formula:\n\n- Fix Grafana dashboards requiring single series (bsc#1184471)\n\npatterns-suse-manager:\n\n- Add require for py27-compat-salt (salt 3002 does not provide\n  python2-salt anymore) \n\nprometheus-exporters-formula:\n\n- Move exporters configurations to dedicated group `prometheus_exporters`\n- Add formula data schema migration script\n- This version changes the formula data schema and is not backwards compatible.\n  Downgrading from this version will require reconfiguring the formula for all your\n  minions.\n- Add Ubuntu support for Prometheus exporters' reverse proxy\n\npxe-default-image-sle15:\n\n- Adapt rpm-properties.xml for containment-rpm-pxe v0.2.1 and newer\n\npy26-compat-salt:\n\n- Prevent command injection in the snapper module (bsc#1185281) (CVE-2021-31607)\n\nspacewalk-backend:\n\n- Maintainer field in debian packages are only recommended (bsc#1186508)\n- Switch to www group for satellite logs (bsc#1185097)\n\nspacewalk-java:\n\n- Change Prometheus exporters formula data schema to make it more generic and extendable\n- Adapt logging for testing accessability of URLs (bsc#1182817)\n- Fix problem reading product_tree.json from wrong location in offline setups (bsc#1184283)\n- For a SUSE system get metadata and package from same source (bsc#1184475)\n- Check if the directory exists prior to modular data cleanup (bsc#1184311)\n- Assign right base product for res8 (bsc#1184005)\n- Fix check for for mirrorlist URLs when refreshing products (bsc#1184861)\n\nspacewalk-utils:\n\n- Bugfix for ubuntu-18.04 repo urls: multiverse, restricted and backports\n- Add multiverse, restricted and backports to Ubuntu 16.04, 18.04 and 20.04\n\nspacewalk-web:\n\n- Update the WebUI version to 4.0.14\n\nsusemanager:\n\n- Add python3-pycryptodome to Ubuntu 18 and 20 bootstrap repos (bsc#1186346)\n- Require gio-branding-SLE for SLE15 but not for openSUSE Leap 15\n- Add python3-distro to RES8, SLE15 and Ubuntu20.04 bootstrap\n  repositories to fix bootstrapping issues (bsc#1184332)\n\nsusemanager-doc-indexes:\n\n- Update for Disconnected Setup chapter in Administration Guide  \n\nsusemanager-docs_en:\n\n- Update for Disconnected Setup chapter in Administration Guide \n\nsusemanager-sls:\n\n- Do not install python2-salt on Salt 3002.2 Docker build hosts (bsc#1185506)\n- Fix insecure JMX configuration (bsc#1184617)\n- Avoid conflicts with running ioloop on mgr_events engine (bsc#1172711)\n\ntika-core:\n\n- New upstream version 1.26. Fixes:\n  * Infinite loop in the MP3Parser (bsc#1184892, CVE-2021-28657)\n  * Out of memory error while loading a file in PDFBox before 2.0.23.\n  * Infinite loop while loading a file in PDFBox before 2.0.23.\n  * System.exit vulnerability in Tika's OneNote Parser; out of memory errors\n     and/or infinite loops in Tika's ICNSParser, MP3Parser, MP4Parser, SAS7BDATParser,\n     OneNoteParser and ImageParser.\n  * Excessive memory usage (DoS) vulnerability in Apache Tika's PSDParser\n  * Infinite Loop (DoS) vulnerability in Apache Tika's PSDParser \n\nHow to apply this update:\n1. Log in as root user to the SUSE Manager server.\n2. Stop the Spacewalk service:\n`spacewalk-service stop`\n3. Apply the patch using either zypper patch or YaST Online Update.\n4. Upgrade the database schema:\n`spacewalk-schema-upgrade`\n5. Start the Spacewalk service:\n`spacewalk-service start`\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2021-2114,SUSE-SLE-Module-SUSE-Manager-Server-4.0-2021-2114",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2021/suse-su-20212114-1/",
+			"description": "Link for SUSE-SU-2021:2114-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2021-June/009062.html",
+			"description": "E-Mail link for SUSE-SU-2021:2114-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1172711",
+			"description": "SUSE Bug 1172711"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1182817",
+			"description": "SUSE Bug 1182817"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1184005",
+			"description": "SUSE Bug 1184005"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1184283",
+			"description": "SUSE Bug 1184283"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1184311",
+			"description": "SUSE Bug 1184311"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1184332",
+			"description": "SUSE Bug 1184332"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1184361",
+			"description": "SUSE Bug 1184361"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1184471",
+			"description": "SUSE Bug 1184471"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1184475",
+			"description": "SUSE Bug 1184475"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1184561",
+			"description": "SUSE Bug 1184561"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1184617",
+			"description": "SUSE Bug 1184617"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1184861",
+			"description": "SUSE Bug 1184861"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1184892",
+			"description": "SUSE Bug 1184892"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1185097",
+			"description": "SUSE Bug 1185097"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1185281",
+			"description": "SUSE Bug 1185281"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1185506",
+			"description": "SUSE Bug 1185506"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1186124",
+			"description": "SUSE Bug 1186124"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1186346",
+			"description": "SUSE Bug 1186346"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1186508",
+			"description": "SUSE Bug 1186508"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-28657/",
+			"description": "SUSE CVE CVE-2021-28657 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-31607/",
+			"description": "SUSE CVE CVE-2021-31607 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Manager Server Module 4.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Manager Server Module 4.0",
+						"full_product_name": {
+							"text": "SUSE Manager Server Module 4.0",
+							"product_id": "SUSE Manager Server Module 4.0",
+							"cpe": "cpe:/o:suse:sle-module-suse-manager-server:4.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "cobbler-3.0.0+git20190806.32c4bae0-7.22.3",
+				"full_product_name": {
+					"text": "cobbler-3.0.0+git20190806.32c4bae0-7.22.3",
+					"product_id": "cobbler-3.0.0+git20190806.32c4bae0-7.22.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cobbler-tests-3.0.0+git20190806.32c4bae0-7.22.3",
+				"full_product_name": {
+					"text": "cobbler-tests-3.0.0+git20190806.32c4bae0-7.22.3",
+					"product_id": "cobbler-tests-3.0.0+git20190806.32c4bae0-7.22.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cobbler-web-3.0.0+git20190806.32c4bae0-7.22.3",
+				"full_product_name": {
+					"text": "cobbler-web-3.0.0+git20190806.32c4bae0-7.22.3",
+					"product_id": "cobbler-web-3.0.0+git20190806.32c4bae0-7.22.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "grafana-formula-0.2.3-4.16.3",
+				"full_product_name": {
+					"text": "grafana-formula-0.2.3-4.16.3",
+					"product_id": "grafana-formula-0.2.3-4.16.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "patterns-suma_proxy-4.0-9.19.3",
+				"full_product_name": {
+					"text": "patterns-suma_proxy-4.0-9.19.3",
+					"product_id": "patterns-suma_proxy-4.0-9.19.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "patterns-suma_retail-4.0-9.19.3",
+				"full_product_name": {
+					"text": "patterns-suma_retail-4.0-9.19.3",
+					"product_id": "patterns-suma_retail-4.0-9.19.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "patterns-suma_server-4.0-9.19.3",
+				"full_product_name": {
+					"text": "patterns-suma_server-4.0-9.19.3",
+					"product_id": "patterns-suma_server-4.0-9.19.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "prometheus-exporters-formula-0.7.6-3.19.3",
+				"full_product_name": {
+					"text": "prometheus-exporters-formula-0.7.6-3.19.3",
+					"product_id": "prometheus-exporters-formula-0.7.6-3.19.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "py26-compat-salt-2016.11.10-10.28.3",
+				"full_product_name": {
+					"text": "py26-compat-salt-2016.11.10-10.28.3",
+					"product_id": "py26-compat-salt-2016.11.10-10.28.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "py27-compat-salt-3000.3-4.3.3",
+				"full_product_name": {
+					"text": "py27-compat-salt-3000.3-4.3.3",
+					"product_id": "py27-compat-salt-3000.3-4.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python3-spacewalk-backend-libs-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "python3-spacewalk-backend-libs-4.0.38-3.47.4",
+					"product_id": "python3-spacewalk-backend-libs-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-app-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-app-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-app-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-applet-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-applet-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-applet-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-cdn-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-cdn-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-cdn-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-config-files-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-config-files-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-config-files-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-config-files-common-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-config-files-common-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-config-files-common-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-config-files-tool-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-config-files-tool-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-config-files-tool-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-iss-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-iss-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-iss-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-iss-export-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-iss-export-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-iss-export-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-libs-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-libs-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-libs-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-package-push-server-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-package-push-server-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-package-push-server-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-server-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-server-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-server-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-sql-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-sql-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-sql-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-sql-oracle-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-sql-oracle-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-sql-oracle-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-sql-postgresql-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-sql-postgresql-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-sql-postgresql-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-tools-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-tools-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-tools-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-xml-export-libs-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-xml-export-libs-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-xml-export-libs-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-xmlrpc-4.0.38-3.47.4",
+				"full_product_name": {
+					"text": "spacewalk-backend-xmlrpc-4.0.38-3.47.4",
+					"product_id": "spacewalk-backend-xmlrpc-4.0.38-3.47.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-base-4.0.28-3.45.1",
+				"full_product_name": {
+					"text": "spacewalk-base-4.0.28-3.45.1",
+					"product_id": "spacewalk-base-4.0.28-3.45.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-base-minimal-4.0.28-3.45.1",
+				"full_product_name": {
+					"text": "spacewalk-base-minimal-4.0.28-3.45.1",
+					"product_id": "spacewalk-base-minimal-4.0.28-3.45.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-base-minimal-config-4.0.28-3.45.1",
+				"full_product_name": {
+					"text": "spacewalk-base-minimal-config-4.0.28-3.45.1",
+					"product_id": "spacewalk-base-minimal-config-4.0.28-3.45.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-dobby-4.0.28-3.45.1",
+				"full_product_name": {
+					"text": "spacewalk-dobby-4.0.28-3.45.1",
+					"product_id": "spacewalk-dobby-4.0.28-3.45.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-html-4.0.28-3.45.1",
+				"full_product_name": {
+					"text": "spacewalk-html-4.0.28-3.45.1",
+					"product_id": "spacewalk-html-4.0.28-3.45.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-java-4.0.44-3.57.5",
+				"full_product_name": {
+					"text": "spacewalk-java-4.0.44-3.57.5",
+					"product_id": "spacewalk-java-4.0.44-3.57.5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-java-apidoc-sources-4.0.44-3.57.5",
+				"full_product_name": {
+					"text": "spacewalk-java-apidoc-sources-4.0.44-3.57.5",
+					"product_id": "spacewalk-java-apidoc-sources-4.0.44-3.57.5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-java-config-4.0.44-3.57.5",
+				"full_product_name": {
+					"text": "spacewalk-java-config-4.0.44-3.57.5",
+					"product_id": "spacewalk-java-config-4.0.44-3.57.5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-java-lib-4.0.44-3.57.5",
+				"full_product_name": {
+					"text": "spacewalk-java-lib-4.0.44-3.57.5",
+					"product_id": "spacewalk-java-lib-4.0.44-3.57.5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-java-postgresql-4.0.44-3.57.5",
+				"full_product_name": {
+					"text": "spacewalk-java-postgresql-4.0.44-3.57.5",
+					"product_id": "spacewalk-java-postgresql-4.0.44-3.57.5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-taskomatic-4.0.44-3.57.5",
+				"full_product_name": {
+					"text": "spacewalk-taskomatic-4.0.44-3.57.5",
+					"product_id": "spacewalk-taskomatic-4.0.44-3.57.5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-utils-4.0.21-3.30.3",
+				"full_product_name": {
+					"text": "spacewalk-utils-4.0.21-3.30.3",
+					"product_id": "spacewalk-utils-4.0.21-3.30.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-4.0.34-3.52.3",
+				"full_product_name": {
+					"text": "susemanager-4.0.34-3.52.3",
+					"product_id": "susemanager-4.0.34-3.52.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-doc-indexes-4.0-10.36.4",
+				"full_product_name": {
+					"text": "susemanager-doc-indexes-4.0-10.36.4",
+					"product_id": "susemanager-doc-indexes-4.0-10.36.4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-docs_en-4.0-10.36.3",
+				"full_product_name": {
+					"text": "susemanager-docs_en-4.0-10.36.3",
+					"product_id": "susemanager-docs_en-4.0-10.36.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-docs_en-pdf-4.0-10.36.3",
+				"full_product_name": {
+					"text": "susemanager-docs_en-pdf-4.0-10.36.3",
+					"product_id": "susemanager-docs_en-pdf-4.0-10.36.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-sls-4.0.35-3.48.3",
+				"full_product_name": {
+					"text": "susemanager-sls-4.0.35-3.48.3",
+					"product_id": "susemanager-sls-4.0.35-3.48.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-tools-4.0.34-3.52.3",
+				"full_product_name": {
+					"text": "susemanager-tools-4.0.34-3.52.3",
+					"product_id": "susemanager-tools-4.0.34-3.52.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "susemanager-web-libs-4.0.28-3.45.1",
+				"full_product_name": {
+					"text": "susemanager-web-libs-4.0.28-3.45.1",
+					"product_id": "susemanager-web-libs-4.0.28-3.45.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "tika-core-1.26-3.6.3",
+				"full_product_name": {
+					"text": "tika-core-1.26-3.6.3",
+					"product_id": "tika-core-1.26-3.6.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pxe-default-image-sle15-4.0.1-20210621145802",
+				"full_product_name": {
+					"text": "pxe-default-image-sle15-4.0.1-20210621145802",
+					"product_id": "pxe-default-image-sle15-4.0.1-20210621145802"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "cobbler-3.0.0+git20190806.32c4bae0-7.22.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "grafana-formula-0.2.3-4.16.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "patterns-suma_retail-4.0-9.19.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "patterns-suma_server-4.0-9.19.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "prometheus-exporters-formula-0.7.6-3.19.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "pxe-default-image-sle15-4.0.1-20210621145802",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "py26-compat-salt-2016.11.10-10.28.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "py27-compat-salt-3000.3-4.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "python3-spacewalk-backend-libs-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-app-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-applet-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-common-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-config-files-tool-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-iss-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-iss-export-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-package-push-server-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-server-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-sql-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-sql-postgresql-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-tools-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-xml-export-libs-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-backend-xmlrpc-4.0.38-3.47.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-base-4.0.28-3.45.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-4.0.28-3.45.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-base-minimal-config-4.0.28-3.45.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-html-4.0.28-3.45.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-java-4.0.44-3.57.5",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-java-config-4.0.44-3.57.5",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-java-lib-4.0.44-3.57.5",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-java-postgresql-4.0.44-3.57.5",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-taskomatic-4.0.44-3.57.5",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "spacewalk-utils-4.0.21-3.30.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-4.0.34-3.52.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-doc-indexes-4.0-10.36.4",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-docs_en-4.0-10.36.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-docs_en-pdf-4.0-10.36.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-sls-4.0.35-3.48.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-tools-4.0.34-3.52.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "susemanager-web-libs-4.0.28-3.45.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			},
+			{
+				"product_reference": "tika-core-1.26-3.6.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.0"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "A carefully crafted or corrupt file may trigger an infinite loop in Tika's MP3Parser up to and including Tika 1.25. Apache Tika users should upgrade to 1.26 or later.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-28657",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Manager Server Module 4.0:cobbler-3.0.0+git20190806.32c4bae0-7.22.3",
+						"SUSE Manager Server Module 4.0:grafana-formula-0.2.3-4.16.3",
+						"SUSE Manager Server Module 4.0:patterns-suma_retail-4.0-9.19.3",
+						"SUSE Manager Server Module 4.0:patterns-suma_server-4.0-9.19.3",
+						"SUSE Manager Server Module 4.0:prometheus-exporters-formula-0.7.6-3.19.3",
+						"SUSE Manager Server Module 4.0:pxe-default-image-sle15-4.0.1-20210621145802",
+						"SUSE Manager Server Module 4.0:py26-compat-salt-2016.11.10-10.28.3",
+						"SUSE Manager Server Module 4.0:py27-compat-salt-3000.3-4.3.3",
+						"SUSE Manager Server Module 4.0:python3-spacewalk-backend-libs-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-app-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-applet-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-config-files-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-config-files-common-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-config-files-tool-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-iss-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-iss-export-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-package-push-server-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-server-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-sql-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-sql-postgresql-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-tools-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-xml-export-libs-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-xmlrpc-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-base-4.0.28-3.45.1",
+						"SUSE Manager Server Module 4.0:spacewalk-base-minimal-4.0.28-3.45.1",
+						"SUSE Manager Server Module 4.0:spacewalk-base-minimal-config-4.0.28-3.45.1",
+						"SUSE Manager Server Module 4.0:spacewalk-html-4.0.28-3.45.1",
+						"SUSE Manager Server Module 4.0:spacewalk-java-4.0.44-3.57.5",
+						"SUSE Manager Server Module 4.0:spacewalk-java-config-4.0.44-3.57.5",
+						"SUSE Manager Server Module 4.0:spacewalk-java-lib-4.0.44-3.57.5",
+						"SUSE Manager Server Module 4.0:spacewalk-java-postgresql-4.0.44-3.57.5",
+						"SUSE Manager Server Module 4.0:spacewalk-taskomatic-4.0.44-3.57.5",
+						"SUSE Manager Server Module 4.0:spacewalk-utils-4.0.21-3.30.3",
+						"SUSE Manager Server Module 4.0:susemanager-4.0.34-3.52.3",
+						"SUSE Manager Server Module 4.0:susemanager-doc-indexes-4.0-10.36.4",
+						"SUSE Manager Server Module 4.0:susemanager-docs_en-4.0-10.36.3",
+						"SUSE Manager Server Module 4.0:susemanager-docs_en-pdf-4.0-10.36.3",
+						"SUSE Manager Server Module 4.0:susemanager-sls-4.0.35-3.48.3",
+						"SUSE Manager Server Module 4.0:susemanager-tools-4.0.34-3.52.3",
+						"SUSE Manager Server Module 4.0:susemanager-web-libs-4.0.28-3.45.1",
+						"SUSE Manager Server Module 4.0:tika-core-1.26-3.6.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2021/suse-su-20212114-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-28657.html",
+					"description": "CVE-2021-28657"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1184892",
+					"description": "SUSE Bug 1184892"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In SaltStack Salt 2016.9 through 3002.6, a command injection vulnerability exists in the snapper module that allows for local privilege escalation on a minion. The attack requires that a file is created with a pathname that is backed up by snapper, and that the master calls the snapper.diff function (which executes popen unsafely).",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-31607",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Manager Server Module 4.0:cobbler-3.0.0+git20190806.32c4bae0-7.22.3",
+						"SUSE Manager Server Module 4.0:grafana-formula-0.2.3-4.16.3",
+						"SUSE Manager Server Module 4.0:patterns-suma_retail-4.0-9.19.3",
+						"SUSE Manager Server Module 4.0:patterns-suma_server-4.0-9.19.3",
+						"SUSE Manager Server Module 4.0:prometheus-exporters-formula-0.7.6-3.19.3",
+						"SUSE Manager Server Module 4.0:pxe-default-image-sle15-4.0.1-20210621145802",
+						"SUSE Manager Server Module 4.0:py26-compat-salt-2016.11.10-10.28.3",
+						"SUSE Manager Server Module 4.0:py27-compat-salt-3000.3-4.3.3",
+						"SUSE Manager Server Module 4.0:python3-spacewalk-backend-libs-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-app-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-applet-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-config-files-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-config-files-common-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-config-files-tool-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-iss-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-iss-export-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-package-push-server-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-server-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-sql-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-sql-postgresql-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-tools-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-xml-export-libs-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-backend-xmlrpc-4.0.38-3.47.4",
+						"SUSE Manager Server Module 4.0:spacewalk-base-4.0.28-3.45.1",
+						"SUSE Manager Server Module 4.0:spacewalk-base-minimal-4.0.28-3.45.1",
+						"SUSE Manager Server Module 4.0:spacewalk-base-minimal-config-4.0.28-3.45.1",
+						"SUSE Manager Server Module 4.0:spacewalk-html-4.0.28-3.45.1",
+						"SUSE Manager Server Module 4.0:spacewalk-java-4.0.44-3.57.5",
+						"SUSE Manager Server Module 4.0:spacewalk-java-config-4.0.44-3.57.5",
+						"SUSE Manager Server Module 4.0:spacewalk-java-lib-4.0.44-3.57.5",
+						"SUSE Manager Server Module 4.0:spacewalk-java-postgresql-4.0.44-3.57.5",
+						"SUSE Manager Server Module 4.0:spacewalk-taskomatic-4.0.44-3.57.5",
+						"SUSE Manager Server Module 4.0:spacewalk-utils-4.0.21-3.30.3",
+						"SUSE Manager Server Module 4.0:susemanager-4.0.34-3.52.3",
+						"SUSE Manager Server Module 4.0:susemanager-doc-indexes-4.0-10.36.4",
+						"SUSE Manager Server Module 4.0:susemanager-docs_en-4.0-10.36.3",
+						"SUSE Manager Server Module 4.0:susemanager-docs_en-pdf-4.0-10.36.3",
+						"SUSE Manager Server Module 4.0:susemanager-sls-4.0.35-3.48.3",
+						"SUSE Manager Server Module 4.0:susemanager-tools-4.0.34-3.52.3",
+						"SUSE Manager Server Module 4.0:susemanager-web-libs-4.0.28-3.45.1",
+						"SUSE Manager Server Module 4.0:tika-core-1.26-3.6.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2021/suse-su-20212114-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-31607.html",
+					"description": "CVE-2021-31607"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1185281",
+					"description": "SUSE Bug 1185281"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1210934",
+					"description": "SUSE Bug 1210934"
+				}
+			]
+		}
+	]
+}

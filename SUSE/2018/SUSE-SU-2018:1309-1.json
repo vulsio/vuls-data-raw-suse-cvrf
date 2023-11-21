@@ -1,0 +1,1825 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2018:1309-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2018-05-16T14:59:01Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2018-05-16T14:59:01Z",
+		"current_release_date": "2018-05-16T14:59:01Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThe SUSE Linux Enterprise 11 SP4 RT kernel was updated to receive various security and bugfixes.\n\nThe following security bugs were fixed:\n\n- CVE-2018-10124: The kill_something_info function in kernel/signal.c might\n  have allowed local users to cause a denial of service via an INT_MIN argument\n  (bnc#1089752).\n- CVE-2018-10087: The kernel_wait4 function in kernel/exit.c might have allowed\n  local users to cause a denial of service by triggering an attempted use of the\n  -INT_MIN value (bnc#1089608).\n- CVE-2018-7757: Memory leak in the sas_smp_get_phy_events function in\n  drivers/scsi/libsas/sas_expander.c allowed local users to cause a denial of\n  service (memory consumption) via many read accesses to files in the\n  /sys/class/sas_phy directory, as demonstrated by the\n  /sys/class/sas_phy/phy-1:0:12/invalid_dword_count file (bnc#1084536).\n- CVE-2018-7566: Buffer overflow via an SNDRV_SEQ_IOCTL_SET_CLIENT_POOL ioctl\n  write operation to /dev/snd/seq by a local user potentially allowing for code\n  execution (bnc#1083483).\n- CVE-2017-0861: Use-after-free vulnerability in the snd_pcm_info function in\n  the ALSA subsystem allowed attackers to gain privileges via unspecified vectors\n  (bnc#1088260 1088268).\n- CVE-2018-8822: Incorrect buffer length handling in the ncp_read_kernel\n  function could have beenexploited by malicious NCPFS servers to crash the\n  kernel or execute code (bnc#1086162).\n- CVE-2017-13166: Prevent elevation of privilege vulnerability in the video\n  driver (bnc#1072865).\n- CVE-2017-18203: The dm_get_from_kobject function in drivers/md/dm.c allow\n  local users to cause a denial of service (BUG) by leveraging a race condition\n  with __dm_destroy during creation and removal of DM devices (bnc#1083242).\n- CVE-2017-16911: The vhci_hcd driver allowed local attackers to disclose\n  kernel memory addresses. Successful exploitation requires that a USB device is\n  attached over IP (bnc#1078674).\n- CVE-2017-18208: The madvise_willneed function in mm/madvise.c allowed local\n  users to cause a denial of service (infinite loop) by triggering use of\n  MADVISE_WILLNEED for a DAX mapping (bnc#1083494).\n- CVE-2017-16644: The hdpvr_probe function in\n  drivers/media/usb/hdpvr/hdpvr-core.c allowed local users to cause a denial of\n  service (improper error handling and system crash) or possibly have unspecified\n  other impact via a crafted USB device (bnc#1067118).\n- CVE-2018-6927: The futex_requeue function in kernel/futex.c allowed attackers\n  to cause a denial of service (integer overflow) or possibly have unspecified\n  other impact by triggering a negative wake or requeue value (bnc#1080757).\n- CVE-2017-16914: The 'stub_send_ret_submit()' function\n  (drivers/usb/usbip/stub_tx.c) allowed attackers to cause a denial of service\n  (NULL pointer dereference) via a specially crafted USB over IP packet\n  (bnc#1078669).\n- CVE-2016-7915: The hid_input_field function in drivers/hid/hid-core.c allowed\n  physically proximate attackers to obtain sensitive information from kernel\n  memory or cause a denial of service (out-of-bounds read) by connecting a\n  device, as demonstrated by a Logitech DJ receiver (bnc#1010470).\n- CVE-2015-5156: The virtnet_probe function in drivers/net/virtio_net.c\n  attempted to support a FRAGLIST feature without proper memory allocation, which\n  allowed guest OS users to cause a denial of service (buffer overflow and memory\n  corruption) via a crafted sequence of fragmented packets (bnc#940776).\n- CVE-2017-12190: The bio_map_user_iov and bio_unmap_user functions in\n  block/bio.c did unbalanced refcounting when a SCSI I/O vector had small\n  consecutive buffers belonging to the same page. The bio_add_pc_page function\n  merged them into one, but the page reference was never dropped. This caused a\n  memory leak and possible system lockup (exploitable against the host OS by a\n  guest OS user, if a SCSI disk is passed through to a virtual machine) due to an\n  out-of-memory condition (bnc#1062568).\n- CVE-2017-16912: The 'get_pipe()' function (drivers/usb/usbip/stub_rx.c)\n  allowed attackers to cause a denial of service (out-of-bounds read) via a\n  specially crafted USB over IP packet (bnc#1078673).\n- CVE-2017-16913: The 'stub_recv_cmd_submit()' function\n  (drivers/usb/usbip/stub_rx.c) when handling CMD_SUBMIT packets allowed\n  attackers to cause a denial of service (arbitrary memory allocation) via a\n  specially crafted USB over IP packet (bnc#1078672).\n\nThe following non-security bugs were fixed:\n\n- Integrate fixes resulting from bsc#1088147 More info in the respective commit messages.\n- KABI: x86/kaiser: properly align trampoline stack.\n- KEYS: do not let add_key() update an uninstantiated key (bnc#1063416).\n- KEYS: prevent creating a different user's keyrings (bnc#1065999).\n- NFSv4: fix getacl head length estimation (git-fixes).\n- PCI: Use function 0 VPD for identical functions, regular VPD for others (bnc#943786 git-fixes).\n- Revert 'USB: cdc-acm: fix broken runtime suspend' (bsc#1067912)\n- Subject: af_iucv: enable control sends in case of SEND_SHUTDOWN (bnc#1085513, LTC#165135).\n- blacklist.conf: blacklisted 7edaeb6841df ('kernel/watchdog: Prevent false positives with turbo modes') (bnc#1063516)\n- blacklist.conf: blacklisted 9fbc1f635fd0bd28cb32550211bf095753ac637a (bnc#1089665)\n- blacklist.conf: blacklisted ba4877b9ca51f80b5d30f304a46762f0509e1635 (bnc#1089668)\n- cifs: fix buffer overflow in cifs_build_path_to_root() (bsc#1085113).\n- drm/mgag200: fix a test in mga_vga_mode_valid() (bsc#1087092).\n- hrtimer: Ensure POSIX compliance (relative CLOCK_REALTIME hrtimers) (bnc#1013018).\n- hrtimer: Reset hrtimer cpu base proper on CPU hotplug (bnc#1013018).\n- ide-cd: workaround VMware ESXi cdrom emulation bug (bsc#1080813).\n- ipc/msg: introduce msgctl(MSG_STAT_ANY) (bsc#1072689).\n- ipc/sem: introduce semctl(SEM_STAT_ANY) (bsc#1072689).\n- ipc/shm: introduce shmctl(SHM_STAT_ANY) (bsc#1072689).\n- jffs2: Fix use-after-free bug in jffs2_iget()'s error handling path (git-fixes).\n- leds: do not overflow sysfs buffer in led_trigger_show (bsc#1080464).\n- media: cpia2: Fix a couple off by one bugs (bsc#1050431).\n- mm/mmap.c: do not blow on PROT_NONE MAP_FIXED holes in the stack (bnc#1039348).\n- pipe: actually allow root to exceed the pipe buffer limits (git-fixes).\n- posix-timers: Protect posix clock array access against speculation (bnc#1081358).\n- powerpc/fadump: Add a warning when 'fadump_reserve_mem=' is used (bnc#1032084).\n- powerpc/fadump: reuse crashkernel parameter for fadump memory reservation (bnc#1032084).\n- powerpc/fadump: update documentation about crashkernel parameter reuse (bnc#1032084).\n- powerpc/fadump: use 'fadump_reserve_mem=' when specified (bnc#1032084).\n- powerpc/pseries: Support firmware disable of RFI flush (bsc#1068032, bsc#1075088).\n- qeth: repair SBAL elements calculation (bnc#1085513, LTC#165484).\n- s390/qeth: fix underestimated count of buffer elements (bnc#1082091, LTC#164529).\n- scsi: sr: workaround VMware ESXi cdrom emulation bug (bsc#1080813).\n- usbnet: Fix a race between usbnet_stop() and the BH (bsc#1083275).\n- x86-64: Move the 'user' vsyscall segment out of the data segment (bsc#1082424).\n- x86/espfix: Fix return stack in do_double_fault() (bsc#1085279).\n- x86/kaiser: properly align trampoline stack (bsc#1087260).\n- x86/retpoline: do not perform thunk calls in ring3 vsyscall code (bsc#1085331).\n- xen/x86/CPU: Check speculation control CPUID bit (bsc#1068032).\n- xen/x86/CPU: Sync CPU feature flags late (bsc#1075994 bsc#1075091).\n- xen/x86/asm/traps: Disable tracing and kprobes in fixup_bad_iret and sync_regs (bsc#909077).\n- xen/x86/cpu: Factor out application of forced CPU caps (bsc#1075994 bsc#1075091).\n- xen/x86/cpu: Fix bootup crashes by sanitizing the argument of the 'clearcpuid=' command-line option (bsc#1065600).\n- xen/x86/entry: Use IBRS on entry to kernel space (bsc#1068032).\n- xen/x86/idle: Toggle IBRS when going idle (bsc#1068032).\n- xen/x86/kaiser: Move feature detection up (bsc#1068032).\n- xfs: check for buffer errors before waiting (bsc#1052943).\n- xfs: fix allocbt cursor leak in xfs_alloc_ag_vextent_near (bsc#1087762).\n- xfs: really fix the cursor leak in xfs_alloc_ag_vextent_near (bsc#1087762).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "slertesp4-kernel-13604",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/",
+			"description": "Link for SUSE-SU-2018:1309-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2018-May/004055.html",
+			"description": "E-Mail link for SUSE-SU-2018:1309-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1010470",
+			"description": "SUSE Bug 1010470"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1013018",
+			"description": "SUSE Bug 1013018"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1032084",
+			"description": "SUSE Bug 1032084"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1039348",
+			"description": "SUSE Bug 1039348"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1050431",
+			"description": "SUSE Bug 1050431"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1052943",
+			"description": "SUSE Bug 1052943"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1062568",
+			"description": "SUSE Bug 1062568"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1062840",
+			"description": "SUSE Bug 1062840"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1063416",
+			"description": "SUSE Bug 1063416"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1063516",
+			"description": "SUSE Bug 1063516"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1065600",
+			"description": "SUSE Bug 1065600"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1065999",
+			"description": "SUSE Bug 1065999"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1067118",
+			"description": "SUSE Bug 1067118"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1067912",
+			"description": "SUSE Bug 1067912"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1068032",
+			"description": "SUSE Bug 1068032"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1072689",
+			"description": "SUSE Bug 1072689"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1072865",
+			"description": "SUSE Bug 1072865"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1075088",
+			"description": "SUSE Bug 1075088"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1075091",
+			"description": "SUSE Bug 1075091"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1075994",
+			"description": "SUSE Bug 1075994"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1078669",
+			"description": "SUSE Bug 1078669"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1078672",
+			"description": "SUSE Bug 1078672"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1078673",
+			"description": "SUSE Bug 1078673"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1078674",
+			"description": "SUSE Bug 1078674"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1080464",
+			"description": "SUSE Bug 1080464"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1080757",
+			"description": "SUSE Bug 1080757"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1080813",
+			"description": "SUSE Bug 1080813"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1081358",
+			"description": "SUSE Bug 1081358"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1082091",
+			"description": "SUSE Bug 1082091"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1082424",
+			"description": "SUSE Bug 1082424"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1083242",
+			"description": "SUSE Bug 1083242"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1083275",
+			"description": "SUSE Bug 1083275"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1083483",
+			"description": "SUSE Bug 1083483"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1083494",
+			"description": "SUSE Bug 1083494"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1084536",
+			"description": "SUSE Bug 1084536"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1085113",
+			"description": "SUSE Bug 1085113"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1085279",
+			"description": "SUSE Bug 1085279"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1085331",
+			"description": "SUSE Bug 1085331"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1085513",
+			"description": "SUSE Bug 1085513"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1086162",
+			"description": "SUSE Bug 1086162"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1087092",
+			"description": "SUSE Bug 1087092"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1087209",
+			"description": "SUSE Bug 1087209"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1087260",
+			"description": "SUSE Bug 1087260"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1087762",
+			"description": "SUSE Bug 1087762"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1088147",
+			"description": "SUSE Bug 1088147"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1088260",
+			"description": "SUSE Bug 1088260"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1089608",
+			"description": "SUSE Bug 1089608"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1089665",
+			"description": "SUSE Bug 1089665"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1089668",
+			"description": "SUSE Bug 1089668"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1089752",
+			"description": "SUSE Bug 1089752"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/909077",
+			"description": "SUSE Bug 909077"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/940776",
+			"description": "SUSE Bug 940776"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/943786",
+			"description": "SUSE Bug 943786"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/951638",
+			"description": "SUSE Bug 951638"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-5156/",
+			"description": "SUSE CVE CVE-2015-5156 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-7915/",
+			"description": "SUSE CVE CVE-2016-7915 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-0861/",
+			"description": "SUSE CVE CVE-2017-0861 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-12190/",
+			"description": "SUSE CVE CVE-2017-12190 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-13166/",
+			"description": "SUSE CVE CVE-2017-13166 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-16644/",
+			"description": "SUSE CVE CVE-2017-16644 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-16911/",
+			"description": "SUSE CVE CVE-2017-16911 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-16912/",
+			"description": "SUSE CVE CVE-2017-16912 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-16913/",
+			"description": "SUSE CVE CVE-2017-16913 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-16914/",
+			"description": "SUSE CVE CVE-2017-16914 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-18203/",
+			"description": "SUSE CVE CVE-2017-18203 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-18208/",
+			"description": "SUSE CVE CVE-2017-18208 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10087/",
+			"description": "SUSE CVE CVE-2018-10087 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-10124/",
+			"description": "SUSE CVE CVE-2018-10124 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-6927/",
+			"description": "SUSE CVE CVE-2018-6927 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-7566/",
+			"description": "SUSE CVE CVE-2018-7566 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-7757/",
+			"description": "SUSE CVE CVE-2018-7757 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-8822/",
+			"description": "SUSE CVE CVE-2018-8822 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Real Time 11 SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Real Time 11 SP4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Real Time 11 SP4",
+							"product_id": "SUSE Linux Enterprise Real Time 11 SP4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-3.0.101.rt130-69.24.1",
+				"full_product_name": {
+					"text": "kernel-rt-3.0.101.rt130-69.24.1",
+					"product_id": "kernel-rt-3.0.101.rt130-69.24.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-base-3.0.101.rt130-69.24.1",
+				"full_product_name": {
+					"text": "kernel-rt-base-3.0.101.rt130-69.24.1",
+					"product_id": "kernel-rt-base-3.0.101.rt130-69.24.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-devel-3.0.101.rt130-69.24.1",
+				"full_product_name": {
+					"text": "kernel-rt-devel-3.0.101.rt130-69.24.1",
+					"product_id": "kernel-rt-devel-3.0.101.rt130-69.24.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt_trace-3.0.101.rt130-69.24.1",
+				"full_product_name": {
+					"text": "kernel-rt_trace-3.0.101.rt130-69.24.1",
+					"product_id": "kernel-rt_trace-3.0.101.rt130-69.24.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+				"full_product_name": {
+					"text": "kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+					"product_id": "kernel-rt_trace-base-3.0.101.rt130-69.24.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+				"full_product_name": {
+					"text": "kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+					"product_id": "kernel-rt_trace-devel-3.0.101.rt130-69.24.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-rt-3.0.101.rt130-69.24.1",
+				"full_product_name": {
+					"text": "kernel-source-rt-3.0.101.rt130-69.24.1",
+					"product_id": "kernel-source-rt-3.0.101.rt130-69.24.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-rt-3.0.101.rt130-69.24.1",
+				"full_product_name": {
+					"text": "kernel-syms-rt-3.0.101.rt130-69.24.1",
+					"product_id": "kernel-syms-rt-3.0.101.rt130-69.24.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-rt-3.0.101.rt130-69.24.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Real Time 11 SP4"
+			},
+			{
+				"product_reference": "kernel-rt-base-3.0.101.rt130-69.24.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Real Time 11 SP4"
+			},
+			{
+				"product_reference": "kernel-rt-devel-3.0.101.rt130-69.24.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Real Time 11 SP4"
+			},
+			{
+				"product_reference": "kernel-rt_trace-3.0.101.rt130-69.24.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Real Time 11 SP4"
+			},
+			{
+				"product_reference": "kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Real Time 11 SP4"
+			},
+			{
+				"product_reference": "kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Real Time 11 SP4"
+			},
+			{
+				"product_reference": "kernel-source-rt-3.0.101.rt130-69.24.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Real Time 11 SP4"
+			},
+			{
+				"product_reference": "kernel-syms-rt-3.0.101.rt130-69.24.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Real Time 11 SP4"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "The virtnet_probe function in drivers/net/virtio_net.c in the Linux kernel before 4.2 attempts to support a FRAGLIST feature without proper memory allocation, which allows guest OS users to cause a denial of service (buffer overflow and memory corruption) via a crafted sequence of fragmented packets.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-5156",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6",
+					"vector_v_2": "AV:L/AC:H/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-5156.html",
+					"description": "CVE-2015-5156"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1123903",
+					"description": "SUSE Bug 1123903"
+				},
+				{
+					"url": "https://bugzilla.suse.com/940776",
+					"description": "SUSE Bug 940776"
+				},
+				{
+					"url": "https://bugzilla.suse.com/945048",
+					"description": "SUSE Bug 945048"
+				},
+				{
+					"url": "https://bugzilla.suse.com/951638",
+					"description": "SUSE Bug 951638"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The hid_input_field function in drivers/hid/hid-core.c in the Linux kernel before 4.6 allows physically proximate attackers to obtain sensitive information from kernel memory or cause a denial of service (out-of-bounds read) by connecting a device, as demonstrated by a Logitech DJ receiver.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-7915",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:P/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-7915.html",
+					"description": "CVE-2016-7915"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1010470",
+					"description": "SUSE Bug 1010470"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Use-after-free vulnerability in the snd_pcm_info function in the ALSA subsystem in the Linux kernel allows attackers to gain privileges via unspecified vectors.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-0861",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-0861.html",
+					"description": "CVE-2017-0861"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1088260",
+					"description": "SUSE Bug 1088260"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1088268",
+					"description": "SUSE Bug 1088268"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The bio_map_user_iov and bio_unmap_user functions in block/bio.c in the Linux kernel before 4.13.8 do unbalanced refcounting when a SCSI I/O vector has small consecutive buffers belonging to the same page. The bio_add_pc_page function merges them into one, but the page reference is never dropped. This causes a memory leak and possible system lockup (exploitable against the host OS by a guest OS user, if a SCSI disk is passed through to a virtual machine) due to an out-of-memory condition.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-12190",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:A/AC:L/Au:M/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:A/AC:L/PR:H/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-12190.html",
+					"description": "CVE-2017-12190"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1062568",
+					"description": "SUSE Bug 1062568"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An elevation of privilege vulnerability in the kernel v4l2 video driver. Product: Android. Versions: Android kernel. Android ID A-34624167.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-13166",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-13166.html",
+					"description": "CVE-2017-13166"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1072865",
+					"description": "SUSE Bug 1072865"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1085447",
+					"description": "SUSE Bug 1085447"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The hdpvr_probe function in drivers/media/usb/hdpvr/hdpvr-core.c in the Linux kernel through 4.13.11 allows local users to cause a denial of service (improper error handling and system crash) or possibly have unspecified other impact via a crafted USB device.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-16644",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.6",
+					"vector_v_3": "CVSS:3.0/AV:P/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-16644.html",
+					"description": "CVE-2017-16644"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1067118",
+					"description": "SUSE Bug 1067118"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1146519",
+					"description": "SUSE Bug 1146519"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The vhci_hcd driver in the Linux Kernel before version 4.14.8 and 4.4.114 allows allows local attackers to disclose kernel memory addresses. Successful exploitation requires that a USB device is attached over IP.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-16911",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-16911.html",
+					"description": "CVE-2017-16911"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1078674",
+					"description": "SUSE Bug 1078674"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The \"get_pipe()\" function (drivers/usb/usbip/stub_rx.c) in the Linux Kernel before version 4.14.8, 4.9.71, and 4.4.114 allows attackers to cause a denial of service (out-of-bounds read) via a specially crafted USB over IP packet.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-16912",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.1",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-16912.html",
+					"description": "CVE-2017-16912"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1078673",
+					"description": "SUSE Bug 1078673"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The \"stub_recv_cmd_submit()\" function (drivers/usb/usbip/stub_rx.c) in the Linux Kernel before version 4.14.8, 4.9.71, and 4.4.114 when handling CMD_SUBMIT packets allows attackers to cause a denial of service (arbitrary memory allocation) via a specially crafted USB over IP packet.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-16913",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.1",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-16913.html",
+					"description": "CVE-2017-16913"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1078672",
+					"description": "SUSE Bug 1078672"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The \"stub_send_ret_submit()\" function (drivers/usb/usbip/stub_tx.c) in the Linux Kernel before version 4.14.8, 4.9.71, 4.1.49, and 4.4.107 allows attackers to cause a denial of service (NULL pointer dereference) via a specially crafted USB over IP packet.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-16914",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.1",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-16914.html",
+					"description": "CVE-2017-16914"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1078669",
+					"description": "SUSE Bug 1078669"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The dm_get_from_kobject function in drivers/md/dm.c in the Linux kernel before 4.14.3 allow local users to cause a denial of service (BUG) by leveraging a race condition with __dm_destroy during creation and removal of DM devices.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-18203",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-18203.html",
+					"description": "CVE-2017-18203"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1083242",
+					"description": "SUSE Bug 1083242"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The madvise_willneed function in mm/madvise.c in the Linux kernel before 4.14.4 allows local users to cause a denial of service (infinite loop) by triggering use of MADVISE_WILLNEED for a DAX mapping.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-18208",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-18208.html",
+					"description": "CVE-2017-18208"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1083494",
+					"description": "SUSE Bug 1083494"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The kernel_wait4 function in kernel/exit.c in the Linux kernel before 4.13, when an unspecified architecture and compiler is used, might allow local users to cause a denial of service by triggering an attempted use of the -INT_MIN value.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10087",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10087.html",
+					"description": "CVE-2018-10087"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1089608",
+					"description": "SUSE Bug 1089608"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The kill_something_info function in kernel/signal.c in the Linux kernel before 4.13, when an unspecified architecture and compiler is used, might allow local users to cause a denial of service via an INT_MIN argument.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-10124",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-10124.html",
+					"description": "CVE-2018-10124"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1089752",
+					"description": "SUSE Bug 1089752"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The futex_requeue function in kernel/futex.c in the Linux kernel before 4.14.15 might allow attackers to cause a denial of service (integer overflow) or possibly have unspecified other impact by triggering a negative wake or requeue value.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-6927",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-6927.html",
+					"description": "CVE-2018-6927"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1080757",
+					"description": "SUSE Bug 1080757"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The Linux kernel 4.15 has a Buffer Overflow via an SNDRV_SEQ_IOCTL_SET_CLIENT_POOL ioctl write operation to /dev/snd/seq by a local user.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-7566",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-7566.html",
+					"description": "CVE-2018-7566"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1083483",
+					"description": "SUSE Bug 1083483"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1083488",
+					"description": "SUSE Bug 1083488"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Memory leak in the sas_smp_get_phy_events function in drivers/scsi/libsas/sas_expander.c in the Linux kernel through 4.15.7 allows local users to cause a denial of service (memory consumption) via many read accesses to files in the /sys/class/sas_phy directory, as demonstrated by the /sys/class/sas_phy/phy-1:0:12/invalid_dword_count file.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-7757",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-7757.html",
+					"description": "CVE-2018-7757"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1084536",
+					"description": "SUSE Bug 1084536"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087082",
+					"description": "SUSE Bug 1087082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1087209",
+					"description": "SUSE Bug 1087209"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Incorrect buffer length handling in the ncp_read_kernel function in fs/ncpfs/ncplib_kernel.c in the Linux kernel through 4.15.11, and in drivers/staging/ncpfs/ncplib_kernel.c in the Linux kernel 4.16-rc through 4.16-rc6, could be exploited by malicious NCPFS servers to crash the kernel or execute code.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-8822",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-base-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-rt_trace-devel-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-source-rt-3.0.101.rt130-69.24.1",
+						"SUSE Linux Enterprise Real Time 11 SP4:kernel-syms-rt-3.0.101.rt130-69.24.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.4",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:H/PR:H/UI:R/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2018/suse-su-20181309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-8822.html",
+					"description": "CVE-2018-8822"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1086162",
+					"description": "SUSE Bug 1086162"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1090404",
+					"description": "SUSE Bug 1090404"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1091815",
+					"description": "SUSE Bug 1091815"
+				}
+			]
+		}
+	]
+}

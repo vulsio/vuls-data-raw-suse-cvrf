@@ -1,0 +1,1955 @@
+{
+	"document_title": "Security update for qemu",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2017:2936-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2017-11-06T16:18:59Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2017-11-06T16:18:59Z",
+		"current_release_date": "2017-11-06T16:18:59Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for qemu",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for qemu fixes several issues.\n\nThese security issues were fixed:\n\n- CVE-2017-15268: Qemu allowed remote attackers to cause a memory leak by triggering slow data-channel read operations, related to io/channel-websock.c (bsc#1062942).\n- CVE-2017-9524: The qemu-nbd server when built with the Network Block Device (NBD) Server support allowed remote attackers to cause a denial of service (segmentation fault and server crash) by leveraging failure to ensure that all initialization occurs talking to a client in the nbd_negotiate function (bsc#1043808).\n- CVE-2017-15289: The mode4and5 write functions allowed local OS guest privileged users to cause a denial of service (out-of-bounds write access and Qemu process crash) via vectors related to dst calculation (bsc#1063122)\n- CVE-2017-15038: Race condition in the v9fs_xattrwalk function local guest OS users to obtain sensitive information from host heap memory via vectors related to reading extended attributes (bsc#1062069)\n- CVE-2017-10911: The make_response function in the Linux kernel allowed guest OS users to obtain sensitive information from host OS (or other guest OS) kernel memory by leveraging the copying of uninitialized padding fields in Xen block-interface response structures (bsc#1057378)\n- CVE-2017-12809: The IDE disk and CD/DVD-ROM Emulator support allowed local guest OS privileged users to cause a denial of service (NULL pointer dereference and QEMU process crash) by flushing an empty CDROM device drive (bsc#1054724)\n- CVE-2017-10664: qemu-nbd did not ignore SIGPIPE, which allowed remote attackers to cause a denial of service (daemon crash) by disconnecting during a server-to-client reply attempt (bsc#1046636)\n- CVE-2017-10806: Stack-based buffer overflow allowed local guest OS users to cause a denial of service (QEMU process crash) via vectors related to logging debug messages (bsc#1047674)\n- CVE-2017-14167: Integer overflow in the load_multiboot function allowed local guest OS users to execute arbitrary code on the host via crafted multiboot header address values, which trigger an out-of-bounds write (bsc#1057585)\n- CVE-2017-11434: The dhcp_decode function in slirp/bootp.c allowed local guest OS users to cause a denial of service (out-of-bounds read) via a crafted DHCP options string (bsc#1049381)\n- CVE-2017-11334: The address_space_write_continue function allowed local guest OS privileged users to cause a denial of service (out-of-bounds access and guest instance crash) by leveraging use of qemu_map_ram_ptr to access guest ram block area (bsc#1048902)\n- CVE-2017-13672: The VGA display emulator support allowed local guest OS privileged users to cause a denial of service (out-of-bounds read and QEMU process crash) via vectors involving display update (bsc#1056334)\n\nThese non-security issues were fixed:\n\n- Fixed not being able to build from rpm sources due to undefined macro (bsc#1057966)\n- Fixed wrong permissions for kvm_stat.1 file\n- Fixed KVM lun resize not working as expected on SLES12 SP2 HV (bsc#1043176)\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-SLE-DESKTOP-12-SP2-2017-1821,SUSE-SLE-RPI-12-SP2-2017-1821,SUSE-SLE-SERVER-12-SP2-2017-1821",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172936-1/",
+			"description": "Link for SUSE-SU-2017:2936-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/opensuse-security-announce/2017-11/msg00006.html",
+			"description": "E-Mail link for SUSE-SU-2017:2936-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1043176",
+			"description": "SUSE Bug 1043176"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1043808",
+			"description": "SUSE Bug 1043808"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1046636",
+			"description": "SUSE Bug 1046636"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1047674",
+			"description": "SUSE Bug 1047674"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1048902",
+			"description": "SUSE Bug 1048902"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1049381",
+			"description": "SUSE Bug 1049381"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1054724",
+			"description": "SUSE Bug 1054724"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1056334",
+			"description": "SUSE Bug 1056334"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1057378",
+			"description": "SUSE Bug 1057378"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1057585",
+			"description": "SUSE Bug 1057585"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1057966",
+			"description": "SUSE Bug 1057966"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1059369",
+			"description": "SUSE Bug 1059369"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1062069",
+			"description": "SUSE Bug 1062069"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1062942",
+			"description": "SUSE Bug 1062942"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1063122",
+			"description": "SUSE Bug 1063122"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/997358",
+			"description": "SUSE Bug 997358"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-10664/",
+			"description": "SUSE CVE CVE-2017-10664 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-10806/",
+			"description": "SUSE CVE CVE-2017-10806 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-10911/",
+			"description": "SUSE CVE CVE-2017-10911 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-11334/",
+			"description": "SUSE CVE CVE-2017-11334 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-11434/",
+			"description": "SUSE CVE CVE-2017-11434 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-12809/",
+			"description": "SUSE CVE CVE-2017-12809 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-13672/",
+			"description": "SUSE CVE CVE-2017-13672 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-14167/",
+			"description": "SUSE CVE CVE-2017-14167 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-15038/",
+			"description": "SUSE CVE CVE-2017-15038 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-15268/",
+			"description": "SUSE CVE CVE-2017-15268 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-15289/",
+			"description": "SUSE CVE CVE-2017-15289 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-9524/",
+			"description": "SUSE CVE CVE-2017-9524 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Desktop 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Desktop 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Desktop 12 SP2",
+							"product_id": "SUSE Linux Enterprise Desktop 12 SP2",
+							"cpe": "cpe:/o:suse:sled:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12 SP2",
+							"product_id": "SUSE Linux Enterprise Server 12 SP2",
+							"cpe": "cpe:/o:suse:sles:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2",
+							"product_id": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2",
+							"cpe": "cpe:/o:suse:sles:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 12 SP2",
+							"cpe": "cpe:/o:suse:sles_sap:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-2.6.2-41.22.2",
+				"full_product_name": {
+					"text": "qemu-2.6.2-41.22.2",
+					"product_id": "qemu-2.6.2-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-block-curl-2.6.2-41.22.2",
+				"full_product_name": {
+					"text": "qemu-block-curl-2.6.2-41.22.2",
+					"product_id": "qemu-block-curl-2.6.2-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-ipxe-1.0.0-41.22.2",
+				"full_product_name": {
+					"text": "qemu-ipxe-1.0.0-41.22.2",
+					"product_id": "qemu-ipxe-1.0.0-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-kvm-2.6.2-41.22.2",
+				"full_product_name": {
+					"text": "qemu-kvm-2.6.2-41.22.2",
+					"product_id": "qemu-kvm-2.6.2-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-seabios-1.9.1-41.22.2",
+				"full_product_name": {
+					"text": "qemu-seabios-1.9.1-41.22.2",
+					"product_id": "qemu-seabios-1.9.1-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-sgabios-8-41.22.2",
+				"full_product_name": {
+					"text": "qemu-sgabios-8-41.22.2",
+					"product_id": "qemu-sgabios-8-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-tools-2.6.2-41.22.2",
+				"full_product_name": {
+					"text": "qemu-tools-2.6.2-41.22.2",
+					"product_id": "qemu-tools-2.6.2-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-vgabios-1.9.1-41.22.2",
+				"full_product_name": {
+					"text": "qemu-vgabios-1.9.1-41.22.2",
+					"product_id": "qemu-vgabios-1.9.1-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-x86-2.6.2-41.22.2",
+				"full_product_name": {
+					"text": "qemu-x86-2.6.2-41.22.2",
+					"product_id": "qemu-x86-2.6.2-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-arm-2.6.2-41.22.2",
+				"full_product_name": {
+					"text": "qemu-arm-2.6.2-41.22.2",
+					"product_id": "qemu-arm-2.6.2-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-block-rbd-2.6.2-41.22.2",
+				"full_product_name": {
+					"text": "qemu-block-rbd-2.6.2-41.22.2",
+					"product_id": "qemu-block-rbd-2.6.2-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-block-ssh-2.6.2-41.22.2",
+				"full_product_name": {
+					"text": "qemu-block-ssh-2.6.2-41.22.2",
+					"product_id": "qemu-block-ssh-2.6.2-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-guest-agent-2.6.2-41.22.2",
+				"full_product_name": {
+					"text": "qemu-guest-agent-2.6.2-41.22.2",
+					"product_id": "qemu-guest-agent-2.6.2-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-lang-2.6.2-41.22.2",
+				"full_product_name": {
+					"text": "qemu-lang-2.6.2-41.22.2",
+					"product_id": "qemu-lang-2.6.2-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-ppc-2.6.2-41.22.2",
+				"full_product_name": {
+					"text": "qemu-ppc-2.6.2-41.22.2",
+					"product_id": "qemu-ppc-2.6.2-41.22.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-s390-2.6.2-41.22.2",
+				"full_product_name": {
+					"text": "qemu-s390-2.6.2-41.22.2",
+					"product_id": "qemu-s390-2.6.2-41.22.2"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "qemu-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "qemu-block-curl-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "qemu-ipxe-1.0.0-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "qemu-kvm-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "qemu-seabios-1.9.1-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "qemu-sgabios-8-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "qemu-tools-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "qemu-vgabios-1.9.1-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "qemu-x86-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Desktop 12 SP2"
+			},
+			{
+				"product_reference": "qemu-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-arm-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-block-curl-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-block-rbd-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-block-ssh-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-guest-agent-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-ipxe-1.0.0-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-kvm-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-lang-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-ppc-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-s390-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-seabios-1.9.1-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-sgabios-8-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-tools-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-vgabios-1.9.1-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-x86-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP2"
+			},
+			{
+				"product_reference": "qemu-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "qemu-arm-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "qemu-block-curl-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "qemu-block-rbd-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "qemu-block-ssh-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "qemu-guest-agent-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "qemu-ipxe-1.0.0-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "qemu-lang-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "qemu-tools-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for Raspberry Pi 12 SP2"
+			},
+			{
+				"product_reference": "qemu-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-arm-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-block-curl-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-block-rbd-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-block-ssh-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-guest-agent-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-ipxe-1.0.0-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-kvm-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-lang-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-ppc-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-s390-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-seabios-1.9.1-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-sgabios-8-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-tools-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-vgabios-1.9.1-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			},
+			{
+				"product_reference": "qemu-x86-2.6.2-41.22.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP2"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "qemu-nbd in QEMU (aka Quick Emulator) does not ignore SIGPIPE, which allows remote attackers to cause a denial of service (daemon crash) by disconnecting during a server-to-client reply attempt.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-10664",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-x86-2.6.2-41.22.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172936-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-10664.html",
+					"description": "CVE-2017-10664"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1046636",
+					"description": "SUSE Bug 1046636"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1046637",
+					"description": "SUSE Bug 1046637"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Stack-based buffer overflow in hw/usb/redirect.c in QEMU (aka Quick Emulator) allows local guest OS users to cause a denial of service (QEMU process crash) via vectors related to logging debug messages.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-10806",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-x86-2.6.2-41.22.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172936-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-10806.html",
+					"description": "CVE-2017-10806"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1047674",
+					"description": "SUSE Bug 1047674"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1047675",
+					"description": "SUSE Bug 1047675"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The make_response function in drivers/block/xen-blkback/blkback.c in the Linux kernel before 4.11.8 allows guest OS users to obtain sensitive information from host OS (or other guest OS) kernel memory by leveraging the copying of uninitialized padding fields in Xen block-interface response structures, aka XSA-216.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-10911",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-x86-2.6.2-41.22.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172936-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-10911.html",
+					"description": "CVE-2017-10911"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1042863",
+					"description": "SUSE Bug 1042863"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1043330",
+					"description": "SUSE Bug 1043330"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1057378",
+					"description": "SUSE Bug 1057378"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The address_space_write_continue function in exec.c in QEMU (aka Quick Emulator) allows local guest OS privileged users to cause a denial of service (out-of-bounds access and guest instance crash) by leveraging use of qemu_map_ram_ptr to access guest ram block area.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-11334",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-x86-2.6.2-41.22.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172936-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-11334.html",
+					"description": "CVE-2017-11334"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1048902",
+					"description": "SUSE Bug 1048902"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1048920",
+					"description": "SUSE Bug 1048920"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The dhcp_decode function in slirp/bootp.c in QEMU (aka Quick Emulator) allows local guest OS users to cause a denial of service (out-of-bounds read and QEMU process crash) via a crafted DHCP options string.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-11434",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-x86-2.6.2-41.22.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.6",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172936-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-11434.html",
+					"description": "CVE-2017-11434"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1049381",
+					"description": "SUSE Bug 1049381"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1049578",
+					"description": "SUSE Bug 1049578"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "QEMU (aka Quick Emulator), when built with the IDE disk and CD/DVD-ROM Emulator support, allows local guest OS privileged users to cause a denial of service (NULL pointer dereference and QEMU process crash) by flushing an empty CDROM device drive.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-12809",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-x86-2.6.2-41.22.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172936-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-12809.html",
+					"description": "CVE-2017-12809"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1054724",
+					"description": "SUSE Bug 1054724"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "QEMU (aka Quick Emulator), when built with the VGA display emulator support, allows local guest OS privileged users to cause a denial of service (out-of-bounds read and QEMU process crash) via vectors involving display update.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-13672",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-x86-2.6.2-41.22.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.3",
+					"vector_v_2": "AV:A/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3",
+					"vector_v_3": "CVSS:3.0/AV:A/AC:H/PR:L/UI:N/S:C/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172936-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-13672.html",
+					"description": "CVE-2017-13672"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1056334",
+					"description": "SUSE Bug 1056334"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1056336",
+					"description": "SUSE Bug 1056336"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1084604",
+					"description": "SUSE Bug 1084604"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Integer overflow in the load_multiboot function in hw/i386/multiboot.c in QEMU (aka Quick Emulator) allows local guest OS users to execute arbitrary code on the host via crafted multiboot header address values, which trigger an out-of-bounds write.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-14167",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-x86-2.6.2-41.22.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.6",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:N/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172936-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-14167.html",
+					"description": "CVE-2017-14167"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1057585",
+					"description": "SUSE Bug 1057585"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Race condition in the v9fs_xattrwalk function in hw/9pfs/9p.c in QEMU (aka Quick Emulator) allows local guest OS users to obtain sensitive information from host heap memory via vectors related to reading extended attributes.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-15038",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-x86-2.6.2-41.22.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.3",
+					"vector_v_2": "AV:A/AC:M/Au:S/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3",
+					"vector_v_3": "CVSS:3.0/AV:A/AC:H/PR:L/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172936-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-15038.html",
+					"description": "CVE-2017-15038"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1062069",
+					"description": "SUSE Bug 1062069"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Qemu through 2.10.0 allows remote attackers to cause a memory leak by triggering slow data-channel read operations, related to io/channel-websock.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-15268",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-x86-2.6.2-41.22.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.5",
+					"vector_v_2": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172936-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-15268.html",
+					"description": "CVE-2017-15268"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1062942",
+					"description": "SUSE Bug 1062942"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The mode4and5 write functions in hw/display/cirrus_vga.c in Qemu allow local OS guest privileged users to cause a denial of service (out-of-bounds write access and Qemu process crash) via vectors related to dst calculation.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-15289",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-x86-2.6.2-41.22.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:H/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172936-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-15289.html",
+					"description": "CVE-2017-15289"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1063122",
+					"description": "SUSE Bug 1063122"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1063123",
+					"description": "SUSE Bug 1063123"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1178658",
+					"description": "SUSE Bug 1178658"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The qemu-nbd server in QEMU (aka Quick Emulator), when built with the Network Block Device (NBD) Server support, allows remote attackers to cause a denial of service (segmentation fault and server crash) by leveraging failure to ensure that all initialization occurs before talking to a client in the nbd_negotiate function.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-9524",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Desktop 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server 12 SP2:qemu-x86-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for Raspberry Pi 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-arm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-curl-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-rbd-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-block-ssh-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-guest-agent-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ipxe-1.0.0-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-kvm-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-lang-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-ppc-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-s390-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-seabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-sgabios-8-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-tools-2.6.2-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-vgabios-1.9.1-41.22.2",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP2:qemu-x86-2.6.2-41.22.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.8",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20172936-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-9524.html",
+					"description": "CVE-2017-9524"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1043808",
+					"description": "SUSE Bug 1043808"
+				}
+			]
+		}
+	]
+}

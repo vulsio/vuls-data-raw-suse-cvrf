@@ -1,0 +1,1255 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2019:1823-2"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2019-07-15T05:40:50Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2019-07-15T05:40:50Z",
+		"current_release_date": "2019-07-15T05:40:50Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThe SUSE Linux Enterprise 12 SP 2 kernel was updated to receive various security and bugfixes.\n\nThe following security bugs were fixed:\n\n- CVE-2019-10638: In the Linux kernel, a device could be tracked by an attacker using the IP ID values the kernel produces for connection-less protocols (e.g., UDP and ICMP). When such traffic was sent to multiple destination IP addresses, it was possible to obtain hash collisions (of indices to the counter array) and thereby obtain the hashing key (via enumeration). An attack may be conducted by hosting a crafted web page that uses WebRTC or gQUIC to force UDP traffic to attacker-controlled IP addresses. (bnc#1140575)\n- CVE-2019-10639: The Linux kernel allowed Information Exposure (partial kernel address disclosure), leading to a KASLR bypass. Specifically, it was possible to extract the KASLR kernel image offset using the IP ID values the kernel produces for connection-less protocols (e.g., UDP and ICMP). When such traffic was sent to multiple destination IP addresses, it was possible to obtain hash collisions (of indices to the counter array) and thereby obtain the hashing key (via enumeration). This key contains enough bits from a kernel address (of a static variable) so when the key was extracted (via enumeration), the offset of the kernel image is exposed. This attack can be carried out remotely, by the attacker forcing the target device to send UDP or ICMP (or certain other) traffic to attacker-controlled IP addresses. Forcing a server to send UDP traffic is trivial if the server is a DNS server. ICMP traffic is trivial if the server answers ICMP Echo requests (ping). For client targets, if the target visited the attacker's web page, then WebRTC or gQUIC could be used to force UDP traffic to attacker-controlled IP addresses. NOTE: this attack against KASLR became viable because IP ID generation was changed to have a dependency on an address associated with a network namespace. (bnc#)\n- CVE-2019-10126: A flaw was found in the Linux kernel that might lead to memory corruption in the marvell mwifiex driver. (bnc#1136935)\n- CVE-2018-20836: An issue was discovered in the Linux kernel There was a race condition in smp_task_timedout() and smp_task_done() in drivers/scsi/libsas/sas_expander.c, leading to a use-after-free. (bnc#1134395)\n- CVE-2019-11599: The coredump implementation in the Linux kernel did not use locking or other mechanisms to prevent vma layout or vma flags changes while it ran, which allowed local users to obtain sensitive information, cause a denial of service, or possibly have unspecified other impact by triggering a race condition with mmget_not_zero or get_task_mm calls. This is related to fs/userfaultfd.c, mm/mmap.c, fs/proc/task_mmu.c, and drivers/infiniband/core/uverbs_main.c. (bnc#1133738)\n- CVE-2019-12614: An issue was discovered in dlpar_parse_cc_property in arch/powerpc/platforms/pseries/dlpar.c in the Linux kernel There was an unchecked kstrdup of prop-name, which might allow an attacker to cause a denial of service (NULL pointer dereference and system crash). (bnc#)\n- CVE-2019-12818: An issue was discovered in the Linux kernel The nfc_llcp_build_tlv function in net/nfc/llcp_commands.c may return NULL. If the caller did not check for this, it will trigger a NULL pointer dereference. This will cause denial of service. This affects nfc_llcp_build_gb in net/nfc/llcp_core.c. (bnc#1137194)\n- CVE-2019-12819: An issue was discovered in the Linux kernel The function __mdiobus_register() in drivers/net/phy/mdio_bus.c called put_device(), which would trigger a fixed_mdio_bus_init use-after-free. This would cause a denial of service. (bnc#1138291)\n- CVE-2019-12456 a double-fetch bug in _ctl_ioctl_main() could allow local users to create a denial of service (bsc#1136922).\n- CVE-2019-12380: An issue was discovered in the efi subsystem in the Linux kernel phys_efi_set_virtual_address_map in arch/x86/platform/efi/efi.c and efi_call_phys_prolog in arch/x86/platform/efi/efi_64.c mishandle memory allocation failures. NOTE: This id is disputed as not being an issue because All the code touched by the referenced commit runs only at boot, before any user processes are started. Therefore, there is no possibility for an unprivileged user to control it. (bnc#)\n- CVE-2019-11487: The Linux kernel allowed page-_refcount reference count to overflow, with resultant use-after-free issues, if about 140 GiB of RAM exists. This is related to fs/fuse/dev.c, fs/pipe.c, fs/splice.c, include/linux/mm.h, include/linux/pipe_fs_i.h, kernel/trace/trace.c, mm/gup.c, and mm/hugetlb.c. It can occur with FUSE requests. (bnc#1133190)\n\nThe following non-security bugs were fixed:\n\n- Drop multiversion(kernel) from the KMP template (bsc#1127155).\n- Revert 'KMPs: obsolete older KMPs of the same flavour (bsc#1127155, bsc#1109137).' This reverts commit 4cc83da426b53d47f1fde9328112364eab1e9a19.\n- sched/fair: Avoid divide by zero when rebalancing domains (bsc#1096254).\n- x86/cpu: Unify CPU family, model, stepping calculation (bsc#1134701).\n- x86/entry/64/compat: Fix stack switching for XEN PV (bsc#1108382).\n- x86/microcode/AMD: Fix initrd loading with CONFIG_RANDOMIZE_MEMORY=y (bsc#1134701).\n- x86/microcode/AMD: Fix load of builtin microcode with randomized memory (bsc#1134701).\n- x86/microcode/AMD: Reload proper initrd start address (bsc#1134701).\n- x86/microcode/amd: Hand down the CPU family (bsc#1134701).\n- x86/microcode/amd: Move private inlines to .c and mark local functions static (bsc#1134701).\n- x86/microcode/intel: Drop stashed AP patch pointer optimization (bsc#1134701).\n- x86/microcode/intel: Fix allocation size of struct ucode_patch (bsc#1134701).\n- x86/microcode/intel: Fix initrd loading with CONFIG_RANDOMIZE_MEMORY=y (bsc#1134701).\n- x86/microcode/intel: Remove intel_lib.c (bsc#1134701).\n- x86/microcode/intel: Remove unused arg of get_matching_model_microcode() (bsc#1134701).\n- x86/microcode/intel: Rename load_microcode_early() to find_microcode_patch() (bsc#1134701).\n- x86/microcode/intel: Rename local variables of type struct mc_saved_data (bsc#1134701).\n- x86/microcode/intel: Rename mc_intel variable to mc (bsc#1134701).\n- x86/microcode/intel: Rename mc_saved_in_initrd (bsc#1134701).\n- x86/microcode/intel: Simplify generic_load_microcode() (bsc#1134701).\n- x86/microcode/intel: Unexport save_mc_for_early() (bsc#1134701).\n- x86/microcode/intel: Use correct buffer size for saving microcode data (bsc#1134701).\n- x86/microcode: Collect CPU info on resume (bsc#1134701).\n- x86/microcode: Export the microcode cache linked list (bsc#1134701).\n- x86/microcode: Fix loading precedence (bsc#1134701).\n- x86/microcode: Get rid of find_cpio_data()'s dummy offset arg (bsc#1134701).\n- x86/microcode: Issue the debug printk on resume only on success (bsc#1134701).\n- x86/microcode: Rework microcode loading (bsc#1134701).\n- x86/microcode: Run the AP-loading routine only on the application processors (bsc#1134701).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2019-1823,SUSE-SLE-HA-12-SP2-2019-1823",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191823-2/",
+			"description": "Link for SUSE-SU-2019:1823-2"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2019-July/005706.html",
+			"description": "E-Mail link for SUSE-SU-2019:1823-2"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1096254",
+			"description": "SUSE Bug 1096254"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1108382",
+			"description": "SUSE Bug 1108382"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1109137",
+			"description": "SUSE Bug 1109137"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1127155",
+			"description": "SUSE Bug 1127155"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1133190",
+			"description": "SUSE Bug 1133190"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1133738",
+			"description": "SUSE Bug 1133738"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1134395",
+			"description": "SUSE Bug 1134395"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1134701",
+			"description": "SUSE Bug 1134701"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1136922",
+			"description": "SUSE Bug 1136922"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1136935",
+			"description": "SUSE Bug 1136935"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1137194",
+			"description": "SUSE Bug 1137194"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1138291",
+			"description": "SUSE Bug 1138291"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1140575",
+			"description": "SUSE Bug 1140575"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2018-20836/",
+			"description": "SUSE CVE CVE-2018-20836 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-10126/",
+			"description": "SUSE CVE CVE-2019-10126 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-10638/",
+			"description": "SUSE CVE CVE-2019-10638 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-10639/",
+			"description": "SUSE CVE CVE-2019-10639 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-11487/",
+			"description": "SUSE CVE CVE-2019-11487 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-11599/",
+			"description": "SUSE CVE CVE-2019-11599 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-12380/",
+			"description": "SUSE CVE CVE-2019-12380 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-12456/",
+			"description": "SUSE CVE CVE-2019-12456 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-12614/",
+			"description": "SUSE CVE CVE-2019-12614 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-12818/",
+			"description": "SUSE CVE CVE-2019-12818 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-12819/",
+			"description": "SUSE CVE CVE-2019-12819 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Availability Extension 12 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Availability Extension 12 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Availability Extension 12 SP2",
+							"product_id": "SUSE Linux Enterprise High Availability Extension 12 SP2",
+							"cpe": "cpe:/o:suse:sle-ha:12:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-debug-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "cluster-md-kmp-debug-4.4.121-92.117.1",
+					"product_id": "cluster-md-kmp-debug-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-default-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "cluster-md-kmp-default-4.4.121-92.117.1",
+					"product_id": "cluster-md-kmp-default-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-vanilla-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "cluster-md-kmp-vanilla-4.4.121-92.117.1",
+					"product_id": "cluster-md-kmp-vanilla-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-network-kmp-debug-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "cluster-network-kmp-debug-4.4.121-92.117.1",
+					"product_id": "cluster-network-kmp-debug-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-network-kmp-default-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "cluster-network-kmp-default-4.4.121-92.117.1",
+					"product_id": "cluster-network-kmp-default-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-network-kmp-vanilla-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "cluster-network-kmp-vanilla-4.4.121-92.117.1",
+					"product_id": "cluster-network-kmp-vanilla-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-debug-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "dlm-kmp-debug-4.4.121-92.117.1",
+					"product_id": "dlm-kmp-debug-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-default-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "dlm-kmp-default-4.4.121-92.117.1",
+					"product_id": "dlm-kmp-default-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-vanilla-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "dlm-kmp-vanilla-4.4.121-92.117.1",
+					"product_id": "dlm-kmp-vanilla-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-debug-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "gfs2-kmp-debug-4.4.121-92.117.1",
+					"product_id": "gfs2-kmp-debug-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-default-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "gfs2-kmp-default-4.4.121-92.117.1",
+					"product_id": "gfs2-kmp-default-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-vanilla-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "gfs2-kmp-vanilla-4.4.121-92.117.1",
+					"product_id": "gfs2-kmp-vanilla-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-debug-4.4.121-92.117.1",
+					"product_id": "kernel-debug-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-base-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-debug-base-4.4.121-92.117.1",
+					"product_id": "kernel-debug-base-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-devel-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-debug-devel-4.4.121-92.117.1",
+					"product_id": "kernel-debug-devel-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-extra-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-debug-extra-4.4.121-92.117.1",
+					"product_id": "kernel-debug-extra-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-kgraft-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-debug-kgraft-4.4.121-92.117.1",
+					"product_id": "kernel-debug-kgraft-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-default-4.4.121-92.117.1",
+					"product_id": "kernel-default-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-default-base-4.4.121-92.117.1",
+					"product_id": "kernel-default-base-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-default-devel-4.4.121-92.117.1",
+					"product_id": "kernel-default-devel-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-extra-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-default-extra-4.4.121-92.117.1",
+					"product_id": "kernel-default-extra-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-kgraft-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-default-kgraft-4.4.121-92.117.1",
+					"product_id": "kernel-default-kgraft-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-man-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-default-man-4.4.121-92.117.1",
+					"product_id": "kernel-default-man-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-devel-4.4.121-92.117.1",
+					"product_id": "kernel-devel-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-docs-4.4.121-92.117.1",
+					"product_id": "kernel-docs-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-html-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-docs-html-4.4.121-92.117.1",
+					"product_id": "kernel-docs-html-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-pdf-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-docs-pdf-4.4.121-92.117.1",
+					"product_id": "kernel-docs-pdf-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-macros-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-macros-4.4.121-92.117.1",
+					"product_id": "kernel-macros-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-build-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-obs-build-4.4.121-92.117.1",
+					"product_id": "kernel-obs-build-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-qa-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-obs-qa-4.4.121-92.117.1",
+					"product_id": "kernel-obs-qa-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-source-4.4.121-92.117.1",
+					"product_id": "kernel-source-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-vanilla-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-source-vanilla-4.4.121-92.117.1",
+					"product_id": "kernel-source-vanilla-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-syms-4.4.121-92.117.1",
+					"product_id": "kernel-syms-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-4.4.121-92.117.1",
+					"product_id": "kernel-vanilla-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-base-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-base-4.4.121-92.117.1",
+					"product_id": "kernel-vanilla-base-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-devel-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-devel-4.4.121-92.117.1",
+					"product_id": "kernel-vanilla-devel-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-zfcpdump-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "kernel-zfcpdump-4.4.121-92.117.1",
+					"product_id": "kernel-zfcpdump-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kgraft-patch-4_4_121-92_117-default-1-3.3.1",
+				"full_product_name": {
+					"text": "kgraft-patch-4_4_121-92_117-default-1-3.3.1",
+					"product_id": "kgraft-patch-4_4_121-92_117-default-1-3.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-debug-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-debug-4.4.121-92.117.1",
+					"product_id": "ocfs2-kmp-debug-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-default-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-default-4.4.121-92.117.1",
+					"product_id": "ocfs2-kmp-default-4.4.121-92.117.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-vanilla-4.4.121-92.117.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-vanilla-4.4.121-92.117.1",
+					"product_id": "ocfs2-kmp-vanilla-4.4.121-92.117.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "cluster-md-kmp-default-4.4.121-92.117.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "cluster-network-kmp-default-4.4.121-92.117.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "dlm-kmp-default-4.4.121-92.117.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-4.4.121-92.117.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-4.4.121-92.117.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP2"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel before 4.20. There is a race condition in smp_task_timedout() and smp_task_done() in drivers/scsi/libsas/sas_expander.c, leading to a use-after-free.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2018-20836",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.117.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "9.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191823-2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2018-20836.html",
+					"description": "CVE-2018-20836"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1134395",
+					"description": "SUSE Bug 1134395"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the Linux kernel. A heap based buffer overflow in mwifiex_uap_parse_tail_ies function in drivers/net/wireless/marvell/mwifiex/ie.c might lead to memory corruption and possibly other consequences.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-10126",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.117.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8",
+					"vector_v_3": "CVSS:3.1/AV:A/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191823-2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-10126.html",
+					"description": "CVE-2019-10126"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1136935",
+					"description": "SUSE Bug 1136935"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1137944",
+					"description": "SUSE Bug 1137944"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1142129",
+					"description": "SUSE Bug 1142129"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1156330",
+					"description": "SUSE Bug 1156330"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel before 5.1.7, a device can be tracked by an attacker using the IP ID values the kernel produces for connection-less protocols (e.g., UDP and ICMP). When such traffic is sent to multiple destination IP addresses, it is possible to obtain hash collisions (of indices to the counter array) and thereby obtain the hashing key (via enumeration). An attack may be conducted by hosting a crafted web page that uses WebRTC or gQUIC to force UDP traffic to attacker-controlled IP addresses.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-10638",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.117.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191823-2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-10638.html",
+					"description": "CVE-2019-10638"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1140575",
+					"description": "SUSE Bug 1140575"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1140577",
+					"description": "SUSE Bug 1140577"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1142129",
+					"description": "SUSE Bug 1142129"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The Linux kernel 4.x (starting from 4.1) and 5.x before 5.0.8 allows Information Exposure (partial kernel address disclosure), leading to a KASLR bypass. Specifically, it is possible to extract the KASLR kernel image offset using the IP ID values the kernel produces for connection-less protocols (e.g., UDP and ICMP). When such traffic is sent to multiple destination IP addresses, it is possible to obtain hash collisions (of indices to the counter array) and thereby obtain the hashing key (via enumeration). This key contains enough bits from a kernel address (of a static variable) so when the key is extracted (via enumeration), the offset of the kernel image is exposed. This attack can be carried out remotely, by the attacker forcing the target device to send UDP or ICMP (or certain other) traffic to attacker-controlled IP addresses. Forcing a server to send UDP traffic is trivial if the server is a DNS server. ICMP traffic is trivial if the server answers ICMP Echo requests (ping). For client targets, if the target visits the attacker's web page, then WebRTC or gQUIC can be used to force UDP traffic to attacker-controlled IP addresses. NOTE: this attack against KASLR became viable in 4.1 because IP ID generation was changed to have a dependency on an address associated with a network namespace.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-10639",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.117.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191823-2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-10639.html",
+					"description": "CVE-2019-10639"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1140577",
+					"description": "SUSE Bug 1140577"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The Linux kernel before 5.1-rc5 allows page->_refcount reference count overflow, with resultant use-after-free issues, if about 140 GiB of RAM exists. This is related to fs/fuse/dev.c, fs/pipe.c, fs/splice.c, include/linux/mm.h, include/linux/pipe_fs_i.h, kernel/trace/trace.c, mm/gup.c, and mm/hugetlb.c. It can occur with FUSE requests.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-11487",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.117.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191823-2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-11487.html",
+					"description": "CVE-2019-11487"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1133190",
+					"description": "SUSE Bug 1133190"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1133191",
+					"description": "SUSE Bug 1133191"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The coredump implementation in the Linux kernel before 5.0.10 does not use locking or other mechanisms to prevent vma layout or vma flags changes while it runs, which allows local users to obtain sensitive information, cause a denial of service, or possibly have unspecified other impact by triggering a race condition with mmget_not_zero or get_task_mm calls. This is related to fs/userfaultfd.c, mm/mmap.c, fs/proc/task_mmu.c, and drivers/infiniband/core/uverbs_main.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-11599",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.117.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.1",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191823-2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-11599.html",
+					"description": "CVE-2019-11599"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1131645",
+					"description": "SUSE Bug 1131645"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1133738",
+					"description": "SUSE Bug 1133738"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1157905",
+					"description": "SUSE Bug 1157905"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "**DISPUTED** An issue was discovered in the efi subsystem in the Linux kernel through 5.1.5. phys_efi_set_virtual_address_map in arch/x86/platform/efi/efi.c and efi_call_phys_prolog in arch/x86/platform/efi/efi_64.c mishandle memory allocation failures. NOTE: This id is disputed as not being an issue because “All the code touched by the referenced commit runs only at boot, before any user processes are started. Therefore, there is no possibility for an unprivileged user to control it.”.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-12380",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.117.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191823-2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-12380.html",
+					"description": "CVE-2019-12380"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1136598",
+					"description": "SUSE Bug 1136598"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1155298",
+					"description": "SUSE Bug 1155298"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "** DISPUTED ** An issue was discovered in the MPT3COMMAND case in _ctl_ioctl_main in drivers/scsi/mpt3sas/mpt3sas_ctl.c in the Linux kernel through 5.1.5. It allows local users to cause a denial of service or possibly have unspecified other impact by changing the value of ioc_number between two kernel reads of that value, aka a \"double fetch\" vulnerability. NOTE: a third party reports that this is unexploitable because the doubly fetched value is not used.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-12456",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.117.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191823-2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-12456.html",
+					"description": "CVE-2019-12456"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1136922",
+					"description": "SUSE Bug 1136922"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1136993",
+					"description": "SUSE Bug 1136993"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in dlpar_parse_cc_property in arch/powerpc/platforms/pseries/dlpar.c in the Linux kernel through 5.1.6. There is an unchecked kstrdup of prop->name, which might allow an attacker to cause a denial of service (NULL pointer dereference and system crash).",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-12614",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.117.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.8",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191823-2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-12614.html",
+					"description": "CVE-2019-12614"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1137194",
+					"description": "SUSE Bug 1137194"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel before 4.20.15. The nfc_llcp_build_tlv function in net/nfc/llcp_commands.c may return NULL. If the caller does not check for this, it will trigger a NULL pointer dereference. This will cause denial of service. This affects nfc_llcp_build_gb in net/nfc/llcp_core.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-12818",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.117.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.1",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:H/PR:H/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191823-2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-12818.html",
+					"description": "CVE-2019-12818"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1138293",
+					"description": "SUSE Bug 1138293"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel before 5.0. The function __mdiobus_register() in drivers/net/phy/mdio_bus.c calls put_device(), which will trigger a fixed_mdio_bus_init use-after-free. This will cause a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-12819",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-md-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:cluster-network-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:dlm-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:gfs2-kmp-default-4.4.121-92.117.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP2:ocfs2-kmp-default-4.4.121-92.117.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:H/UI:N/S:U/C:N/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2019/suse-su-20191823-2/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-12819.html",
+					"description": "CVE-2019-12819"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1138291",
+					"description": "SUSE Bug 1138291"
+				}
+			]
+		}
+	]
+}

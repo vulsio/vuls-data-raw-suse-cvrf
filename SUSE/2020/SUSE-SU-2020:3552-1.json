@@ -1,0 +1,1877 @@
+{
+	"document_title": "Security update for binutils",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2020:3552-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2020-11-27T17:11:51Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2020-11-27T17:11:51Z",
+		"current_release_date": "2020-11-27T17:11:51Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for binutils",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for binutils fixes the following issues:\n\nbinutils was updated to version 2.35.1 (jsc#ECO-2373)\n\nAdditional branch fixes applied on top of 2.35.1:\n\n* Fixes PR26520, aka [bsc#1179036], a problem in addr2line with\n  certain DWARF variable descriptions.\n* Also fixes PR26711, PR26656, PR26655, PR26929, PR26808, PR25878,\n  PR26740, PR26778, PR26763, PR26685, PR26699, PR26902, PR26869,\n  PR26711 \n* The above includes fixes for dwo files produced by modern dwp,\n  fixing several problems in the DWARF reader.\n\nUpdate to binutils 2.35.1 and rebased branch diff:\n\n* This is a point release over the previous 2.35 version, containing bug\n  fixes, and as an exception to the usual rule, one new feature.  The\n  new feature is the support for a new directive in the assembler:\n  '.nop'.  This directive creates a single no-op instruction in whatever\n  encoding is correct for the target architecture.  Unlike the .space or\n  .fill this is a real instruction, and it does affect the generation of\n  DWARF line number tables, should they be enabled.\n\nUpdate to binutils 2.35:\n\n* The assembler can now produce DWARF-5 format line number tables.\n* Readelf now has a 'lint' mode to enable extra checks of the files it is processing.\n* Readelf will now display '[...]' when it has to truncate a symbol name.  \n  The old behaviour - of displaying as many characters as possible, up to\n  the 80 column limit - can be restored by the use of the --silent-truncation\n  option.\n* The linker can now produce a dependency file listing the inputs that it\n  has processed, much like the -M -MP option supported by the compiler.\n\n- fix DT_NEEDED order with -flto [bsc#1163744]\n\n\nUpdate to binutils 2.34:\n\n* The disassembler (objdump --disassemble) now has an option to\n  generate ascii art thats show the arcs between that start and end\n  points of control flow instructions.\n* The binutils tools now have support for debuginfod.  Debuginfod is a \n  HTTP service for distributing ELF/DWARF debugging information as\n  well as source code.  The tools can now connect to debuginfod\n  servers in order to download debug information about the files that\n  they are processing.\n* The assembler and linker now support the generation of ELF format\n  files for the Z80 architecture.\n\n- Add new subpackages for libctf and libctf-nobfd.\n- Disable LTO due to bsc#1163333.\n- Includes fixes for these CVEs:\n  bsc#1153768 aka CVE-2019-17451 aka PR25070\n  bsc#1153770 aka CVE-2019-17450 aka PR25078\n\n- fix various build fails on aarch64 (PR25210, bsc#1157755).\n\nUpdate to binutils 2.33.1:\n\n* Adds support for the Arm Scalable Vector Extension version 2\n  (SVE2) instructions, the Arm Transactional Memory Extension (TME)\n  instructions and the Armv8.1-M Mainline and M-profile Vector\n  Extension (MVE) instructions.\n* Adds support for the Arm Cortex-A76AE, Cortex-A77 and Cortex-M35P\n  processors and the AArch64 Cortex-A34, Cortex-A65, Cortex-A65AE,\n  Cortex-A76AE, and Cortex-A77 processors.\n* Adds a .float16 directive for both Arm and AArch64 to allow\n  encoding of 16-bit floating point literals.\n* For MIPS, Add -m[no-]fix-loongson3-llsc option to fix (or not)\n  Loongson3 LLSC Errata.  Add a --enable-mips-fix-loongson3-llsc=[yes|no]\n  configure time option to set the default behavior. Set the default\n  if the configure option is not used to 'no'.\n* The Cortex-A53 Erratum 843419 workaround now supports a choice of\n  which workaround to use.  The option --fix-cortex-a53-843419 now\n  takes an optional argument --fix-cortex-a53-843419[=full|adr|adrp]\n  which can be used to force a particular workaround to be used.\n  See --help for AArch64 for more details.\n* Add support for GNU_PROPERTY_AARCH64_FEATURE_1_BTI and\n  GNU_PROPERTY_AARCH64_FEATURE_1_PAC  in ELF GNU program properties\n  in the AArch64 ELF linker. \n* Add -z force-bti for AArch64 to enable GNU_PROPERTY_AARCH64_FEATURE_1_BTI\n  on output while warning about missing GNU_PROPERTY_AARCH64_FEATURE_1_BTI \n  on inputs and use PLTs protected with BTI.\n* Add -z pac-plt for AArch64 to pick PAC enabled PLTs.\n* Add --source-comment[=<txt>] option to objdump which if present,\n  provides a prefix to source code lines displayed in a disassembly.\n* Add --set-section-alignment <section-name>=<power-of-2-align>\n  option to objcopy to allow the changing of section alignments.\n* Add --verilog-data-width option to objcopy for verilog targets to\n  control width of data elements in verilog hex format.\n* The separate debug info file options of readelf (--debug-dump=links\n  and --debug-dump=follow) and objdump (--dwarf=links and\n  --dwarf=follow-links) will now display and/or follow multiple\n  links if more than one are present in a file.  (This usually\n  happens when gcc's -gsplit-dwarf option is used).\n  In addition objdump's --dwarf=follow-links now also affects its\n  other display options, so that for example, when combined with\n  --syms it will cause the symbol tables in any linked debug info\n  files to also be displayed.  In addition when combined with\n  --disassemble the --dwarf= follow-links option will ensure that\n  any symbol tables in the linked files are read and used when\n  disassembling code in the main file.\n* Add support for dumping types encoded in the Compact Type Format\n  to objdump and readelf.\n- Includes fixes for these CVEs:\n  bsc#1126826 aka CVE-2019-9077 aka PR1126826\n  bsc#1126829 aka CVE-2019-9075 aka PR1126829\n  bsc#1126831 aka CVE-2019-9074 aka PR24235\n  bsc#1140126 aka CVE-2019-12972 aka PR23405\n  bsc#1143609 aka CVE-2019-14444 aka PR24829\n  bsc#1142649 aka CVE-2019-14250 aka PR90924\n\n* Add xBPF target\n* Fix various problems with DWARF 5 support in gas\n* fix nm -B for objects compiled with -flto and -fcommon.\n\n  ",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Image SLES15-Azure-BYOS-2020-3552,Image SLES15-EC2-HVM-BYOS-2020-3552,Image SLES15-GCE-BYOS-2020-3552,Image SLES15-OCI-BYOS-2020-3552,Image SLES15-SAP-Azure-2020-3552,Image SLES15-SAP-Azure-BYOS-2020-3552,Image SLES15-SAP-Azure-LI-BYOS-Production-2020-3552,Image SLES15-SAP-Azure-VLI-BYOS-Production-2020-3552,Image SLES15-SAP-EC2-HVM-2020-3552,Image SLES15-SAP-EC2-HVM-BYOS-2020-3552,Image SLES15-SAP-GCE-2020-3552,Image SLES15-SAP-GCE-BYOS-2020-3552,Image SLES15-SAP-OCI-BYOS-2020-3552,SUSE-2020-3552,SUSE-SLE-Product-HPC-15-2020-3552,SUSE-SLE-Product-SLES-15-2020-3552,SUSE-SLE-Product-SLES_SAP-15-2020-3552",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20203552-1/",
+			"description": "Link for SUSE-SU-2020:3552-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2020-November/007888.html",
+			"description": "E-Mail link for SUSE-SU-2020:3552-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1126826",
+			"description": "SUSE Bug 1126826"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1126829",
+			"description": "SUSE Bug 1126829"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1126831",
+			"description": "SUSE Bug 1126831"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1140126",
+			"description": "SUSE Bug 1140126"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1142649",
+			"description": "SUSE Bug 1142649"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1143609",
+			"description": "SUSE Bug 1143609"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1153768",
+			"description": "SUSE Bug 1153768"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1153770",
+			"description": "SUSE Bug 1153770"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1157755",
+			"description": "SUSE Bug 1157755"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1160254",
+			"description": "SUSE Bug 1160254"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1160590",
+			"description": "SUSE Bug 1160590"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1163333",
+			"description": "SUSE Bug 1163333"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1163744",
+			"description": "SUSE Bug 1163744"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1179036",
+			"description": "SUSE Bug 1179036"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-12972/",
+			"description": "SUSE CVE CVE-2019-12972 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-14250/",
+			"description": "SUSE CVE CVE-2019-14250 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-14444/",
+			"description": "SUSE CVE CVE-2019-14444 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-17450/",
+			"description": "SUSE CVE CVE-2019-17450 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-17451/",
+			"description": "SUSE CVE CVE-2019-17451 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-9074/",
+			"description": "SUSE CVE CVE-2019-9074 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-9075/",
+			"description": "SUSE CVE CVE-2019-9075 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2019-9077/",
+			"description": "SUSE CVE CVE-2019-9077 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-Azure-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-Azure-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-Azure-BYOS",
+							"product_id": "Image SLES15-Azure-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-EC2-HVM-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-EC2-HVM-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-EC2-HVM-BYOS",
+							"product_id": "Image SLES15-EC2-HVM-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-GCE-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-GCE-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-GCE-BYOS",
+							"product_id": "Image SLES15-GCE-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-OCI-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-OCI-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-OCI-BYOS",
+							"product_id": "Image SLES15-OCI-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-Azure",
+							"product_id": "Image SLES15-SAP-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-Azure-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-Azure-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-Azure-BYOS",
+							"product_id": "Image SLES15-SAP-Azure-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-Azure-LI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-Azure-LI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-Azure-LI-BYOS-Production",
+							"product_id": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-Azure-VLI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-Azure-VLI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-Azure-VLI-BYOS-Production",
+							"product_id": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-EC2-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-EC2-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-EC2-HVM",
+							"product_id": "Image SLES15-SAP-EC2-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-EC2-HVM-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-EC2-HVM-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-EC2-HVM-BYOS",
+							"product_id": "Image SLES15-SAP-EC2-HVM-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-GCE",
+							"product_id": "Image SLES15-SAP-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-GCE-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-GCE-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-GCE-BYOS",
+							"product_id": "Image SLES15-SAP-GCE-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SAP-OCI-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SAP-OCI-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SAP-OCI-BYOS",
+							"product_id": "Image SLES15-SAP-OCI-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Performance Computing 15-ESPOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Performance Computing 15-ESPOS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Performance Computing 15-ESPOS",
+							"product_id": "SUSE Linux Enterprise High Performance Computing 15-ESPOS",
+							"cpe": "cpe:/o:suse:sle_hpc-espos:15"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Performance Computing 15-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Performance Computing 15-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Performance Computing 15-LTSS",
+							"product_id": "SUSE Linux Enterprise High Performance Computing 15-LTSS",
+							"cpe": "cpe:/o:suse:sle_hpc-ltss:15"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 15-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 15-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 15-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 15-LTSS",
+							"cpe": "cpe:/o:suse:sles-ltss:15"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 15",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 15",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 15",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 15",
+							"cpe": "cpe:/o:suse:sles_sap:15"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "binutils-2.35.1-6.15.1",
+					"product_id": "binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libctf-nobfd0-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "libctf-nobfd0-2.35.1-6.15.1",
+					"product_id": "libctf-nobfd0-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libctf0-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "libctf0-2.35.1-6.15.1",
+					"product_id": "libctf0-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "binutils-devel-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "binutils-devel-2.35.1-6.15.1",
+					"product_id": "binutils-devel-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "binutils-devel-32bit-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "binutils-devel-32bit-2.35.1-6.15.1",
+					"product_id": "binutils-devel-32bit-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "binutils-devel-64bit-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "binutils-devel-64bit-2.35.1-6.15.1",
+					"product_id": "binutils-devel-64bit-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "binutils-gold-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "binutils-gold-2.35.1-6.15.1",
+					"product_id": "binutils-gold-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-aarch64-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-aarch64-binutils-2.35.1-6.15.1",
+					"product_id": "cross-aarch64-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-arm-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-arm-binutils-2.35.1-6.15.1",
+					"product_id": "cross-arm-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-avr-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-avr-binutils-2.35.1-6.15.1",
+					"product_id": "cross-avr-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-epiphany-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-epiphany-binutils-2.35.1-6.15.1",
+					"product_id": "cross-epiphany-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-hppa-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-hppa-binutils-2.35.1-6.15.1",
+					"product_id": "cross-hppa-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-hppa64-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-hppa64-binutils-2.35.1-6.15.1",
+					"product_id": "cross-hppa64-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-i386-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-i386-binutils-2.35.1-6.15.1",
+					"product_id": "cross-i386-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-ia64-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-ia64-binutils-2.35.1-6.15.1",
+					"product_id": "cross-ia64-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-m68k-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-m68k-binutils-2.35.1-6.15.1",
+					"product_id": "cross-m68k-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-mips-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-mips-binutils-2.35.1-6.15.1",
+					"product_id": "cross-mips-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-ppc-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-ppc-binutils-2.35.1-6.15.1",
+					"product_id": "cross-ppc-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-ppc64-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-ppc64-binutils-2.35.1-6.15.1",
+					"product_id": "cross-ppc64-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-ppc64le-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-ppc64le-binutils-2.35.1-6.15.1",
+					"product_id": "cross-ppc64le-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-riscv64-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-riscv64-binutils-2.35.1-6.15.1",
+					"product_id": "cross-riscv64-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-rx-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-rx-binutils-2.35.1-6.15.1",
+					"product_id": "cross-rx-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-s390-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-s390-binutils-2.35.1-6.15.1",
+					"product_id": "cross-s390-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-s390x-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-s390x-binutils-2.35.1-6.15.1",
+					"product_id": "cross-s390x-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-sparc-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-sparc-binutils-2.35.1-6.15.1",
+					"product_id": "cross-sparc-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-sparc64-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-sparc64-binutils-2.35.1-6.15.1",
+					"product_id": "cross-sparc64-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-spu-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-spu-binutils-2.35.1-6.15.1",
+					"product_id": "cross-spu-binutils-2.35.1-6.15.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cross-x86_64-binutils-2.35.1-6.15.1",
+				"full_product_name": {
+					"text": "cross-x86_64-binutils-2.35.1-6.15.1",
+					"product_id": "cross-x86_64-binutils-2.35.1-6.15.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-Azure-BYOS"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-Azure-BYOS"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-Azure-BYOS"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-GCE-BYOS"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-GCE-BYOS"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-GCE-BYOS"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-OCI-BYOS"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-OCI-BYOS"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-OCI-BYOS"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-BYOS"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-EC2-HVM-BYOS"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-GCE-BYOS"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SAP-OCI-BYOS"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15-ESPOS"
+			},
+			{
+				"product_reference": "binutils-devel-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15-ESPOS"
+			},
+			{
+				"product_reference": "binutils-devel-32bit-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15-ESPOS"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15-ESPOS"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15-ESPOS"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15-LTSS"
+			},
+			{
+				"product_reference": "binutils-devel-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15-LTSS"
+			},
+			{
+				"product_reference": "binutils-devel-32bit-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15-LTSS"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15-LTSS"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15-LTSS"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15-LTSS"
+			},
+			{
+				"product_reference": "binutils-devel-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15-LTSS"
+			},
+			{
+				"product_reference": "binutils-devel-32bit-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15-LTSS"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15-LTSS"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15-LTSS"
+			},
+			{
+				"product_reference": "binutils-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15"
+			},
+			{
+				"product_reference": "binutils-devel-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15"
+			},
+			{
+				"product_reference": "binutils-devel-32bit-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15"
+			},
+			{
+				"product_reference": "libctf-nobfd0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15"
+			},
+			{
+				"product_reference": "libctf0-2.35.1-6.15.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.32. There is a heap-based buffer over-read in _bfd_doprnt in bfd.c because elf_object_p in elfcode.h mishandles an e_shstrndx section of type SHT_GROUP by omitting a trailing '\\0' character.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-12972",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf0-2.35.1-6.15.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20203552-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-12972.html",
+					"description": "CVE-2019-12972"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1140126",
+					"description": "SUSE Bug 1140126"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in GNU libiberty, as distributed in GNU Binutils 2.32. simple_object_elf_match in simple-object-elf.c does not check for a zero shstrndx value, leading to an integer overflow and resultant heap-based buffer overflow.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-14250",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf0-2.35.1-6.15.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20203552-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-14250.html",
+					"description": "CVE-2019-14250"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1142649",
+					"description": "SUSE Bug 1142649"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "apply_relocations in readelf.c in GNU Binutils 2.32 contains an integer overflow that allows attackers to trigger a write access violation (in byte_put_little_endian function in elfcomm.c) via an ELF file, as demonstrated by readelf.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-14444",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf0-2.35.1-6.15.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20203552-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-14444.html",
+					"description": "CVE-2019-14444"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1143609",
+					"description": "SUSE Bug 1143609"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "find_abstract_instance in dwarf2.c in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.32, allows remote attackers to cause a denial of service (infinite recursion and application crash) via a crafted ELF file.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-17450",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf0-2.35.1-6.15.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20203552-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-17450.html",
+					"description": "CVE-2019-17450"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1153770",
+					"description": "SUSE Bug 1153770"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.32. It is an integer overflow leading to a SEGV in _bfd_dwarf2_find_nearest_line in dwarf2.c, as demonstrated by nm.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-17451",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf0-2.35.1-6.15.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20203552-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-17451.html",
+					"description": "CVE-2019-17451"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1153768",
+					"description": "SUSE Bug 1153768"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.32. It is an out-of-bounds read leading to a SEGV in bfd_getl32 in libbfd.c, when called from pex64_get_runtime_function in pei-x86_64.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-9074",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf0-2.35.1-6.15.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20203552-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-9074.html",
+					"description": "CVE-2019-9074"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1126831",
+					"description": "SUSE Bug 1126831"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.32. It is a heap-based buffer overflow in _bfd_archive_64_bit_slurp_armap in archive64.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-9075",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf0-2.35.1-6.15.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20203552-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-9075.html",
+					"description": "CVE-2019-9075"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1071544",
+					"description": "SUSE Bug 1071544"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1126829",
+					"description": "SUSE Bug 1126829"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1193110",
+					"description": "SUSE Bug 1193110"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in GNU Binutils 2.32. It is a heap-based buffer overflow in process_mips_specific in readelf.c via a malformed MIPS option section.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2019-9077",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-LI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure-VLI-BYOS-Production:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-Azure:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-EC2-HVM:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE-BYOS:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-GCE:libctf0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:binutils-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf-nobfd0-2.35.1-6.15.1",
+						"Image SLES15-SAP-OCI-BYOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-ESPOS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise High Performance Computing 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server 15-LTSS:libctf0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:binutils-devel-32bit-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf-nobfd0-2.35.1-6.15.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15:libctf0-2.35.1-6.15.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2020/suse-su-20203552-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2019-9077.html",
+					"description": "CVE-2019-9077"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1126826",
+					"description": "SUSE Bug 1126826"
+				}
+			]
+		}
+	]
+}
