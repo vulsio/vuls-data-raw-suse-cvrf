@@ -1,0 +1,2265 @@
+{
+	"document_title": "Security update for Java",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2024:1874-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-05-31T03:05:31Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-05-31T03:05:31Z",
+		"current_release_date": "2024-05-31T03:05:31Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for Java",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for Java fixes thefollowing issues:\n\napiguardian was updated to vesion 1.1.2:\n\n- Added LICENSE/NOTICE to the generated jar\n- Allow @API to be declared at the package level\n- Explain usage of Status.DEPRECATED\n- Include OSGi metadata in manifest\n\nassertj-core was implemented at version 3.25.3:\n\n- New package implementation needed by Junit5\n\nbyte-buddy was updated to version v1.14.16:\n\n- `byte-buddy` is required by `assertj-core`\n- Changes in version v1.14.16:\n\n  * Update ASM and introduce support for Java 23.\n\n- Changes in version v1.14.15:\n\n  * Allow attaching from root on J9.\n\n- Changes of v1.14.14:\n\n  * Adjust type validation to accept additional names that are\n    legal in the class file format.\n  * Fix dynamic attach on Windows when a service user is active.\n  * Avoid failure when using Android's strict mode.\n\ndom4j was updated to version 2.1.4:\n\n- Improvements and potentially breaking changes:\n\n  * Added new factory method org.dom4j.io.SAXReader.createDefault(). It has more secure defaults than new SAXReader(),\n    which uses system XMLReaderFactory.createXMLReader() or SAXParserFactory.newInstance().newSAXParser().\n  * If you use some optional dependency of dom4j (for example Jaxen, xsdlib etc.), you need to specify an explicit\n    dependency on it in your project. They are no longer marked as a mandatory transitive dependency by dom4j.\n  * Following SAX parser features are disabled by default in DocumentHelper.parse() for security reasons (they were\n    enabled in previous versions):\n      \n    + http://xml.org/sax/properties/external-general-entities\n    + http://xml.org/sax/properties/external-parameter-entities\n\n- Other changes:\n\n  * Do not depend on jtidy, since it is not used during build\n  * Fixed license to Plexus\n  * JPMS: Add the Automatic-Module-Name attribute to the manifest.\n  * Make a separate flavour for a minimal `dom4j-bootstrap` package used to build `jaxen` and full `dom4j`\n  * Updated pull-parser version\n  * Reuse the writeAttribute method in writeAttributes\n  * Support build on OS with non-UTF8 as default charset\n  * Gradle: add an automatic module name\n  * Use Correct License Name 'Plexus'\n  * Possible vulnerability of DocumentHelper.parseText() to XML injection\n  * CVS directories left in the source tree\n  * XMLWriter does not escape supplementary unicode characters correctly\n  * writer.writeOpen(x) doesn't write namespaces\n  * Fixed concurrency problem with QNameCache\n  * All dependencies are optional\n  * SAXReader: hardcoded namespace features\n  * Validate QNames\n  * StringIndexOutOfBoundsException in XMLWriter.writeElementContent()\n  * TreeNode has grown some generics\n  * QName serialization fix\n  * DocumentException initialize with nested exception\n  * Accidentally occurring error in a multi-threaded test\n  * Added compatibility with W3C DOM Level 3\n  * Use Java generics\n\nhamcrest:\n\n-  `hamcrest-core` has been replaced by `hamcrest` (no source changes)\n\njunit had the following change:\n\n- Require hamcrest >= 2.2\n\njunit5 was updated to version 5.10.2:\n    \n- Conditional execution based on OS architectures\n- Configurable cleanup mode for @TempDir\n- Configurable thread mode for @Timeout\n- Custom class loader support for class/method selectors, @MethodSource, @EnabledIf, and @DisabledIf\n- Dry-run mode for test execution\n- Failure threshold for @RepeatedTest\n- Fixed build with the latest open-test-reporting milestone\n- Fixed dependencies in module-info.java files\n- Fixed unreported exception error that is fatal with JDK 21\n- Improved configurability of parallel execution\n- New @SelectMethod support in test @Suite classes.\n- New ConsoleLauncher subcommand for test discovery without execution\n- New convenience base classes for implementing ArgumentsProvider and ArgumentConverter\n- New IterationSelector\n- New LauncherInterceptor SPI\n- New NamespacedHierarchicalStore for use in third-party test engines\n- New TempDirFactory SPI for customizing how temporary directories are created\n- New testfeed details mode for ConsoleLauncher\n- New TestInstancePreConstructCallback extension API\n- Numerous bug fixes and minor improvements\n- Parameter injection for @MethodSource methods\n- Promotion of various experimental APIs to stable\n- Reusable parameter resolution for custom extension methods via ExecutableInvoker\n- Stacktrace pruning to hide internal JUnit calls\n- The binaries are compatible with java 1.8\n- Various improvements to ConsoleLauncher\n- XML reports in new Open Test Reporting format\n\njdom:\n\n- Security issues fixed:\n\n  * CVE-2021-33813: Fixed an XXE issue in SAXBuilder in JDOM through 2.0.6 allows attackers to cause a denial of service\n    via a crafted HTTP request (bsc#1187446)\n\n- Other changes and bugs fixed:\n    \n  * Fixed wrong entries in changelog (bsc#1224410)\n  * The packages `jaxen`, `saxpath` and `xom` are now separate standalone packages instead of being part of `jdom`\n\njaxen was implemented at version 2.0.0:\n\n- New standalone RPM package implementation, originally part of `jdom` source package\n- Classpaths are much smaller and less complex, and will suppress a lot of noise from static analysis tools.\n- The Jaxen core code is also a little smaller and has fixed a few minor bugs in XPath evaluation\n- Despite the major version bump, this should be a drop in replacement for almost every project. \n  The two major possible incompatibilities are:\n  \n  * The minimum supported Java version is now 1.5, up from 1.4 in 1.2.0 and 1.3 in 1.1.6.\n  * dom4j, XOM, and JDOM are now optional dependencies so if a project was depending on them to be loaded transitively\n    it will need to add explicit dependencies to build.\n\njopt-simple:\n\n- Included jopt-simple to Package Hub 15 SP5 (no source changes)\n\nobjectweb-asm was updated to version 9.7:\n\n- New Opcodes.V23 constant for Java 23\n- Bugs fixed\n  * Fixed unit test regression in dex2jar.\n  * Fixed 'ClassNode#outerClass' with incorrect JavaDocs.\n  * asm-bom packaging should be 'pom'.\n  * The Textifier prints a supplementary space at the end of each method that throws at least one exception.\n\n\nopen-test-reporting:\n\n- Included `open-test-reporting-events` and `open-test-reporting-schema` to the channels as they are runtime \n  dependencies of Junit5 (no source changes)\n\nsaxpath was implemented at version 1.0 FCS:\n\n- New standalone RPM package implementation, originally part of `jdom` source package (openSUSE Leap 15.5 package only)\n\nxom was implemented at version 1.3.9:\n\n- New standalone RPM package implementation, originally part of `jdom` source package\n- The Nodes and Elements classes are iterable so you can use the enhanced for loop syntax on instances of these classes.\n- The copy() method is now covariant.\n- Adds Automatic-Moduole-Name to jar\n- Remove direct dependency on xml-apis:xml-apis artifact since these classes are now available in the core runtime.\n- Eliminate usage of com.sun classes to make XOM compatible with JDK 16.\n- Replace remaining usages of StringBuffer with StringBuilder to slightly improve performance.\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Container bci/openjdk-devel:11-2024-1874,Container bci/openjdk-devel:17-2024-1874,Container bci/openjdk-devel:latest-2024-1874,Container containers/apache-tomcat:10-jre21-2024-1874,Container suse/manager/5.0/x86_64/server:latest-2024-1874,Image SLES15-SP4-Manager-Server-4-3-2024-1874,Image SLES15-SP4-Manager-Server-4-3-Azure-llc-2024-1874,Image SLES15-SP4-Manager-Server-4-3-Azure-ltd-2024-1874,Image SLES15-SP4-Manager-Server-4-3-BYOS-2024-1874,Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure-2024-1874,Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2-2024-1874,Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE-2024-1874,Image SLES15-SP4-Manager-Server-4-3-EC2-llc-2024-1874,Image SLES15-SP4-Manager-Server-4-3-EC2-ltd-2024-1874,Image tomcat_15_6-2024-1874,SUSE-2024-1874,SUSE-SLE-Module-Basesystem-15-SP5-2024-1874,SUSE-SLE-Module-Basesystem-15-SP6-2024-1874,SUSE-SLE-Module-Development-Tools-15-SP5-2024-1874,SUSE-SLE-Module-Development-Tools-15-SP6-2024-1874,SUSE-SLE-Module-Packagehub-Subpackages-15-SP6-2024-1874,SUSE-SLE-Module-SUSE-Manager-Server-4.3-2024-1874,SUSE-SLE-Product-HPC-15-SP2-LTSS-2024-1874,SUSE-SLE-Product-HPC-15-SP3-LTSS-2024-1874,SUSE-SLE-Product-HPC-15-SP4-ESPOS-2024-1874,SUSE-SLE-Product-HPC-15-SP4-LTSS-2024-1874,SUSE-SLE-Product-SLED-15-SP4-LTSS-2024-1874,SUSE-SLE-Product-SLES-15-SP2-LTSS-2024-1874,SUSE-SLE-Product-SLES-15-SP3-LTSS-2024-1874,SUSE-SLE-Product-SLES-15-SP4-LTSS-2024-1874,SUSE-SLE-Product-SLES_SAP-15-SP2-2024-1874,SUSE-SLE-Product-SLES_SAP-15-SP3-2024-1874,SUSE-SLE-Product-SLES_SAP-15-SP4-2024-1874,SUSE-SLE-Product-SUSE-Manager-Proxy-4.3-2024-1874,SUSE-SLE-Product-SUSE-Manager-Server-4.3-2024-1874,SUSE-Storage-7.1-2024-1874,openSUSE-SLE-15.5-2024-1874,openSUSE-SLE-15.6-2024-1874",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20241874-1/",
+			"description": "Link for SUSE-SU-2024:1874-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-updates/2024-May/035436.html",
+			"description": "E-Mail link for SUSE-SU-2024:1874-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1187446",
+			"description": "SUSE Bug 1187446"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1224410",
+			"description": "SUSE Bug 1224410"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-33813/",
+			"description": "SUSE CVE CVE-2021-33813 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Container bci/openjdk-devel:11",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/openjdk-devel:11",
+						"full_product_name": {
+							"text": "Container bci/openjdk-devel:11",
+							"product_id": "Container bci/openjdk-devel:11"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/openjdk-devel:17",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/openjdk-devel:17",
+						"full_product_name": {
+							"text": "Container bci/openjdk-devel:17",
+							"product_id": "Container bci/openjdk-devel:17"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/openjdk-devel:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/openjdk-devel:latest",
+						"full_product_name": {
+							"text": "Container bci/openjdk-devel:latest",
+							"product_id": "Container bci/openjdk-devel:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container containers/apache-tomcat:10-jre21",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container containers/apache-tomcat:10-jre21",
+						"full_product_name": {
+							"text": "Container containers/apache-tomcat:10-jre21",
+							"product_id": "Container containers/apache-tomcat:10-jre21"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/manager/5.0/x86_64/server:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/manager/5.0/x86_64/server:latest",
+						"full_product_name": {
+							"text": "Container suse/manager/5.0/x86_64/server:latest",
+							"product_id": "Container suse/manager/5.0/x86_64/server:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-Azure-llc",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-Azure-llc",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-Azure-llc",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-Azure-llc"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-Azure-ltd",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-Azure-ltd",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-Azure-ltd",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-Azure-ltd"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-BYOS",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-EC2-llc",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-EC2-llc",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-EC2-llc",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-EC2-llc"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-EC2-ltd",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-EC2-ltd",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-EC2-ltd",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-EC2-ltd"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image tomcat_15_6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image tomcat_15_6",
+						"full_product_name": {
+							"text": "Image tomcat_15_6",
+							"product_id": "Image tomcat_15_6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Enterprise Storage 7.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Enterprise Storage 7.1",
+						"full_product_name": {
+							"text": "SUSE Enterprise Storage 7.1",
+							"product_id": "SUSE Enterprise Storage 7.1",
+							"cpe": "cpe:/o:suse:ses:7.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS",
+							"product_id": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS",
+							"cpe": "cpe:/o:suse:sle_hpc-ltss:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS",
+							"product_id": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS",
+							"cpe": "cpe:/o:suse:sle_hpc-ltss:15:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS",
+							"product_id": "SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS",
+							"cpe": "cpe:/o:suse:sle_hpc-espos:15:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS",
+							"product_id": "SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS",
+							"cpe": "cpe:/o:suse:sle_hpc-ltss:15:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Basesystem 15 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Basesystem 15 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Basesystem 15 SP5",
+							"product_id": "SUSE Linux Enterprise Module for Basesystem 15 SP5",
+							"cpe": "cpe:/o:suse:sle-module-basesystem:15:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Basesystem 15 SP6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Basesystem 15 SP6",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Basesystem 15 SP6",
+							"product_id": "SUSE Linux Enterprise Module for Basesystem 15 SP6",
+							"cpe": "cpe:/o:suse:sle-module-basesystem:15:sp6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Development Tools 15 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Development Tools 15 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Development Tools 15 SP5",
+							"product_id": "SUSE Linux Enterprise Module for Development Tools 15 SP5",
+							"cpe": "cpe:/o:suse:sle-module-development-tools:15:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Development Tools 15 SP6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Development Tools 15 SP6",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Development Tools 15 SP6",
+							"product_id": "SUSE Linux Enterprise Module for Development Tools 15 SP6",
+							"cpe": "cpe:/o:suse:sle-module-development-tools:15:sp6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Package Hub 15 SP6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Package Hub 15 SP6",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Package Hub 15 SP6",
+							"product_id": "SUSE Linux Enterprise Module for Package Hub 15 SP6",
+							"cpe": "cpe:/o:suse:packagehub:15:sp6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 15 SP2-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 15 SP2-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 15 SP2-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 15 SP2-LTSS",
+							"cpe": "cpe:/o:suse:sles-ltss:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 15 SP3-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 15 SP3-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 15 SP3-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 15 SP3-LTSS",
+							"cpe": "cpe:/o:suse:sles-ltss:15:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 15 SP4-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 15 SP4-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 15 SP4-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 15 SP4-LTSS",
+							"cpe": "cpe:/o:suse:sles-ltss:15:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP2",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 15 SP2",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 15 SP2",
+							"cpe": "cpe:/o:suse:sles_sap:15:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP3",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 15 SP3",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 15 SP3",
+							"cpe": "cpe:/o:suse:sles_sap:15:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 15 SP4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 15 SP4",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 15 SP4",
+							"cpe": "cpe:/o:suse:sles_sap:15:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Manager Proxy 4.3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Manager Proxy 4.3",
+						"full_product_name": {
+							"text": "SUSE Manager Proxy 4.3",
+							"product_id": "SUSE Manager Proxy 4.3",
+							"cpe": "cpe:/o:suse:suse-manager-proxy:4.3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Manager Server 4.3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Manager Server 4.3",
+						"full_product_name": {
+							"text": "SUSE Manager Server 4.3",
+							"product_id": "SUSE Manager Server 4.3",
+							"cpe": "cpe:/o:suse:suse-manager-server:4.3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Manager Server Module 4.3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Manager Server Module 4.3",
+						"full_product_name": {
+							"text": "SUSE Manager Server Module 4.3",
+							"product_id": "SUSE Manager Server Module 4.3",
+							"cpe": "cpe:/o:suse:sle-module-suse-manager-server:4.3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 15.5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 15.5",
+						"full_product_name": {
+							"text": "openSUSE Leap 15.5",
+							"product_id": "openSUSE Leap 15.5",
+							"cpe": "cpe:/o:opensuse:leap:15.5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 15.6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 15.6",
+						"full_product_name": {
+							"text": "openSUSE Leap 15.6",
+							"product_id": "openSUSE Leap 15.6",
+							"cpe": "cpe:/o:opensuse:leap:15.6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "hamcrest-2.2-150200.12.17.2",
+				"full_product_name": {
+					"text": "hamcrest-2.2-150200.12.17.2",
+					"product_id": "hamcrest-2.2-150200.12.17.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "junit-4.13.2-150200.3.15.2",
+				"full_product_name": {
+					"text": "junit-4.13.2-150200.3.15.2",
+					"product_id": "junit-4.13.2-150200.3.15.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "objectweb-asm-9.7-150200.3.15.2",
+				"full_product_name": {
+					"text": "objectweb-asm-9.7-150200.3.15.2",
+					"product_id": "objectweb-asm-9.7-150200.3.15.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dom4j-2.1.4-150200.12.10.2",
+				"full_product_name": {
+					"text": "dom4j-2.1.4-150200.12.10.2",
+					"product_id": "dom4j-2.1.4-150200.12.10.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "jdom-1.1.3-150200.12.8.2",
+				"full_product_name": {
+					"text": "jdom-1.1.3-150200.12.8.2",
+					"product_id": "jdom-1.1.3-150200.12.8.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "apiguardian-1.1.2-150200.3.10.2",
+				"full_product_name": {
+					"text": "apiguardian-1.1.2-150200.3.10.2",
+					"product_id": "apiguardian-1.1.2-150200.3.10.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "apiguardian-javadoc-1.1.2-150200.3.10.2",
+				"full_product_name": {
+					"text": "apiguardian-javadoc-1.1.2-150200.3.10.2",
+					"product_id": "apiguardian-javadoc-1.1.2-150200.3.10.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "assertj-core-3.25.3-150200.5.4.3",
+				"full_product_name": {
+					"text": "assertj-core-3.25.3-150200.5.4.3",
+					"product_id": "assertj-core-3.25.3-150200.5.4.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "assertj-core-javadoc-3.25.3-150200.5.4.3",
+				"full_product_name": {
+					"text": "assertj-core-javadoc-3.25.3-150200.5.4.3",
+					"product_id": "assertj-core-javadoc-3.25.3-150200.5.4.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "byte-buddy-1.14.16-150200.5.7.1",
+				"full_product_name": {
+					"text": "byte-buddy-1.14.16-150200.5.7.1",
+					"product_id": "byte-buddy-1.14.16-150200.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "byte-buddy-agent-1.14.16-150200.5.7.1",
+				"full_product_name": {
+					"text": "byte-buddy-agent-1.14.16-150200.5.7.1",
+					"product_id": "byte-buddy-agent-1.14.16-150200.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "byte-buddy-javadoc-1.14.16-150200.5.7.1",
+				"full_product_name": {
+					"text": "byte-buddy-javadoc-1.14.16-150200.5.7.1",
+					"product_id": "byte-buddy-javadoc-1.14.16-150200.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "byte-buddy-maven-plugin-1.14.16-150200.5.7.1",
+				"full_product_name": {
+					"text": "byte-buddy-maven-plugin-1.14.16-150200.5.7.1",
+					"product_id": "byte-buddy-maven-plugin-1.14.16-150200.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dom4j-bootstrap-2.1.4-150200.12.10.2",
+				"full_product_name": {
+					"text": "dom4j-bootstrap-2.1.4-150200.12.10.2",
+					"product_id": "dom4j-bootstrap-2.1.4-150200.12.10.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dom4j-demo-2.1.4-150200.12.10.2",
+				"full_product_name": {
+					"text": "dom4j-demo-2.1.4-150200.12.10.2",
+					"product_id": "dom4j-demo-2.1.4-150200.12.10.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dom4j-javadoc-2.1.4-150200.12.10.2",
+				"full_product_name": {
+					"text": "dom4j-javadoc-2.1.4-150200.12.10.2",
+					"product_id": "dom4j-javadoc-2.1.4-150200.12.10.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "hamcrest-javadoc-2.2-150200.12.17.2",
+				"full_product_name": {
+					"text": "hamcrest-javadoc-2.2-150200.12.17.2",
+					"product_id": "hamcrest-javadoc-2.2-150200.12.17.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "jaxen-2.0.0-150200.5.3.1",
+				"full_product_name": {
+					"text": "jaxen-2.0.0-150200.5.3.1",
+					"product_id": "jaxen-2.0.0-150200.5.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "jaxen-bootstrap-2.0.0-150200.5.3.1",
+				"full_product_name": {
+					"text": "jaxen-bootstrap-2.0.0-150200.5.3.1",
+					"product_id": "jaxen-bootstrap-2.0.0-150200.5.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "jaxen-demo-2.0.0-150200.5.3.1",
+				"full_product_name": {
+					"text": "jaxen-demo-2.0.0-150200.5.3.1",
+					"product_id": "jaxen-demo-2.0.0-150200.5.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "jaxen-javadoc-2.0.0-150200.5.3.1",
+				"full_product_name": {
+					"text": "jaxen-javadoc-2.0.0-150200.5.3.1",
+					"product_id": "jaxen-javadoc-2.0.0-150200.5.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "jdom-demo-1.1.3-150200.12.8.2",
+				"full_product_name": {
+					"text": "jdom-demo-1.1.3-150200.12.8.2",
+					"product_id": "jdom-demo-1.1.3-150200.12.8.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "jdom-javadoc-1.1.3-150200.12.8.2",
+				"full_product_name": {
+					"text": "jdom-javadoc-1.1.3-150200.12.8.2",
+					"product_id": "jdom-javadoc-1.1.3-150200.12.8.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "jopt-simple-5.0.4-150200.3.4.3",
+				"full_product_name": {
+					"text": "jopt-simple-5.0.4-150200.3.4.3",
+					"product_id": "jopt-simple-5.0.4-150200.3.4.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "jopt-simple-javadoc-5.0.4-150200.3.4.3",
+				"full_product_name": {
+					"text": "jopt-simple-javadoc-5.0.4-150200.3.4.3",
+					"product_id": "jopt-simple-javadoc-5.0.4-150200.3.4.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "junit-javadoc-4.13.2-150200.3.15.2",
+				"full_product_name": {
+					"text": "junit-javadoc-4.13.2-150200.3.15.2",
+					"product_id": "junit-javadoc-4.13.2-150200.3.15.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "junit-manual-4.13.2-150200.3.15.2",
+				"full_product_name": {
+					"text": "junit-manual-4.13.2-150200.3.15.2",
+					"product_id": "junit-manual-4.13.2-150200.3.15.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "junit5-5.10.2-150200.3.10.3",
+				"full_product_name": {
+					"text": "junit5-5.10.2-150200.3.10.3",
+					"product_id": "junit5-5.10.2-150200.3.10.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "junit5-bom-5.10.2-150200.3.10.3",
+				"full_product_name": {
+					"text": "junit5-bom-5.10.2-150200.3.10.3",
+					"product_id": "junit5-bom-5.10.2-150200.3.10.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "junit5-guide-5.10.2-150200.3.10.3",
+				"full_product_name": {
+					"text": "junit5-guide-5.10.2-150200.3.10.3",
+					"product_id": "junit5-guide-5.10.2-150200.3.10.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "junit5-javadoc-5.10.2-150200.3.10.3",
+				"full_product_name": {
+					"text": "junit5-javadoc-5.10.2-150200.3.10.3",
+					"product_id": "junit5-javadoc-5.10.2-150200.3.10.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "junit5-minimal-5.10.2-150200.3.10.2",
+				"full_product_name": {
+					"text": "junit5-minimal-5.10.2-150200.3.10.2",
+					"product_id": "junit5-minimal-5.10.2-150200.3.10.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "junit5-minimal-javadoc-5.10.2-150200.3.10.2",
+				"full_product_name": {
+					"text": "junit5-minimal-javadoc-5.10.2-150200.3.10.2",
+					"product_id": "junit5-minimal-javadoc-5.10.2-150200.3.10.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "objectweb-asm-javadoc-9.7-150200.3.15.2",
+				"full_product_name": {
+					"text": "objectweb-asm-javadoc-9.7-150200.3.15.2",
+					"product_id": "objectweb-asm-javadoc-9.7-150200.3.15.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "open-test-reporting-cli-0.1.0~M2-150200.5.7.2",
+				"full_product_name": {
+					"text": "open-test-reporting-cli-0.1.0~M2-150200.5.7.2",
+					"product_id": "open-test-reporting-cli-0.1.0~M2-150200.5.7.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "open-test-reporting-events-0.1.0~M2-150200.5.7.2",
+				"full_product_name": {
+					"text": "open-test-reporting-events-0.1.0~M2-150200.5.7.2",
+					"product_id": "open-test-reporting-events-0.1.0~M2-150200.5.7.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "open-test-reporting-javadoc-0.1.0~M2-150200.5.7.2",
+				"full_product_name": {
+					"text": "open-test-reporting-javadoc-0.1.0~M2-150200.5.7.2",
+					"product_id": "open-test-reporting-javadoc-0.1.0~M2-150200.5.7.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "open-test-reporting-schema-0.1.0~M2-150200.5.7.2",
+				"full_product_name": {
+					"text": "open-test-reporting-schema-0.1.0~M2-150200.5.7.2",
+					"product_id": "open-test-reporting-schema-0.1.0~M2-150200.5.7.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "open-test-reporting-tooling-0.1.0~M2-150200.5.7.2",
+				"full_product_name": {
+					"text": "open-test-reporting-tooling-0.1.0~M2-150200.5.7.2",
+					"product_id": "open-test-reporting-tooling-0.1.0~M2-150200.5.7.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "saxpath-1.0-150200.5.3.3",
+				"full_product_name": {
+					"text": "saxpath-1.0-150200.5.3.3",
+					"product_id": "saxpath-1.0-150200.5.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "saxpath-javadoc-1.0-150200.5.3.3",
+				"full_product_name": {
+					"text": "saxpath-javadoc-1.0-150200.5.3.3",
+					"product_id": "saxpath-javadoc-1.0-150200.5.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xom-1.3.9-150200.5.3.3",
+				"full_product_name": {
+					"text": "xom-1.3.9-150200.5.3.3",
+					"product_id": "xom-1.3.9-150200.5.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xom-demo-1.3.9-150200.5.3.3",
+				"full_product_name": {
+					"text": "xom-demo-1.3.9-150200.5.3.3",
+					"product_id": "xom-demo-1.3.9-150200.5.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xom-javadoc-1.3.9-150200.5.3.3",
+				"full_product_name": {
+					"text": "xom-javadoc-1.3.9-150200.5.3.3",
+					"product_id": "xom-javadoc-1.3.9-150200.5.3.3"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk-devel:11"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk-devel:11"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk-devel:11"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk-devel:17"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk-devel:17"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk-devel:17"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk-devel:latest"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk-devel:latest"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk-devel:latest"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container containers/apache-tomcat:10-jre21"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/manager/5.0/x86_64/server:latest"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/manager/5.0/x86_64/server:latest"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/manager/5.0/x86_64/server:latest"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-Azure-llc"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-Azure-llc"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-Azure-llc"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-Azure-ltd"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-Azure-ltd"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-Azure-ltd"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-EC2-llc"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-EC2-llc"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-EC2-llc"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-EC2-ltd"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-EC2-ltd"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-EC2-ltd"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image tomcat_15_6"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Enterprise Storage 7.1"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP5"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP6"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP6"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP6"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP6"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP6"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP6"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP6"
+			},
+			{
+				"product_reference": "apiguardian-1.1.2-150200.3.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Package Hub 15 SP6"
+			},
+			{
+				"product_reference": "assertj-core-3.25.3-150200.5.4.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Package Hub 15 SP6"
+			},
+			{
+				"product_reference": "byte-buddy-1.14.16-150200.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Package Hub 15 SP6"
+			},
+			{
+				"product_reference": "jopt-simple-5.0.4-150200.3.4.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Package Hub 15 SP6"
+			},
+			{
+				"product_reference": "junit5-5.10.2-150200.3.10.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Package Hub 15 SP6"
+			},
+			{
+				"product_reference": "junit5-minimal-5.10.2-150200.3.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Package Hub 15 SP6"
+			},
+			{
+				"product_reference": "open-test-reporting-events-0.1.0~M2-150200.5.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Package Hub 15 SP6"
+			},
+			{
+				"product_reference": "open-test-reporting-schema-0.1.0~M2-150200.5.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Package Hub 15 SP6"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP2-LTSS"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP3-LTSS"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 15 SP4-LTSS"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP2"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP3"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP4"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP4"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP4"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP4"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP4"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP4"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 15 SP4"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Proxy 4.3"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server 4.3"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.3"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.3"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.3"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.3"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Manager Server Module 4.3"
+			},
+			{
+				"product_reference": "apiguardian-1.1.2-150200.3.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "apiguardian-javadoc-1.1.2-150200.3.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "assertj-core-3.25.3-150200.5.4.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "byte-buddy-1.14.16-150200.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "dom4j-demo-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "dom4j-javadoc-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "hamcrest-javadoc-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "jopt-simple-5.0.4-150200.3.4.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "jopt-simple-javadoc-5.0.4-150200.3.4.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "junit-javadoc-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "junit-manual-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "junit5-5.10.2-150200.3.10.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "junit5-bom-5.10.2-150200.3.10.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "junit5-guide-5.10.2-150200.3.10.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "junit5-javadoc-5.10.2-150200.3.10.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "junit5-minimal-5.10.2-150200.3.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "objectweb-asm-javadoc-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "open-test-reporting-events-0.1.0~M2-150200.5.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "open-test-reporting-schema-0.1.0~M2-150200.5.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "saxpath-1.0-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "apiguardian-1.1.2-150200.3.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "apiguardian-javadoc-1.1.2-150200.3.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "assertj-core-3.25.3-150200.5.4.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "byte-buddy-1.14.16-150200.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "dom4j-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "dom4j-demo-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "dom4j-javadoc-2.1.4-150200.12.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "hamcrest-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "hamcrest-javadoc-2.2-150200.12.17.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "jaxen-2.0.0-150200.5.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "jdom-1.1.3-150200.12.8.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "jopt-simple-5.0.4-150200.3.4.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "jopt-simple-javadoc-5.0.4-150200.3.4.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "junit-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "junit-javadoc-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "junit-manual-4.13.2-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "junit5-5.10.2-150200.3.10.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "junit5-bom-5.10.2-150200.3.10.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "junit5-guide-5.10.2-150200.3.10.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "junit5-javadoc-5.10.2-150200.3.10.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "junit5-minimal-5.10.2-150200.3.10.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "objectweb-asm-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "objectweb-asm-javadoc-9.7-150200.3.15.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "open-test-reporting-events-0.1.0~M2-150200.5.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "open-test-reporting-schema-0.1.0~M2-150200.5.7.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "saxpath-1.0-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "xom-1.3.9-150200.5.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "An XXE issue in SAXBuilder in JDOM through 2.0.6 allows attackers to cause a denial of service via a crafted HTTP request.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-33813",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container bci/openjdk-devel:11:hamcrest-2.2-150200.12.17.2",
+						"Container bci/openjdk-devel:11:junit-4.13.2-150200.3.15.2",
+						"Container bci/openjdk-devel:11:objectweb-asm-9.7-150200.3.15.2",
+						"Container bci/openjdk-devel:17:hamcrest-2.2-150200.12.17.2",
+						"Container bci/openjdk-devel:17:junit-4.13.2-150200.3.15.2",
+						"Container bci/openjdk-devel:17:objectweb-asm-9.7-150200.3.15.2",
+						"Container bci/openjdk-devel:latest:hamcrest-2.2-150200.12.17.2",
+						"Container bci/openjdk-devel:latest:junit-4.13.2-150200.3.15.2",
+						"Container bci/openjdk-devel:latest:objectweb-asm-9.7-150200.3.15.2",
+						"Container containers/apache-tomcat:10-jre21:objectweb-asm-9.7-150200.3.15.2",
+						"Container suse/manager/5.0/x86_64/server:latest:dom4j-2.1.4-150200.12.10.2",
+						"Container suse/manager/5.0/x86_64/server:latest:jdom-1.1.3-150200.12.8.2",
+						"Container suse/manager/5.0/x86_64/server:latest:objectweb-asm-9.7-150200.3.15.2",
+						"Image SLES15-SP4-Manager-Server-4-3-Azure-llc:dom4j-2.1.4-150200.12.10.2",
+						"Image SLES15-SP4-Manager-Server-4-3-Azure-llc:jdom-1.1.3-150200.12.8.2",
+						"Image SLES15-SP4-Manager-Server-4-3-Azure-llc:objectweb-asm-9.7-150200.3.15.2",
+						"Image SLES15-SP4-Manager-Server-4-3-Azure-ltd:dom4j-2.1.4-150200.12.10.2",
+						"Image SLES15-SP4-Manager-Server-4-3-Azure-ltd:jdom-1.1.3-150200.12.8.2",
+						"Image SLES15-SP4-Manager-Server-4-3-Azure-ltd:objectweb-asm-9.7-150200.3.15.2",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure:dom4j-2.1.4-150200.12.10.2",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure:jdom-1.1.3-150200.12.8.2",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure:objectweb-asm-9.7-150200.3.15.2",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2:dom4j-2.1.4-150200.12.10.2",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2:jdom-1.1.3-150200.12.8.2",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2:objectweb-asm-9.7-150200.3.15.2",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE:dom4j-2.1.4-150200.12.10.2",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE:jdom-1.1.3-150200.12.8.2",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE:objectweb-asm-9.7-150200.3.15.2",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS:dom4j-2.1.4-150200.12.10.2",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS:jdom-1.1.3-150200.12.8.2",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS:objectweb-asm-9.7-150200.3.15.2",
+						"Image SLES15-SP4-Manager-Server-4-3-EC2-llc:dom4j-2.1.4-150200.12.10.2",
+						"Image SLES15-SP4-Manager-Server-4-3-EC2-llc:jdom-1.1.3-150200.12.8.2",
+						"Image SLES15-SP4-Manager-Server-4-3-EC2-llc:objectweb-asm-9.7-150200.3.15.2",
+						"Image SLES15-SP4-Manager-Server-4-3-EC2-ltd:dom4j-2.1.4-150200.12.10.2",
+						"Image SLES15-SP4-Manager-Server-4-3-EC2-ltd:jdom-1.1.3-150200.12.8.2",
+						"Image SLES15-SP4-Manager-Server-4-3-EC2-ltd:objectweb-asm-9.7-150200.3.15.2",
+						"Image SLES15-SP4-Manager-Server-4-3:dom4j-2.1.4-150200.12.10.2",
+						"Image SLES15-SP4-Manager-Server-4-3:jdom-1.1.3-150200.12.8.2",
+						"Image SLES15-SP4-Manager-Server-4-3:objectweb-asm-9.7-150200.3.15.2",
+						"Image tomcat_15_6:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Enterprise Storage 7.1:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Enterprise Storage 7.1:hamcrest-2.2-150200.12.17.2",
+						"SUSE Enterprise Storage 7.1:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Enterprise Storage 7.1:jdom-1.1.3-150200.12.8.2",
+						"SUSE Enterprise Storage 7.1:junit-4.13.2-150200.3.15.2",
+						"SUSE Enterprise Storage 7.1:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Enterprise Storage 7.1:xom-1.3.9-150200.5.3.3",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:hamcrest-2.2-150200.12.17.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:jdom-1.1.3-150200.12.8.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:junit-4.13.2-150200.3.15.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP2-LTSS:xom-1.3.9-150200.5.3.3",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:hamcrest-2.2-150200.12.17.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:jdom-1.1.3-150200.12.8.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:junit-4.13.2-150200.3.15.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP3-LTSS:xom-1.3.9-150200.5.3.3",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS:hamcrest-2.2-150200.12.17.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS:jdom-1.1.3-150200.12.8.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS:junit-4.13.2-150200.3.15.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-ESPOS:xom-1.3.9-150200.5.3.3",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS:hamcrest-2.2-150200.12.17.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS:jdom-1.1.3-150200.12.8.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS:junit-4.13.2-150200.3.15.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Linux Enterprise High Performance Computing 15 SP4-LTSS:xom-1.3.9-150200.5.3.3",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP5:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP6:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:hamcrest-2.2-150200.12.17.2",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:jdom-1.1.3-150200.12.8.2",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:junit-4.13.2-150200.3.15.2",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:xom-1.3.9-150200.5.3.3",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP6:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP6:hamcrest-2.2-150200.12.17.2",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP6:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP6:jdom-1.1.3-150200.12.8.2",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP6:junit-4.13.2-150200.3.15.2",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP6:xom-1.3.9-150200.5.3.3",
+						"SUSE Linux Enterprise Module for Package Hub 15 SP6:apiguardian-1.1.2-150200.3.10.2",
+						"SUSE Linux Enterprise Module for Package Hub 15 SP6:assertj-core-3.25.3-150200.5.4.3",
+						"SUSE Linux Enterprise Module for Package Hub 15 SP6:byte-buddy-1.14.16-150200.5.7.1",
+						"SUSE Linux Enterprise Module for Package Hub 15 SP6:jopt-simple-5.0.4-150200.3.4.3",
+						"SUSE Linux Enterprise Module for Package Hub 15 SP6:junit5-5.10.2-150200.3.10.3",
+						"SUSE Linux Enterprise Module for Package Hub 15 SP6:junit5-minimal-5.10.2-150200.3.10.2",
+						"SUSE Linux Enterprise Module for Package Hub 15 SP6:open-test-reporting-events-0.1.0~M2-150200.5.7.2",
+						"SUSE Linux Enterprise Module for Package Hub 15 SP6:open-test-reporting-schema-0.1.0~M2-150200.5.7.2",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:hamcrest-2.2-150200.12.17.2",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:jdom-1.1.3-150200.12.8.2",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:junit-4.13.2-150200.3.15.2",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Linux Enterprise Server 15 SP2-LTSS:xom-1.3.9-150200.5.3.3",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:hamcrest-2.2-150200.12.17.2",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:jdom-1.1.3-150200.12.8.2",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:junit-4.13.2-150200.3.15.2",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Linux Enterprise Server 15 SP3-LTSS:xom-1.3.9-150200.5.3.3",
+						"SUSE Linux Enterprise Server 15 SP4-LTSS:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Linux Enterprise Server 15 SP4-LTSS:hamcrest-2.2-150200.12.17.2",
+						"SUSE Linux Enterprise Server 15 SP4-LTSS:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Linux Enterprise Server 15 SP4-LTSS:jdom-1.1.3-150200.12.8.2",
+						"SUSE Linux Enterprise Server 15 SP4-LTSS:junit-4.13.2-150200.3.15.2",
+						"SUSE Linux Enterprise Server 15 SP4-LTSS:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Linux Enterprise Server 15 SP4-LTSS:xom-1.3.9-150200.5.3.3",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:hamcrest-2.2-150200.12.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:jdom-1.1.3-150200.12.8.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:junit-4.13.2-150200.3.15.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP2:xom-1.3.9-150200.5.3.3",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:hamcrest-2.2-150200.12.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:jdom-1.1.3-150200.12.8.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:junit-4.13.2-150200.3.15.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP3:xom-1.3.9-150200.5.3.3",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP4:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP4:hamcrest-2.2-150200.12.17.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP4:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP4:jdom-1.1.3-150200.12.8.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP4:junit-4.13.2-150200.3.15.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP4:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Linux Enterprise Server for SAP Applications 15 SP4:xom-1.3.9-150200.5.3.3",
+						"SUSE Manager Proxy 4.3:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Manager Server 4.3:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Manager Server Module 4.3:dom4j-2.1.4-150200.12.10.2",
+						"SUSE Manager Server Module 4.3:jaxen-2.0.0-150200.5.3.1",
+						"SUSE Manager Server Module 4.3:jdom-1.1.3-150200.12.8.2",
+						"SUSE Manager Server Module 4.3:objectweb-asm-9.7-150200.3.15.2",
+						"SUSE Manager Server Module 4.3:xom-1.3.9-150200.5.3.3",
+						"openSUSE Leap 15.5:apiguardian-1.1.2-150200.3.10.2",
+						"openSUSE Leap 15.5:apiguardian-javadoc-1.1.2-150200.3.10.2",
+						"openSUSE Leap 15.5:assertj-core-3.25.3-150200.5.4.3",
+						"openSUSE Leap 15.5:byte-buddy-1.14.16-150200.5.7.1",
+						"openSUSE Leap 15.5:dom4j-2.1.4-150200.12.10.2",
+						"openSUSE Leap 15.5:dom4j-demo-2.1.4-150200.12.10.2",
+						"openSUSE Leap 15.5:dom4j-javadoc-2.1.4-150200.12.10.2",
+						"openSUSE Leap 15.5:hamcrest-2.2-150200.12.17.2",
+						"openSUSE Leap 15.5:hamcrest-javadoc-2.2-150200.12.17.2",
+						"openSUSE Leap 15.5:jaxen-2.0.0-150200.5.3.1",
+						"openSUSE Leap 15.5:jdom-1.1.3-150200.12.8.2",
+						"openSUSE Leap 15.5:jopt-simple-5.0.4-150200.3.4.3",
+						"openSUSE Leap 15.5:jopt-simple-javadoc-5.0.4-150200.3.4.3",
+						"openSUSE Leap 15.5:junit-4.13.2-150200.3.15.2",
+						"openSUSE Leap 15.5:junit-javadoc-4.13.2-150200.3.15.2",
+						"openSUSE Leap 15.5:junit-manual-4.13.2-150200.3.15.2",
+						"openSUSE Leap 15.5:junit5-5.10.2-150200.3.10.3",
+						"openSUSE Leap 15.5:junit5-bom-5.10.2-150200.3.10.3",
+						"openSUSE Leap 15.5:junit5-guide-5.10.2-150200.3.10.3",
+						"openSUSE Leap 15.5:junit5-javadoc-5.10.2-150200.3.10.3",
+						"openSUSE Leap 15.5:junit5-minimal-5.10.2-150200.3.10.2",
+						"openSUSE Leap 15.5:objectweb-asm-9.7-150200.3.15.2",
+						"openSUSE Leap 15.5:objectweb-asm-javadoc-9.7-150200.3.15.2",
+						"openSUSE Leap 15.5:open-test-reporting-events-0.1.0~M2-150200.5.7.2",
+						"openSUSE Leap 15.5:open-test-reporting-schema-0.1.0~M2-150200.5.7.2",
+						"openSUSE Leap 15.5:saxpath-1.0-150200.5.3.3",
+						"openSUSE Leap 15.5:xom-1.3.9-150200.5.3.3",
+						"openSUSE Leap 15.6:apiguardian-1.1.2-150200.3.10.2",
+						"openSUSE Leap 15.6:apiguardian-javadoc-1.1.2-150200.3.10.2",
+						"openSUSE Leap 15.6:assertj-core-3.25.3-150200.5.4.3",
+						"openSUSE Leap 15.6:byte-buddy-1.14.16-150200.5.7.1",
+						"openSUSE Leap 15.6:dom4j-2.1.4-150200.12.10.2",
+						"openSUSE Leap 15.6:dom4j-demo-2.1.4-150200.12.10.2",
+						"openSUSE Leap 15.6:dom4j-javadoc-2.1.4-150200.12.10.2",
+						"openSUSE Leap 15.6:hamcrest-2.2-150200.12.17.2",
+						"openSUSE Leap 15.6:hamcrest-javadoc-2.2-150200.12.17.2",
+						"openSUSE Leap 15.6:jaxen-2.0.0-150200.5.3.1",
+						"openSUSE Leap 15.6:jdom-1.1.3-150200.12.8.2",
+						"openSUSE Leap 15.6:jopt-simple-5.0.4-150200.3.4.3",
+						"openSUSE Leap 15.6:jopt-simple-javadoc-5.0.4-150200.3.4.3",
+						"openSUSE Leap 15.6:junit-4.13.2-150200.3.15.2",
+						"openSUSE Leap 15.6:junit-javadoc-4.13.2-150200.3.15.2",
+						"openSUSE Leap 15.6:junit-manual-4.13.2-150200.3.15.2",
+						"openSUSE Leap 15.6:junit5-5.10.2-150200.3.10.3",
+						"openSUSE Leap 15.6:junit5-bom-5.10.2-150200.3.10.3",
+						"openSUSE Leap 15.6:junit5-guide-5.10.2-150200.3.10.3",
+						"openSUSE Leap 15.6:junit5-javadoc-5.10.2-150200.3.10.3",
+						"openSUSE Leap 15.6:junit5-minimal-5.10.2-150200.3.10.2",
+						"openSUSE Leap 15.6:objectweb-asm-9.7-150200.3.15.2",
+						"openSUSE Leap 15.6:objectweb-asm-javadoc-9.7-150200.3.15.2",
+						"openSUSE Leap 15.6:open-test-reporting-events-0.1.0~M2-150200.5.7.2",
+						"openSUSE Leap 15.6:open-test-reporting-schema-0.1.0~M2-150200.5.7.2",
+						"openSUSE Leap 15.6:saxpath-1.0-150200.5.3.3",
+						"openSUSE Leap 15.6:xom-1.3.9-150200.5.3.3"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20241874-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-33813.html",
+					"description": "CVE-2021-33813"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1187446",
+					"description": "SUSE Bug 1187446"
+				}
+			]
+		}
+	]
+}

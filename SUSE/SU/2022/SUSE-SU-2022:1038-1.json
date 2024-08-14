@@ -1,0 +1,2390 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2022:1038-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2022-03-30T07:37:14Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2022-03-30T07:37:14Z",
+		"current_release_date": "2022-03-30T07:37:14Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "The SUSE Linux Enterprise 15 SP3 RT kernel was updated to receive various security and bugfixes.\n\n\nThe following security bugs were fixed:\n\n- CVE-2022-25636: Fixed an issue which allowed a local users to gain privileges because of a heap out-of-bounds write in nf_dup_netdev.c, related to nf_tables_offload (bsc#1196299).\n- CVE-2022-26490: Fixed a buffer overflow in the st21nfca driver. An attacker with adjacent NFC access could trigger crash the system or corrupt system memory (bsc#1196830).\n- CVE-2022-0487: A use-after-free vulnerability was found in rtsx_usb_ms_drv_remove() in drivers/memstick/host/rtsx_usb_ms.c (bsc#1194516).\n- CVE-2022-0492: Fixed a privilege escalation related to cgroups v1 release_agent feature, which allowed bypassing namespace isolation unexpectedly (bsc#1195543).\n- CVE-2022-0516: Fixed missing check in ioctl related to KVM in s390 allows kernel memory read/write (bsc#1195516).\n- CVE-2022-24448: Fixed an issue if an application sets the O_DIRECTORY flag, and tries to open a regular file, nfs_atomic_open() performs a regular lookup. If a regular file is found, ENOTDIR should have occured, but the server instead returned uninitialized data in the file descriptor (bsc#1195612).\n- CVE-2022-0617: Fixed a null pointer dereference in UDF file system functionality. A local user could crash the system by triggering udf_file_write_iter() via a malicious UDF image. (bsc#1196079)\n- CVE-2022-0644: Fixed a denial of service by a local user. A assertion failure could be triggered in kernel_read_file_from_fd(). (bsc#1196155)\n- CVE-2022-25258: The USB Gadget subsystem lacked certain validation of interface OS descriptor requests, which could have lead to memory corruption (bsc#1196096).\n- CVE-2022-24958: drivers/usb/gadget/legacy/inode.c mishandled dev->buf release (bsc#1195905).\n- CVE-2022-24959: Fixed a memory leak in yam_siocdevprivate() in drivers/net/hamradio/yam.c (bsc#1195897).\n- CVE-2022-27223: In drivers/usb/gadget/udc/udc-xilinx.c the endpoint index was not validated and could have been manipulated by the host for out-of-array access (bsc#1197245).\n- CVE-2021-44879: In gc_data_segment() in fs/f2fs/gc.c, special files were not considered, which lead to a move_data_page NULL pointer dereference (bsc#1195987).\n- CVE-2021-0920: Fixed a local privilege escalation due to a use-after-free vulnerability in unix_scm_to_skb of af_unix (bsc#1193731).\n- CVE-2022-26966: Fixed an issue in drivers/net/usb/sr9700.c, which allowed attackers to obtain sensitive information from heap memory via crafted frame lengths from a device (bsc#1196836).\n- CVE-2021-39698: Fixed a possible memory corruption due to a use after free in aio_poll_complete_work. This could lead to local escalation of privilege with no additional execution privileges needed. (bsc#1196956)\n- CVE-2021-45402: The check_alu_op function in kernel/bpf/verifier.c did not properly update bounds while handling the mov32 instruction, which allowed local users to obtain potentially sensitive address information (bsc#1196130).\n- CVE-2022-23036,CVE-2022-23037,CVE-2022-23038,CVE-2022-23039,CVE-2022-23040,CVE-2022-23041,CVE-2022-23042: Fixed multiple issues which could have lead to read/write access to memory pages or denial of service. These issues are related to the Xen PV device frontend drivers. (bsc#1196488)\n\nThe following non-security bugs were fixed:\n\n- ALSA: intel_hdmi: Fix reference to PCM buffer address (git-fixes).\n- arm64: dts: rockchip: Switch RK3399-Gru DP to SPDIF output (git-fixes).\n- ARM: 9182/1: mmu: fix returns from early_param() and __setup() functions (git-fixes).\n- ARM: Fix kgdb breakpoint for Thumb2 (git-fixes).\n- asix: fix uninit-value in asix_mdio_read() (git-fixes).\n- ASoC: cs4265: Fix the duplicated control name (git-fixes).\n- ASoC: ops: Shift tested values in snd_soc_put_volsw() by +min (git-fixes).\n- ASoC: rt5682: do not block workqueue if card is unbound (git-fixes).\n- ata: pata_hpt37x: disable primary channel on HPT371 (git-fixes).\n- ax25: Fix NULL pointer dereference in ax25_kill_by_device (git-fixes).\n- batman-adv: Do not expect inter-netns unique iflink indices (git-fixes).\n- batman-adv: Request iflink once in batadv_get_real_netdevice (git-fixes).\n- batman-adv: Request iflink once in batadv-on-batadv check (git-fixes).\n- blk-mq: do not free tags if the tag_set is used by other device in queue initialztion (bsc#1193787).\n- Bluetooth: btusb: Add missing Chicony device for Realtek RTL8723BE (bsc#1196779).\n- bnxt_en: Fix active FEC reporting to ethtool (jsc#SLE-16649).\n- bnxt_en: Fix incorrect multicast rx mask setting when not requested (git-fixes).\n- bnxt_en: Fix occasional ethtool -t loopback test failures (git-fixes).\n- bnxt_en: Fix offline ethtool selftest with RDMA enabled (git-fixes).\n- bonding: force carrier update when releasing slave (git-fixes).\n- can: gs_usb: change active_channels's type from atomic_t to u8 (git-fixes).\n- cgroup/cpuset: Fix 'suspicious RCU usage' lockdep warning (bsc#1196868).\n- cgroup-v1: Correct privileges check in release_agent writes (bsc#1196723).\n- clk: jz4725b: fix mmc0 clock gating (git-fixes).\n- constraints: Also adjust disk requirement for x86 and s390.\n- constraints: Increase disk space for aarch64\n- cpufreq: schedutil: Use kobject release() method to free (git-fixes)\n- cpuset: Fix the bug that subpart_cpus updated wrongly in update_cpumask() (bsc#1196866).\n- cputime, cpuacct: Include guest time in user time in (git-fixes)\n- dma-direct: Fix potential NULL pointer dereference (bsc#1196472 ltc#192278).\n- dmaengine: shdma: Fix runtime PM imbalance on error (git-fixes).\n- dma-mapping: Allow mixing bypass and mapped DMA operation (bsc#1196472 ltc#192278).\n- drm/amdgpu: disable MMHUB PG for Picasso (git-fixes).\n- drm/edid: Always set RGB444 (git-fixes).\n- drm/i915/dg1: Wait for pcode/uncore handshake at startup (bsc#1195211).\n- drm/i915/gen11+: Only load DRAM information from pcode (bsc#1195211).\n- drm/i915: Nuke not needed members of dram_info (bsc#1195211).\n- drm/i915: Remove memory frequency calculation (bsc#1195211).\n- drm/i915: Rename is_16gb_dimm to wm_lv_0_adjust_needed (bsc#1195211).\n- drm/sun4i: mixer: Fix P010 and P210 format numbers (git-fixes).\n- EDAC/altera: Fix deferred probing (bsc#1178134).\n- EDAC: Fix calculation of returned address and next offset in edac_align_ptr() (bsc#1178134).\n- efivars: Respect 'block' flag in efivar_entry_set_safe() (git-fixes).\n- exfat: fix i_blocks for files truncated over 4 GiB (git-fixes).\n- exfat: fix incorrect loading of i_blocks for large files (git-fixes).\n- firmware: arm_scmi: Remove space in MODULE_ALIAS name (git-fixes).\n- gianfar: ethtool: Fix refcount leak in gfar_get_ts_info (git-fixes).\n- gpiolib: acpi: Convert ACPI value of debounce to microseconds (git-fixes).\n- gpio: rockchip: Reset int_bothedge when changing trigger (git-fixes).\n- gpio: tegra186: Fix chip_data type confusion (git-fixes).\n- gpio: ts4900: Do not set DAT and OE together (git-fixes).\n- gtp: remove useless rcu_read_lock() (git-fixes).\n- hamradio: fix macro redefine warning (git-fixes).\n- Hand over the maintainership to SLE15-SP3 maintainers\n- HID: add mapping for KEY_ALL_APPLICATIONS (git-fixes).\n- HID: add mapping for KEY_DICTATE (git-fixes).\n- i2c: bcm2835: Avoid clock stretching timeouts (git-fixes).\n- iavf: Fix missing check for running netdev (git-fixes).\n- IB/hfi1: Correct guard on eager buffer deallocation (git-fixes).\n- IB/hfi1: Fix early init panic (git-fixes).\n- IB/hfi1: Fix leak of rcvhdrtail_dummy_kvaddr (git-fixes).\n- IB/hfi1: Insure use of smp_processor_id() is preempt disabled (git-fixes).\n- IB/rdmavt: Validate remote_addr during loopback atomic tests (git-fixes).\n- ice: initialize local variable 'tlv' (jsc#SLE-12878).\n- igc: igc_read_phy_reg_gpy: drop premature return (git-fixes).\n- igc: igc_write_phy_reg_gpy: drop premature return (git-fixes).\n- iio: adc: ad7124: fix mask used for setting AIN_BUFP & AIN_BUFM bits (git-fixes).\n- iio: adc: men_z188_adc: Fix a resource leak in an error handling path (git-fixes).\n- iio: Fix error handling for PM (git-fixes).\n- Input: clear BTN_RIGHT/MIDDLE on buttonpads (git-fixes).\n- Input: elan_i2c - fix regulator enable count imbalance after suspend/resume (git-fixes).\n- Input: elan_i2c - move regulator_[en|dis]able() out of elan_[en|dis]able_power() (git-fixes).\n- ixgbe: xsk: change !netif_carrier_ok() handling in ixgbe_xmit_zc() (git-fixes).\n- mac80211: fix forwarded mesh frames AC & queue selection (git-fixes).\n- mac80211_hwsim: initialize ieee80211_tx_info at hw_scan_work (git-fixes).\n- mac80211_hwsim: report NOACK frames in tx_status (git-fixes).\n- mask out added spinlock in rndis_params (git-fixes).\n- mmc: meson: Fix usage of meson_mmc_post_req() (git-fixes).\n- net: dsa: mv88e6xxx: MV88E6097 does not support jumbo configuration (git-fixes).\n- net: ethernet: ti: cpsw: disable PTPv1 hw timestamping advertisement (git-fixes).\n- netfilter: nf_tables: fix memory leak during stateful obj update (bsc#1176447).\n- net: fix up skbs delta_truesize in UDP GRO frag_list (bsc#1176447).\n- net: hns3: Clear the CMDQ registers before unmapping BAR region (git-fixes).\n- net/mlx5e: Fix modify header actions memory leak (git-fixes).\n- net/mlx5e: Fix page DMA map/unmap attributes (bsc#1196468).\n- net/mlx5e: Fix wrong return value on ioctl EEPROM query failure (git-fixes).\n- net/mlx5e: kTLS, Use CHECKSUM_UNNECESSARY for device-offloaded packets (jsc#SLE-15172).\n- net/mlx5e: TC, Reject rules with drop and modify hdr action (git-fixes).\n- net/mlx5e: TC, Reject rules with forward and drop actions (git-fixes).\n- net/mlx5: Fix possible deadlock on rule deletion (git-fixes).\n- net/mlx5: Fix wrong limitation of metadata match on ecpf (git-fixes).\n- net/mlx5: Update the list of the PCI supported devices (git-fixes).\n- net: phy: DP83822: clear MISR2 register to disable interrupts (git-fixes).\n- net/sched: act_ct: Fix flow table lookup after ct clear or switching zones (jsc#SLE-15172).\n- netsec: ignore 'phy-mode' device property on ACPI systems (git-fixes).\n- net: sfc: Replace in_interrupt() usage (git-fixes).\n- net: tipc: validate domain record count on input (bsc#1195254).\n- net: usb: cdc_mbim: avoid altsetting toggling for Telit FN990 (git-fixes).\n- NFC: port100: fix use-after-free in port100_send_complete (git-fixes).\n- nfp: flower: Fix a potential leak in nfp_tunnel_add_shared_mac() (git-fixes).\n- nl80211: Handle nla_memdup failures in handle_nan_filter (git-fixes).\n- ntb: intel: fix port config status offset for SPR (git-fixes).\n- nvme: fix a possible use-after-free in controller reset during load (git-fixes).\n- nvme-multipath: use vmalloc for ANA log buffer (bsc#1193787).\n- nvme-rdma: fix possible use-after-free in transport error_recovery work (git-fixes).\n- nvme-tcp: fix possible use-after-free in transport error_recovery work (git-fixes).\n- powerpc/dma: Fallback to dma_ops when persistent memory present (bsc#1196472 ltc#192278).\n- powerpc/fadump: register for fadump as early as possible (bsc#1179439 ltc#190038).\n- powerpc/mm: Remove dcache flush from memory remove (bsc#1196433 ltc#196449).\n- powerpc/powernv/memtrace: Fix dcache flushing (bsc#1196433 ltc#196449).\n- powerpc/pseries/iommu: Fix window size for direct mapping with pmem (bsc#1196472 ltc#192278).\n- RDMA/bnxt_re: Scan the whole bitmap when checking if 'disabling RCFW with pending cmd-bit' (git-fixes).\n- RDMA/cma: Do not change route.addr.src_addr outside state checks (bsc#1181147).\n- RDMA/cma: Let cma_resolve_ib_dev() continue search even after empty entry (git-fixes).\n- RDMA/cma: Remove open coding of overflow checking for private_data_len (git-fixes).\n- RDMA/core: Do not infoleak GRH fields (git-fixes).\n- RDMA/core: Let ib_find_gid() continue search even after empty entry (git-fixes).\n- RDMA/cxgb4: Set queue pair state when being queried (git-fixes).\n- RDMA/hns: Validate the pkey index (git-fixes).\n- RDMA/ib_srp: Fix a deadlock (git-fixes).\n- RDMA/mlx4: Do not continue event handler after memory allocation failure (git-fixes).\n- RDMA/rtrs-clt: Fix possible double free in error case (jsc#SLE-15176).\n- RDMA/rxe: Fix a typo in opcode name (git-fixes).\n- RDMA/siw: Fix broken RDMA Read Fence/Resume logic (git-fixes).\n- RDMA/uverbs: Check for null return of kmalloc_array (git-fixes).\n- RDMA/uverbs: Remove the unnecessary assignment (git-fixes).\n- README.BRANCH: Add Frederic Weisbecker as branch maintainer\n- README.BRANCH: Remove Davidlohr Bueso as a branch maintainer\n- rpm/arch-symbols,guards,*driver: Replace Novell with SUSE.\n- rpm: SC2006: Use $(...) notation instead of legacy backticked `...`.\n- sched/core: Mitigate race (git-fixes)\n- scsi: bnx2fc: Flush destroy_work queue before calling bnx2fc_interface_put() (git-fixes).\n- scsi: bnx2fc: Make bnx2fc_recv_frame() mp safe (git-fixes).\n- scsi: lpfc: Terminate string in lpfc_debugfs_nvmeio_trc_write() (git-fixes).\n- scsi: nsp_cs: Check of ioremap return value (git-fixes).\n- scsi: qedf: Fix potential dereference of NULL pointer (git-fixes).\n- scsi: smartpqi: Add PCI IDs (bsc#1196627).\n- scsi: ufs: Fix race conditions related to driver data (git-fixes).\n- selftests: mlxsw: tc_police_scale: Make test more robust (bsc#1176774).\n- soc: fsl: Correct MAINTAINERS database (QUICC ENGINE LIBRARY) (git-fixes).\n- soc: fsl: Correct MAINTAINERS database (SOC) (git-fixes).\n- soc: fsl: qe: Check of ioremap return value (git-fixes).\n- spi: spi-zynq-qspi: Fix a NULL pointer dereference in zynq_qspi_exec_mem_op() (git-fixes).\n- sr9700: sanity check for packet length (bsc#1196836).\n- staging: gdm724x: fix use after free in gdm_lte_rx() (git-fixes).\n- SUNRPC: avoid race between mod_timer() and del_timer_sync() (bnc#1195403).\n- tracing: Fix return value of __setup handlers (git-fixes).\n- tty: n_gsm: fix encoding of control signal octet bit DV (git-fixes).\n- tty: n_gsm: fix proper link termination after failed open (git-fixes).\n- usb: dwc2: Fix Stalling a Non-Isochronous OUT EP (git-fixes).\n- usb: dwc2: gadget: Fix GOUTNAK flow for Slave mode (git-fixes).\n- usb: dwc2: gadget: Fix kill_all_requests race (git-fixes).\n- usb: dwc2: use well defined macros for power_down (git-fixes).\n- usb: dwc3: gadget: Let the interrupt handler disable bottom halves (git-fixes).\n- usb: dwc3: meson-g12a: Disable the regulator in the error handling path of the probe (git-fixes).\n- usb: dwc3: pci: Fix Bay Trail phy GPIO mappings (git-fixes).\n- usb: gadget: rndis: add spinlock for rndis response list (git-fixes).\n- USB: gadget: validate endpoint index for xilinx udc (git-fixes).\n- USB: gadget: validate interface OS descriptor requests (git-fixes).\n- usb: host: xen-hcd: add missing unlock in error path (git-fixes).\n- USB: hub: Clean up use of port initialization schemes and retries (git-fixes).\n- usb: hub: Fix locking issues with address0_mutex (git-fixes).\n- usb: hub: Fix usb enumeration issue due to address0 race (git-fixes).\n- USB: serial: option: add support for DW5829e (git-fixes).\n- USB: serial: option: add Telit LE910R1 compositions (git-fixes).\n- USB: zaurus: support another broken Zaurus (git-fixes).\n- vrf: Fix fast path output packet handling with async Netfilter rules (git-fixes).\n- xen/usb: do not use gnttab_end_foreign_access() in xenhcd_gnttab_done() (bsc#1196488, XSA-396).\n- xhci: Prevent futile URB re-submissions due to incorrect return value (git-fixes).\n- xhci: re-initialize the HC during resume if HCE was set (git-fixes).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2022-1038,SUSE-SLE-Module-RT-15-SP3-2022-1038,SUSE-SUSE-MicroOS-5.1-2022-1038",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/",
+			"description": "Link for SUSE-SU-2022:1038-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2022-March/010567.html",
+			"description": "E-Mail link for SUSE-SU-2022:1038-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1176447",
+			"description": "SUSE Bug 1176447"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1176774",
+			"description": "SUSE Bug 1176774"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1178134",
+			"description": "SUSE Bug 1178134"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1179439",
+			"description": "SUSE Bug 1179439"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1181147",
+			"description": "SUSE Bug 1181147"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1191428",
+			"description": "SUSE Bug 1191428"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1192273",
+			"description": "SUSE Bug 1192273"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1193787",
+			"description": "SUSE Bug 1193787"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1194516",
+			"description": "SUSE Bug 1194516"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1194943",
+			"description": "SUSE Bug 1194943"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1195051",
+			"description": "SUSE Bug 1195051"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1195211",
+			"description": "SUSE Bug 1195211"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1195353",
+			"description": "SUSE Bug 1195353"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1195403",
+			"description": "SUSE Bug 1195403"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1195516",
+			"description": "SUSE Bug 1195516"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1195612",
+			"description": "SUSE Bug 1195612"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1195897",
+			"description": "SUSE Bug 1195897"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1195908",
+			"description": "SUSE Bug 1195908"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1195947",
+			"description": "SUSE Bug 1195947"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1195949",
+			"description": "SUSE Bug 1195949"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1195987",
+			"description": "SUSE Bug 1195987"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196079",
+			"description": "SUSE Bug 1196079"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196095",
+			"description": "SUSE Bug 1196095"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196130",
+			"description": "SUSE Bug 1196130"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196155",
+			"description": "SUSE Bug 1196155"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196299",
+			"description": "SUSE Bug 1196299"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196301",
+			"description": "SUSE Bug 1196301"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196403",
+			"description": "SUSE Bug 1196403"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196468",
+			"description": "SUSE Bug 1196468"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196472",
+			"description": "SUSE Bug 1196472"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196488",
+			"description": "SUSE Bug 1196488"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196627",
+			"description": "SUSE Bug 1196627"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196723",
+			"description": "SUSE Bug 1196723"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196776",
+			"description": "SUSE Bug 1196776"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196779",
+			"description": "SUSE Bug 1196779"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196830",
+			"description": "SUSE Bug 1196830"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196866",
+			"description": "SUSE Bug 1196866"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1196868",
+			"description": "SUSE Bug 1196868"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1197300",
+			"description": "SUSE Bug 1197300"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/922815",
+			"description": "SUSE Bug 922815"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/998635",
+			"description": "SUSE Bug 998635"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-0920/",
+			"description": "SUSE CVE CVE-2021-0920 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-39698/",
+			"description": "SUSE CVE CVE-2021-39698 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-44879/",
+			"description": "SUSE CVE CVE-2021-44879 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-45402/",
+			"description": "SUSE CVE CVE-2021-45402 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-0487/",
+			"description": "SUSE CVE CVE-2022-0487 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-0492/",
+			"description": "SUSE CVE CVE-2022-0492 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-0516/",
+			"description": "SUSE CVE CVE-2022-0516 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-0617/",
+			"description": "SUSE CVE CVE-2022-0617 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-0644/",
+			"description": "SUSE CVE CVE-2022-0644 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-23036/",
+			"description": "SUSE CVE CVE-2022-23036 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-23037/",
+			"description": "SUSE CVE CVE-2022-23037 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-23038/",
+			"description": "SUSE CVE CVE-2022-23038 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-23039/",
+			"description": "SUSE CVE CVE-2022-23039 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-23040/",
+			"description": "SUSE CVE CVE-2022-23040 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-23041/",
+			"description": "SUSE CVE CVE-2022-23041 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-23042/",
+			"description": "SUSE CVE CVE-2022-23042 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-24448/",
+			"description": "SUSE CVE CVE-2022-24448 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-24958/",
+			"description": "SUSE CVE CVE-2022-24958 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-24959/",
+			"description": "SUSE CVE CVE-2022-24959 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-25258/",
+			"description": "SUSE CVE CVE-2022-25258 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-25636/",
+			"description": "SUSE CVE CVE-2022-25636 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-26490/",
+			"description": "SUSE CVE CVE-2022-26490 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-26966/",
+			"description": "SUSE CVE CVE-2022-26966 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-27223/",
+			"description": "SUSE CVE CVE-2022-27223 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Micro 5.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Micro 5.1",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Micro 5.1",
+							"product_id": "SUSE Linux Enterprise Micro 5.1",
+							"cpe": "cpe:/o:suse:suse-microos:5.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Real Time Module 15 SP3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Real Time Module 15 SP3",
+						"full_product_name": {
+							"text": "SUSE Real Time Module 15 SP3",
+							"product_id": "SUSE Real Time Module 15 SP3",
+							"cpe": "cpe:/o:suse:sle-module-rt:15:sp3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-rt-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "cluster-md-kmp-rt-5.3.18-150300.82.1",
+					"product_id": "cluster-md-kmp-rt-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-rt_debug-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "cluster-md-kmp-rt_debug-5.3.18-150300.82.1",
+					"product_id": "cluster-md-kmp-rt_debug-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-rt-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "dlm-kmp-rt-5.3.18-150300.82.1",
+					"product_id": "dlm-kmp-rt-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-rt_debug-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "dlm-kmp-rt_debug-5.3.18-150300.82.1",
+					"product_id": "dlm-kmp-rt_debug-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-rt-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "gfs2-kmp-rt-5.3.18-150300.82.1",
+					"product_id": "gfs2-kmp-rt-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-rt_debug-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "gfs2-kmp-rt_debug-5.3.18-150300.82.1",
+					"product_id": "gfs2-kmp-rt_debug-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-rt-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kernel-devel-rt-5.3.18-150300.82.1",
+					"product_id": "kernel-devel-rt-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kernel-rt-5.3.18-150300.82.1",
+					"product_id": "kernel-rt-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-devel-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kernel-rt-devel-5.3.18-150300.82.1",
+					"product_id": "kernel-rt-devel-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-extra-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kernel-rt-extra-5.3.18-150300.82.1",
+					"product_id": "kernel-rt-extra-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-livepatch-devel-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kernel-rt-livepatch-devel-5.3.18-150300.82.1",
+					"product_id": "kernel-rt-livepatch-devel-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-optional-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kernel-rt-optional-5.3.18-150300.82.1",
+					"product_id": "kernel-rt-optional-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt_debug-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kernel-rt_debug-5.3.18-150300.82.1",
+					"product_id": "kernel-rt_debug-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt_debug-devel-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kernel-rt_debug-devel-5.3.18-150300.82.1",
+					"product_id": "kernel-rt_debug-devel-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt_debug-extra-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kernel-rt_debug-extra-5.3.18-150300.82.1",
+					"product_id": "kernel-rt_debug-extra-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt_debug-livepatch-devel-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kernel-rt_debug-livepatch-devel-5.3.18-150300.82.1",
+					"product_id": "kernel-rt_debug-livepatch-devel-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt_debug-optional-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kernel-rt_debug-optional-5.3.18-150300.82.1",
+					"product_id": "kernel-rt_debug-optional-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-rt-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kernel-source-rt-5.3.18-150300.82.1",
+					"product_id": "kernel-source-rt-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-rt-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kernel-syms-rt-5.3.18-150300.82.1",
+					"product_id": "kernel-syms-rt-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kselftests-kmp-rt-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kselftests-kmp-rt-5.3.18-150300.82.1",
+					"product_id": "kselftests-kmp-rt-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kselftests-kmp-rt_debug-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "kselftests-kmp-rt_debug-5.3.18-150300.82.1",
+					"product_id": "kselftests-kmp-rt_debug-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-rt-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-rt-5.3.18-150300.82.1",
+					"product_id": "ocfs2-kmp-rt-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-rt_debug-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-rt_debug-5.3.18-150300.82.1",
+					"product_id": "ocfs2-kmp-rt_debug-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "reiserfs-kmp-rt-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "reiserfs-kmp-rt-5.3.18-150300.82.1",
+					"product_id": "reiserfs-kmp-rt-5.3.18-150300.82.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "reiserfs-kmp-rt_debug-5.3.18-150300.82.1",
+				"full_product_name": {
+					"text": "reiserfs-kmp-rt_debug-5.3.18-150300.82.1",
+					"product_id": "reiserfs-kmp-rt_debug-5.3.18-150300.82.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-rt-5.3.18-150300.82.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Micro 5.1"
+			},
+			{
+				"product_reference": "cluster-md-kmp-rt-5.3.18-150300.82.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Real Time Module 15 SP3"
+			},
+			{
+				"product_reference": "dlm-kmp-rt-5.3.18-150300.82.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Real Time Module 15 SP3"
+			},
+			{
+				"product_reference": "gfs2-kmp-rt-5.3.18-150300.82.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Real Time Module 15 SP3"
+			},
+			{
+				"product_reference": "kernel-devel-rt-5.3.18-150300.82.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Real Time Module 15 SP3"
+			},
+			{
+				"product_reference": "kernel-rt-5.3.18-150300.82.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Real Time Module 15 SP3"
+			},
+			{
+				"product_reference": "kernel-rt-devel-5.3.18-150300.82.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Real Time Module 15 SP3"
+			},
+			{
+				"product_reference": "kernel-rt_debug-devel-5.3.18-150300.82.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Real Time Module 15 SP3"
+			},
+			{
+				"product_reference": "kernel-source-rt-5.3.18-150300.82.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Real Time Module 15 SP3"
+			},
+			{
+				"product_reference": "kernel-syms-rt-5.3.18-150300.82.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Real Time Module 15 SP3"
+			},
+			{
+				"product_reference": "ocfs2-kmp-rt-5.3.18-150300.82.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Real Time Module 15 SP3"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "In unix_scm_to_skb of af_unix.c, there is a possible use after free bug due to a race condition. This could lead to local escalation of privilege with System execution privileges needed. User interaction is not needed for exploitation.Product: AndroidVersions: Android kernelAndroid ID: A-196926917References: Upstream kernel",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-0920",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-0920.html",
+					"description": "CVE-2021-0920"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1193731",
+					"description": "SUSE Bug 1193731"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1194463",
+					"description": "SUSE Bug 1194463"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1195939",
+					"description": "SUSE Bug 1195939"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199255",
+					"description": "SUSE Bug 1199255"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1200084",
+					"description": "SUSE Bug 1200084"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In aio_poll_complete_work of aio.c, there is a possible memory corruption due to a use after free. This could lead to local escalation of privilege with no additional execution privileges needed. User interaction is not needed for exploitation.Product: AndroidVersions: Android kernelAndroid ID: A-185125206References: Upstream kernel",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-39698",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.2",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.4",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-39698.html",
+					"description": "CVE-2021-39698"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196956",
+					"description": "SUSE Bug 1196956"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196959",
+					"description": "SUSE Bug 1196959"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1209225",
+					"description": "SUSE Bug 1209225"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In gc_data_segment in fs/f2fs/gc.c in the Linux kernel before 5.16.3, special files are not considered, leading to a move_data_page NULL pointer dereference.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-44879",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-44879.html",
+					"description": "CVE-2021-44879"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1195987",
+					"description": "SUSE Bug 1195987"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The check_alu_op() function in kernel/bpf/verifier.c in the Linux kernel through v5.16-rc5 did not properly update bounds while handling the mov32 instruction, which allows local users to obtain potentially sensitive address information, aka a \"pointer leak.\"",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-45402",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.1",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-45402.html",
+					"description": "CVE-2021-45402"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196130",
+					"description": "SUSE Bug 1196130"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A use-after-free vulnerability was found in rtsx_usb_ms_drv_remove in drivers/memstick/host/rtsx_usb_ms.c in memstick in the Linux kernel. In this flaw, a local attacker with a user privilege may impact system Confidentiality. This flaw affects kernel versions prior to 5.14 rc1.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-0487",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-0487.html",
+					"description": "CVE-2022-0487"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1194516",
+					"description": "SUSE Bug 1194516"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1195949",
+					"description": "SUSE Bug 1195949"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1198615",
+					"description": "SUSE Bug 1198615"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A vulnerability was found in the Linux kernel's cgroup_release_agent_write in the kernel/cgroup/cgroup-v1.c function. This flaw, under certain circumstances, allows the use of the cgroups v1 release_agent feature to escalate privileges and bypass the namespace isolation unexpectedly.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-0492",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-0492.html",
+					"description": "CVE-2022-0492"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1195543",
+					"description": "SUSE Bug 1195543"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1195908",
+					"description": "SUSE Bug 1195908"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196612",
+					"description": "SUSE Bug 1196612"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196776",
+					"description": "SUSE Bug 1196776"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1198615",
+					"description": "SUSE Bug 1198615"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199255",
+					"description": "SUSE Bug 1199255"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199615",
+					"description": "SUSE Bug 1199615"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1200084",
+					"description": "SUSE Bug 1200084"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A vulnerability was found in kvm_s390_guest_sida_op in the arch/s390/kvm/kvm-s390.c function in KVM for s390 in the Linux kernel. This flaw allows a local attacker with a normal user privilege to obtain unauthorized memory write access. This flaw affects Linux kernel versions prior to 5.17-rc4.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-0516",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-0516.html",
+					"description": "CVE-2022-0516"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1195516",
+					"description": "SUSE Bug 1195516"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1195947",
+					"description": "SUSE Bug 1195947"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw null pointer dereference in the Linux kernel UDF file system functionality was found in the way user triggers udf_file_write_iter function for the malicious UDF image. A local user could use this flaw to crash the system. Actual from Linux kernel 4.2-rc1 till 5.17-rc2.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-0617",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-0617.html",
+					"description": "CVE-2022-0617"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196079",
+					"description": "SUSE Bug 1196079"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "** REJECT ** DO NOT USE THIS CANDIDATE NUMBER. ConsultIDs: none. Reason: This candidate was withdrawn by its CNA. Further investigation showed that it was not a security issue. Notes: none.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-0644",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-0644.html",
+					"description": "CVE-2022-0644"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196155",
+					"description": "SUSE Bug 1196155"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Linux PV device frontends vulnerable to attacks by backends T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Several Linux PV device frontends are using the grant table interfaces for removing access rights of the backends in ways being subject to race conditions, resulting in potential data leaks, data corruption by malicious backends, and denial of service triggered by malicious backends: blkfront, netfront, scsifront and the gntalloc driver are testing whether a grant reference is still in use. If this is not the case, they assume that a following removal of the granted access will always succeed, which is not true in case the backend has mapped the granted page between those two operations. As a result the backend can keep access to the memory page of the guest no matter how the page will be used after the frontend I/O has finished. The xenbus driver has a similar problem, as it doesn't check the success of removing the granted access of a shared ring buffer. blkfront: CVE-2022-23036 netfront: CVE-2022-23037 scsifront: CVE-2022-23038 gntalloc: CVE-2022-23039 xenbus: CVE-2022-23040 blkfront, netfront, scsifront, usbfront, dmabuf, xenbus, 9p, kbdfront, and pvcalls are using a functionality to delay freeing a grant reference until it is no longer in use, but the freeing of the related data page is not synchronized with dropping the granted access. As a result the backend can keep access to the memory page even after it has been freed and then re-used for a different purpose. CVE-2022-23041 netfront will fail a BUG_ON() assertion if it fails to revoke access in the rx path. This will result in a Denial of Service (DoS) situation of the guest which can be triggered by the backend. CVE-2022-23042",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-23036",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-23036.html",
+					"description": "CVE-2022-23036"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196488",
+					"description": "SUSE Bug 1196488"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199099",
+					"description": "SUSE Bug 1199099"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199141",
+					"description": "SUSE Bug 1199141"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1204132",
+					"description": "SUSE Bug 1204132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Linux PV device frontends vulnerable to attacks by backends T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Several Linux PV device frontends are using the grant table interfaces for removing access rights of the backends in ways being subject to race conditions, resulting in potential data leaks, data corruption by malicious backends, and denial of service triggered by malicious backends: blkfront, netfront, scsifront and the gntalloc driver are testing whether a grant reference is still in use. If this is not the case, they assume that a following removal of the granted access will always succeed, which is not true in case the backend has mapped the granted page between those two operations. As a result the backend can keep access to the memory page of the guest no matter how the page will be used after the frontend I/O has finished. The xenbus driver has a similar problem, as it doesn't check the success of removing the granted access of a shared ring buffer. blkfront: CVE-2022-23036 netfront: CVE-2022-23037 scsifront: CVE-2022-23038 gntalloc: CVE-2022-23039 xenbus: CVE-2022-23040 blkfront, netfront, scsifront, usbfront, dmabuf, xenbus, 9p, kbdfront, and pvcalls are using a functionality to delay freeing a grant reference until it is no longer in use, but the freeing of the related data page is not synchronized with dropping the granted access. As a result the backend can keep access to the memory page even after it has been freed and then re-used for a different purpose. CVE-2022-23041 netfront will fail a BUG_ON() assertion if it fails to revoke access in the rx path. This will result in a Denial of Service (DoS) situation of the guest which can be triggered by the backend. CVE-2022-23042",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-23037",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-23037.html",
+					"description": "CVE-2022-23037"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199099",
+					"description": "SUSE Bug 1199099"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199141",
+					"description": "SUSE Bug 1199141"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1204132",
+					"description": "SUSE Bug 1204132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Linux PV device frontends vulnerable to attacks by backends T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Several Linux PV device frontends are using the grant table interfaces for removing access rights of the backends in ways being subject to race conditions, resulting in potential data leaks, data corruption by malicious backends, and denial of service triggered by malicious backends: blkfront, netfront, scsifront and the gntalloc driver are testing whether a grant reference is still in use. If this is not the case, they assume that a following removal of the granted access will always succeed, which is not true in case the backend has mapped the granted page between those two operations. As a result the backend can keep access to the memory page of the guest no matter how the page will be used after the frontend I/O has finished. The xenbus driver has a similar problem, as it doesn't check the success of removing the granted access of a shared ring buffer. blkfront: CVE-2022-23036 netfront: CVE-2022-23037 scsifront: CVE-2022-23038 gntalloc: CVE-2022-23039 xenbus: CVE-2022-23040 blkfront, netfront, scsifront, usbfront, dmabuf, xenbus, 9p, kbdfront, and pvcalls are using a functionality to delay freeing a grant reference until it is no longer in use, but the freeing of the related data page is not synchronized with dropping the granted access. As a result the backend can keep access to the memory page even after it has been freed and then re-used for a different purpose. CVE-2022-23041 netfront will fail a BUG_ON() assertion if it fails to revoke access in the rx path. This will result in a Denial of Service (DoS) situation of the guest which can be triggered by the backend. CVE-2022-23042",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-23038",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-23038.html",
+					"description": "CVE-2022-23038"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199099",
+					"description": "SUSE Bug 1199099"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199141",
+					"description": "SUSE Bug 1199141"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1204132",
+					"description": "SUSE Bug 1204132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Linux PV device frontends vulnerable to attacks by backends T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Several Linux PV device frontends are using the grant table interfaces for removing access rights of the backends in ways being subject to race conditions, resulting in potential data leaks, data corruption by malicious backends, and denial of service triggered by malicious backends: blkfront, netfront, scsifront and the gntalloc driver are testing whether a grant reference is still in use. If this is not the case, they assume that a following removal of the granted access will always succeed, which is not true in case the backend has mapped the granted page between those two operations. As a result the backend can keep access to the memory page of the guest no matter how the page will be used after the frontend I/O has finished. The xenbus driver has a similar problem, as it doesn't check the success of removing the granted access of a shared ring buffer. blkfront: CVE-2022-23036 netfront: CVE-2022-23037 scsifront: CVE-2022-23038 gntalloc: CVE-2022-23039 xenbus: CVE-2022-23040 blkfront, netfront, scsifront, usbfront, dmabuf, xenbus, 9p, kbdfront, and pvcalls are using a functionality to delay freeing a grant reference until it is no longer in use, but the freeing of the related data page is not synchronized with dropping the granted access. As a result the backend can keep access to the memory page even after it has been freed and then re-used for a different purpose. CVE-2022-23041 netfront will fail a BUG_ON() assertion if it fails to revoke access in the rx path. This will result in a Denial of Service (DoS) situation of the guest which can be triggered by the backend. CVE-2022-23042",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-23039",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-23039.html",
+					"description": "CVE-2022-23039"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199099",
+					"description": "SUSE Bug 1199099"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199141",
+					"description": "SUSE Bug 1199141"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1204132",
+					"description": "SUSE Bug 1204132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Linux PV device frontends vulnerable to attacks by backends T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Several Linux PV device frontends are using the grant table interfaces for removing access rights of the backends in ways being subject to race conditions, resulting in potential data leaks, data corruption by malicious backends, and denial of service triggered by malicious backends: blkfront, netfront, scsifront and the gntalloc driver are testing whether a grant reference is still in use. If this is not the case, they assume that a following removal of the granted access will always succeed, which is not true in case the backend has mapped the granted page between those two operations. As a result the backend can keep access to the memory page of the guest no matter how the page will be used after the frontend I/O has finished. The xenbus driver has a similar problem, as it doesn't check the success of removing the granted access of a shared ring buffer. blkfront: CVE-2022-23036 netfront: CVE-2022-23037 scsifront: CVE-2022-23038 gntalloc: CVE-2022-23039 xenbus: CVE-2022-23040 blkfront, netfront, scsifront, usbfront, dmabuf, xenbus, 9p, kbdfront, and pvcalls are using a functionality to delay freeing a grant reference until it is no longer in use, but the freeing of the related data page is not synchronized with dropping the granted access. As a result the backend can keep access to the memory page even after it has been freed and then re-used for a different purpose. CVE-2022-23041 netfront will fail a BUG_ON() assertion if it fails to revoke access in the rx path. This will result in a Denial of Service (DoS) situation of the guest which can be triggered by the backend. CVE-2022-23042",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-23040",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-23040.html",
+					"description": "CVE-2022-23040"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199099",
+					"description": "SUSE Bug 1199099"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199141",
+					"description": "SUSE Bug 1199141"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1204132",
+					"description": "SUSE Bug 1204132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Linux PV device frontends vulnerable to attacks by backends T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Several Linux PV device frontends are using the grant table interfaces for removing access rights of the backends in ways being subject to race conditions, resulting in potential data leaks, data corruption by malicious backends, and denial of service triggered by malicious backends: blkfront, netfront, scsifront and the gntalloc driver are testing whether a grant reference is still in use. If this is not the case, they assume that a following removal of the granted access will always succeed, which is not true in case the backend has mapped the granted page between those two operations. As a result the backend can keep access to the memory page of the guest no matter how the page will be used after the frontend I/O has finished. The xenbus driver has a similar problem, as it doesn't check the success of removing the granted access of a shared ring buffer. blkfront: CVE-2022-23036 netfront: CVE-2022-23037 scsifront: CVE-2022-23038 gntalloc: CVE-2022-23039 xenbus: CVE-2022-23040 blkfront, netfront, scsifront, usbfront, dmabuf, xenbus, 9p, kbdfront, and pvcalls are using a functionality to delay freeing a grant reference until it is no longer in use, but the freeing of the related data page is not synchronized with dropping the granted access. As a result the backend can keep access to the memory page even after it has been freed and then re-used for a different purpose. CVE-2022-23041 netfront will fail a BUG_ON() assertion if it fails to revoke access in the rx path. This will result in a Denial of Service (DoS) situation of the guest which can be triggered by the backend. CVE-2022-23042",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-23041",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-23041.html",
+					"description": "CVE-2022-23041"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199099",
+					"description": "SUSE Bug 1199099"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199141",
+					"description": "SUSE Bug 1199141"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1204132",
+					"description": "SUSE Bug 1204132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Linux PV device frontends vulnerable to attacks by backends T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Several Linux PV device frontends are using the grant table interfaces for removing access rights of the backends in ways being subject to race conditions, resulting in potential data leaks, data corruption by malicious backends, and denial of service triggered by malicious backends: blkfront, netfront, scsifront and the gntalloc driver are testing whether a grant reference is still in use. If this is not the case, they assume that a following removal of the granted access will always succeed, which is not true in case the backend has mapped the granted page between those two operations. As a result the backend can keep access to the memory page of the guest no matter how the page will be used after the frontend I/O has finished. The xenbus driver has a similar problem, as it doesn't check the success of removing the granted access of a shared ring buffer. blkfront: CVE-2022-23036 netfront: CVE-2022-23037 scsifront: CVE-2022-23038 gntalloc: CVE-2022-23039 xenbus: CVE-2022-23040 blkfront, netfront, scsifront, usbfront, dmabuf, xenbus, 9p, kbdfront, and pvcalls are using a functionality to delay freeing a grant reference until it is no longer in use, but the freeing of the related data page is not synchronized with dropping the granted access. As a result the backend can keep access to the memory page even after it has been freed and then re-used for a different purpose. CVE-2022-23041 netfront will fail a BUG_ON() assertion if it fails to revoke access in the rx path. This will result in a Denial of Service (DoS) situation of the guest which can be triggered by the backend. CVE-2022-23042",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-23042",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-23042.html",
+					"description": "CVE-2022-23042"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199099",
+					"description": "SUSE Bug 1199099"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1199141",
+					"description": "SUSE Bug 1199141"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1204132",
+					"description": "SUSE Bug 1204132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in fs/nfs/dir.c in the Linux kernel before 5.16.5. If an application sets the O_DIRECTORY flag, and tries to open a regular file, nfs_atomic_open() performs a regular lookup. If a regular file is found, ENOTDIR should occur, but the server instead returns uninitialized data in the file descriptor.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-24448",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-24448.html",
+					"description": "CVE-2022-24448"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1195612",
+					"description": "SUSE Bug 1195612"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "drivers/usb/gadget/legacy/inode.c in the Linux kernel through 5.16.8 mishandles dev->buf release.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-24958",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-24958.html",
+					"description": "CVE-2022-24958"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1195905",
+					"description": "SUSE Bug 1195905"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel before 5.16.5. There is a memory leak in yam_siocdevprivate in drivers/net/hamradio/yam.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-24959",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-24959.html",
+					"description": "CVE-2022-24959"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1195897",
+					"description": "SUSE Bug 1195897"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in drivers/usb/gadget/composite.c in the Linux kernel before 5.16.10. The USB Gadget subsystem lacks certain validation of interface OS descriptor requests (ones with a large array index and ones associated with NULL function pointer retrieval). Memory corruption might occur.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-25258",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-25258.html",
+					"description": "CVE-2022-25258"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196095",
+					"description": "SUSE Bug 1196095"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196132",
+					"description": "SUSE Bug 1196132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "net/netfilter/nf_dup_netdev.c in the Linux kernel 5.4 through 5.6.10 allows local users to gain privileges because of a heap out-of-bounds write. This is related to nf_tables_offload.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-25636",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-25636.html",
+					"description": "CVE-2022-25636"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196299",
+					"description": "SUSE Bug 1196299"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196301",
+					"description": "SUSE Bug 1196301"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "st21nfca_connectivity_event_received in drivers/nfc/st21nfca/se.c in the Linux kernel through 5.16.12 has EVT_TRANSACTION buffer overflows because of untrusted length parameters.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-26490",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-26490.html",
+					"description": "CVE-2022-26490"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196830",
+					"description": "SUSE Bug 1196830"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201656",
+					"description": "SUSE Bug 1201656"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201969",
+					"description": "SUSE Bug 1201969"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1211495",
+					"description": "SUSE Bug 1211495"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel before 5.16.12. drivers/net/usb/sr9700.c allows attackers to obtain sensitive information from heap memory via crafted frame lengths from a device.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-26966",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.6",
+					"vector_v_3": "CVSS:3.1/AV:P/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-26966.html",
+					"description": "CVE-2022-26966"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196836",
+					"description": "SUSE Bug 1196836"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In drivers/usb/gadget/udc/udc-xilinx.c in the Linux kernel before 5.16.12, the endpoint index is not validated and might be manipulated by the host for out-of-array access.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-27223",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.1:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:cluster-md-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:dlm-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:gfs2-kmp-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-devel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-rt_debug-devel-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-source-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:kernel-syms-rt-5.3.18-150300.82.1",
+						"SUSE Real Time Module 15 SP3:ocfs2-kmp-rt-5.3.18-150300.82.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.5",
+					"vector_v_2": "AV:N/AC:L/Au:S/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2022/suse-su-20221038-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-27223.html",
+					"description": "CVE-2022-27223"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1197245",
+					"description": "SUSE Bug 1197245"
+				}
+			]
+		}
+	]
+}

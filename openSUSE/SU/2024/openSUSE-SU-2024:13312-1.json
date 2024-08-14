@@ -1,0 +1,152 @@
+{
+	"document_title": "eclipse-jgit-5.11.0-9.1 on GA media",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2024:13312-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-08-10T21:46:02Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-08-10T21:46:02Z",
+		"current_release_date": "2024-08-10T21:46:02Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "eclipse-jgit-5.11.0-9.1 on GA media",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "These are all security issues fixed in the eclipse-jgit-5.11.0-9.1 package on the GA media of openSUSE Tumbleweed.",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "openSUSE-Tumbleweed-2024-13312",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-4759/",
+			"description": "SUSE CVE CVE-2023-4759 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Tumbleweed",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Tumbleweed",
+						"full_product_name": {
+							"text": "openSUSE Tumbleweed",
+							"product_id": "openSUSE Tumbleweed",
+							"cpe": "cpe:/o:opensuse:tumbleweed"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "eclipse-jgit-5.11.0-9.1",
+				"full_product_name": {
+					"text": "eclipse-jgit-5.11.0-9.1",
+					"product_id": "eclipse-jgit-5.11.0-9.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "eclipse-jgit-5.11.0-9.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Tumbleweed"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Arbitrary File Overwrite in Eclipse JGit <= 6.6.0\n\nIn Eclipse JGit, all versions <= 6.6.0.202305301015-r, a symbolic link present in a specially crafted git repository can be used to write a file to locations outside the working tree when this repository is cloned with JGit to a case-insensitive filesystem, or when a checkout from a clone of such a repository is performed on a case-insensitive filesystem.\n\nThis can happen on checkout (DirCacheCheckout), merge (ResolveMerger via its WorkingTreeUpdater), pull (PullCommand using merge), and when applying a patch (PatchApplier). This can be exploited for remote code execution (RCE), for instance if the file written outside the working tree is a git filter that gets executed on a subsequent git command.\n\nThe issue occurs only on case-insensitive filesystems, like the default filesystems on Windows and macOS. The user performing the clone or checkout must have the rights to create symbolic links for the problem to occur, and symbolic links must be enabled in the git configuration.\n\nSetting git configuration option core.symlinks = false before checking out avoids the problem.\n\nThe issue was fixed in Eclipse JGit version 6.6.1.202309021850-r and 6.7.0.202309050840-r, available via  Maven Central https://repo1.maven.org/maven2/org/eclipse/jgit/  and  repo.eclipse.org https://repo.eclipse.org/content/repositories/jgit-releases/ . A backport is available in 5.13.3 starting from  5.13.3.202401111512-r.\n\n\nThe JGit maintainers would like to thank RyotaK for finding and reporting this issue.\n\n\n\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-4759",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Tumbleweed:eclipse-jgit-5.11.0-9.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					}
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-4759.html",
+					"description": "CVE-2023-4759"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1215298",
+					"description": "SUSE Bug 1215298"
+				}
+			]
+		}
+	]
+}

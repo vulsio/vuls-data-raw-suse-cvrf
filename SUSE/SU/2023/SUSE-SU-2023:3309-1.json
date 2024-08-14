@@ -1,0 +1,2562 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2023:3309-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2023-09-08T15:41:47Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2023-09-08T15:41:47Z",
+		"current_release_date": "2023-09-08T15:41:47Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThe SUSE Linux Enterprise 12 SP5 kernel was updated to receive various security and bugfixes.\n\nThe following security bugs were fixed:\n\n- CVE-2023-20593: Fixed a ZenBleed issue in 'Zen 2' CPUs that could allow an attacker to potentially access sensitive information (bsc#1213286).\n- CVE-2023-2985: Fixed an use-after-free vulnerability in hfsplus_put_super in fs/hfsplus/super.c that could allow a local user to cause a denial of service (bsc#1211867).\n- CVE-2023-35001: Fixed an out-of-bounds memory access flaw in nft_byteorder that could allow a local attacker to escalate their privilege (bsc#1213059).\n- CVE-2022-40982: A transient execution attack called 'Gather Data Sampling' affecting is mitigated, together with respective Intel CPU Microcode updates (bsc#1206418, CVE-2022-40982).\n- CVE-2023-0459: Fixed that copy_from_user on 64-bit versions of the Linux kernel did not implement the __uaccess_begin_nospec allowing a user to bypass the 'access_ok' check which could be used to leak information (bsc#1211738).\n- CVE-2023-20569: A side channel attack known as ‘Inception’ or ‘RAS Poisoning’ may allow an attacker to influence branch prediction, potentially leading to information disclosure. (bsc#1213287).\n- CVE-2023-3567: A use-after-free flaw was found in vcs_read in drivers/tty/vt/vc_screen.c in vc_screen. This flaw allowed an attacker with local user access to cause a system crash or leak internal kernel information (bsc#1213167bsc#1213842).\n- CVE-2023-3609: A use-after-free vulnerability was fixed in net/sched: cls_u32 component can be exploited to achieve local privilege escalation. If tcf_change_indev() fails, u32_set_parms() will immediately return an error after incrementing or decrementing the reference counter in tcf_bind_filter(). If an attacker can control the reference counter and set it to zero, they can cause the reference to be freed, leading to a use-after-free vulnerability. (bsc#1213586).\n- CVE-2023-3611: An out-of-bounds write vulnerability was fixed in net/sched: sch_qfq component can be exploited to achieve local privilege escalation. The qfq_change_agg() function in net/sched/sch_qfq.c allowed an out-of-bounds write because lmax is updated according to packet sizes without bounds checks. (bsc#1213585).\n- CVE-2023-3776: A use-after-free vulnerability was fixed in net/sched: cls_fw component can be exploited to achieve local privilege escalation. If tcf_change_indev() fails, fw_set_parms() will immediately return an error after incrementing or decrementing the reference counter in tcf_bind_filter(). If an attacker can control the reference counter and set it to zero, they can cause the reference to be freed, leading to a use-after-free vulnerability. (bsc#1213588).\n\nThe following non-security bugs were fixed:\n\n- Fix double fget() in vhost_net_set_backend() (git-fixes).\n- NFSv4.1: Always send a RECLAIM_COMPLETE after establishing lease (git-fixes).\n- SUNRPC: Fix UAF in svc_tcp_listen_data_ready() (git-fixes).\n- SUNRPC: remove the maximum number of retries in call_bind_status (git-fixes).\n- block: Fix a source code comment in include/uapi/linux/blkzoned.h (git-fixes).\n- livepatch: check kzalloc return values (git-fixes).\n- media: videodev2.h: Fix struct v4l2_input tuner index comment (git-fixes).\n- net/sched: sch_qfq: refactor parsing of netlink parameters (bsc#1213585).\n- net: skip virtio_net_hdr_set_proto if protocol already set (git-fixes).\n- net: virtio_net_hdr_to_skb: count transport header in UFO (git-fixes).\n- nfsd: fix double fget() bug in __write_ports_addfd() (git-fixes).\n- powerpc/64: Update Speculation_Store_Bypass in /proc/&lt;pid>/status (bsc#1188885 ltc#193722 git-fixes).\n- powerpc/security: Fix Speculation_Store_Bypass reporting on Power10 (bsc#1188885 ltc#193722 git-fixes).\n- rpm/check-for-config-changes: ignore also RISCV_ISA_* and DYNAMIC_SIGFRAME They depend on CONFIG_TOOLCHAIN_HAS_*.\n- s390/cio: add dev_busid sysfs entry for each subchannel (bsc#1207526).\n- s390/cio: check the subchannel validity for dev_busid (bsc#1207526).\n- s390/cio: introduce io_subchannel_type (bsc#1207526).\n- s390/cpum_sf: Adjust sampling interval to avoid hitting sample limits (git-fixes bsc#1213827).\n- s390/maccess: add no DAT mode to kernel_write (git-fixes bsc#1213825).\n- s390/numa: move initial setup of node_to_cpumask_map (git-fixes bsc#1213766).\n- scsi: qla2xxx: Adjust IOCB resource on qpair create (bsc#1213747).\n- scsi: qla2xxx: Array index may go out of bound (bsc#1213747).\n- scsi: qla2xxx: Avoid fcport pointer dereference (bsc#1213747).\n- scsi: qla2xxx: Check valid rport returned by fc_bsg_to_rport() (bsc#1213747).\n- scsi: qla2xxx: Correct the index of array (bsc#1213747).\n- scsi: qla2xxx: Drop useless LIST_HEAD (bsc#1213747).\n- scsi: qla2xxx: Fix NULL pointer dereference in target mode (bsc#1213747).\n- scsi: qla2xxx: Fix TMF leak through (bsc#1213747).\n- scsi: qla2xxx: Fix buffer overrun (bsc#1213747).\n- scsi: qla2xxx: Fix command flush during TMF (bsc#1213747).\n- scsi: qla2xxx: Fix deletion race condition (bsc#1213747).\n- scsi: qla2xxx: Fix end of loop test (bsc#1213747).\n- scsi: qla2xxx: Fix erroneous link up failure (bsc#1213747).\n- scsi: qla2xxx: Fix error code in qla2x00_start_sp() (bsc#1213747).\n- scsi: qla2xxx: Fix potential NULL pointer dereference (bsc#1213747).\n- scsi: qla2xxx: Fix session hang in gnl (bsc#1213747).\n- scsi: qla2xxx: Limit TMF to 8 per function (bsc#1213747).\n- scsi: qla2xxx: Pointer may be dereferenced (bsc#1213747).\n- scsi: qla2xxx: Remove unused nvme_ls_waitq wait queue (bsc#1213747).\n- scsi: qla2xxx: Silence a static checker warning (bsc#1213747).\n- scsi: qla2xxx: Turn off noisy message log (bsc#1213747).\n- scsi: qla2xxx: Update version to 10.02.08.400-k (bsc#1213747).\n- scsi: qla2xxx: Update version to 10.02.08.500-k (bsc#1213747).\n- scsi: qla2xxx: fix inconsistent TMF timeout (bsc#1213747).\n- svcrdma: Prevent page release when nothing was received (git-fixes).\n- vfio-ccw: Prevent quiesce function going into an infinite loop (git-fixes bsc#1213819).\n- vfio-ccw: Release any channel program when releasing/removing vfio-ccw mdev (git-fixes bsc#1213823).\n- vhost/test: fix build for vhost test (git-fixes).\n- vhost/vsock: Use kvmalloc/kvfree for larger packets (git-fixes).\n- vhost/vsock: do not check owner in vhost_vsock_stop() while releasing (git-fixes).\n- vhost/vsock: fix incorrect used length reported to the guest (git-fixes).\n- vhost/vsock: fix packet delivery order to monitoring devices (git-fixes).\n- vhost/vsock: split packets to send using multiple buffers (git-fixes).\n- vhost: Fix the calculation in vhost_overflow() (git-fixes).\n- vhost_net: disable zerocopy by default (git-fixes).\n- vhost_net: fix OoB on sendmsg() failure (git-fixes).\n- virtio-balloon: fix managed page counts when migrating pages between zones (git-fixes).\n- virtio-mmio: fix missing put_device() when vm_cmdline_parent registration failed (git-fixes).\n- virtio-net: Keep stop() to follow mirror sequence of open() (git-fixes).\n- virtio-pci: Remove wrong address verification in vp_del_vqs() (git-fixes).\n- virtio: Improve vq->broken access to avoid any compiler optimization (git-fixes).\n- virtio_net: Fix error handling in virtnet_restore() (git-fixes).\n- virtio_net: bugfix overflow inside xdp_linearize_page() (git-fixes).\n- virtio_net: fix xdp_rxq_info bug after suspend/resume (git-fixes).\n- virtio_ring: Fix querying of maximum DMA mapping size for virtio device (git-fixes).\n- vringh: Use wiov->used to check for read/write desc order (git-fixes).\n- vringh: fix __vringh_iov() when riov and wiov are different (git-fixes).\n- vsock/virtio: stop workers during the .remove() (git-fixes).\n- vsock/virtio: use RCU to avoid use-after-free on the_virtio_vsock (git-fixes).\n- xen/blkfront: Only check REQ_FUA for writes (git-fixes).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Image SLES12-SP5-Azure-BYOS-2023-3309,Image SLES12-SP5-Azure-HPC-BYOS-2023-3309,Image SLES12-SP5-Azure-SAP-BYOS-2023-3309,Image SLES12-SP5-Azure-SAP-On-Demand-2023-3309,Image SLES12-SP5-EC2-BYOS-2023-3309,Image SLES12-SP5-EC2-ECS-On-Demand-2023-3309,Image SLES12-SP5-EC2-On-Demand-2023-3309,Image SLES12-SP5-EC2-SAP-BYOS-2023-3309,Image SLES12-SP5-EC2-SAP-On-Demand-2023-3309,Image SLES12-SP5-GCE-BYOS-2023-3309,Image SLES12-SP5-GCE-On-Demand-2023-3309,Image SLES12-SP5-GCE-SAP-BYOS-2023-3309,Image SLES12-SP5-GCE-SAP-On-Demand-2023-3309,Image SLES12-SP5-SAP-Azure-LI-BYOS-Production-2023-3309,Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production-2023-3309,SUSE-2023-3309,SUSE-SLE-HA-12-SP5-2023-3309,SUSE-SLE-Live-Patching-12-SP5-2023-3309,SUSE-SLE-SDK-12-SP5-2023-3309,SUSE-SLE-SERVER-12-SP5-2023-3309,SUSE-SLE-WE-12-SP5-2023-3309",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20233309-1/",
+			"description": "Link for SUSE-SU-2023:3309-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2023-August/015902.html",
+			"description": "E-Mail link for SUSE-SU-2023:3309-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1188885",
+			"description": "SUSE Bug 1188885"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1202670",
+			"description": "SUSE Bug 1202670"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206418",
+			"description": "SUSE Bug 1206418"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207526",
+			"description": "SUSE Bug 1207526"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207528",
+			"description": "SUSE Bug 1207528"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1211738",
+			"description": "SUSE Bug 1211738"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1211867",
+			"description": "SUSE Bug 1211867"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1212266",
+			"description": "SUSE Bug 1212266"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213059",
+			"description": "SUSE Bug 1213059"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213167",
+			"description": "SUSE Bug 1213167"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213286",
+			"description": "SUSE Bug 1213286"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213287",
+			"description": "SUSE Bug 1213287"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213350",
+			"description": "SUSE Bug 1213350"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213585",
+			"description": "SUSE Bug 1213585"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213586",
+			"description": "SUSE Bug 1213586"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213588",
+			"description": "SUSE Bug 1213588"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213705",
+			"description": "SUSE Bug 1213705"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213747",
+			"description": "SUSE Bug 1213747"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213766",
+			"description": "SUSE Bug 1213766"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213819",
+			"description": "SUSE Bug 1213819"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213823",
+			"description": "SUSE Bug 1213823"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213825",
+			"description": "SUSE Bug 1213825"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213827",
+			"description": "SUSE Bug 1213827"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1213842",
+			"description": "SUSE Bug 1213842"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/962880",
+			"description": "SUSE Bug 962880"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-40982/",
+			"description": "SUSE CVE CVE-2022-40982 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-0459/",
+			"description": "SUSE CVE CVE-2023-0459 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-20569/",
+			"description": "SUSE CVE CVE-2023-20569 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-20593/",
+			"description": "SUSE CVE CVE-2023-20593 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-2985/",
+			"description": "SUSE CVE CVE-2023-2985 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-35001/",
+			"description": "SUSE CVE CVE-2023-35001 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-3567/",
+			"description": "SUSE CVE CVE-2023-3567 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-3609/",
+			"description": "SUSE CVE CVE-2023-3609 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-3611/",
+			"description": "SUSE CVE CVE-2023-3611 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-3776/",
+			"description": "SUSE CVE CVE-2023-3776 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-Azure-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-Azure-BYOS",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-Azure-BYOS",
+							"product_id": "Image SLES12-SP5-Azure-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-Azure-HPC-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-Azure-HPC-BYOS",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-Azure-HPC-BYOS",
+							"product_id": "Image SLES12-SP5-Azure-HPC-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-Azure-SAP-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-Azure-SAP-BYOS",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-Azure-SAP-BYOS",
+							"product_id": "Image SLES12-SP5-Azure-SAP-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-Azure-SAP-On-Demand",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-Azure-SAP-On-Demand",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-Azure-SAP-On-Demand",
+							"product_id": "Image SLES12-SP5-Azure-SAP-On-Demand"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-EC2-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-EC2-BYOS",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-EC2-BYOS",
+							"product_id": "Image SLES12-SP5-EC2-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-EC2-ECS-On-Demand",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-EC2-ECS-On-Demand",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-EC2-ECS-On-Demand",
+							"product_id": "Image SLES12-SP5-EC2-ECS-On-Demand"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-EC2-On-Demand",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-EC2-On-Demand",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-EC2-On-Demand",
+							"product_id": "Image SLES12-SP5-EC2-On-Demand"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-EC2-SAP-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-EC2-SAP-BYOS",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-EC2-SAP-BYOS",
+							"product_id": "Image SLES12-SP5-EC2-SAP-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-EC2-SAP-On-Demand",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-EC2-SAP-On-Demand",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-EC2-SAP-On-Demand",
+							"product_id": "Image SLES12-SP5-EC2-SAP-On-Demand"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-GCE-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-GCE-BYOS",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-GCE-BYOS",
+							"product_id": "Image SLES12-SP5-GCE-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-GCE-On-Demand",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-GCE-On-Demand",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-GCE-On-Demand",
+							"product_id": "Image SLES12-SP5-GCE-On-Demand"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-GCE-SAP-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-GCE-SAP-BYOS",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-GCE-SAP-BYOS",
+							"product_id": "Image SLES12-SP5-GCE-SAP-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-GCE-SAP-On-Demand",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-GCE-SAP-On-Demand",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-GCE-SAP-On-Demand",
+							"product_id": "Image SLES12-SP5-GCE-SAP-On-Demand"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production",
+							"product_id": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production",
+							"product_id": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise High Availability Extension 12 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise High Availability Extension 12 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise High Availability Extension 12 SP5",
+							"product_id": "SUSE Linux Enterprise High Availability Extension 12 SP5",
+							"cpe": "cpe:/o:suse:sle-ha:12:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Live Patching 12 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Live Patching 12 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Live Patching 12 SP5",
+							"product_id": "SUSE Linux Enterprise Live Patching 12 SP5",
+							"cpe": "cpe:/o:suse:sle-live-patching:12:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12 SP5",
+							"product_id": "SUSE Linux Enterprise Server 12 SP5",
+							"cpe": "cpe:/o:suse:sles:12:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 12 SP5",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 12 SP5",
+							"cpe": "cpe:/o:suse:sles_sap:12:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Software Development Kit 12 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Software Development Kit 12 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Software Development Kit 12 SP5",
+							"product_id": "SUSE Linux Enterprise Software Development Kit 12 SP5",
+							"cpe": "cpe:/o:suse:sle-sdk:12:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Workstation Extension 12 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Workstation Extension 12 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Workstation Extension 12 SP5",
+							"product_id": "SUSE Linux Enterprise Workstation Extension 12 SP5",
+							"cpe": "cpe:/o:suse:sle-we:12:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-default-4.12.14-122.173.1",
+					"product_id": "kernel-default-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-default-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "cluster-md-kmp-default-4.12.14-122.173.1",
+					"product_id": "cluster-md-kmp-default-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-default-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "dlm-kmp-default-4.12.14-122.173.1",
+					"product_id": "dlm-kmp-default-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-default-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "gfs2-kmp-default-4.12.14-122.173.1",
+					"product_id": "gfs2-kmp-default-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-default-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-default-4.12.14-122.173.1",
+					"product_id": "ocfs2-kmp-default-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-debug-4.12.14-122.173.1",
+					"product_id": "kernel-debug-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-base-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-debug-base-4.12.14-122.173.1",
+					"product_id": "kernel-debug-base-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-devel-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-debug-devel-4.12.14-122.173.1",
+					"product_id": "kernel-debug-devel-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-debug-kgraft-devel-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-debug-kgraft-devel-4.12.14-122.173.1",
+					"product_id": "kernel-debug-kgraft-devel-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-default-base-4.12.14-122.173.1",
+					"product_id": "kernel-default-base-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-default-devel-4.12.14-122.173.1",
+					"product_id": "kernel-default-devel-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-extra-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-default-extra-4.12.14-122.173.1",
+					"product_id": "kernel-default-extra-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-kgraft-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-default-kgraft-4.12.14-122.173.1",
+					"product_id": "kernel-default-kgraft-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-kgraft-devel-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-default-kgraft-devel-4.12.14-122.173.1",
+					"product_id": "kernel-default-kgraft-devel-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-man-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-default-man-4.12.14-122.173.1",
+					"product_id": "kernel-default-man-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-devel-4.12.14-122.173.1",
+					"product_id": "kernel-devel-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-docs-4.12.14-122.173.1",
+					"product_id": "kernel-docs-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-docs-html-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-docs-html-4.12.14-122.173.1",
+					"product_id": "kernel-docs-html-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-kvmsmall-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-kvmsmall-4.12.14-122.173.1",
+					"product_id": "kernel-kvmsmall-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-kvmsmall-base-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-kvmsmall-base-4.12.14-122.173.1",
+					"product_id": "kernel-kvmsmall-base-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-kvmsmall-devel-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-kvmsmall-devel-4.12.14-122.173.1",
+					"product_id": "kernel-kvmsmall-devel-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-kvmsmall-kgraft-devel-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-kvmsmall-kgraft-devel-4.12.14-122.173.1",
+					"product_id": "kernel-kvmsmall-kgraft-devel-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-macros-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-macros-4.12.14-122.173.1",
+					"product_id": "kernel-macros-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-build-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-obs-build-4.12.14-122.173.1",
+					"product_id": "kernel-obs-build-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-obs-qa-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-obs-qa-4.12.14-122.173.1",
+					"product_id": "kernel-obs-qa-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-source-4.12.14-122.173.1",
+					"product_id": "kernel-source-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-vanilla-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-source-vanilla-4.12.14-122.173.1",
+					"product_id": "kernel-source-vanilla-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-syms-4.12.14-122.173.1",
+					"product_id": "kernel-syms-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-4.12.14-122.173.1",
+					"product_id": "kernel-vanilla-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-base-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-base-4.12.14-122.173.1",
+					"product_id": "kernel-vanilla-base-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-devel-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-devel-4.12.14-122.173.1",
+					"product_id": "kernel-vanilla-devel-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-vanilla-kgraft-devel-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-vanilla-kgraft-devel-4.12.14-122.173.1",
+					"product_id": "kernel-vanilla-kgraft-devel-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-zfcpdump-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-zfcpdump-4.12.14-122.173.1",
+					"product_id": "kernel-zfcpdump-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-zfcpdump-man-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kernel-zfcpdump-man-4.12.14-122.173.1",
+					"product_id": "kernel-zfcpdump-man-4.12.14-122.173.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kgraft-patch-4_12_14-122_173-default-1-8.3.3",
+				"full_product_name": {
+					"text": "kgraft-patch-4_12_14-122_173-default-1-8.3.3",
+					"product_id": "kgraft-patch-4_12_14-122_173-default-1-8.3.3"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kselftests-kmp-default-4.12.14-122.173.1",
+				"full_product_name": {
+					"text": "kselftests-kmp-default-4.12.14-122.173.1",
+					"product_id": "kselftests-kmp-default-4.12.14-122.173.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-BYOS"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-HPC-BYOS"
+			},
+			{
+				"product_reference": "cluster-md-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-BYOS"
+			},
+			{
+				"product_reference": "dlm-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-BYOS"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-BYOS"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-BYOS"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-BYOS"
+			},
+			{
+				"product_reference": "cluster-md-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-On-Demand"
+			},
+			{
+				"product_reference": "dlm-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-On-Demand"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-On-Demand"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-On-Demand"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-On-Demand"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-BYOS"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-ECS-On-Demand"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-On-Demand"
+			},
+			{
+				"product_reference": "cluster-md-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-BYOS"
+			},
+			{
+				"product_reference": "dlm-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-BYOS"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-BYOS"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-BYOS"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-BYOS"
+			},
+			{
+				"product_reference": "cluster-md-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-On-Demand"
+			},
+			{
+				"product_reference": "dlm-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-On-Demand"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-On-Demand"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-On-Demand"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-On-Demand"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-BYOS"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-On-Demand"
+			},
+			{
+				"product_reference": "cluster-md-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-BYOS"
+			},
+			{
+				"product_reference": "dlm-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-BYOS"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-BYOS"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-BYOS"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-BYOS"
+			},
+			{
+				"product_reference": "cluster-md-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-On-Demand"
+			},
+			{
+				"product_reference": "dlm-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-On-Demand"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-On-Demand"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-On-Demand"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-On-Demand"
+			},
+			{
+				"product_reference": "cluster-md-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "dlm-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "cluster-md-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "dlm-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "cluster-md-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP5"
+			},
+			{
+				"product_reference": "dlm-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP5"
+			},
+			{
+				"product_reference": "gfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP5"
+			},
+			{
+				"product_reference": "ocfs2-kmp-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise High Availability Extension 12 SP5"
+			},
+			{
+				"product_reference": "kernel-default-kgraft-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Live Patching 12 SP5"
+			},
+			{
+				"product_reference": "kernel-default-kgraft-devel-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Live Patching 12 SP5"
+			},
+			{
+				"product_reference": "kgraft-patch-4_12_14-122_173-default-1-8.3.3",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Live Patching 12 SP5"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-default-base-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-default-man-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-devel-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-macros-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-source-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-syms-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "kernel-default-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "kernel-default-base-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "kernel-default-devel-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "kernel-default-man-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "kernel-devel-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "kernel-macros-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "kernel-source-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "kernel-syms-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "kernel-docs-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12 SP5"
+			},
+			{
+				"product_reference": "kernel-obs-build-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12 SP5"
+			},
+			{
+				"product_reference": "kernel-default-extra-4.12.14-122.173.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Workstation Extension 12 SP5"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Information exposure through microarchitectural state after transient execution in certain vector execution units for some Intel(R) Processors may allow an authenticated user to potentially enable information disclosure via local access.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-40982",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-HPC-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-ECS-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:cluster-md-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:dlm-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:gfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kgraft-patch-4_12_14-122_173-default-1-8.3.3",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-docs-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-obs-build-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Workstation Extension 12 SP5:kernel-default-extra-4.12.14-122.173.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20233309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-40982.html",
+					"description": "CVE-2022-40982"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206418",
+					"description": "SUSE Bug 1206418"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1215674",
+					"description": "SUSE Bug 1215674"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Copy_from_user on 64-bit versions of the Linux kernel does not implement the __uaccess_begin_nospec allowing a user to bypass the \"access_ok\" check and pass a kernel pointer to copy_from_user(). This would allow an attacker to leak information. We recommend upgrading beyond commit 74e19ef0ff8061ef55957c3abd71614ef0f42f47",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-0459",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-HPC-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-ECS-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:cluster-md-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:dlm-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:gfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kgraft-patch-4_12_14-122_173-default-1-8.3.3",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-docs-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-obs-build-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Workstation Extension 12 SP5:kernel-default-extra-4.12.14-122.173.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "4.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20233309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-0459.html",
+					"description": "CVE-2023-0459"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1211738",
+					"description": "SUSE Bug 1211738"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1215674",
+					"description": "SUSE Bug 1215674"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "\n\n\nA side channel vulnerability on some of the AMD CPUs may allow an attacker to influence the return address prediction. This may result in speculative execution at an attacker-controlled address, potentially leading to information disclosure.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-20569",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-HPC-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-ECS-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:cluster-md-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:dlm-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:gfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kgraft-patch-4_12_14-122_173-default-1-8.3.3",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-docs-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-obs-build-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Workstation Extension 12 SP5:kernel-default-extra-4.12.14-122.173.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.6",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20233309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-20569.html",
+					"description": "CVE-2023-20569"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1213287",
+					"description": "SUSE Bug 1213287"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "\nAn issue in \"Zen 2\" CPUs, under specific microarchitectural circumstances, may allow an attacker to potentially access sensitive information.\n\n\n\n\n\n\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-20593",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-HPC-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-ECS-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:cluster-md-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:dlm-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:gfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kgraft-patch-4_12_14-122_173-default-1-8.3.3",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-docs-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-obs-build-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Workstation Extension 12 SP5:kernel-default-extra-4.12.14-122.173.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20233309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-20593.html",
+					"description": "CVE-2023-20593"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1213286",
+					"description": "SUSE Bug 1213286"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1213616",
+					"description": "SUSE Bug 1213616"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1215674",
+					"description": "SUSE Bug 1215674"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A use after free flaw was found in hfsplus_put_super in fs/hfsplus/super.c in the Linux Kernel. This flaw could allow a local user to cause a denial of service problem.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-2985",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-HPC-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-ECS-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:cluster-md-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:dlm-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:gfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kgraft-patch-4_12_14-122_173-default-1-8.3.3",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-docs-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-obs-build-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Workstation Extension 12 SP5:kernel-default-extra-4.12.14-122.173.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.4",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20233309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-2985.html",
+					"description": "CVE-2023-2985"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1211867",
+					"description": "SUSE Bug 1211867"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Linux Kernel nftables Out-Of-Bounds Read/Write Vulnerability; nft_byteorder poorly handled vm register contents when CAP_NET_ADMIN is in any user or network namespace",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-35001",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-HPC-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-ECS-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:cluster-md-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:dlm-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:gfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kgraft-patch-4_12_14-122_173-default-1-8.3.3",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-docs-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-obs-build-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Workstation Extension 12 SP5:kernel-default-extra-4.12.14-122.173.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20233309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-35001.html",
+					"description": "CVE-2023-35001"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1213059",
+					"description": "SUSE Bug 1213059"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1213063",
+					"description": "SUSE Bug 1213063"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1217531",
+					"description": "SUSE Bug 1217531"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A use-after-free flaw was found in vcs_read in drivers/tty/vt/vc_screen.c in vc_screen in the Linux Kernel. This issue may allow an attacker with local user access to cause a system crash or leak internal kernel information.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-3567",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-HPC-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-ECS-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:cluster-md-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:dlm-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:gfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kgraft-patch-4_12_14-122_173-default-1-8.3.3",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-docs-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-obs-build-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Workstation Extension 12 SP5:kernel-default-extra-4.12.14-122.173.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20233309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-3567.html",
+					"description": "CVE-2023-3567"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1213167",
+					"description": "SUSE Bug 1213167"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1213244",
+					"description": "SUSE Bug 1213244"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1213842",
+					"description": "SUSE Bug 1213842"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1215674",
+					"description": "SUSE Bug 1215674"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1217444",
+					"description": "SUSE Bug 1217444"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1217531",
+					"description": "SUSE Bug 1217531"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A use-after-free vulnerability in the Linux kernel's net/sched: cls_u32 component can be exploited to achieve local privilege escalation.\n\nIf tcf_change_indev() fails, u32_set_parms() will immediately return an error after incrementing or decrementing the reference counter in tcf_bind_filter(). If an attacker can control the reference counter and set it to zero, they can cause the reference to be freed, leading to a use-after-free vulnerability.\n\nWe recommend upgrading past commit 04c55383fa5689357bcdd2c8036725a55ed632bc.\n\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-3609",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-HPC-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-ECS-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:cluster-md-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:dlm-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:gfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kgraft-patch-4_12_14-122_173-default-1-8.3.3",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-docs-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-obs-build-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Workstation Extension 12 SP5:kernel-default-extra-4.12.14-122.173.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20233309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-3609.html",
+					"description": "CVE-2023-3609"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1213586",
+					"description": "SUSE Bug 1213586"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1213587",
+					"description": "SUSE Bug 1213587"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1217444",
+					"description": "SUSE Bug 1217444"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1217531",
+					"description": "SUSE Bug 1217531"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An out-of-bounds write vulnerability in the Linux kernel's net/sched: sch_qfq component can be exploited to achieve local privilege escalation.\n\nThe qfq_change_agg() function in net/sched/sch_qfq.c allows an out-of-bounds write because lmax is updated according to packet sizes without bounds checks.\n\nWe recommend upgrading past commit 3e337087c3b5805fe0b8a46ba622a962880b5d64.\n\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-3611",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-HPC-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-ECS-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:cluster-md-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:dlm-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:gfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kgraft-patch-4_12_14-122_173-default-1-8.3.3",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-docs-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-obs-build-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Workstation Extension 12 SP5:kernel-default-extra-4.12.14-122.173.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20233309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-3611.html",
+					"description": "CVE-2023-3611"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1213585",
+					"description": "SUSE Bug 1213585"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1223091",
+					"description": "SUSE Bug 1223091"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1223973",
+					"description": "SUSE Bug 1223973"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A use-after-free vulnerability in the Linux kernel's net/sched: cls_fw component can be exploited to achieve local privilege escalation.\n\nIf tcf_change_indev() fails, fw_set_parms() will immediately return an error after incrementing or decrementing the reference counter in tcf_bind_filter(). If an attacker can control the reference counter and set it to zero, they can cause the reference to be freed, leading to a use-after-free vulnerability.\n\nWe recommend upgrading past commit 0323bce598eea038714f941ce2b22541c46d488f.\n\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-3776",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-HPC-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-ECS-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:cluster-md-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:dlm-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:gfs2-kmp-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:kernel-default-4.12.14-122.173.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:cluster-md-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:dlm-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:gfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise High Availability Extension 12 SP5:ocfs2-kmp-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kernel-default-kgraft-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Live Patching 12 SP5:kgraft-patch-4_12_14-122_173-default-1-8.3.3",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-base-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-default-man-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-devel-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-macros-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-source-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:kernel-syms-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-docs-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:kernel-obs-build-4.12.14-122.173.1",
+						"SUSE Linux Enterprise Workstation Extension 12 SP5:kernel-default-extra-4.12.14-122.173.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20233309-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-3776.html",
+					"description": "CVE-2023-3776"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1213588",
+					"description": "SUSE Bug 1213588"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1215119",
+					"description": "SUSE Bug 1215119"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1215674",
+					"description": "SUSE Bug 1215674"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1217444",
+					"description": "SUSE Bug 1217444"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1217531",
+					"description": "SUSE Bug 1217531"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1221578",
+					"description": "SUSE Bug 1221578"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1221598",
+					"description": "SUSE Bug 1221598"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1223091",
+					"description": "SUSE Bug 1223091"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1223973",
+					"description": "SUSE Bug 1223973"
+				}
+			]
+		}
+	]
+}

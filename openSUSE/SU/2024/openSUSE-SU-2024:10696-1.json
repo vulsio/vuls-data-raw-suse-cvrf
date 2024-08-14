@@ -1,0 +1,301 @@
+{
+	"document_title": "coturn-4.5.2-2.2 on GA media",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2024:10696-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-08-10T21:46:02Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-08-10T21:46:02Z",
+		"current_release_date": "2024-08-10T21:46:02Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "coturn-4.5.2-2.2 on GA media",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "These are all security issues fixed in the coturn-4.5.2-2.2 package on the GA media of openSUSE Tumbleweed.",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "openSUSE-Tumbleweed-2024-10696",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2020-26262/",
+			"description": "SUSE CVE CVE-2020-26262 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2020-4067/",
+			"description": "SUSE CVE CVE-2020-4067 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2020-6061/",
+			"description": "SUSE CVE CVE-2020-6061 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Tumbleweed",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Tumbleweed",
+						"full_product_name": {
+							"text": "openSUSE Tumbleweed",
+							"product_id": "openSUSE Tumbleweed",
+							"cpe": "cpe:/o:opensuse:tumbleweed"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "coturn-4.5.2-2.2",
+				"full_product_name": {
+					"text": "coturn-4.5.2-2.2",
+					"product_id": "coturn-4.5.2-2.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "coturn-devel-4.5.2-2.2",
+				"full_product_name": {
+					"text": "coturn-devel-4.5.2-2.2",
+					"product_id": "coturn-devel-4.5.2-2.2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "coturn-utils-4.5.2-2.2",
+				"full_product_name": {
+					"text": "coturn-utils-4.5.2-2.2",
+					"product_id": "coturn-utils-4.5.2-2.2"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "coturn-4.5.2-2.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Tumbleweed"
+			},
+			{
+				"product_reference": "coturn-devel-4.5.2-2.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Tumbleweed"
+			},
+			{
+				"product_reference": "coturn-utils-4.5.2-2.2",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Tumbleweed"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Coturn is free open source implementation of TURN and STUN Server. Coturn before version 4.5.2 by default does not allow peers to connect and relay packets to loopback addresses in the range of `127.x.x.x`. However, it was observed that when sending a `CONNECT` request with the `XOR-PEER-ADDRESS` value of `0.0.0.0`, a successful response was received and subsequently, `CONNECTIONBIND` also received a successful response. Coturn then is able to relay packets to the loopback interface. Additionally, when coturn is listening on IPv6, which is default, the loopback interface can also be reached by making use of either `[::1]` or `[::]` as the peer address. By using the address `0.0.0.0` as the peer address, a malicious user will be able to relay packets to the loopback interface, unless `--denied-peer-ip=0.0.0.0` (or similar) has been specified. Since the default configuration implies that loopback peers are not allowed, coturn administrators may choose to not set the `denied-peer-ip` setting. The issue patched in version 4.5.2. As a workaround the addresses in the address block `0.0.0.0/8`, `[::1]` and `[::]` should be denied by default unless `--allow-loopback-peers` has been specified.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2020-26262",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Tumbleweed:coturn-4.5.2-2.2",
+						"openSUSE Tumbleweed:coturn-devel-4.5.2-2.2",
+						"openSUSE Tumbleweed:coturn-utils-4.5.2-2.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.4",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.2",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					}
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2020-26262.html",
+					"description": "CVE-2020-26262"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1180764",
+					"description": "SUSE Bug 1180764"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In coturn before version 4.5.1.3, there is an issue whereby STUN/TURN response buffer is not initialized properly. There is a leak of information between different client connections. One client (an attacker) could use their connection to intelligently query coturn to get interesting bytes in the padding bytes from the connection of another client. This has been fixed in 4.5.1.3.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2020-4067",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Tumbleweed:coturn-4.5.2-2.2",
+						"openSUSE Tumbleweed:coturn-devel-4.5.2-2.2",
+						"openSUSE Tumbleweed:coturn-utils-4.5.2-2.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:L/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					}
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2020-4067.html",
+					"description": "CVE-2020-4067"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1173510",
+					"description": "SUSE Bug 1173510"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An exploitable heap out-of-bounds read vulnerability exists in the way CoTURN 4.5.1.1 web server parses POST requests. A specially crafted HTTP POST request can lead to information leaks and other misbehavior. An attacker needs to send an HTTPS request to trigger this vulnerability.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2020-6061",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Tumbleweed:coturn-4.5.2-2.2",
+						"openSUSE Tumbleweed:coturn-devel-4.5.2-2.2",
+						"openSUSE Tumbleweed:coturn-utils-4.5.2-2.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "9.8",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					}
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2020-6061.html",
+					"description": "CVE-2020-6061"
+				}
+			]
+		}
+	]
+}

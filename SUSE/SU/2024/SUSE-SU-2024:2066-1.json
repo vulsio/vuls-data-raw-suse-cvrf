@@ -1,0 +1,3563 @@
+{
+	"document_title": "Security update for openssl-3",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2024:2066-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-06-18T11:16:10Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-06-18T11:16:10Z",
+		"current_release_date": "2024-06-18T11:16:10Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for openssl-3",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for openssl-3 fixes the following issues:\n\nSecurity issues fixed:\n\n- CVE-2024-4603: Check DSA parameters for excessive sizes before validating (bsc#1224388)\n- CVE-2024-4741: Fixed a use-after-free with SSL_free_buffers. (bsc#1225551)\n\nOther issues fixed:\n\n- Enable livepatching support (bsc#1223428)\n- Fix HDKF key derivation (bsc#1225291, gh#openssl/openssl#23448, +  gh#openssl/openssl#23456)\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Container bci/bci-init:latest-2024-2066,Container bci/bci-sle15-kernel-module-devel:latest-2024-2066,Container bci/golang:1.20-openssl-2024-2066,Container bci/golang:1.21-2024-2066,Container bci/golang:latest-2024-2066,Container bci/nodejs:latest-2024-2066,Container bci/openjdk-devel:latest-2024-2066,Container bci/openjdk:latest-2024-2066,Container bci/php-apache:latest-2024-2066,Container bci/php-fpm:latest-2024-2066,Container bci/php:latest-2024-2066,Container bci/python:3-2024-2066,Container bci/python:latest-2024-2066,Container bci/ruby:latest-2024-2066,Container bci/rust:1.79-2024-2066,Container bci/rust:latest-2024-2066,Container bci/spack:latest-2024-2066,Container containers/apache-tomcat:10-jre21-2024-2066,Container suse/389-ds:latest-2024-2066,Container suse/git:latest-2024-2066,Container suse/helm:latest-2024-2066,Container suse/hpc/warewulf4-x86_64/sle-hpc-node:latest-2024-2066,Container suse/manager/5.0/x86_64/server-attestation:latest-2024-2066,Container suse/manager/5.0/x86_64/server:latest-2024-2066,Container suse/nginx:latest-2024-2066,Container suse/pcp:latest-2024-2066,Container suse/postgres:latest-2024-2066,Container suse/registry:latest-2024-2066,Container suse/rmt-mariadb-client:latest-2024-2066,Container suse/rmt-mariadb:latest-2024-2066,Container suse/rmt-server:latest-2024-2066,Container suse/sle15:15.6-2024-2066,Container suse/sle15:15.7-2024-2066,Container suse/sles/15.7/cdi-apiserver:1.58.0-2024-2066,Container suse/sles/15.7/cdi-cloner:1.58.0-2024-2066,Container suse/sles/15.7/cdi-controller:1.58.0-2024-2066,Container suse/sles/15.7/cdi-importer:1.58.0-2024-2066,Container suse/sles/15.7/cdi-operator:1.58.0-2024-2066,Container suse/sles/15.7/cdi-uploadproxy:1.58.0-2024-2066,Container suse/sles/15.7/cdi-uploadserver:1.58.0-2024-2066,Container suse/sles/15.7/libguestfs-tools:1.1.1-2024-2066,Container suse/sles/15.7/virt-api:1.1.1-2024-2066,Container suse/sles/15.7/virt-controller:1.1.1-2024-2066,Container suse/sles/15.7/virt-exportproxy:1.1.1-2024-2066,Container suse/sles/15.7/virt-exportserver:1.1.1-2024-2066,Container suse/sles/15.7/virt-handler:1.1.1-2024-2066,Container suse/sles/15.7/virt-launcher:1.1.1-2024-2066,Container suse/sles/15.7/virt-operator:1.1.1-2024-2066,Image SLES15-SP6-2024-2066,Image SLES15-SP6-Azure-Basic-2024-2066,Image SLES15-SP6-Azure-Standard-2024-2066,Image SLES15-SP6-BYOS-2024-2066,Image SLES15-SP6-BYOS-Azure-2024-2066,Image SLES15-SP6-BYOS-EC2-2024-2066,Image SLES15-SP6-BYOS-GCE-2024-2066,Image SLES15-SP6-CHOST-BYOS-2024-2066,Image SLES15-SP6-CHOST-BYOS-Aliyun-2024-2066,Image SLES15-SP6-CHOST-BYOS-Azure-2024-2066,Image SLES15-SP6-CHOST-BYOS-EC2-2024-2066,Image SLES15-SP6-CHOST-BYOS-GCE-2024-2066,Image SLES15-SP6-CHOST-BYOS-SAP-CCloud-2024-2066,Image SLES15-SP6-EC2-2024-2066,Image SLES15-SP6-EC2-ECS-HVM-2024-2066,Image SLES15-SP6-GCE-2024-2066,Image SLES15-SP6-HPC-2024-2066,Image SLES15-SP6-HPC-Azure-2024-2066,Image SLES15-SP6-HPC-BYOS-2024-2066,Image SLES15-SP6-HPC-BYOS-Azure-2024-2066,Image SLES15-SP6-HPC-BYOS-EC2-2024-2066,Image SLES15-SP6-HPC-BYOS-GCE-2024-2066,Image SLES15-SP6-HPC-EC2-2024-2066,Image SLES15-SP6-HPC-GCE-2024-2066,Image SLES15-SP6-Hardened-BYOS-2024-2066,Image SLES15-SP6-Hardened-BYOS-Azure-2024-2066,Image SLES15-SP6-Hardened-BYOS-EC2-2024-2066,Image SLES15-SP6-Hardened-BYOS-GCE-2024-2066,Image SLES15-SP6-SAP-2024-2066,Image SLES15-SP6-SAP-Azure-2024-2066,Image SLES15-SP6-SAP-Azure-LI-BYOS-2024-2066,Image SLES15-SP6-SAP-Azure-LI-BYOS-Production-2024-2066,Image SLES15-SP6-SAP-Azure-VLI-BYOS-2024-2066,Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production-2024-2066,Image SLES15-SP6-SAP-BYOS-2024-2066,Image SLES15-SP6-SAP-BYOS-Azure-2024-2066,Image SLES15-SP6-SAP-BYOS-EC2-2024-2066,Image SLES15-SP6-SAP-BYOS-GCE-2024-2066,Image SLES15-SP6-SAP-EC2-2024-2066,Image SLES15-SP6-SAP-GCE-2024-2066,Image SLES15-SP6-SAP-Hardened-2024-2066,Image SLES15-SP6-SAP-Hardened-Azure-2024-2066,Image SLES15-SP6-SAP-Hardened-BYOS-2024-2066,Image SLES15-SP6-SAP-Hardened-BYOS-Azure-2024-2066,Image SLES15-SP6-SAP-Hardened-BYOS-EC2-2024-2066,Image SLES15-SP6-SAP-Hardened-BYOS-GCE-2024-2066,Image SLES15-SP6-SAP-Hardened-EC2-2024-2066,Image SLES15-SP6-SAP-Hardened-GCE-2024-2066,Image SLES15-SP6-SAPCAL-2024-2066,Image SLES15-SP6-SAPCAL-Azure-2024-2066,Image SLES15-SP6-SAPCAL-EC2-2024-2066,Image SLES15-SP6-SAPCAL-GCE-2024-2066,Image tomcat_15_6-2024-2066,SUSE-2024-2066,SUSE-SLE-Module-Basesystem-15-SP6-2024-2066,openSUSE-SLE-15.6-2024-2066",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20242066-1/",
+			"description": "Link for SUSE-SU-2024:2066-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-updates/2024-June/035614.html",
+			"description": "E-Mail link for SUSE-SU-2024:2066-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1223428",
+			"description": "SUSE Bug 1223428"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1224388",
+			"description": "SUSE Bug 1224388"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1225291",
+			"description": "SUSE Bug 1225291"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1225551",
+			"description": "SUSE Bug 1225551"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-4603/",
+			"description": "SUSE CVE CVE-2024-4603 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-4741/",
+			"description": "SUSE CVE CVE-2024-4741 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Container bci/bci-init:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/bci-init:latest",
+						"full_product_name": {
+							"text": "Container bci/bci-init:latest",
+							"product_id": "Container bci/bci-init:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/bci-sle15-kernel-module-devel:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/bci-sle15-kernel-module-devel:latest",
+						"full_product_name": {
+							"text": "Container bci/bci-sle15-kernel-module-devel:latest",
+							"product_id": "Container bci/bci-sle15-kernel-module-devel:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/golang:1.20-openssl",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/golang:1.20-openssl",
+						"full_product_name": {
+							"text": "Container bci/golang:1.20-openssl",
+							"product_id": "Container bci/golang:1.20-openssl"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/golang:1.21",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/golang:1.21",
+						"full_product_name": {
+							"text": "Container bci/golang:1.21",
+							"product_id": "Container bci/golang:1.21"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/golang:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/golang:latest",
+						"full_product_name": {
+							"text": "Container bci/golang:latest",
+							"product_id": "Container bci/golang:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/nodejs:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/nodejs:latest",
+						"full_product_name": {
+							"text": "Container bci/nodejs:latest",
+							"product_id": "Container bci/nodejs:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/openjdk-devel:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/openjdk-devel:latest",
+						"full_product_name": {
+							"text": "Container bci/openjdk-devel:latest",
+							"product_id": "Container bci/openjdk-devel:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/openjdk:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/openjdk:latest",
+						"full_product_name": {
+							"text": "Container bci/openjdk:latest",
+							"product_id": "Container bci/openjdk:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/php-apache:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/php-apache:latest",
+						"full_product_name": {
+							"text": "Container bci/php-apache:latest",
+							"product_id": "Container bci/php-apache:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/php-fpm:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/php-fpm:latest",
+						"full_product_name": {
+							"text": "Container bci/php-fpm:latest",
+							"product_id": "Container bci/php-fpm:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/php:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/php:latest",
+						"full_product_name": {
+							"text": "Container bci/php:latest",
+							"product_id": "Container bci/php:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/python:3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/python:3",
+						"full_product_name": {
+							"text": "Container bci/python:3",
+							"product_id": "Container bci/python:3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/python:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/python:latest",
+						"full_product_name": {
+							"text": "Container bci/python:latest",
+							"product_id": "Container bci/python:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/ruby:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/ruby:latest",
+						"full_product_name": {
+							"text": "Container bci/ruby:latest",
+							"product_id": "Container bci/ruby:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/rust:1.79",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/rust:1.79",
+						"full_product_name": {
+							"text": "Container bci/rust:1.79",
+							"product_id": "Container bci/rust:1.79"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/rust:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/rust:latest",
+						"full_product_name": {
+							"text": "Container bci/rust:latest",
+							"product_id": "Container bci/rust:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container bci/spack:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container bci/spack:latest",
+						"full_product_name": {
+							"text": "Container bci/spack:latest",
+							"product_id": "Container bci/spack:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container containers/apache-tomcat:10-jre21",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container containers/apache-tomcat:10-jre21",
+						"full_product_name": {
+							"text": "Container containers/apache-tomcat:10-jre21",
+							"product_id": "Container containers/apache-tomcat:10-jre21"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/389-ds:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/389-ds:latest",
+						"full_product_name": {
+							"text": "Container suse/389-ds:latest",
+							"product_id": "Container suse/389-ds:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/git:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/git:latest",
+						"full_product_name": {
+							"text": "Container suse/git:latest",
+							"product_id": "Container suse/git:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/helm:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/helm:latest",
+						"full_product_name": {
+							"text": "Container suse/helm:latest",
+							"product_id": "Container suse/helm:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/hpc/warewulf4-x86_64/sle-hpc-node:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/hpc/warewulf4-x86_64/sle-hpc-node:latest",
+						"full_product_name": {
+							"text": "Container suse/hpc/warewulf4-x86_64/sle-hpc-node:latest",
+							"product_id": "Container suse/hpc/warewulf4-x86_64/sle-hpc-node:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/manager/5.0/x86_64/server-attestation:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/manager/5.0/x86_64/server-attestation:latest",
+						"full_product_name": {
+							"text": "Container suse/manager/5.0/x86_64/server-attestation:latest",
+							"product_id": "Container suse/manager/5.0/x86_64/server-attestation:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/manager/5.0/x86_64/server:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/manager/5.0/x86_64/server:latest",
+						"full_product_name": {
+							"text": "Container suse/manager/5.0/x86_64/server:latest",
+							"product_id": "Container suse/manager/5.0/x86_64/server:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/nginx:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/nginx:latest",
+						"full_product_name": {
+							"text": "Container suse/nginx:latest",
+							"product_id": "Container suse/nginx:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/pcp:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/pcp:latest",
+						"full_product_name": {
+							"text": "Container suse/pcp:latest",
+							"product_id": "Container suse/pcp:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/postgres:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/postgres:latest",
+						"full_product_name": {
+							"text": "Container suse/postgres:latest",
+							"product_id": "Container suse/postgres:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/registry:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/registry:latest",
+						"full_product_name": {
+							"text": "Container suse/registry:latest",
+							"product_id": "Container suse/registry:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/rmt-mariadb-client:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/rmt-mariadb-client:latest",
+						"full_product_name": {
+							"text": "Container suse/rmt-mariadb-client:latest",
+							"product_id": "Container suse/rmt-mariadb-client:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/rmt-mariadb:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/rmt-mariadb:latest",
+						"full_product_name": {
+							"text": "Container suse/rmt-mariadb:latest",
+							"product_id": "Container suse/rmt-mariadb:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/rmt-server:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/rmt-server:latest",
+						"full_product_name": {
+							"text": "Container suse/rmt-server:latest",
+							"product_id": "Container suse/rmt-server:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sle15:15.6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sle15:15.6",
+						"full_product_name": {
+							"text": "Container suse/sle15:15.6",
+							"product_id": "Container suse/sle15:15.6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sle15:15.7",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sle15:15.7",
+						"full_product_name": {
+							"text": "Container suse/sle15:15.7",
+							"product_id": "Container suse/sle15:15.7"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/cdi-apiserver:1.58.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/cdi-apiserver:1.58.0",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/cdi-apiserver:1.58.0",
+							"product_id": "Container suse/sles/15.7/cdi-apiserver:1.58.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/cdi-cloner:1.58.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/cdi-cloner:1.58.0",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/cdi-cloner:1.58.0",
+							"product_id": "Container suse/sles/15.7/cdi-cloner:1.58.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/cdi-controller:1.58.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/cdi-controller:1.58.0",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/cdi-controller:1.58.0",
+							"product_id": "Container suse/sles/15.7/cdi-controller:1.58.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/cdi-importer:1.58.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/cdi-importer:1.58.0",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/cdi-importer:1.58.0",
+							"product_id": "Container suse/sles/15.7/cdi-importer:1.58.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/cdi-operator:1.58.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/cdi-operator:1.58.0",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/cdi-operator:1.58.0",
+							"product_id": "Container suse/sles/15.7/cdi-operator:1.58.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/cdi-uploadproxy:1.58.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/cdi-uploadproxy:1.58.0",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/cdi-uploadproxy:1.58.0",
+							"product_id": "Container suse/sles/15.7/cdi-uploadproxy:1.58.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/cdi-uploadserver:1.58.0",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/cdi-uploadserver:1.58.0",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/cdi-uploadserver:1.58.0",
+							"product_id": "Container suse/sles/15.7/cdi-uploadserver:1.58.0"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/libguestfs-tools:1.1.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/libguestfs-tools:1.1.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/libguestfs-tools:1.1.1",
+							"product_id": "Container suse/sles/15.7/libguestfs-tools:1.1.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/virt-api:1.1.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/virt-api:1.1.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/virt-api:1.1.1",
+							"product_id": "Container suse/sles/15.7/virt-api:1.1.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/virt-controller:1.1.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/virt-controller:1.1.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/virt-controller:1.1.1",
+							"product_id": "Container suse/sles/15.7/virt-controller:1.1.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/virt-exportproxy:1.1.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/virt-exportproxy:1.1.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/virt-exportproxy:1.1.1",
+							"product_id": "Container suse/sles/15.7/virt-exportproxy:1.1.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/virt-exportserver:1.1.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/virt-exportserver:1.1.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/virt-exportserver:1.1.1",
+							"product_id": "Container suse/sles/15.7/virt-exportserver:1.1.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/virt-handler:1.1.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/virt-handler:1.1.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/virt-handler:1.1.1",
+							"product_id": "Container suse/sles/15.7/virt-handler:1.1.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/virt-launcher:1.1.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/virt-launcher:1.1.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/virt-launcher:1.1.1",
+							"product_id": "Container suse/sles/15.7/virt-launcher:1.1.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sles/15.7/virt-operator:1.1.1",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sles/15.7/virt-operator:1.1.1",
+						"full_product_name": {
+							"text": "Container suse/sles/15.7/virt-operator:1.1.1",
+							"product_id": "Container suse/sles/15.7/virt-operator:1.1.1"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6",
+						"full_product_name": {
+							"text": "Image SLES15-SP6",
+							"product_id": "Image SLES15-SP6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-Azure-Basic",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-Azure-Basic",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-Azure-Basic",
+							"product_id": "Image SLES15-SP6-Azure-Basic"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-Azure-Standard",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-Azure-Standard",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-Azure-Standard",
+							"product_id": "Image SLES15-SP6-Azure-Standard"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-BYOS",
+							"product_id": "Image SLES15-SP6-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-BYOS-Azure",
+							"product_id": "Image SLES15-SP6-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-BYOS-EC2",
+							"product_id": "Image SLES15-SP6-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-BYOS-GCE",
+							"product_id": "Image SLES15-SP6-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-CHOST-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-CHOST-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-CHOST-BYOS",
+							"product_id": "Image SLES15-SP6-CHOST-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-CHOST-BYOS-Aliyun",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-CHOST-BYOS-Aliyun",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-CHOST-BYOS-Aliyun",
+							"product_id": "Image SLES15-SP6-CHOST-BYOS-Aliyun"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-CHOST-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-CHOST-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-CHOST-BYOS-Azure",
+							"product_id": "Image SLES15-SP6-CHOST-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-CHOST-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-CHOST-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-CHOST-BYOS-EC2",
+							"product_id": "Image SLES15-SP6-CHOST-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-CHOST-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-CHOST-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-CHOST-BYOS-GCE",
+							"product_id": "Image SLES15-SP6-CHOST-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-CHOST-BYOS-SAP-CCloud",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-CHOST-BYOS-SAP-CCloud",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-CHOST-BYOS-SAP-CCloud",
+							"product_id": "Image SLES15-SP6-CHOST-BYOS-SAP-CCloud"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-EC2",
+							"product_id": "Image SLES15-SP6-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-EC2-ECS-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-EC2-ECS-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-EC2-ECS-HVM",
+							"product_id": "Image SLES15-SP6-EC2-ECS-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-GCE",
+							"product_id": "Image SLES15-SP6-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-HPC",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-HPC",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-HPC",
+							"product_id": "Image SLES15-SP6-HPC"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-HPC-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-HPC-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-HPC-Azure",
+							"product_id": "Image SLES15-SP6-HPC-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-HPC-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-HPC-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-HPC-BYOS",
+							"product_id": "Image SLES15-SP6-HPC-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-HPC-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-HPC-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-HPC-BYOS-Azure",
+							"product_id": "Image SLES15-SP6-HPC-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-HPC-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-HPC-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-HPC-BYOS-EC2",
+							"product_id": "Image SLES15-SP6-HPC-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-HPC-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-HPC-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-HPC-BYOS-GCE",
+							"product_id": "Image SLES15-SP6-HPC-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-HPC-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-HPC-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-HPC-EC2",
+							"product_id": "Image SLES15-SP6-HPC-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-HPC-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-HPC-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-HPC-GCE",
+							"product_id": "Image SLES15-SP6-HPC-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-Hardened-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-Hardened-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-Hardened-BYOS",
+							"product_id": "Image SLES15-SP6-Hardened-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-Hardened-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-Hardened-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-Hardened-BYOS-Azure",
+							"product_id": "Image SLES15-SP6-Hardened-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-Hardened-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-Hardened-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-Hardened-BYOS-EC2",
+							"product_id": "Image SLES15-SP6-Hardened-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-Hardened-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-Hardened-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-Hardened-BYOS-GCE",
+							"product_id": "Image SLES15-SP6-Hardened-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP",
+							"product_id": "Image SLES15-SP6-SAP"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-Azure",
+							"product_id": "Image SLES15-SP6-SAP-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-Azure-LI-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-Azure-LI-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-Azure-LI-BYOS",
+							"product_id": "Image SLES15-SP6-SAP-Azure-LI-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-Azure-LI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-Azure-LI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-Azure-LI-BYOS-Production",
+							"product_id": "Image SLES15-SP6-SAP-Azure-LI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-Azure-VLI-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-Azure-VLI-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-Azure-VLI-BYOS",
+							"product_id": "Image SLES15-SP6-SAP-Azure-VLI-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production",
+							"product_id": "Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-BYOS",
+							"product_id": "Image SLES15-SP6-SAP-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-BYOS-Azure",
+							"product_id": "Image SLES15-SP6-SAP-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-BYOS-EC2",
+							"product_id": "Image SLES15-SP6-SAP-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-BYOS-GCE",
+							"product_id": "Image SLES15-SP6-SAP-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-EC2",
+							"product_id": "Image SLES15-SP6-SAP-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-GCE",
+							"product_id": "Image SLES15-SP6-SAP-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-Hardened",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-Hardened",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-Hardened",
+							"product_id": "Image SLES15-SP6-SAP-Hardened"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-Hardened-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-Hardened-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-Hardened-Azure",
+							"product_id": "Image SLES15-SP6-SAP-Hardened-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-Hardened-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-Hardened-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-Hardened-BYOS",
+							"product_id": "Image SLES15-SP6-SAP-Hardened-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-Hardened-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-Hardened-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-Hardened-BYOS-Azure",
+							"product_id": "Image SLES15-SP6-SAP-Hardened-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-Hardened-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-Hardened-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-Hardened-BYOS-EC2",
+							"product_id": "Image SLES15-SP6-SAP-Hardened-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-Hardened-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-Hardened-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-Hardened-BYOS-GCE",
+							"product_id": "Image SLES15-SP6-SAP-Hardened-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-Hardened-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-Hardened-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-Hardened-EC2",
+							"product_id": "Image SLES15-SP6-SAP-Hardened-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAP-Hardened-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAP-Hardened-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAP-Hardened-GCE",
+							"product_id": "Image SLES15-SP6-SAP-Hardened-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAPCAL",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAPCAL",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAPCAL",
+							"product_id": "Image SLES15-SP6-SAPCAL"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAPCAL-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAPCAL-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAPCAL-Azure",
+							"product_id": "Image SLES15-SP6-SAPCAL-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAPCAL-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAPCAL-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAPCAL-EC2",
+							"product_id": "Image SLES15-SP6-SAPCAL-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP6-SAPCAL-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP6-SAPCAL-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP6-SAPCAL-GCE",
+							"product_id": "Image SLES15-SP6-SAPCAL-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image tomcat_15_6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image tomcat_15_6",
+						"full_product_name": {
+							"text": "Image tomcat_15_6",
+							"product_id": "Image tomcat_15_6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Basesystem 15 SP6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Basesystem 15 SP6",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Basesystem 15 SP6",
+							"product_id": "SUSE Linux Enterprise Module for Basesystem 15 SP6",
+							"cpe": "cpe:/o:suse:sle-module-basesystem:15:sp6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 15.6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 15.6",
+						"full_product_name": {
+							"text": "openSUSE Leap 15.6",
+							"product_id": "openSUSE Leap 15.6",
+							"cpe": "cpe:/o:opensuse:leap:15.6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"full_product_name": {
+					"text": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+					"product_id": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libopenssl3-3.1.4-150600.5.7.1",
+				"full_product_name": {
+					"text": "libopenssl3-3.1.4-150600.5.7.1",
+					"product_id": "libopenssl3-3.1.4-150600.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openssl-3-3.1.4-150600.5.7.1",
+				"full_product_name": {
+					"text": "openssl-3-3.1.4-150600.5.7.1",
+					"product_id": "openssl-3-3.1.4-150600.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libopenssl-3-devel-3.1.4-150600.5.7.1",
+				"full_product_name": {
+					"text": "libopenssl-3-devel-3.1.4-150600.5.7.1",
+					"product_id": "libopenssl-3-devel-3.1.4-150600.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"full_product_name": {
+					"text": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+					"product_id": "libopenssl3-32bit-3.1.4-150600.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libopenssl-3-devel-32bit-3.1.4-150600.5.7.1",
+				"full_product_name": {
+					"text": "libopenssl-3-devel-32bit-3.1.4-150600.5.7.1",
+					"product_id": "libopenssl-3-devel-32bit-3.1.4-150600.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libopenssl-3-devel-64bit-3.1.4-150600.5.7.1",
+				"full_product_name": {
+					"text": "libopenssl-3-devel-64bit-3.1.4-150600.5.7.1",
+					"product_id": "libopenssl-3-devel-64bit-3.1.4-150600.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libopenssl-3-fips-provider-32bit-3.1.4-150600.5.7.1",
+				"full_product_name": {
+					"text": "libopenssl-3-fips-provider-32bit-3.1.4-150600.5.7.1",
+					"product_id": "libopenssl-3-fips-provider-32bit-3.1.4-150600.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libopenssl-3-fips-provider-64bit-3.1.4-150600.5.7.1",
+				"full_product_name": {
+					"text": "libopenssl-3-fips-provider-64bit-3.1.4-150600.5.7.1",
+					"product_id": "libopenssl-3-fips-provider-64bit-3.1.4-150600.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libopenssl3-64bit-3.1.4-150600.5.7.1",
+				"full_product_name": {
+					"text": "libopenssl3-64bit-3.1.4-150600.5.7.1",
+					"product_id": "libopenssl3-64bit-3.1.4-150600.5.7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openssl-3-doc-3.1.4-150600.5.7.1",
+				"full_product_name": {
+					"text": "openssl-3-doc-3.1.4-150600.5.7.1",
+					"product_id": "openssl-3-doc-3.1.4-150600.5.7.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/bci-init:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/bci-init:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/bci-sle15-kernel-module-devel:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/bci-sle15-kernel-module-devel:latest"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/bci-sle15-kernel-module-devel:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-devel-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/golang:1.20-openssl"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/golang:1.20-openssl"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/golang:1.20-openssl"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/golang:1.20-openssl"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/golang:1.21"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/golang:1.21"
+			},
+			{
+				"product_reference": "libopenssl-3-devel-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/golang:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/golang:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/golang:latest"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/golang:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/nodejs:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/nodejs:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk-devel:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk-devel:latest"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk-devel:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk:latest"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/openjdk:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/php-apache:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/php-apache:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/php-fpm:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/php-fpm:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/php:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/php:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/python:3"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/python:3"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/python:3"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/python:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/python:latest"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/python:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/ruby:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/ruby:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/rust:1.79"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/rust:1.79"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/rust:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/rust:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-devel-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/spack:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/spack:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/spack:latest"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container bci/spack:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container containers/apache-tomcat:10-jre21"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container containers/apache-tomcat:10-jre21"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container containers/apache-tomcat:10-jre21"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/389-ds:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/389-ds:latest"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/389-ds:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/git:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/helm:latest"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/helm:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/hpc/warewulf4-x86_64/sle-hpc-node:latest"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/hpc/warewulf4-x86_64/sle-hpc-node:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/manager/5.0/x86_64/server-attestation:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/manager/5.0/x86_64/server-attestation:latest"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/manager/5.0/x86_64/server-attestation:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/manager/5.0/x86_64/server:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/manager/5.0/x86_64/server:latest"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/manager/5.0/x86_64/server:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/nginx:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/nginx:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/pcp:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/pcp:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/postgres:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/postgres:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/registry:latest"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/registry:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/rmt-mariadb-client:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/rmt-mariadb-client:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/rmt-mariadb:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/rmt-mariadb:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/rmt-server:latest"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/rmt-server:latest"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle15:15.6"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle15:15.6"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle15:15.6"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle15:15.7"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle15:15.7"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle15:15.7"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-apiserver:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-apiserver:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-cloner:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-cloner:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-controller:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-controller:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-importer:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-importer:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-operator:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-operator:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-uploadproxy:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-uploadproxy:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-uploadserver:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/cdi-uploadserver:1.58.0"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/libguestfs-tools:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/libguestfs-tools:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-api:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-api:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-controller:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-controller:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-exportproxy:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-exportproxy:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-exportserver:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-exportserver:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-handler:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-handler:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-launcher:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-launcher:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-operator:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sles/15.7/virt-operator:1.1.1"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-Azure-Basic"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-Azure-Basic"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-Azure-Standard"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-Azure-Standard"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-BYOS"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-BYOS"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-BYOS-Azure"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-BYOS-Azure"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-BYOS-EC2"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-BYOS-EC2"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-BYOS-GCE"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-BYOS-GCE"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-CHOST-BYOS"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-CHOST-BYOS"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-CHOST-BYOS-Aliyun"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-CHOST-BYOS-Aliyun"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-CHOST-BYOS-Azure"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-CHOST-BYOS-Azure"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-CHOST-BYOS-EC2"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-CHOST-BYOS-EC2"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-CHOST-BYOS-GCE"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-CHOST-BYOS-GCE"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-CHOST-BYOS-SAP-CCloud"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-CHOST-BYOS-SAP-CCloud"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-EC2"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-EC2"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-EC2-ECS-HVM"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-EC2-ECS-HVM"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-GCE"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-GCE"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-Azure"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-Azure"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-BYOS"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-BYOS"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-BYOS-Azure"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-BYOS-Azure"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-BYOS-EC2"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-BYOS-EC2"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-BYOS-GCE"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-BYOS-GCE"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-EC2"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-EC2"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-GCE"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-HPC-GCE"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-Hardened-BYOS"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-Hardened-BYOS"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-Hardened-BYOS-Azure"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-Hardened-BYOS-Azure"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-Hardened-BYOS-EC2"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-Hardened-BYOS-EC2"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-Hardened-BYOS-GCE"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-Hardened-BYOS-GCE"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure-LI-BYOS"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure-LI-BYOS"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure-LI-BYOS"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure-VLI-BYOS"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure-VLI-BYOS"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure-VLI-BYOS"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-BYOS"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-BYOS"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-BYOS-Azure"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-BYOS-Azure"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-BYOS-EC2"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-BYOS-EC2"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-BYOS-GCE"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-BYOS-GCE"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-EC2"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-EC2"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-EC2"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-GCE"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-GCE"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-GCE"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-Azure"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-Azure"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-BYOS"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-BYOS"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-BYOS-Azure"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-BYOS-Azure"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-BYOS-EC2"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-BYOS-EC2"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-BYOS-GCE"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-BYOS-GCE"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-EC2"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-EC2"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-GCE"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAP-Hardened-GCE"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAPCAL"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAPCAL"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAPCAL"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAPCAL-Azure"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAPCAL-Azure"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAPCAL-Azure"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAPCAL-EC2"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAPCAL-EC2"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAPCAL-EC2"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAPCAL-GCE"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAPCAL-GCE"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP6-SAPCAL-GCE"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image tomcat_15_6"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image tomcat_15_6"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image tomcat_15_6"
+			},
+			{
+				"product_reference": "libopenssl-3-devel-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP6"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP6"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP6"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP6"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP6"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP6"
+			},
+			{
+				"product_reference": "libopenssl-3-devel-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "libopenssl-3-devel-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "libopenssl-3-fips-provider-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "libopenssl3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "libopenssl3-32bit-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "openssl-3-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			},
+			{
+				"product_reference": "openssl-3-doc-3.1.4-150600.5.7.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Issue summary: Checking excessively long DSA keys or parameters may be very\nslow.\n\nImpact summary: Applications that use the functions EVP_PKEY_param_check()\nor EVP_PKEY_public_check() to check a DSA public key or DSA parameters may\nexperience long delays. Where the key or parameters that are being checked\nhave been obtained from an untrusted source this may lead to a Denial of\nService.\n\nThe functions EVP_PKEY_param_check() or EVP_PKEY_public_check() perform\nvarious checks on DSA parameters. Some of those computations take a long time\nif the modulus (`p` parameter) is too large.\n\nTrying to use a very large modulus is slow and OpenSSL will not allow using\npublic keys with a modulus which is over 10,000 bits in length for signature\nverification. However the key and parameter check functions do not limit\nthe modulus size when performing the checks.\n\nAn application that calls EVP_PKEY_param_check() or EVP_PKEY_public_check()\nand supplies a key or parameters obtained from an untrusted source could be\nvulnerable to a Denial of Service attack.\n\nThese functions are not called by OpenSSL itself on untrusted DSA keys so\nonly applications that directly call these functions may be vulnerable.\n\nAlso vulnerable are the OpenSSL pkey and pkeyparam command line applications\nwhen using the `-check` option.\n\nThe OpenSSL SSL/TLS implementation is not affected by this issue.\n\nThe OpenSSL 3.0 and 3.1 FIPS providers are affected by this issue.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-4603",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container bci/bci-init:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/bci-init:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/bci-sle15-kernel-module-devel:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/bci-sle15-kernel-module-devel:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/bci-sle15-kernel-module-devel:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/golang:1.20-openssl:libopenssl-3-devel-3.1.4-150600.5.7.1",
+						"Container bci/golang:1.20-openssl:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/golang:1.20-openssl:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/golang:1.20-openssl:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/golang:1.21:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/golang:1.21:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/golang:latest:libopenssl-3-devel-3.1.4-150600.5.7.1",
+						"Container bci/golang:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/golang:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/golang:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/nodejs:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/nodejs:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/openjdk-devel:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/openjdk-devel:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/openjdk-devel:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/openjdk:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/openjdk:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/openjdk:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/php-apache:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/php-apache:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/php-fpm:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/php-fpm:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/php:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/php:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/python:3:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/python:3:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/python:3:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/python:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/python:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/python:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/ruby:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/ruby:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/rust:1.79:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/rust:1.79:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/rust:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/rust:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/spack:latest:libopenssl-3-devel-3.1.4-150600.5.7.1",
+						"Container bci/spack:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/spack:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/spack:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container containers/apache-tomcat:10-jre21:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container containers/apache-tomcat:10-jre21:libopenssl3-3.1.4-150600.5.7.1",
+						"Container containers/apache-tomcat:10-jre21:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/389-ds:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/389-ds:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/389-ds:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/git:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/helm:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/helm:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/hpc/warewulf4-x86_64/sle-hpc-node:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/hpc/warewulf4-x86_64/sle-hpc-node:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/manager/5.0/x86_64/server-attestation:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/manager/5.0/x86_64/server-attestation:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/manager/5.0/x86_64/server-attestation:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/manager/5.0/x86_64/server:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/manager/5.0/x86_64/server:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/manager/5.0/x86_64/server:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/nginx:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/nginx:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/pcp:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/pcp:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/postgres:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/postgres:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/registry:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/registry:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/rmt-mariadb-client:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/rmt-mariadb-client:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/rmt-mariadb:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/rmt-mariadb:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/rmt-server:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/rmt-server:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sle15:15.6:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sle15:15.6:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sle15:15.6:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/sle15:15.7:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sle15:15.7:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sle15:15.7:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-apiserver:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-apiserver:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-cloner:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-cloner:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-controller:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-controller:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-importer:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-importer:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-operator:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-operator:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-uploadproxy:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-uploadproxy:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-uploadserver:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-uploadserver:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/libguestfs-tools:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/libguestfs-tools:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-api:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-api:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-controller:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-controller:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-exportproxy:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-exportproxy:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-exportserver:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-exportserver:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-handler:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-handler:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-launcher:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-launcher:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-operator:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-operator:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Azure-Basic:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Azure-Basic:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Azure-Standard:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Azure-Standard:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-Aliyun:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-Aliyun:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-SAP-CCloud:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-SAP-CCloud:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-EC2-ECS-HVM:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-EC2-ECS-HVM:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-LI-BYOS-Production:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-LI-BYOS-Production:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-LI-BYOS-Production:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-LI-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-LI-BYOS:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-LI-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-VLI-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-VLI-BYOS:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-VLI-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-EC2:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-GCE:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-Azure:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-EC2:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-GCE:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6:openssl-3-3.1.4-150600.5.7.1",
+						"Image tomcat_15_6:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Image tomcat_15_6:libopenssl3-3.1.4-150600.5.7.1",
+						"Image tomcat_15_6:openssl-3-3.1.4-150600.5.7.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP6:libopenssl-3-devel-3.1.4-150600.5.7.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP6:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP6:libopenssl-3-fips-provider-32bit-3.1.4-150600.5.7.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP6:libopenssl3-3.1.4-150600.5.7.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP6:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP6:openssl-3-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:libopenssl-3-devel-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:libopenssl-3-devel-32bit-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:libopenssl-3-fips-provider-32bit-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:libopenssl3-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:openssl-3-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:openssl-3-doc-3.1.4-150600.5.7.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20242066-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-4603.html",
+					"description": "CVE-2024-4603"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1224388",
+					"description": "SUSE Bug 1224388"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "** RESERVED ** This candidate has been reserved by an organization or individual that will use it when announcing a new security problem. When the candidate has been publicized, the details for this candidate will be provided.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-4741",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container bci/bci-init:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/bci-init:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/bci-sle15-kernel-module-devel:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/bci-sle15-kernel-module-devel:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/bci-sle15-kernel-module-devel:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/golang:1.20-openssl:libopenssl-3-devel-3.1.4-150600.5.7.1",
+						"Container bci/golang:1.20-openssl:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/golang:1.20-openssl:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/golang:1.20-openssl:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/golang:1.21:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/golang:1.21:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/golang:latest:libopenssl-3-devel-3.1.4-150600.5.7.1",
+						"Container bci/golang:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/golang:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/golang:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/nodejs:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/nodejs:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/openjdk-devel:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/openjdk-devel:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/openjdk-devel:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/openjdk:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/openjdk:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/openjdk:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/php-apache:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/php-apache:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/php-fpm:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/php-fpm:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/php:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/php:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/python:3:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/python:3:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/python:3:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/python:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/python:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/python:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container bci/ruby:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/ruby:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/rust:1.79:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/rust:1.79:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/rust:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/rust:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/spack:latest:libopenssl-3-devel-3.1.4-150600.5.7.1",
+						"Container bci/spack:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container bci/spack:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container bci/spack:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container containers/apache-tomcat:10-jre21:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container containers/apache-tomcat:10-jre21:libopenssl3-3.1.4-150600.5.7.1",
+						"Container containers/apache-tomcat:10-jre21:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/389-ds:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/389-ds:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/389-ds:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/git:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/helm:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/helm:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/hpc/warewulf4-x86_64/sle-hpc-node:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/hpc/warewulf4-x86_64/sle-hpc-node:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/manager/5.0/x86_64/server-attestation:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/manager/5.0/x86_64/server-attestation:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/manager/5.0/x86_64/server-attestation:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/manager/5.0/x86_64/server:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/manager/5.0/x86_64/server:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/manager/5.0/x86_64/server:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/nginx:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/nginx:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/pcp:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/pcp:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/postgres:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/postgres:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/registry:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/registry:latest:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/rmt-mariadb-client:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/rmt-mariadb-client:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/rmt-mariadb:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/rmt-mariadb:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/rmt-server:latest:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/rmt-server:latest:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sle15:15.6:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sle15:15.6:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sle15:15.6:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/sle15:15.7:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sle15:15.7:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sle15:15.7:openssl-3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-apiserver:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-apiserver:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-cloner:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-cloner:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-controller:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-controller:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-importer:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-importer:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-operator:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-operator:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-uploadproxy:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-uploadproxy:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-uploadserver:1.58.0:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/cdi-uploadserver:1.58.0:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/libguestfs-tools:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/libguestfs-tools:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-api:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-api:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-controller:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-controller:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-exportproxy:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-exportproxy:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-exportserver:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-exportserver:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-handler:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-handler:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-launcher:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-launcher:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-operator:1.1.1:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Container suse/sles/15.7/virt-operator:1.1.1:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Azure-Basic:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Azure-Basic:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Azure-Standard:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Azure-Standard:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-Aliyun:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-Aliyun:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-SAP-CCloud:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS-SAP-CCloud:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-CHOST-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-EC2-ECS-HVM:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-EC2-ECS-HVM:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-HPC:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-Hardened-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-LI-BYOS-Production:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-LI-BYOS-Production:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-LI-BYOS-Production:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-LI-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-LI-BYOS:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-LI-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-VLI-BYOS-Production:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-VLI-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-VLI-BYOS:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure-VLI-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-EC2:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-GCE:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-BYOS:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP-Hardened:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAP:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-Azure:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-Azure:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-Azure:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-EC2:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-EC2:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-EC2:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-GCE:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-GCE:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL-GCE:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6-SAPCAL:openssl-3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6:libopenssl3-3.1.4-150600.5.7.1",
+						"Image SLES15-SP6:openssl-3-3.1.4-150600.5.7.1",
+						"Image tomcat_15_6:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"Image tomcat_15_6:libopenssl3-3.1.4-150600.5.7.1",
+						"Image tomcat_15_6:openssl-3-3.1.4-150600.5.7.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP6:libopenssl-3-devel-3.1.4-150600.5.7.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP6:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP6:libopenssl-3-fips-provider-32bit-3.1.4-150600.5.7.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP6:libopenssl3-3.1.4-150600.5.7.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP6:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP6:openssl-3-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:libopenssl-3-devel-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:libopenssl-3-devel-32bit-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:libopenssl-3-fips-provider-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:libopenssl-3-fips-provider-32bit-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:libopenssl3-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:libopenssl3-32bit-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:openssl-3-3.1.4-150600.5.7.1",
+						"openSUSE Leap 15.6:openssl-3-doc-3.1.4-150600.5.7.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "8.1",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20242066-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-4741.html",
+					"description": "CVE-2024-4741"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1225551",
+					"description": "SUSE Bug 1225551"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1225552",
+					"description": "SUSE Bug 1225552"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,632 @@
+{
+	"document_title": "Security update for gnutls",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2024:1179-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-04-09T16:08:45Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-04-09T16:08:45Z",
+		"current_release_date": "2024-04-09T16:08:45Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for gnutls",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThis update for gnutls fixes the following issues:\n\nSecurity issues fixed:\n\n- CVE-2023-0361: Fixed a Bleichenbacher oracle in the TLS RSA key exchange (bsc#1208143).\n- CVE-2023-5981: Fixed timing side-channel inside RSA-PSK key exchange (bsc#1217277).\n- CVE-2024-0567: Fixed an incorrect rejection of certificate chains\n  with distributed trust (bsc#1218862).\n- CVE-2024-0553: Fixed a timing attack against the RSA-PSK key\n  exchange, which could lead to the leakage of sensitive data\n  (bsc#1218865).\n\nFIPS 140-3 certification related bugs fixed:\n\n- FIPS: Set error state when jent init failed in FIPS mode (bsc#1202146)\n- FIPS: Make XTS key check failure not fatal (bsc#1203779)\n- FIPS: Added GnuTLS DH/ECDH pairwise consistency check for public key regeneration [bsc#1207183]\n- FIPS: Change all the 140-2 references to FIPS 140-3 in order to account for the new FIPS certification [bsc#1207346]\n- FIPS: Make the jitterentropy calls thread-safe (bsc#1208146).\n- FIPS: GnuTLS DH/ECDH PCT public key regeneration (bsc#1207183).\n- FIPS: Fix pct_test() return code in case of error (bsc#1207183)\n- FIPS: Establish PBKDF2 additional requirements [bsc#1209001]\n\n  * Set the minimum output key length to 112 bits (FIPS 140-3 IG D.N)\n  * Set the minimum salt length to 128 bits (SP 800-132 sec. 5.1)\n  * Set the minimum iterations count to 1000 (SP 800-132 sec 5.2)\n  * Set the minimum passlen of 20 characters (SP SP800-132 sec 5)\n  * Add regression tests for the new PBKDF2 requirements.\n\nOther issues fixed:\n\n- Fix AVX CPU feature detection for OSXSAVE (bsc#1203299)\n  This fixes a SIGILL termination at the verzoupper instruction when\n  trying to run GnuTLS on a Linux kernel with the noxsave command\n  line parameter set. Relevant mostly for virtual systems.\n- Increase the limit of TLS PSK usernames from 128 to 65535 characters. [bsc#1208237, jsc#PED-1562]\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Image SLES15-SP4-Micro-5-3-2024-1179,Image SLES15-SP4-Micro-5-3-BYOS-2024-1179,Image SLES15-SP4-Micro-5-3-BYOS-Azure-2024-1179,Image SLES15-SP4-Micro-5-3-BYOS-EC2-2024-1179,Image SLES15-SP4-Micro-5-3-BYOS-GCE-2024-1179,Image SLES15-SP4-Micro-5-3-EC2-2024-1179,SUSE-2024-1179,SUSE-SLE-Micro-5.3-2024-1179",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20241179-1/",
+			"description": "Link for SUSE-SU-2024:1179-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-updates/2024-April/034915.html",
+			"description": "E-Mail link for SUSE-SU-2024:1179-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1202146",
+			"description": "SUSE Bug 1202146"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1203299",
+			"description": "SUSE Bug 1203299"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1203779",
+			"description": "SUSE Bug 1203779"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207183",
+			"description": "SUSE Bug 1207183"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1207346",
+			"description": "SUSE Bug 1207346"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1208143",
+			"description": "SUSE Bug 1208143"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1208146",
+			"description": "SUSE Bug 1208146"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1208237",
+			"description": "SUSE Bug 1208237"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1209001",
+			"description": "SUSE Bug 1209001"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1217277",
+			"description": "SUSE Bug 1217277"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218862",
+			"description": "SUSE Bug 1218862"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218865",
+			"description": "SUSE Bug 1218865"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-0361/",
+			"description": "SUSE CVE CVE-2023-0361 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-5981/",
+			"description": "SUSE CVE CVE-2023-5981 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-0553/",
+			"description": "SUSE CVE CVE-2024-0553 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-0567/",
+			"description": "SUSE CVE CVE-2024-0567 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3",
+							"product_id": "Image SLES15-SP4-Micro-5-3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3-BYOS",
+							"product_id": "Image SLES15-SP4-Micro-5-3-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3-BYOS-Azure",
+							"product_id": "Image SLES15-SP4-Micro-5-3-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3-BYOS-EC2",
+							"product_id": "Image SLES15-SP4-Micro-5-3-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3-BYOS-GCE",
+							"product_id": "Image SLES15-SP4-Micro-5-3-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3-EC2",
+							"product_id": "Image SLES15-SP4-Micro-5-3-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Micro 5.3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Micro 5.3",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Micro 5.3",
+							"product_id": "SUSE Linux Enterprise Micro 5.3",
+							"cpe": "cpe:/o:suse:sle-micro:5.3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgnutls30-3.7.3-150400.1.3.1",
+				"full_product_name": {
+					"text": "libgnutls30-3.7.3-150400.1.3.1",
+					"product_id": "libgnutls30-3.7.3-150400.1.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gnutls-3.7.3-150400.1.3.1",
+				"full_product_name": {
+					"text": "gnutls-3.7.3-150400.1.3.1",
+					"product_id": "gnutls-3.7.3-150400.1.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gnutls-guile-3.7.3-150400.1.3.1",
+				"full_product_name": {
+					"text": "gnutls-guile-3.7.3-150400.1.3.1",
+					"product_id": "gnutls-guile-3.7.3-150400.1.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgnutls-devel-3.7.3-150400.1.3.1",
+				"full_product_name": {
+					"text": "libgnutls-devel-3.7.3-150400.1.3.1",
+					"product_id": "libgnutls-devel-3.7.3-150400.1.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgnutls-devel-64bit-3.7.3-150400.1.3.1",
+				"full_product_name": {
+					"text": "libgnutls-devel-64bit-3.7.3-150400.1.3.1",
+					"product_id": "libgnutls-devel-64bit-3.7.3-150400.1.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgnutls30-64bit-3.7.3-150400.1.3.1",
+				"full_product_name": {
+					"text": "libgnutls30-64bit-3.7.3-150400.1.3.1",
+					"product_id": "libgnutls30-64bit-3.7.3-150400.1.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgnutls30-hmac-3.7.3-150400.1.3.1",
+				"full_product_name": {
+					"text": "libgnutls30-hmac-3.7.3-150400.1.3.1",
+					"product_id": "libgnutls30-hmac-3.7.3-150400.1.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgnutls30-hmac-64bit-3.7.3-150400.1.3.1",
+				"full_product_name": {
+					"text": "libgnutls30-hmac-64bit-3.7.3-150400.1.3.1",
+					"product_id": "libgnutls30-hmac-64bit-3.7.3-150400.1.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgnutlsxx-devel-3.7.3-150400.1.3.1",
+				"full_product_name": {
+					"text": "libgnutlsxx-devel-3.7.3-150400.1.3.1",
+					"product_id": "libgnutlsxx-devel-3.7.3-150400.1.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libgnutlsxx28-3.7.3-150400.1.3.1",
+				"full_product_name": {
+					"text": "libgnutlsxx28-3.7.3-150400.1.3.1",
+					"product_id": "libgnutlsxx28-3.7.3-150400.1.3.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "libgnutls30-3.7.3-150400.1.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3"
+			},
+			{
+				"product_reference": "libgnutls30-3.7.3-150400.1.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3-BYOS"
+			},
+			{
+				"product_reference": "libgnutls30-3.7.3-150400.1.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3-BYOS-Azure"
+			},
+			{
+				"product_reference": "libgnutls30-3.7.3-150400.1.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3-BYOS-EC2"
+			},
+			{
+				"product_reference": "libgnutls30-3.7.3-150400.1.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3-BYOS-GCE"
+			},
+			{
+				"product_reference": "libgnutls30-3.7.3-150400.1.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3-EC2"
+			},
+			{
+				"product_reference": "gnutls-3.7.3-150400.1.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Micro 5.3"
+			},
+			{
+				"product_reference": "libgnutls30-3.7.3-150400.1.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Micro 5.3"
+			},
+			{
+				"product_reference": "libgnutls30-hmac-3.7.3-150400.1.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Micro 5.3"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "A timing side-channel in the handling of RSA ClientKeyExchange messages was discovered in GnuTLS. This side-channel can be sufficient to recover the key encrypted in the RSA ciphertext across a network in a Bleichenbacher style attack. To achieve a successful decryption the attacker would need to send a large amount of specially crafted messages to the vulnerable server. By recovering the secret from the ClientKeyExchange message, the attacker would be able to decrypt the application data exchanged over that connection.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-0361",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP4-Micro-5-3-BYOS-Azure:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-EC2:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-GCE:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-EC2:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3:libgnutls30-3.7.3-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:gnutls-3.7.3-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:libgnutls30-3.7.3-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:libgnutls30-hmac-3.7.3-150400.1.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20241179-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-0361.html",
+					"description": "CVE-2023-0361"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1208143",
+					"description": "SUSE Bug 1208143"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A vulnerability was found that the response times to malformed ciphertexts in RSA-PSK ClientKeyExchange differ from response times of ciphertexts with correct PKCS#1 v1.5 padding.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-5981",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP4-Micro-5-3-BYOS-Azure:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-EC2:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-GCE:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-EC2:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3:libgnutls30-3.7.3-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:gnutls-3.7.3-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:libgnutls30-3.7.3-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:libgnutls30-hmac-3.7.3-150400.1.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20241179-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-5981.html",
+					"description": "CVE-2023-5981"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1217277",
+					"description": "SUSE Bug 1217277"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1218865",
+					"description": "SUSE Bug 1218865"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A vulnerability was found in GnuTLS. The response times to malformed ciphertexts in RSA-PSK ClientKeyExchange differ from the response times of ciphertexts with correct PKCS#1 v1.5 padding. This issue may allow a remote attacker to perform a timing side-channel attack in the RSA-PSK key exchange, potentially leading to the leakage of sensitive data. CVE-2024-0553 is designated as an incomplete resolution for CVE-2023-5981.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-0553",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP4-Micro-5-3-BYOS-Azure:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-EC2:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-GCE:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-EC2:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3:libgnutls30-3.7.3-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:gnutls-3.7.3-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:libgnutls30-3.7.3-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:libgnutls30-hmac-3.7.3-150400.1.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20241179-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-0553.html",
+					"description": "CVE-2024-0553"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1218865",
+					"description": "SUSE Bug 1218865"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A vulnerability was found in GnuTLS, where a cockpit (which uses gnuTLS) rejects a certificate chain with distributed trust. This issue occurs when validating a certificate chain with cockpit-certificate-ensure. This flaw allows an unauthenticated, remote client or attacker to initiate a denial of service attack.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-0567",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES15-SP4-Micro-5-3-BYOS-Azure:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-EC2:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-GCE:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3-EC2:libgnutls30-3.7.3-150400.1.3.1",
+						"Image SLES15-SP4-Micro-5-3:libgnutls30-3.7.3-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:gnutls-3.7.3-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:libgnutls30-3.7.3-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:libgnutls30-hmac-3.7.3-150400.1.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20241179-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-0567.html",
+					"description": "CVE-2024-0567"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1218862",
+					"description": "SUSE Bug 1218862"
+				}
+			]
+		}
+	]
+}

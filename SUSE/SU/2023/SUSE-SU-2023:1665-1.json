@@ -1,0 +1,2399 @@
+{
+	"document_title": "Security update for sudo",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2023:1665-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2023-03-29T10:55:22Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2023-03-29T10:55:22Z",
+		"current_release_date": "2023-03-29T10:55:22Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for sudo",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for sudo fixes the following issue:\n\nSecurity issues:\n\n- CVE-2023-28486: Fixed sudo does not escape control characters in log messages. (bsc#1209362)\n- CVE-2023-28487: Fixed sudo does not escape control characters in sudoreplay output. (bsc#1209361)\n- CVE-2023-27320: Fixed a potential security issue with a double free with per-command chroot sudoers rules (bsc#1208595).\n\nBug fixes:\n\n- Fix a situation where 'sudo -U otheruser -l' would dereference a NULL pointer (bsc#1206483)\n- If NOPASSWD is specified, don't ask for password if command is not found (bsc#1206772).\n- Do not re-enable the reader when flushing the buffers as part of pty_finish() (bsc#1203201).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Container suse/sle-micro-rancher/5.3:latest-2023-1665,Container suse/sle-micro-rancher/5.4:latest-2023-1665,Container suse/sle-micro/5.3/toolbox:latest-2023-1665,Container suse/sle-micro/5.4/toolbox:latest-2023-1665,Image SLES15-SP4-2023-1665,Image SLES15-SP4-Azure-Basic-2023-1665,Image SLES15-SP4-Azure-Standard-2023-1665,Image SLES15-SP4-BYOS-EC2-2023-1665,Image SLES15-SP4-BYOS-GCE-2023-1665,Image SLES15-SP4-CHOST-BYOS-2023-1665,Image SLES15-SP4-CHOST-BYOS-Aliyun-2023-1665,Image SLES15-SP4-CHOST-BYOS-Azure-2023-1665,Image SLES15-SP4-CHOST-BYOS-EC2-2023-1665,Image SLES15-SP4-CHOST-BYOS-GCE-2023-1665,Image SLES15-SP4-EC2-2023-1665,Image SLES15-SP4-EC2-ECS-HVM-2023-1665,Image SLES15-SP4-GCE-2023-1665,Image SLES15-SP4-HPC-2023-1665,Image SLES15-SP4-HPC-Azure-2023-1665,Image SLES15-SP4-HPC-BYOS-2023-1665,Image SLES15-SP4-HPC-BYOS-Azure-2023-1665,Image SLES15-SP4-HPC-BYOS-EC2-2023-1665,Image SLES15-SP4-HPC-BYOS-GCE-2023-1665,Image SLES15-SP4-HPC-EC2-2023-1665,Image SLES15-SP4-HPC-GCE-2023-1665,Image SLES15-SP4-Hardened-BYOS-2023-1665,Image SLES15-SP4-Hardened-BYOS-Azure-2023-1665,Image SLES15-SP4-Hardened-BYOS-EC2-2023-1665,Image SLES15-SP4-Hardened-BYOS-GCE-2023-1665,Image SLES15-SP4-Manager-Proxy-4-3-BYOS-2023-1665,Image SLES15-SP4-Manager-Proxy-4-3-BYOS-Azure-2023-1665,Image SLES15-SP4-Manager-Proxy-4-3-BYOS-EC2-2023-1665,Image SLES15-SP4-Manager-Proxy-4-3-BYOS-GCE-2023-1665,Image SLES15-SP4-Manager-Server-4-3-2023-1665,Image SLES15-SP4-Manager-Server-4-3-Azure-llc-2023-1665,Image SLES15-SP4-Manager-Server-4-3-Azure-ltd-2023-1665,Image SLES15-SP4-Manager-Server-4-3-BYOS-2023-1665,Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure-2023-1665,Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2-2023-1665,Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE-2023-1665,Image SLES15-SP4-Manager-Server-4-3-EC2-llc-2023-1665,Image SLES15-SP4-Manager-Server-4-3-EC2-ltd-2023-1665,Image SLES15-SP4-Micro-5-3-2023-1665,Image SLES15-SP4-Micro-5-3-Azure-2023-1665,Image SLES15-SP4-Micro-5-3-BYOS-2023-1665,Image SLES15-SP4-Micro-5-3-BYOS-Azure-2023-1665,Image SLES15-SP4-Micro-5-3-BYOS-EC2-2023-1665,Image SLES15-SP4-Micro-5-3-BYOS-GCE-2023-1665,Image SLES15-SP4-Micro-5-3-EC2-2023-1665,Image SLES15-SP4-Micro-5-3-GCE-2023-1665,Image SLES15-SP4-Micro-5-4-2023-1665,Image SLES15-SP4-Micro-5-4-Azure-2023-1665,Image SLES15-SP4-Micro-5-4-BYOS-2023-1665,Image SLES15-SP4-Micro-5-4-BYOS-Azure-2023-1665,Image SLES15-SP4-Micro-5-4-BYOS-EC2-2023-1665,Image SLES15-SP4-Micro-5-4-BYOS-GCE-2023-1665,Image SLES15-SP4-Micro-5-4-EC2-2023-1665,Image SLES15-SP4-Micro-5-4-GCE-2023-1665,Image SLES15-SP4-SAP-2023-1665,Image SLES15-SP4-SAP-Azure-2023-1665,Image SLES15-SP4-SAP-Azure-LI-BYOS-2023-1665,Image SLES15-SP4-SAP-Azure-LI-BYOS-Production-2023-1665,Image SLES15-SP4-SAP-Azure-VLI-BYOS-2023-1665,Image SLES15-SP4-SAP-Azure-VLI-BYOS-Production-2023-1665,Image SLES15-SP4-SAP-BYOS-2023-1665,Image SLES15-SP4-SAP-BYOS-Azure-2023-1665,Image SLES15-SP4-SAP-BYOS-EC2-2023-1665,Image SLES15-SP4-SAP-BYOS-GCE-2023-1665,Image SLES15-SP4-SAP-EC2-2023-1665,Image SLES15-SP4-SAP-GCE-2023-1665,Image SLES15-SP4-SAP-Hardened-2023-1665,Image SLES15-SP4-SAP-Hardened-Azure-2023-1665,Image SLES15-SP4-SAP-Hardened-BYOS-2023-1665,Image SLES15-SP4-SAP-Hardened-BYOS-Azure-2023-1665,Image SLES15-SP4-SAP-Hardened-BYOS-EC2-2023-1665,Image SLES15-SP4-SAP-Hardened-BYOS-GCE-2023-1665,Image SLES15-SP4-SAP-Hardened-EC2-2023-1665,Image SLES15-SP4-SAP-Hardened-GCE-2023-1665,Image SLES15-SP4-SAPCAL-2023-1665,Image SLES15-SP4-SAPCAL-Azure-2023-1665,Image SLES15-SP4-SAPCAL-EC2-2023-1665,Image SLES15-SP4-SAPCAL-GCE-2023-1665,Image SLES15-SP4-SUSE-Rancher-Setup-BYOS-2023-1665,Image SLES15-SP4-SUSE-Rancher-Setup-BYOS-EC2-2023-1665,SUSE-2023-1665,SUSE-SLE-Micro-5.3-2023-1665,SUSE-SLE-Micro-5.4-2023-1665,SUSE-SLE-Module-Basesystem-15-SP4-2023-1665,openSUSE-Leap-Micro-5.3-2023-1665,openSUSE-SLE-15.4-2023-1665",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20231665-1/",
+			"description": "Link for SUSE-SU-2023:1665-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-updates/2023-March/028455.html",
+			"description": "E-Mail link for SUSE-SU-2023:1665-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1203201",
+			"description": "SUSE Bug 1203201"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206483",
+			"description": "SUSE Bug 1206483"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206772",
+			"description": "SUSE Bug 1206772"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1208595",
+			"description": "SUSE Bug 1208595"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1209361",
+			"description": "SUSE Bug 1209361"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1209362",
+			"description": "SUSE Bug 1209362"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-27320/",
+			"description": "SUSE CVE CVE-2023-27320 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-28486/",
+			"description": "SUSE CVE CVE-2023-28486 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-28487/",
+			"description": "SUSE CVE CVE-2023-28487 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Container suse/sle-micro-rancher/5.3:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sle-micro-rancher/5.3:latest",
+						"full_product_name": {
+							"text": "Container suse/sle-micro-rancher/5.3:latest",
+							"product_id": "Container suse/sle-micro-rancher/5.3:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sle-micro-rancher/5.4:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sle-micro-rancher/5.4:latest",
+						"full_product_name": {
+							"text": "Container suse/sle-micro-rancher/5.4:latest",
+							"product_id": "Container suse/sle-micro-rancher/5.4:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sle-micro/5.3/toolbox:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sle-micro/5.3/toolbox:latest",
+						"full_product_name": {
+							"text": "Container suse/sle-micro/5.3/toolbox:latest",
+							"product_id": "Container suse/sle-micro/5.3/toolbox:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Container suse/sle-micro/5.4/toolbox:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container suse/sle-micro/5.4/toolbox:latest",
+						"full_product_name": {
+							"text": "Container suse/sle-micro/5.4/toolbox:latest",
+							"product_id": "Container suse/sle-micro/5.4/toolbox:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4",
+						"full_product_name": {
+							"text": "Image SLES15-SP4",
+							"product_id": "Image SLES15-SP4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Azure-Basic",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Azure-Basic",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Azure-Basic",
+							"product_id": "Image SLES15-SP4-Azure-Basic"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Azure-Standard",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Azure-Standard",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Azure-Standard",
+							"product_id": "Image SLES15-SP4-Azure-Standard"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-BYOS-EC2",
+							"product_id": "Image SLES15-SP4-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-BYOS-GCE",
+							"product_id": "Image SLES15-SP4-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-CHOST-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-CHOST-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-CHOST-BYOS",
+							"product_id": "Image SLES15-SP4-CHOST-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-CHOST-BYOS-Aliyun",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-CHOST-BYOS-Aliyun",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-CHOST-BYOS-Aliyun",
+							"product_id": "Image SLES15-SP4-CHOST-BYOS-Aliyun"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-CHOST-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-CHOST-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-CHOST-BYOS-Azure",
+							"product_id": "Image SLES15-SP4-CHOST-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-CHOST-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-CHOST-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-CHOST-BYOS-EC2",
+							"product_id": "Image SLES15-SP4-CHOST-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-CHOST-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-CHOST-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-CHOST-BYOS-GCE",
+							"product_id": "Image SLES15-SP4-CHOST-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-EC2",
+							"product_id": "Image SLES15-SP4-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-EC2-ECS-HVM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-EC2-ECS-HVM",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-EC2-ECS-HVM",
+							"product_id": "Image SLES15-SP4-EC2-ECS-HVM"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-GCE",
+							"product_id": "Image SLES15-SP4-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-HPC",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-HPC",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-HPC",
+							"product_id": "Image SLES15-SP4-HPC"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-HPC-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-HPC-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-HPC-Azure",
+							"product_id": "Image SLES15-SP4-HPC-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-HPC-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-HPC-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-HPC-BYOS",
+							"product_id": "Image SLES15-SP4-HPC-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-HPC-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-HPC-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-HPC-BYOS-Azure",
+							"product_id": "Image SLES15-SP4-HPC-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-HPC-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-HPC-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-HPC-BYOS-EC2",
+							"product_id": "Image SLES15-SP4-HPC-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-HPC-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-HPC-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-HPC-BYOS-GCE",
+							"product_id": "Image SLES15-SP4-HPC-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-HPC-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-HPC-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-HPC-EC2",
+							"product_id": "Image SLES15-SP4-HPC-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-HPC-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-HPC-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-HPC-GCE",
+							"product_id": "Image SLES15-SP4-HPC-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Hardened-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Hardened-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Hardened-BYOS",
+							"product_id": "Image SLES15-SP4-Hardened-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Hardened-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Hardened-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Hardened-BYOS-Azure",
+							"product_id": "Image SLES15-SP4-Hardened-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Hardened-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Hardened-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Hardened-BYOS-EC2",
+							"product_id": "Image SLES15-SP4-Hardened-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Hardened-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Hardened-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Hardened-BYOS-GCE",
+							"product_id": "Image SLES15-SP4-Hardened-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS",
+							"product_id": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-Azure",
+							"product_id": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-EC2",
+							"product_id": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-GCE",
+							"product_id": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-Azure-llc",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-Azure-llc",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-Azure-llc",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-Azure-llc"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-Azure-ltd",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-Azure-ltd",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-Azure-ltd",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-Azure-ltd"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-BYOS",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-EC2-llc",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-EC2-llc",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-EC2-llc",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-EC2-llc"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Manager-Server-4-3-EC2-ltd",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Manager-Server-4-3-EC2-ltd",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Manager-Server-4-3-EC2-ltd",
+							"product_id": "Image SLES15-SP4-Manager-Server-4-3-EC2-ltd"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3",
+							"product_id": "Image SLES15-SP4-Micro-5-3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3-Azure",
+							"product_id": "Image SLES15-SP4-Micro-5-3-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3-BYOS",
+							"product_id": "Image SLES15-SP4-Micro-5-3-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3-BYOS-Azure",
+							"product_id": "Image SLES15-SP4-Micro-5-3-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3-BYOS-EC2",
+							"product_id": "Image SLES15-SP4-Micro-5-3-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3-BYOS-GCE",
+							"product_id": "Image SLES15-SP4-Micro-5-3-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3-EC2",
+							"product_id": "Image SLES15-SP4-Micro-5-3-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-3-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-3-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-3-GCE",
+							"product_id": "Image SLES15-SP4-Micro-5-3-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-4",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-4",
+							"product_id": "Image SLES15-SP4-Micro-5-4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-4-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-4-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-4-Azure",
+							"product_id": "Image SLES15-SP4-Micro-5-4-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-4-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-4-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-4-BYOS",
+							"product_id": "Image SLES15-SP4-Micro-5-4-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-4-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-4-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-4-BYOS-Azure",
+							"product_id": "Image SLES15-SP4-Micro-5-4-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-4-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-4-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-4-BYOS-EC2",
+							"product_id": "Image SLES15-SP4-Micro-5-4-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-4-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-4-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-4-BYOS-GCE",
+							"product_id": "Image SLES15-SP4-Micro-5-4-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-4-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-4-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-4-EC2",
+							"product_id": "Image SLES15-SP4-Micro-5-4-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-Micro-5-4-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-Micro-5-4-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-Micro-5-4-GCE",
+							"product_id": "Image SLES15-SP4-Micro-5-4-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP",
+							"product_id": "Image SLES15-SP4-SAP"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-Azure",
+							"product_id": "Image SLES15-SP4-SAP-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-Azure-LI-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-Azure-LI-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-Azure-LI-BYOS",
+							"product_id": "Image SLES15-SP4-SAP-Azure-LI-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-Azure-LI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-Azure-LI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-Azure-LI-BYOS-Production",
+							"product_id": "Image SLES15-SP4-SAP-Azure-LI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-Azure-VLI-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-Azure-VLI-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-Azure-VLI-BYOS",
+							"product_id": "Image SLES15-SP4-SAP-Azure-VLI-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-Azure-VLI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-Azure-VLI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-Azure-VLI-BYOS-Production",
+							"product_id": "Image SLES15-SP4-SAP-Azure-VLI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-BYOS",
+							"product_id": "Image SLES15-SP4-SAP-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-BYOS-Azure",
+							"product_id": "Image SLES15-SP4-SAP-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-BYOS-EC2",
+							"product_id": "Image SLES15-SP4-SAP-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-BYOS-GCE",
+							"product_id": "Image SLES15-SP4-SAP-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-EC2",
+							"product_id": "Image SLES15-SP4-SAP-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-GCE",
+							"product_id": "Image SLES15-SP4-SAP-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-Hardened",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-Hardened",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-Hardened",
+							"product_id": "Image SLES15-SP4-SAP-Hardened"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-Hardened-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-Hardened-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-Hardened-Azure",
+							"product_id": "Image SLES15-SP4-SAP-Hardened-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-Hardened-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-Hardened-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-Hardened-BYOS",
+							"product_id": "Image SLES15-SP4-SAP-Hardened-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-Hardened-BYOS-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-Hardened-BYOS-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-Hardened-BYOS-Azure",
+							"product_id": "Image SLES15-SP4-SAP-Hardened-BYOS-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-Hardened-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-Hardened-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-Hardened-BYOS-EC2",
+							"product_id": "Image SLES15-SP4-SAP-Hardened-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-Hardened-BYOS-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-Hardened-BYOS-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-Hardened-BYOS-GCE",
+							"product_id": "Image SLES15-SP4-SAP-Hardened-BYOS-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-Hardened-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-Hardened-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-Hardened-EC2",
+							"product_id": "Image SLES15-SP4-SAP-Hardened-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAP-Hardened-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAP-Hardened-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAP-Hardened-GCE",
+							"product_id": "Image SLES15-SP4-SAP-Hardened-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAPCAL",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAPCAL",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAPCAL",
+							"product_id": "Image SLES15-SP4-SAPCAL"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAPCAL-Azure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAPCAL-Azure",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAPCAL-Azure",
+							"product_id": "Image SLES15-SP4-SAPCAL-Azure"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAPCAL-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAPCAL-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAPCAL-EC2",
+							"product_id": "Image SLES15-SP4-SAPCAL-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SAPCAL-GCE",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SAPCAL-GCE",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SAPCAL-GCE",
+							"product_id": "Image SLES15-SP4-SAPCAL-GCE"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SUSE-Rancher-Setup-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SUSE-Rancher-Setup-BYOS",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SUSE-Rancher-Setup-BYOS",
+							"product_id": "Image SLES15-SP4-SUSE-Rancher-Setup-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES15-SP4-SUSE-Rancher-Setup-BYOS-EC2",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES15-SP4-SUSE-Rancher-Setup-BYOS-EC2",
+						"full_product_name": {
+							"text": "Image SLES15-SP4-SUSE-Rancher-Setup-BYOS-EC2",
+							"product_id": "Image SLES15-SP4-SUSE-Rancher-Setup-BYOS-EC2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Micro 5.3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Micro 5.3",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Micro 5.3",
+							"product_id": "SUSE Linux Enterprise Micro 5.3",
+							"cpe": "cpe:/o:suse:sle-micro:5.3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Micro 5.4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Micro 5.4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Micro 5.4",
+							"product_id": "SUSE Linux Enterprise Micro 5.4",
+							"cpe": "cpe:/o:suse:sle-micro:5.4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Basesystem 15 SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Basesystem 15 SP4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Basesystem 15 SP4",
+							"product_id": "SUSE Linux Enterprise Module for Basesystem 15 SP4",
+							"cpe": "cpe:/o:suse:sle-module-basesystem:15:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 15.4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 15.4",
+						"full_product_name": {
+							"text": "openSUSE Leap 15.4",
+							"product_id": "openSUSE Leap 15.4",
+							"cpe": "cpe:/o:opensuse:leap:15.4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap Micro 5.3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap Micro 5.3",
+						"full_product_name": {
+							"text": "openSUSE Leap Micro 5.3",
+							"product_id": "openSUSE Leap Micro 5.3",
+							"cpe": "cpe:/o:opensuse:leap-micro:5.3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "sudo-1.9.9-150400.4.26.1",
+				"full_product_name": {
+					"text": "sudo-1.9.9-150400.4.26.1",
+					"product_id": "sudo-1.9.9-150400.4.26.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "sudo-devel-1.9.9-150400.4.26.1",
+				"full_product_name": {
+					"text": "sudo-devel-1.9.9-150400.4.26.1",
+					"product_id": "sudo-devel-1.9.9-150400.4.26.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "sudo-plugin-python-1.9.9-150400.4.26.1",
+				"full_product_name": {
+					"text": "sudo-plugin-python-1.9.9-150400.4.26.1",
+					"product_id": "sudo-plugin-python-1.9.9-150400.4.26.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "sudo-test-1.9.9-150400.4.26.1",
+				"full_product_name": {
+					"text": "sudo-test-1.9.9-150400.4.26.1",
+					"product_id": "sudo-test-1.9.9-150400.4.26.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle-micro-rancher/5.3:latest"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle-micro-rancher/5.4:latest"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle-micro/5.3/toolbox:latest"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container suse/sle-micro/5.4/toolbox:latest"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Azure-Basic"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Azure-Standard"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-BYOS-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-BYOS-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-CHOST-BYOS"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-CHOST-BYOS-Aliyun"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-CHOST-BYOS-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-CHOST-BYOS-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-CHOST-BYOS-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-EC2-ECS-HVM"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-HPC"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-HPC-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-HPC-BYOS"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-HPC-BYOS-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-HPC-BYOS-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-HPC-BYOS-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-HPC-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-HPC-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Hardened-BYOS"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Hardened-BYOS-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Hardened-BYOS-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Hardened-BYOS-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Proxy-4-3-BYOS-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-Azure-llc"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-Azure-ltd"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-EC2-llc"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Manager-Server-4-3-EC2-ltd"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3-BYOS"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3-BYOS-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3-BYOS-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3-BYOS-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-3-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-4"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-4-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-4-BYOS"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-4-BYOS-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-4-BYOS-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-4-BYOS-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-4-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-Micro-5-4-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-Azure-LI-BYOS"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-Azure-VLI-BYOS"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-BYOS"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-BYOS-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-BYOS-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-BYOS-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-Hardened"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-Hardened-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-Hardened-BYOS"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-Hardened-BYOS-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-Hardened-BYOS-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-Hardened-BYOS-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-Hardened-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAP-Hardened-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAPCAL"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAPCAL-Azure"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAPCAL-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SAPCAL-GCE"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SUSE-Rancher-Setup-BYOS"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES15-SP4-SUSE-Rancher-Setup-BYOS-EC2"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Micro 5.3"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Micro 5.4"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP4"
+			},
+			{
+				"product_reference": "sudo-devel-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP4"
+			},
+			{
+				"product_reference": "sudo-plugin-python-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Basesystem 15 SP4"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "sudo-devel-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "sudo-plugin-python-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "sudo-test-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.4"
+			},
+			{
+				"product_reference": "sudo-1.9.9-150400.4.26.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap Micro 5.3"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Sudo before 1.9.13p2 has a double free in the per-command chroot feature.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-27320",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container suse/sle-micro-rancher/5.3:latest:sudo-1.9.9-150400.4.26.1",
+						"Container suse/sle-micro-rancher/5.4:latest:sudo-1.9.9-150400.4.26.1",
+						"Container suse/sle-micro/5.3/toolbox:latest:sudo-1.9.9-150400.4.26.1",
+						"Container suse/sle-micro/5.4/toolbox:latest:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Azure-Basic:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Azure-Standard:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS-Aliyun:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-EC2-ECS-HVM:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Hardened-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Hardened-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Hardened-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Hardened-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Proxy-4-3-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Proxy-4-3-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Proxy-4-3-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Proxy-4-3-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-Azure-llc:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-Azure-ltd:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-EC2-llc:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-EC2-ltd:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure-LI-BYOS-Production:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure-LI-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure-VLI-BYOS-Production:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure-VLI-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAPCAL-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAPCAL-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAPCAL-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAPCAL:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SUSE-Rancher-Setup-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SUSE-Rancher-Setup-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4:sudo-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Micro 5.3:sudo-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Micro 5.4:sudo-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP4:sudo-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP4:sudo-devel-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP4:sudo-plugin-python-1.9.9-150400.4.26.1",
+						"openSUSE Leap 15.4:sudo-1.9.9-150400.4.26.1",
+						"openSUSE Leap 15.4:sudo-devel-1.9.9-150400.4.26.1",
+						"openSUSE Leap 15.4:sudo-plugin-python-1.9.9-150400.4.26.1",
+						"openSUSE Leap 15.4:sudo-test-1.9.9-150400.4.26.1",
+						"openSUSE Leap Micro 5.3:sudo-1.9.9-150400.4.26.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20231665-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-27320.html",
+					"description": "CVE-2023-27320"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1208595",
+					"description": "SUSE Bug 1208595"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Sudo before 1.9.13 does not escape control characters in log messages.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-28486",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container suse/sle-micro-rancher/5.3:latest:sudo-1.9.9-150400.4.26.1",
+						"Container suse/sle-micro-rancher/5.4:latest:sudo-1.9.9-150400.4.26.1",
+						"Container suse/sle-micro/5.3/toolbox:latest:sudo-1.9.9-150400.4.26.1",
+						"Container suse/sle-micro/5.4/toolbox:latest:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Azure-Basic:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Azure-Standard:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS-Aliyun:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-EC2-ECS-HVM:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Hardened-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Hardened-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Hardened-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Hardened-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Proxy-4-3-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Proxy-4-3-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Proxy-4-3-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Proxy-4-3-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-Azure-llc:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-Azure-ltd:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-EC2-llc:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-EC2-ltd:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure-LI-BYOS-Production:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure-LI-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure-VLI-BYOS-Production:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure-VLI-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAPCAL-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAPCAL-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAPCAL-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAPCAL:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SUSE-Rancher-Setup-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SUSE-Rancher-Setup-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4:sudo-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Micro 5.3:sudo-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Micro 5.4:sudo-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP4:sudo-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP4:sudo-devel-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP4:sudo-plugin-python-1.9.9-150400.4.26.1",
+						"openSUSE Leap 15.4:sudo-1.9.9-150400.4.26.1",
+						"openSUSE Leap 15.4:sudo-devel-1.9.9-150400.4.26.1",
+						"openSUSE Leap 15.4:sudo-plugin-python-1.9.9-150400.4.26.1",
+						"openSUSE Leap 15.4:sudo-test-1.9.9-150400.4.26.1",
+						"openSUSE Leap Micro 5.3:sudo-1.9.9-150400.4.26.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20231665-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-28486.html",
+					"description": "CVE-2023-28486"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1209362",
+					"description": "SUSE Bug 1209362"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Sudo before 1.9.13 does not escape control characters in sudoreplay output.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-28487",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container suse/sle-micro-rancher/5.3:latest:sudo-1.9.9-150400.4.26.1",
+						"Container suse/sle-micro-rancher/5.4:latest:sudo-1.9.9-150400.4.26.1",
+						"Container suse/sle-micro/5.3/toolbox:latest:sudo-1.9.9-150400.4.26.1",
+						"Container suse/sle-micro/5.4/toolbox:latest:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Azure-Basic:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Azure-Standard:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS-Aliyun:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-CHOST-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-EC2-ECS-HVM:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-HPC:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Hardened-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Hardened-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Hardened-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Hardened-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Proxy-4-3-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Proxy-4-3-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Proxy-4-3-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Proxy-4-3-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-Azure-llc:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-Azure-ltd:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-EC2-llc:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3-EC2-ltd:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Manager-Server-4-3:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-3:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-Micro-5-4:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure-LI-BYOS-Production:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure-LI-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure-VLI-BYOS-Production:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure-VLI-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-BYOS-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-BYOS-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP-Hardened:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAP:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAPCAL-Azure:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAPCAL-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAPCAL-GCE:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SAPCAL:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SUSE-Rancher-Setup-BYOS-EC2:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4-SUSE-Rancher-Setup-BYOS:sudo-1.9.9-150400.4.26.1",
+						"Image SLES15-SP4:sudo-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Micro 5.3:sudo-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Micro 5.4:sudo-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP4:sudo-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP4:sudo-devel-1.9.9-150400.4.26.1",
+						"SUSE Linux Enterprise Module for Basesystem 15 SP4:sudo-plugin-python-1.9.9-150400.4.26.1",
+						"openSUSE Leap 15.4:sudo-1.9.9-150400.4.26.1",
+						"openSUSE Leap 15.4:sudo-devel-1.9.9-150400.4.26.1",
+						"openSUSE Leap 15.4:sudo-plugin-python-1.9.9-150400.4.26.1",
+						"openSUSE Leap 15.4:sudo-test-1.9.9-150400.4.26.1",
+						"openSUSE Leap Micro 5.3:sudo-1.9.9-150400.4.26.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2023/suse-su-20231665-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-28487.html",
+					"description": "CVE-2023-28487"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1209361",
+					"description": "SUSE Bug 1209361"
+				}
+			]
+		}
+	]
+}

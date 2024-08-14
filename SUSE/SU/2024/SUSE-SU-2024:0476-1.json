@@ -1,0 +1,1771 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2024:0476-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-02-14T18:35:28Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-02-14T18:35:28Z",
+		"current_release_date": "2024-02-14T18:35:28Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "The SUSE Linux Enterprise 15 SP4 RT kernel was updated to receive various security bugfixes.\n\n\nThe following security bugs were fixed:\n\n- CVE-2024-0340: Fixed information disclosure in vhost/vhost.c:vhost_new_msg() (bsc#1218689).\n- CVE-2024-24860: Fixed a denial of service caused by a race condition in {min,max}_key_size_set() (bsc#1219608).\n- CVE-2024-1085: Fixed nf_tables use-after-free vulnerability in the nft_setelem_catchall_deactivate() function (bsc#1219429).\n- CVE-2024-1086: Fixed a use-after-free vulnerability inside the nf_tables component that could have been exploited to achieve local privilege escalation (bsc#1219434).\n- CVE-2023-51042: Fixed use-after-free in amdgpu_cs_wait_all_fences in drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c (bsc#1219128).\n- CVE-2023-51780: Fixed a use-after-free in do_vcc_ioctl in net/atm/ioctl.c, because of a vcc_recvmsg race condition (bsc#1218730).\n- CVE-2023-46838: Fixed an issue with Xen netback processing of zero-length transmit fragment (bsc#1218836).\n- CVE-2021-33631: Fixed an integer overflow in ext4_write_inline_data_end() (bsc#1219412).\n- CVE-2023-6535: Fixed a NULL pointer dereference in nvmet_tcp_execute_request (bsc#1217988).\n- CVE-2023-6536: Fixed a NULL pointer dereference in __nvmet_req_complete (bsc#1217989).\n- CVE-2023-6356: Fixed a NULL pointer dereference in nvmet_tcp_build_pdu_iovec (bsc#1217987).\n- CVE-2023-47233: Fixed a use-after-free in the device unplugging (disconnect the USB by hotplug) code inside the brcm80211 component (bsc#1216702).\n- CVE-2023-51043: Fixed use-after-free during a race condition between a nonblocking atomic commit and a driver unload in drivers/gpu/drm/drm_atomic.c (bsc#1219120).\n- CVE-2024-0775: Fixed use-after-free in __ext4_remount in fs/ext4/super.c that could allow a local user to cause an information leak problem while freeing the old quota file names before a potential failure (bsc#1219053).\n- CVE-2023-6040: Fixed an out-of-bounds access vulnerability while creating a new netfilter table, lack of a safeguard against invalid nf_tables family (pf) values within `nf_tables_newtable` function (bsc#1218752).\n- CVE-2024-0641: Fixed a denial of service vulnerability in tipc_crypto_key_revoke in net/tipc/crypto.c (bsc#1218916).\n- CVE-2024-0565: Fixed an out-of-bounds memory read flaw in receive_encrypted_standard in fs/smb/client/smb2ops.c (bsc#1218832).\n- CVE-2023-6915: Fixed a NULL pointer dereference problem in ida_free in lib/idr.c (bsc#1218804).\n- CVE-2023-51782: Fixed use-after-free in rose_ioctl in net/rose/af_rose.c because of a rose_accept race condition (bsc#1218757).\n\nThe following non-security bugs were fixed:\n\n- Store the old kernel changelog entries in kernel-docs package (bsc#1218713).\n- bcache: Fix __bch_btree_node_alloc to make the failure behavior consistent (git-fixes).\n- bcache: Remove unnecessary NULL point check in node allocations (git-fixes).\n- bcache: add code comments for bch_btree_node_get() and __bch_btree_node_alloc() (git-fixes).\n- bcache: avoid NULL checking to c->root in run_cache_set() (git-fixes).\n- bcache: avoid oversize memory allocation by small stripe_size (git-fixes).\n- bcache: check return value from btree_node_alloc_replacement() (git-fixes).\n- bcache: fixup btree_cache_wait list damage (git-fixes).\n- bcache: fixup init dirty data errors (git-fixes).\n- bcache: fixup lock c->root error (git-fixes).\n- bcache: fixup multi-threaded bch_sectors_dirty_init() wake-up race (git-fixes).\n- bcache: prevent potential division by zero error (git-fixes).\n- bcache: remove redundant assignment to variable cur_idx (git-fixes).\n- bcache: replace a mistaken IS_ERR() by IS_ERR_OR_NULL() in btree_gc_coalesce() (git-fixes).\n- bcache: revert replacing IS_ERR_OR_NULL with IS_ERR (git-fixes).\n- block: Fix kabi header include (bsc#1218929).\n- block: free the extended dev_t minor later (bsc#1218930).\n- clocksource: Skip watchdog check for large watchdog intervals (bsc#1217217).\n- clocksource: disable watchdog checks on TSC when TSC is watchdog (bsc#1215885).\n- dm cache policy smq: ensure IO does not prevent cleaner policy progress (git-fixes).\n- dm cache: add cond_resched() to various workqueue loops (git-fixes).\n- dm clone: call kmem_cache_destroy() in dm_clone_init() error path (git-fixes).\n- dm crypt: add cond_resched() to dmcrypt_write() (git-fixes).\n- dm crypt: avoid accessing uninitialized tasklet (git-fixes).\n- dm flakey: do not corrupt the zero page (git-fixes).\n- dm flakey: fix a crash with invalid table line (git-fixes).\n- dm flakey: fix logic when corrupting a bio (git-fixes).\n- dm init: add dm-mod.waitfor to wait for asynchronously probed block devices (git-fixes).\n- dm integrity: call kmem_cache_destroy() in dm_integrity_init() error path (git-fixes).\n- dm integrity: reduce vmalloc space footprint on 32-bit architectures (git-fixes).\n- dm raid: clean up four equivalent goto tags in raid_ctr() (git-fixes).\n- dm raid: fix missing reconfig_mutex unlock in raid_ctr() error paths (git-fixes).\n- dm stats: check for and propagate alloc_percpu failure (git-fixes).\n- dm thin metadata: Fix ABBA deadlock by resetting dm_bufio_client (git-fixes).\n- dm thin metadata: check fail_io before using data_sm (git-fixes).\n- dm thin: add cond_resched() to various workqueue loops (git-fixes).\n- dm thin: fix deadlock when swapping to thin device (bsc#1177529).\n- dm verity: do not perform FEC for failed readahead IO (git-fixes).\n- dm verity: fix error handling for check_at_most_once on FEC (git-fixes).\n- dm verity: skip redundant verity_handle_err() on I/O errors (git-fixes).\n- dm zoned: free dmz->ddev array in dmz_put_zoned_devices (git-fixes).\n- dm-delay: fix a race between delay_presuspend and delay_bio (git-fixes).\n- dm-integrity: do not modify bio's immutable bio_vec in integrity_metadata() (git-fixes).\n- dm-verity: align struct dm_verity_fec_io properly (git-fixes).\n- dm: add cond_resched() to dm_wq_work() (git-fixes).\n- dm: do not lock fs when the map is NULL during suspend or resume (git-fixes).\n- dm: do not lock fs when the map is NULL in process of resume (git-fixes).\n- dm: remove flush_scheduled_work() during local_exit() (git-fixes).\n- dm: send just one event on resize, not two (git-fixes).\n- doc/README.KSYMS: Add to repo.\n- hv_netvsc: rndis_filter needs to select NLS (git-fixes).\n- intel_idle: add Emerald Rapids Xeon support (bsc#1216016).\n- kabi, vmstat: skip periodic vmstat update for isolated CPUs (bsc#1217895).\n- kernel-source: Fix description typo\n- loop: suppress uevents while reconfiguring the device (git-fixes).\n- nbd: Fix debugfs_create_dir error checking (git-fixes).\n- nbd: fix incomplete validation of ioctl arg (git-fixes).\n- nbd: use the correct block_device in nbd_bdev_reset (git-fixes).\n- nfsd4: add refcount for nfsd4_blocked_lock (bsc#1218968 bsc#1219349).\n- nfsd: fix RELEASE_LOCKOWNER (bsc#1218968).\n- null_blk: Always check queue mode setting from configfs (git-fixes).\n- powerpc/pseries/iommu: enable_ddw incorrectly returns direct mapping for SR-IOV device (bsc#1212091 ltc#199106 git-fixes).\n- rbd: avoid use-after-free in do_rbd_add() when rbd_dev_create() fails (git-fixes).\n- rbd: decouple header read-in from updating rbd_dev->header (git-fixes).\n- rbd: decouple parent info read-in from updating rbd_dev (git-fixes).\n- rbd: get snapshot context after exclusive lock is ensured to be held (git-fixes).\n- rbd: harden get_lock_owner_info() a bit (git-fixes).\n- rbd: make get_lock_owner_info() return a single locker or NULL (git-fixes).\n- rbd: move RBD_OBJ_FLAG_COPYUP_ENABLED flag setting (git-fixes).\n- rbd: move rbd_dev_refresh() definition (git-fixes).\n- rbd: prevent busy loop when requesting exclusive lock (git-fixes).\n- rbd: retrieve and check lock owner twice before blocklisting (git-fixes).\n- rbd: take header_rwsem in rbd_dev_refresh() only when updating (git-fixes).\n- sched/isolation: add cpu_is_isolated() API (bsc#1217895).\n- scsi: ibmvfc: Implement channel queue depth and event buffer accounting (bsc#1209834 ltc#202097).\n- scsi: ibmvfc: Remove BUG_ON in the case of an empty event pool (bsc#1209834 ltc#202097).\n- trace,smp: Add tracepoints around remotelly called functions (bsc#1217895).\n- vmstat: skip periodic vmstat update for isolated CPUs (bsc#1217895).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Container rancher/elemental-teal-rt/5.4:latest-2024-476,SUSE-2024-476,SUSE-SLE-Micro-5.3-2024-476,SUSE-SLE-Micro-5.4-2024-476,SUSE-SLE-Module-Live-Patching-15-SP4-2024-476,openSUSE-Leap-Micro-5.3-2024-476,openSUSE-Leap-Micro-5.4-2024-476",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/",
+			"description": "Link for SUSE-SU-2024:0476-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2024-February/017917.html",
+			"description": "E-Mail link for SUSE-SU-2024:0476-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1108281",
+			"description": "SUSE Bug 1108281"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1177529",
+			"description": "SUSE Bug 1177529"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1209834",
+			"description": "SUSE Bug 1209834"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1212091",
+			"description": "SUSE Bug 1212091"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1215885",
+			"description": "SUSE Bug 1215885"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1216016",
+			"description": "SUSE Bug 1216016"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1216702",
+			"description": "SUSE Bug 1216702"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1217217",
+			"description": "SUSE Bug 1217217"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1217670",
+			"description": "SUSE Bug 1217670"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1217895",
+			"description": "SUSE Bug 1217895"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1217987",
+			"description": "SUSE Bug 1217987"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1217988",
+			"description": "SUSE Bug 1217988"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1217989",
+			"description": "SUSE Bug 1217989"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218689",
+			"description": "SUSE Bug 1218689"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218713",
+			"description": "SUSE Bug 1218713"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218730",
+			"description": "SUSE Bug 1218730"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218752",
+			"description": "SUSE Bug 1218752"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218757",
+			"description": "SUSE Bug 1218757"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218768",
+			"description": "SUSE Bug 1218768"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218804",
+			"description": "SUSE Bug 1218804"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218832",
+			"description": "SUSE Bug 1218832"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218836",
+			"description": "SUSE Bug 1218836"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218916",
+			"description": "SUSE Bug 1218916"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218929",
+			"description": "SUSE Bug 1218929"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218930",
+			"description": "SUSE Bug 1218930"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1218968",
+			"description": "SUSE Bug 1218968"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1219053",
+			"description": "SUSE Bug 1219053"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1219120",
+			"description": "SUSE Bug 1219120"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1219128",
+			"description": "SUSE Bug 1219128"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1219349",
+			"description": "SUSE Bug 1219349"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1219412",
+			"description": "SUSE Bug 1219412"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1219429",
+			"description": "SUSE Bug 1219429"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1219434",
+			"description": "SUSE Bug 1219434"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1219490",
+			"description": "SUSE Bug 1219490"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1219608",
+			"description": "SUSE Bug 1219608"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-33631/",
+			"description": "SUSE CVE CVE-2021-33631 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-46838/",
+			"description": "SUSE CVE CVE-2023-46838 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-47233/",
+			"description": "SUSE CVE CVE-2023-47233 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-51042/",
+			"description": "SUSE CVE CVE-2023-51042 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-51043/",
+			"description": "SUSE CVE CVE-2023-51043 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-51780/",
+			"description": "SUSE CVE CVE-2023-51780 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-51782/",
+			"description": "SUSE CVE CVE-2023-51782 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-6040/",
+			"description": "SUSE CVE CVE-2023-6040 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-6356/",
+			"description": "SUSE CVE CVE-2023-6356 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-6535/",
+			"description": "SUSE CVE CVE-2023-6535 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-6536/",
+			"description": "SUSE CVE CVE-2023-6536 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-6915/",
+			"description": "SUSE CVE CVE-2023-6915 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-0340/",
+			"description": "SUSE CVE CVE-2024-0340 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-0565/",
+			"description": "SUSE CVE CVE-2024-0565 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-0641/",
+			"description": "SUSE CVE CVE-2024-0641 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-0775/",
+			"description": "SUSE CVE CVE-2024-0775 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-1085/",
+			"description": "SUSE CVE CVE-2024-1085 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-1086/",
+			"description": "SUSE CVE CVE-2024-1086 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-24860/",
+			"description": "SUSE CVE CVE-2024-24860 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Container rancher/elemental-teal-rt/5.4:latest",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Container rancher/elemental-teal-rt/5.4:latest",
+						"full_product_name": {
+							"text": "Container rancher/elemental-teal-rt/5.4:latest",
+							"product_id": "Container rancher/elemental-teal-rt/5.4:latest"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Live Patching 15 SP4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Live Patching 15 SP4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Live Patching 15 SP4",
+							"product_id": "SUSE Linux Enterprise Live Patching 15 SP4",
+							"cpe": "cpe:/o:suse:sle-module-live-patching:15:sp4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Micro 5.3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Micro 5.3",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Micro 5.3",
+							"product_id": "SUSE Linux Enterprise Micro 5.3",
+							"cpe": "cpe:/o:suse:sle-micro:5.3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Micro 5.4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Micro 5.4",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Micro 5.4",
+							"product_id": "SUSE Linux Enterprise Micro 5.4",
+							"cpe": "cpe:/o:suse:sle-micro:5.4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap Micro 5.3",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap Micro 5.3",
+						"full_product_name": {
+							"text": "openSUSE Leap Micro 5.3",
+							"product_id": "openSUSE Leap Micro 5.3",
+							"cpe": "cpe:/o:opensuse:leap-micro:5.3"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap Micro 5.4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap Micro 5.4",
+						"full_product_name": {
+							"text": "openSUSE Leap Micro 5.4",
+							"product_id": "openSUSE Leap Micro 5.4",
+							"cpe": "cpe:/o:opensuse:leap-micro:5.4"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "kernel-rt-5.14.21-150400.15.68.1",
+					"product_id": "kernel-rt-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-md-kmp-rt-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "cluster-md-kmp-rt-5.14.21-150400.15.68.1",
+					"product_id": "cluster-md-kmp-rt-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "dlm-kmp-rt-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "dlm-kmp-rt-5.14.21-150400.15.68.1",
+					"product_id": "dlm-kmp-rt-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gfs2-kmp-rt-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "gfs2-kmp-rt-5.14.21-150400.15.68.1",
+					"product_id": "gfs2-kmp-rt-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-devel-rt-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "kernel-devel-rt-5.14.21-150400.15.68.1",
+					"product_id": "kernel-devel-rt-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+				"full_product_name": {
+					"text": "kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+					"product_id": "kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-devel-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "kernel-rt-devel-5.14.21-150400.15.68.1",
+					"product_id": "kernel-rt-devel-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-extra-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "kernel-rt-extra-5.14.21-150400.15.68.1",
+					"product_id": "kernel-rt-extra-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-livepatch-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "kernel-rt-livepatch-5.14.21-150400.15.68.1",
+					"product_id": "kernel-rt-livepatch-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-livepatch-devel-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "kernel-rt-livepatch-devel-5.14.21-150400.15.68.1",
+					"product_id": "kernel-rt-livepatch-devel-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-optional-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "kernel-rt-optional-5.14.21-150400.15.68.1",
+					"product_id": "kernel-rt-optional-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt_debug-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "kernel-rt_debug-5.14.21-150400.15.68.1",
+					"product_id": "kernel-rt_debug-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt_debug-devel-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "kernel-rt_debug-devel-5.14.21-150400.15.68.1",
+					"product_id": "kernel-rt_debug-devel-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt_debug-livepatch-devel-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "kernel-rt_debug-livepatch-devel-5.14.21-150400.15.68.1",
+					"product_id": "kernel-rt_debug-livepatch-devel-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-rt-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "kernel-source-rt-5.14.21-150400.15.68.1",
+					"product_id": "kernel-source-rt-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-rt-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "kernel-syms-rt-5.14.21-150400.15.68.1",
+					"product_id": "kernel-syms-rt-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kselftests-kmp-rt-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "kselftests-kmp-rt-5.14.21-150400.15.68.1",
+					"product_id": "kselftests-kmp-rt-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ocfs2-kmp-rt-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "ocfs2-kmp-rt-5.14.21-150400.15.68.1",
+					"product_id": "ocfs2-kmp-rt-5.14.21-150400.15.68.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "reiserfs-kmp-rt-5.14.21-150400.15.68.1",
+				"full_product_name": {
+					"text": "reiserfs-kmp-rt-5.14.21-150400.15.68.1",
+					"product_id": "reiserfs-kmp-rt-5.14.21-150400.15.68.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-rt-5.14.21-150400.15.68.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Container rancher/elemental-teal-rt/5.4:latest"
+			},
+			{
+				"product_reference": "kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Live Patching 15 SP4"
+			},
+			{
+				"product_reference": "kernel-rt-5.14.21-150400.15.68.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Micro 5.3"
+			},
+			{
+				"product_reference": "kernel-rt-5.14.21-150400.15.68.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Micro 5.4"
+			},
+			{
+				"product_reference": "kernel-rt-5.14.21-150400.15.68.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap Micro 5.3"
+			},
+			{
+				"product_reference": "kernel-rt-5.14.21-150400.15.68.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap Micro 5.4"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Integer Overflow or Wraparound vulnerability in openEuler kernel on Linux (filesystem modules) allows Forced Integer Overflow.This issue affects openEuler kernel: from 4.19.90 before 4.19.90-2401.3, from 5.10.0-60.18.0 before 5.10.0-183.0.0.\n\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-33631",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-33631.html",
+					"description": "CVE-2021-33631"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1219412",
+					"description": "SUSE Bug 1219412"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Transmit requests in Xen's virtual network protocol can consist of\nmultiple parts.  While not really useful, except for the initial part\nany of them may be of zero length, i.e. carry no data at all.  Besides a\ncertain initial portion of the to be transferred data, these parts are\ndirectly translated into what Linux calls SKB fragments.  Such converted\nrequest parts can, when for a particular SKB they are all of length\nzero, lead to a de-reference of NULL in core networking code.\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-46838",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "4.4",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-46838.html",
+					"description": "CVE-2023-46838"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1218836",
+					"description": "SUSE Bug 1218836"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The brcm80211 component in the Linux kernel through 6.5.10 has a brcmf_cfg80211_detach use-after-free in the device unplugging (disconnect the USB by hotplug) code. For physically proximate attackers with local access, this \"could be exploited in a real world scenario.\" This is related to brcmf_cfg80211_escan_timeout_worker in drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-47233",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "4.3",
+					"vector_v_3": "CVSS:3.1/AV:P/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-47233.html",
+					"description": "CVE-2023-47233"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1216702",
+					"description": "SUSE Bug 1216702"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1224592",
+					"description": "SUSE Bug 1224592"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel before 6.4.12, amdgpu_cs_wait_all_fences in drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c has a fence use-after-free.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-51042",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-51042.html",
+					"description": "CVE-2023-51042"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1219128",
+					"description": "SUSE Bug 1219128"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel before 6.4.5, drivers/gpu/drm/drm_atomic.c has a use-after-free during a race condition between a nonblocking atomic commit and a driver unload.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-51043",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-51043.html",
+					"description": "CVE-2023-51043"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1219120",
+					"description": "SUSE Bug 1219120"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel before 6.6.8. do_vcc_ioctl in net/atm/ioctl.c has a use-after-free because of a vcc_recvmsg race condition.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-51780",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-51780.html",
+					"description": "CVE-2023-51780"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1218730",
+					"description": "SUSE Bug 1218730"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1218733",
+					"description": "SUSE Bug 1218733"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1220191",
+					"description": "SUSE Bug 1220191"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1221578",
+					"description": "SUSE Bug 1221578"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1221598",
+					"description": "SUSE Bug 1221598"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1224298",
+					"description": "SUSE Bug 1224298"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1224878",
+					"description": "SUSE Bug 1224878"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An issue was discovered in the Linux kernel before 6.6.8. rose_ioctl in net/rose/af_rose.c has a use-after-free because of a rose_accept race condition.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-51782",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-51782.html",
+					"description": "CVE-2023-51782"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1218757",
+					"description": "SUSE Bug 1218757"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An out-of-bounds access vulnerability involving netfilter was reported and fixed as: f1082dd31fe4 (netfilter: nf_tables: Reject tables of unsupported family); While creating a new netfilter table, lack of a safeguard against invalid nf_tables family (pf) values within `nf_tables_newtable` function enables an attacker to achieve out-of-bounds access.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-6040",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "4.4",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-6040.html",
+					"description": "CVE-2023-6040"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1218752",
+					"description": "SUSE Bug 1218752"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the Linux kernel's NVMe driver. This issue may allow an unauthenticated malicious actor to send a set of crafted TCP packages when using NVMe over TCP, leading the NVMe driver to a NULL pointer dereference in the NVMe driver and causing kernel panic and a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-6356",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-6356.html",
+					"description": "CVE-2023-6356"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1217987",
+					"description": "SUSE Bug 1217987"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the Linux kernel's NVMe driver. This issue may allow an unauthenticated malicious actor to send a set of crafted TCP packages when using NVMe over TCP, leading the NVMe driver to a NULL pointer dereference in the NVMe driver, causing kernel panic and a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-6535",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-6535.html",
+					"description": "CVE-2023-6535"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1217988",
+					"description": "SUSE Bug 1217988"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A flaw was found in the Linux kernel's NVMe driver. This issue may allow an unauthenticated malicious actor to send a set of crafted TCP packages when using NVMe over TCP, leading the NVMe driver to a NULL pointer dereference in the NVMe driver, causing kernel panic and a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-6536",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-6536.html",
+					"description": "CVE-2023-6536"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1217989",
+					"description": "SUSE Bug 1217989"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A Null pointer dereference problem was found in ida_free in lib/idr.c in the Linux Kernel. This issue may allow an attacker using this library to cause a denial of service problem due to a missing check at a function return.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-6915",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-6915.html",
+					"description": "CVE-2023-6915"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1218804",
+					"description": "SUSE Bug 1218804"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A vulnerability was found in vhost_new_msg in drivers/vhost/vhost.c in the Linux kernel, which does not properly initialize memory in messages passed between virtual guests and the host operating system in the vhost/vhost.c:vhost_new_msg() function. This issue can allow local privileged users to read some kernel memory contents when reading from the /dev/vhost-net device file.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-0340",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-0340.html",
+					"description": "CVE-2024-0340"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1218689",
+					"description": "SUSE Bug 1218689"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An out-of-bounds memory read flaw was found in receive_encrypted_standard in fs/smb/client/smb2ops.c in the SMB Client sub-component in the Linux Kernel. This issue occurs due to integer underflow on the memcpy length, leading to a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-0565",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-0565.html",
+					"description": "CVE-2024-0565"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1218832",
+					"description": "SUSE Bug 1218832"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1219078",
+					"description": "SUSE Bug 1219078"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A denial of service vulnerability was found in tipc_crypto_key_revoke in net/tipc/crypto.c in the Linux kernel's TIPC subsystem. This flaw allows guests with local user privileges to trigger a deadlock and potentially crash the system.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-0641",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "4.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-0641.html",
+					"description": "CVE-2024-0641"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1218916",
+					"description": "SUSE Bug 1218916"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A use-after-free flaw was found in the __ext4_remount in fs/ext4/super.c in ext4 in the Linux kernel. This flaw allows a local user to cause an information leak problem while freeing the old quota file names before a potential failure, leading to a use-after-free.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-0775",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.1",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-0775.html",
+					"description": "CVE-2024-0775"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1219053",
+					"description": "SUSE Bug 1219053"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1219082",
+					"description": "SUSE Bug 1219082"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1224298",
+					"description": "SUSE Bug 1224298"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1224878",
+					"description": "SUSE Bug 1224878"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A use-after-free vulnerability in the Linux kernel's netfilter: nf_tables component can be exploited to achieve local privilege escalation.\n\nThe nft_setelem_catchall_deactivate() function checks whether the catch-all set element is active in the current generation instead of the next generation before freeing it, but only flags it inactive in the next generation, making it possible to free the element multiple times, leading to a double free vulnerability.\n\nWe recommend upgrading past commit b1db244ffd041a49ecc9618e8feb6b5c1afcdaa7.\n\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-1085",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-1085.html",
+					"description": "CVE-2024-1085"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1219429",
+					"description": "SUSE Bug 1219429"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1219432",
+					"description": "SUSE Bug 1219432"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A use-after-free vulnerability in the Linux kernel's netfilter: nf_tables component can be exploited to achieve local privilege escalation.\n\nThe nft_verdict_init() function allows positive values as drop error within the hook verdict, and hence the nf_hook_slow() function can cause a double free vulnerability when NF_DROP is issued with a drop error which resembles NF_ACCEPT.\n\nWe recommend upgrading past commit f342de4e2f33e0e39165d8639387aa6c19dff660.\n\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-1086",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-1086.html",
+					"description": "CVE-2024-1086"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1219434",
+					"description": "SUSE Bug 1219434"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1219435",
+					"description": "SUSE Bug 1219435"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1224298",
+					"description": "SUSE Bug 1224298"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1224878",
+					"description": "SUSE Bug 1224878"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1226066",
+					"description": "SUSE Bug 1226066"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A race condition was found in the Linux kernel's bluetooth device driver in {min,max}_key_size_set() function. This can result in a null pointer dereference issue, possibly leading to a kernel panic or denial of service issue.\n\n\n\n\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-24860",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Container rancher/elemental-teal-rt/5.4:latest:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Live Patching 15 SP4:kernel-livepatch-5_14_21-150400_15_68-rt-1-150400.1.3.1",
+						"SUSE Linux Enterprise Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"SUSE Linux Enterprise Micro 5.4:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.3:kernel-rt-5.14.21-150400.15.68.1",
+						"openSUSE Leap Micro 5.4:kernel-rt-5.14.21-150400.15.68.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20240476-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-24860.html",
+					"description": "CVE-2024-24860"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1219608",
+					"description": "SUSE Bug 1219608"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,4496 @@
+{
+	"document_title": "Security update for the Linux Kernel",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2017:0333-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2017-01-30T16:03:00Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2017-01-30T16:03:00Z",
+		"current_release_date": "2017-01-30T16:03:00Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "\nThe SUSE Linux Enterprise 11 SP2 LTSS kernel was updated to receive various security and bugfixes.\n\nThis is the last planned LTSS kernel update for the SUSE Linux Enterprise Server 11 SP2 LTSS.\n\nThe following security bugs were fixed:\n\n- CVE-2016-10088: The sg implementation in the Linux kernel did not properly restrict write operations in situations where the KERNEL_DS option is set, which allowed local users to read or write to arbitrary kernel memory locations or cause a denial of service (use-after-free) by leveraging access to a /dev/sg device, related to block/bsg.c and drivers/scsi/sg.c.  NOTE: this vulnerability exists because of an incomplete fix for CVE-2016-9576 (bnc#1017710).\n- CVE-2004-0230: TCP, when using a large Window Size, made it easier for remote attackers to guess sequence numbers and cause a denial of service (connection loss) to persistent TCP connections by repeatedly injecting a TCP RST packet, especially in protocols that use long-lived connections, such as BGP (bnc#969340).\n- CVE-2016-8632: The tipc_msg_build function in net/tipc/msg.c in the Linux kernel did not validate the relationship between the minimum fragment length and the maximum packet size, which allowed local users to gain privileges or cause a denial of service (heap-based buffer overflow) by leveraging the CAP_NET_ADMIN capability (bnc#1008831).\n- CVE-2016-8399: An out of bounds read in the ping protocol handler could have lead to information disclosure (bsc#1014746).\n- CVE-2016-9793: The sock_setsockopt function in net/core/sock.c in the Linux kernel mishandled negative values of sk_sndbuf and sk_rcvbuf, which allowed local users to cause a denial of service (memory corruption and system crash) or possibly have unspecified other impact by leveraging the CAP_NET_ADMIN capability for a crafted setsockopt system call with the (1) SO_SNDBUFFORCE or (2) SO_RCVBUFFORCE option (bnc#1013531).\n- CVE-2012-6704: The sock_setsockopt function in net/core/sock.c in the Linux kernel mishandled negative values of sk_sndbuf and sk_rcvbuf, which allowed local users to cause a denial of service (memory corruption and system crash) or possibly have unspecified other impact by leveraging the CAP_NET_ADMIN capability for a crafted setsockopt system call with the (1) SO_SNDBUF or (2) SO_RCVBUF option (bnc#1013542).\n- CVE-2016-9756: arch/x86/kvm/emulate.c in the Linux kernel did not properly initialize Code Segment (CS) in certain error cases, which allowed local users to obtain sensitive information from kernel stack memory via a crafted application (bnc#1013038).\n- CVE-2016-3841: The IPv6 stack in the Linux kernel mishandled options data, which allowed local users to gain privileges or cause a denial of service (use-after-free and system crash) via a crafted sendmsg system call (bnc#992566).\n- CVE-2016-9685: Multiple memory leaks in error paths in fs/xfs/xfs_attr_list.c in the Linux kernel allowed local users to cause a denial of service (memory consumption) via crafted XFS filesystem operations (bnc#1012832).\n- CVE-2015-1350: The VFS subsystem in the Linux kernel 3.x provides an incomplete set of requirements for setattr operations that underspecified removing extended privilege attributes, which allowed local users to cause a denial of service (capability stripping) via a failed invocation of a system call, as demonstrated by using chown to remove a capability from the ping or Wireshark dumpcap program (bnc#914939).\n- CVE-2015-8962: Double free vulnerability in the sg_common_write function in drivers/scsi/sg.c in the Linux kernel allowed local users to gain privileges or cause a denial of service (memory corruption and system crash) by detaching a device during an SG_IO ioctl call (bnc#1010501).\n- CVE-2016-9555: The sctp_sf_ootb function in net/sctp/sm_statefuns.c in the Linux kernel lacked chunk-length checking for the first chunk, which allowed remote attackers to cause a denial of service (out-of-bounds slab access) or possibly have unspecified other impact via crafted SCTP data (bnc#1011685).\n- CVE-2016-7910: Use-after-free vulnerability in the disk_seqf_stop function in block/genhd.c in the Linux kernel allowed local users to gain privileges by leveraging the execution of a certain stop operation even if the corresponding start operation had failed (bnc#1010716).\n- CVE-2016-7911: Race condition in the get_task_ioprio function in block/ioprio.c in the Linux kernel allowed local users to gain privileges or cause a denial of service (use-after-free) via a crafted ioprio_get system call (bnc#1010711).\n- CVE-2015-8964: The tty_set_termios_ldisc function in drivers/tty/tty_ldisc.c in the Linux kernel allowed local users to obtain sensitive information from kernel memory by reading a tty data structure (bnc#1010507).\n- CVE-2016-7916: Race condition in the environ_read function in fs/proc/base.c in the Linux kernel allowed local users to obtain sensitive information from kernel memory by reading a /proc/*/environ file during a process-setup time interval in which environment-variable copying is incomplete (bnc#1010467).\n- CVE-2016-8646: The hash_accept function in crypto/algif_hash.c in the Linux kernel allowed local users to cause a denial of service (OOPS) by attempting to trigger use of in-kernel hash algorithms for a socket that has received zero bytes of data (bnc#1010150).\n- CVE-2016-8633: drivers/firewire/net.c in the Linux kernel before 4.8.7, in certain unusual hardware configurations, allowed remote attackers to execute arbitrary code via crafted fragmented packets (bnc#1008833).\n- CVE-2016-7042: The proc_keys_show function in security/keys/proc.c in the Linux kernel used an incorrect buffer size for certain timeout data, which allowed local users to cause a denial of service (stack memory corruption and panic) by reading the /proc/keys file (bnc#1004517).\n- CVE-2016-7097: The filesystem implementation in the Linux kernel preserves the setgid bit during a setxattr call, which allowed local users to gain group privileges by leveraging the existence of a setgid program with restrictions on execute permissions (bnc#995968).\n- CVE-2017-5551: The filesystem implementation in the Linux kernel preserves the setgid bit during a setxattr call, which allowed local users to gain group privileges by leveraging the existence of a setgid program with restrictions on execute permissions. This CVE tracks the fix for the tmpfs filesystem. (bsc#1021258).\n- CVE-2015-8956: The rfcomm_sock_bind function in net/bluetooth/rfcomm/sock.c in the Linux kernel allowed local users to obtain sensitive information or cause a denial of service (NULL pointer dereference) via vectors involving a bind system call on a Bluetooth RFCOMM socket (bnc#1003925).\n- CVE-2016-7117: Use-after-free vulnerability in the __sys_recvmmsg function in net/socket.c in the Linux kernel allowed remote attackers to execute arbitrary code via vectors involving a recvmmsg system call that is mishandled during error processing (bnc#1003077).\n- CVE-2016-0823: The pagemap_open function in fs/proc/task_mmu.c in the Linux kernel allowed local users to obtain sensitive physical-address information by reading a pagemap file, aka Android internal bug 25739721 (bnc#994759).\n- CVE-2016-7425: The arcmsr_iop_message_xfer function in drivers/scsi/arcmsr/arcmsr_hba.c in the Linux kernel did not restrict a certain length field, which allowed local users to gain privileges or cause a denial of service (heap-based buffer overflow) via an ARCMSR_MESSAGE_WRITE_WQBUFFER control code (bnc#999932).\n- CVE-2016-6828: The tcp_check_send_head function in include/net/tcp.h in the Linux kernel did not properly maintain certain SACK state after a failed data copy, which allowed local users to cause a denial of service (tcp_xmit_retransmit_queue use-after-free and system crash) via a crafted SACK option (bnc#994296).\n- CVE-2016-6480: Race condition in the ioctl_send_fib function in drivers/scsi/aacraid/commctrl.c in the Linux kernel allowed local users to cause a denial of service (out-of-bounds access or system crash) by changing a certain size value, aka a 'double fetch' vulnerability (bnc#991608).\n- CVE-2016-4998: The IPT_SO_SET_REPLACE setsockopt implementation in the netfilter subsystem in the Linux kernel allowed local users to cause a denial of service (out-of-bounds read) or possibly obtain sensitive information from kernel heap memory by leveraging in-container root access to provide a crafted offset value that leads to crossing a ruleset blob boundary (bsc#986365).\n- CVE-2015-7513: arch/x86/kvm/x86.c in the Linux kernel did not reset the PIT counter values during state restoration, which allowed guest OS users to cause a denial of service (divide-by-zero error and host OS crash) via a zero value, related to the kvm_vm_ioctl_set_pit and kvm_vm_ioctl_set_pit2 functions (bnc#960689).\n- CVE-2013-4312: The Linux kernel allowed local users to bypass file-descriptor limits and cause a denial of service (memory consumption) by sending each descriptor over a UNIX socket before closing it, related to net/unix/af_unix.c and net/unix/garbage.c (bnc#839104).\n- CVE-2016-4997: The compat IPT_SO_SET_REPLACE and IP6T_SO_SET_REPLACE setsockopt implementations in the netfilter subsystem in the Linux kernel allow local users to gain privileges or cause a denial of service (memory corruption) by leveraging in-container root access to provide a crafted offset value that triggers an unintended decrement (bnc#986362).\n- CVE-2016-5829: Multiple heap-based buffer overflows in the hiddev_ioctl_usage function in drivers/hid/usbhid/hiddev.c in the Linux kernel allow local users to cause a denial of service or possibly have unspecified other impact via a crafted (1) HIDIOCGUSAGES or (2) HIDIOCSUSAGES ioctl call (bnc#986572).\n- CVE-2016-4470: The key_reject_and_link function in security/keys/key.c in the Linux kernel did not ensure that a certain data structure is initialized, which allowed local users to cause a denial of service (system crash) via vectors involving a crafted keyctl request2 command (bnc#984755).\n- CVE-2016-5244: The rds_inc_info_copy function in net/rds/recv.c in the Linux kernel did not initialize a certain structure member, which allowed remote attackers to obtain sensitive information from kernel stack memory by reading an RDS message (bnc#983213).\n- CVE-2016-1583: The ecryptfs_privileged_open function in fs/ecryptfs/kthread.c in the Linux kernel allowed local users to gain privileges or cause a denial of service (stack memory consumption) via vectors involving crafted mmap calls for /proc pathnames, leading to recursive pagefault handling (bnc#983143).\n- CVE-2016-4913: The get_rock_ridge_filename function in fs/isofs/rock.c in the Linux kernel mishandled NM (aka alternate name) entries containing \\0 characters, which allowed local users to obtain sensitive information from kernel memory or possibly have unspecified other impact via a crafted isofs filesystem (bnc#980725).\n- CVE-2016-4580: The x25_negotiate_facilities function in net/x25/x25_facilities.c in the Linux kernel did not properly initialize a certain data structure, which allowed attackers to obtain sensitive information from kernel stack memory via an X.25 Call Request (bnc#981267).\n- CVE-2016-4805: Use-after-free vulnerability in drivers/net/ppp/ppp_generic.c in the Linux kernel allowed local users to cause a denial of service (memory corruption and system crash, or spinlock) or possibly have unspecified other impact by removing a network namespace, related to the ppp_register_net_channel and ppp_unregister_channel functions (bnc#980371).\n- CVE-2015-7833: The usbvision driver in the Linux kernel allowed physically proximate attackers to cause a denial of service (panic) via a nonzero bInterfaceNumber value in a USB device descriptor (bnc#950998).\n- CVE-2016-2187: The gtco_probe function in drivers/input/tablet/gtco.c in the Linux kernel allowed physically proximate attackers to cause a denial of service (NULL pointer dereference and system crash) via a crafted endpoints value in a USB device descriptor (bnc#971944).\n- CVE-2016-4482: The proc_connectinfo function in drivers/usb/core/devio.c in the Linux kernel did not initialize a certain data structure, which allowed local users to obtain sensitive information from kernel stack memory via a crafted USBDEVFS_CONNECTINFO ioctl call (bnc#978401).\n- CVE-2016-4565: The InfiniBand (aka IB) stack in the Linux kernel incorrectly relies on the write system call, which allowed local users to cause a denial of service (kernel memory write operation) or possibly have unspecified other impact via a uAPI interface (bnc#979548).\n- CVE-2016-4485: The llc_cmsg_rcv function in net/llc/af_llc.c in the Linux kernel did not initialize a certain data structure, which allowed attackers to obtain sensitive information from kernel stack memory by reading a message (bnc#978821).\n- CVE-2016-4578: sound/core/timer.c in the Linux kernel did not initialize certain r1 data structures, which allowed local users to obtain sensitive information from kernel stack memory via crafted use of the ALSA timer interface, related to the (1) snd_timer_user_ccallback and (2) snd_timer_user_tinterrupt functions (bnc#979879).\n- CVE-2016-4569: The snd_timer_user_params function in sound/core/timer.c in the Linux kernel did not initialize a certain data structure, which allowed local users to obtain sensitive information from kernel stack memory via crafted use of the ALSA timer interface (bnc#979213).\n\n\nThe following non-security bugs were fixed:\n\n- arch/powerpc: Remove duplicate/redundant Altivec entries (bsc#967716).\n- cdc-acm: added sanity checking for probe() (bsc#993891).\n- cgroups: do not attach task to subsystem if migration failed (bnc#979274).\n- cgroups: more safe tasklist locking in cgroup_attach_proc (bnc#979274).\n- dasd: fix hanging system after LCU changes (bnc#968500, LTC#136671).\n- dasd: Fix unresumed device after suspend/resume (bnc#927287, LTC#123892).\n- ipv4/fib: do not warn when primary address is missing if in_dev is dead (bsc#971360).\n- kabi, unix: properly account for FDs passed over unix sockets (bnc#839104).\n- kaweth: fix firmware download (bsc#993890).\n- kaweth: fix oops upon failed memory allocation (bsc#993890).\n- kvm: x86: SYSENTER emulation is broken (bsc#994618).\n- mm: thp: fix SMP race condition between THP page fault and MADV_DONTNEED (VM Functionality, bnc#986445).\n- mremap: enforce rmap src/dst vma ordering in case of vma_merge() succeeding in copy_vma() (VM Functionality, bsc#1008645).\n- nfs4: reset states to use open_stateid when returning delegation voluntarily (bsc#1007944).\n- nfs: Do not disconnect open-owner on NFS4ERR_BAD_SEQID (bsc#989261, bsc#1011482).\n- nfs: do not do blind d_drop() in nfs_prime_dcache() (bnc#908069 bnc#896484 bsc#963053).\n- nfs_prime_dcache needs fh to be set (bnc#908069 bnc#896484 bsc#963053).\n- nfs: Refresh open-owner id when server says SEQID is bad (bsc#989261).\n- nfsv4: Ensure that we do not drop a state owner more than once (bsc#979595).\n- nfsv4: fix broken patch relating to v4 read delegations (bsc#956514, bsc#989261, bsc#979595, bsc#1011482).\n- nfsv4: nfs4_proc_renew should be declared static (bnc#863873).\n- nfsv4: OPEN must handle the NFS4ERR_IO return code correctly (bsc#979595).\n- nfsv4: Recovery of recalled read delegations is broken (bsc#956514 bsc#1011482).\n- nfsv4: The NFSv4.0 client must send RENEW calls if it holds a delegation (bnc#863873).\n- powerpc: Add ability to build little endian kernels (bsc#967716).\n- powerpc: Avoid load of static chain register when calling nested functions through a pointer on 64bit (bsc#967716).\n- powerpc: Do not build assembly files with ABIv2 (bsc#967716).\n- powerpc: Do not use ELFv2 ABI to build the kernel (bsc#967716).\n- powerpc: dtc is required to build dtb files (bsc#967716).\n- powerpc: Fix 64 bit builds with binutils 2.24 (bsc#967716).\n- powerpc: Fix error when cross building TAGS & cscope (bsc#967716).\n- powerpc: Make the vdso32 also build big-endian (bsc#967716).\n- powerpc: Remove altivec fix for gcc versions before 4.0 (bsc#967716).\n- powerpc: Remove buggy 9-year-old test for binutils < 2.12.1 (bsc#967716).\n- powerpc: Require gcc 4.0 on 64-bit (bsc#967716).\n- ppp: defer netns reference release for ppp channel (bsc#980371).\n- qeth: delete napi struct when removing a qeth device (bnc#979915, LTC#143590).\n- qeth: Fix crash on initial MTU size change (bnc#835175, LTC#96809).\n- qeth: postpone freeing of qdio memory (bnc#874145, LTC#107873).\n- rpm/kernel-binary.spec.in: Export a make-stderr.log file (bsc#1012422)\n- Revert 's390/mm: fix asce_bits handling with dynamic pagetable levels' This reverts commit 6e00b1d803fa2ab4b130e04b7fbcc99f0b5ecba8.\n- rpm/config.sh: Set the release string to 0.7.<RELEASE> (bsc#997059)\n- rpm/mkspec: Read a default release string from rpm/config.sh (bsc997059)\n- s390/dasd: fix failfast for disconnected devices (bnc#958000, LTC#135138).\n- s390/dasd: fix hanging device after clear subchannel (bnc#994436, LTC#144640).\n- s390/dasd: fix kernel panic when alias is set offline (bnc#940966, LTC#128595).\n- s390/dasd: fix list_del corruption after lcu changes (bnc#954984, LTC#133077).\n- s390/mm: fix asce_bits handling with dynamic pagetable levels (bnc#979915, LTC#141456). Conflicts: \tseries.conf\n- s390/pageattr: do a single TLB flush for change_page_attr (bsc#1009443,LTC#148182).\n- Set CONFIG_DEBUG_INFO=y and CONFIG_DEBUG_INFO_REDUCED=n on all platforms The specfile adjusts the config if necessary, but a new version of run_oldconfig.sh requires the settings to be present in the repository.\n- usb: fix typo in wMaxPacketSize validation (bsc#991665).\n- usb: validate wMaxPacketValue entries in endpoint descriptors (bnc#991665).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "slessp2-kernel-12961",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/",
+			"description": "Link for SUSE-SU-2017:0333-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2017-January/002609.html",
+			"description": "E-Mail link for SUSE-SU-2017:0333-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1003077",
+			"description": "SUSE Bug 1003077"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1003925",
+			"description": "SUSE Bug 1003925"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1004517",
+			"description": "SUSE Bug 1004517"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1007944",
+			"description": "SUSE Bug 1007944"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1008645",
+			"description": "SUSE Bug 1008645"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1008831",
+			"description": "SUSE Bug 1008831"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1008833",
+			"description": "SUSE Bug 1008833"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1009443",
+			"description": "SUSE Bug 1009443"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1010150",
+			"description": "SUSE Bug 1010150"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1010467",
+			"description": "SUSE Bug 1010467"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1010501",
+			"description": "SUSE Bug 1010501"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1010507",
+			"description": "SUSE Bug 1010507"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1010711",
+			"description": "SUSE Bug 1010711"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1010716",
+			"description": "SUSE Bug 1010716"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1011482",
+			"description": "SUSE Bug 1011482"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1011685",
+			"description": "SUSE Bug 1011685"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1012422",
+			"description": "SUSE Bug 1012422"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1012832",
+			"description": "SUSE Bug 1012832"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1013038",
+			"description": "SUSE Bug 1013038"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1013531",
+			"description": "SUSE Bug 1013531"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1013542",
+			"description": "SUSE Bug 1013542"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1014746",
+			"description": "SUSE Bug 1014746"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1017710",
+			"description": "SUSE Bug 1017710"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1021258",
+			"description": "SUSE Bug 1021258"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/835175",
+			"description": "SUSE Bug 835175"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/839104",
+			"description": "SUSE Bug 839104"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/863873",
+			"description": "SUSE Bug 863873"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/874145",
+			"description": "SUSE Bug 874145"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/896484",
+			"description": "SUSE Bug 896484"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/908069",
+			"description": "SUSE Bug 908069"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/914939",
+			"description": "SUSE Bug 914939"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/922947",
+			"description": "SUSE Bug 922947"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/927287",
+			"description": "SUSE Bug 927287"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/940966",
+			"description": "SUSE Bug 940966"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/950998",
+			"description": "SUSE Bug 950998"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/954984",
+			"description": "SUSE Bug 954984"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/956514",
+			"description": "SUSE Bug 956514"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/958000",
+			"description": "SUSE Bug 958000"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/960689",
+			"description": "SUSE Bug 960689"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/963053",
+			"description": "SUSE Bug 963053"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/967716",
+			"description": "SUSE Bug 967716"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/968500",
+			"description": "SUSE Bug 968500"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/969340",
+			"description": "SUSE Bug 969340"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/971360",
+			"description": "SUSE Bug 971360"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/971944",
+			"description": "SUSE Bug 971944"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/978401",
+			"description": "SUSE Bug 978401"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/978821",
+			"description": "SUSE Bug 978821"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/979213",
+			"description": "SUSE Bug 979213"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/979274",
+			"description": "SUSE Bug 979274"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/979548",
+			"description": "SUSE Bug 979548"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/979595",
+			"description": "SUSE Bug 979595"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/979879",
+			"description": "SUSE Bug 979879"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/979915",
+			"description": "SUSE Bug 979915"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/980363",
+			"description": "SUSE Bug 980363"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/980371",
+			"description": "SUSE Bug 980371"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/980725",
+			"description": "SUSE Bug 980725"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/981267",
+			"description": "SUSE Bug 981267"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/983143",
+			"description": "SUSE Bug 983143"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/983213",
+			"description": "SUSE Bug 983213"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/984755",
+			"description": "SUSE Bug 984755"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/986362",
+			"description": "SUSE Bug 986362"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/986365",
+			"description": "SUSE Bug 986365"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/986445",
+			"description": "SUSE Bug 986445"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/986572",
+			"description": "SUSE Bug 986572"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/989261",
+			"description": "SUSE Bug 989261"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/991608",
+			"description": "SUSE Bug 991608"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/991665",
+			"description": "SUSE Bug 991665"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/992566",
+			"description": "SUSE Bug 992566"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/993890",
+			"description": "SUSE Bug 993890"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/993891",
+			"description": "SUSE Bug 993891"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/994296",
+			"description": "SUSE Bug 994296"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/994436",
+			"description": "SUSE Bug 994436"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/994618",
+			"description": "SUSE Bug 994618"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/994759",
+			"description": "SUSE Bug 994759"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/995968",
+			"description": "SUSE Bug 995968"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/997059",
+			"description": "SUSE Bug 997059"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/999932",
+			"description": "SUSE Bug 999932"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2004-0230/",
+			"description": "SUSE CVE CVE-2004-0230 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2012-6704/",
+			"description": "SUSE CVE CVE-2012-6704 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2013-4312/",
+			"description": "SUSE CVE CVE-2013-4312 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-1350/",
+			"description": "SUSE CVE CVE-2015-1350 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-7513/",
+			"description": "SUSE CVE CVE-2015-7513 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-7833/",
+			"description": "SUSE CVE CVE-2015-7833 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-8956/",
+			"description": "SUSE CVE CVE-2015-8956 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-8962/",
+			"description": "SUSE CVE CVE-2015-8962 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-8964/",
+			"description": "SUSE CVE CVE-2015-8964 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-0823/",
+			"description": "SUSE CVE CVE-2016-0823 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-10088/",
+			"description": "SUSE CVE CVE-2016-10088 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-1583/",
+			"description": "SUSE CVE CVE-2016-1583 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-2187/",
+			"description": "SUSE CVE CVE-2016-2187 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-2189/",
+			"description": "SUSE CVE CVE-2016-2189 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-3841/",
+			"description": "SUSE CVE CVE-2016-3841 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4470/",
+			"description": "SUSE CVE CVE-2016-4470 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4482/",
+			"description": "SUSE CVE CVE-2016-4482 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4485/",
+			"description": "SUSE CVE CVE-2016-4485 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4565/",
+			"description": "SUSE CVE CVE-2016-4565 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4569/",
+			"description": "SUSE CVE CVE-2016-4569 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4578/",
+			"description": "SUSE CVE CVE-2016-4578 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4580/",
+			"description": "SUSE CVE CVE-2016-4580 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4805/",
+			"description": "SUSE CVE CVE-2016-4805 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4913/",
+			"description": "SUSE CVE CVE-2016-4913 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-4997/",
+			"description": "SUSE CVE CVE-2016-4997 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-5244/",
+			"description": "SUSE CVE CVE-2016-5244 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-5829/",
+			"description": "SUSE CVE CVE-2016-5829 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-6480/",
+			"description": "SUSE CVE CVE-2016-6480 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-6828/",
+			"description": "SUSE CVE CVE-2016-6828 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-7042/",
+			"description": "SUSE CVE CVE-2016-7042 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-7097/",
+			"description": "SUSE CVE CVE-2016-7097 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-7117/",
+			"description": "SUSE CVE CVE-2016-7117 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-7425/",
+			"description": "SUSE CVE CVE-2016-7425 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-7910/",
+			"description": "SUSE CVE CVE-2016-7910 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-7911/",
+			"description": "SUSE CVE CVE-2016-7911 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-7916/",
+			"description": "SUSE CVE CVE-2016-7916 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-8399/",
+			"description": "SUSE CVE CVE-2016-8399 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-8632/",
+			"description": "SUSE CVE CVE-2016-8632 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-8633/",
+			"description": "SUSE CVE CVE-2016-8633 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-8646/",
+			"description": "SUSE CVE CVE-2016-8646 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-9555/",
+			"description": "SUSE CVE CVE-2016-9555 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-9685/",
+			"description": "SUSE CVE CVE-2016-9685 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-9756/",
+			"description": "SUSE CVE CVE-2016-9756 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2016-9793/",
+			"description": "SUSE CVE CVE-2016-9793 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2017-5551/",
+			"description": "SUSE CVE CVE-2017-5551 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 11 SP2-LTSS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 11 SP2-LTSS",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 11 SP2-LTSS",
+							"product_id": "SUSE Linux Enterprise Server 11 SP2-LTSS",
+							"cpe": "cpe:/o:suse:suse_sles_ltss:11:sp2"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-default-3.0.101-0.7.53.1",
+					"product_id": "kernel-default-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-base-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-default-base-3.0.101-0.7.53.1",
+					"product_id": "kernel-default-base-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-devel-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-default-devel-3.0.101-0.7.53.1",
+					"product_id": "kernel-default-devel-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-default-man-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-default-man-3.0.101-0.7.53.1",
+					"product_id": "kernel-default-man-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-ec2-3.0.101-0.7.53.1",
+					"product_id": "kernel-ec2-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-base-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-ec2-base-3.0.101-0.7.53.1",
+					"product_id": "kernel-ec2-base-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-ec2-devel-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-ec2-devel-3.0.101-0.7.53.1",
+					"product_id": "kernel-ec2-devel-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-pae-3.0.101-0.7.53.1",
+					"product_id": "kernel-pae-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-base-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-pae-base-3.0.101-0.7.53.1",
+					"product_id": "kernel-pae-base-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-pae-devel-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-pae-devel-3.0.101-0.7.53.1",
+					"product_id": "kernel-pae-devel-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-source-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-source-3.0.101-0.7.53.1",
+					"product_id": "kernel-source-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-syms-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-syms-3.0.101-0.7.53.1",
+					"product_id": "kernel-syms-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-trace-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-trace-3.0.101-0.7.53.1",
+					"product_id": "kernel-trace-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-trace-base-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-trace-base-3.0.101-0.7.53.1",
+					"product_id": "kernel-trace-base-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-trace-devel-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-trace-devel-3.0.101-0.7.53.1",
+					"product_id": "kernel-trace-devel-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-xen-3.0.101-0.7.53.1",
+					"product_id": "kernel-xen-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-base-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-xen-base-3.0.101-0.7.53.1",
+					"product_id": "kernel-xen-base-3.0.101-0.7.53.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-xen-devel-3.0.101-0.7.53.1",
+				"full_product_name": {
+					"text": "kernel-xen-devel-3.0.101-0.7.53.1",
+					"product_id": "kernel-xen-devel-3.0.101-0.7.53.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-default-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-base-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-devel-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-default-man-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-ec2-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-ec2-base-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-ec2-devel-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-pae-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-pae-base-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-pae-devel-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-source-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-syms-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-trace-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-trace-base-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-trace-devel-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-base-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			},
+			{
+				"product_reference": "kernel-xen-devel-3.0.101-0.7.53.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 11 SP2-LTSS"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "TCP, when using a large Window Size, makes it easier for remote attackers to guess sequence numbers and cause a denial of service (connection loss) to persistent TCP connections by repeatedly injecting a TCP RST packet, especially in protocols that use long-lived connections, such as BGP.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2004-0230",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.7",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2004-0230.html",
+					"description": "CVE-2004-0230"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1184394",
+					"description": "SUSE Bug 1184394"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1198501",
+					"description": "SUSE Bug 1198501"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1206598",
+					"description": "SUSE Bug 1206598"
+				},
+				{
+					"url": "https://bugzilla.suse.com/969340",
+					"description": "SUSE Bug 969340"
+				},
+				{
+					"url": "https://bugzilla.suse.com/989152",
+					"description": "SUSE Bug 989152"
+				},
+				{
+					"url": "https://bugzilla.suse.com/992991",
+					"description": "SUSE Bug 992991"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The sock_setsockopt function in net/core/sock.c in the Linux kernel before 3.5 mishandles negative values of sk_sndbuf and sk_rcvbuf, which allows local users to cause a denial of service (memory corruption and system crash) or possibly have unspecified other impact by leveraging the CAP_NET_ADMIN capability for a crafted setsockopt system call with the (1) SO_SNDBUF or (2) SO_RCVBUF option.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2012-6704",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.6",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2012-6704.html",
+					"description": "CVE-2012-6704"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1013531",
+					"description": "SUSE Bug 1013531"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1013542",
+					"description": "SUSE Bug 1013542"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The Linux kernel before 4.4.1 allows local users to bypass file-descriptor limits and cause a denial of service (memory consumption) by sending each descriptor over a UNIX socket before closing it, related to net/unix/af_unix.c and net/unix/garbage.c.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2013-4312",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2013-4312.html",
+					"description": "CVE-2013-4312"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020452",
+					"description": "SUSE Bug 1020452"
+				},
+				{
+					"url": "https://bugzilla.suse.com/839104",
+					"description": "SUSE Bug 839104"
+				},
+				{
+					"url": "https://bugzilla.suse.com/922947",
+					"description": "SUSE Bug 922947"
+				},
+				{
+					"url": "https://bugzilla.suse.com/968014",
+					"description": "SUSE Bug 968014"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The VFS subsystem in the Linux kernel 3.x provides an incomplete set of requirements for setattr operations that underspecifies removing extended privilege attributes, which allows local users to cause a denial of service (capability stripping) via a failed invocation of a system call, as demonstrated by using chown to remove a capability from the ping or Wireshark dumpcap program.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-1350",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-1350.html",
+					"description": "CVE-2015-1350"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1052256",
+					"description": "SUSE Bug 1052256"
+				},
+				{
+					"url": "https://bugzilla.suse.com/914939",
+					"description": "SUSE Bug 914939"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "arch/x86/kvm/x86.c in the Linux kernel before 4.4 does not reset the PIT counter values during state restoration, which allows guest OS users to cause a denial of service (divide-by-zero error and host OS crash) via a zero value, related to the kvm_vm_ioctl_set_pit and kvm_vm_ioctl_set_pit2 functions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-7513",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-7513.html",
+					"description": "CVE-2015-7513"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020452",
+					"description": "SUSE Bug 1020452"
+				},
+				{
+					"url": "https://bugzilla.suse.com/960689",
+					"description": "SUSE Bug 960689"
+				},
+				{
+					"url": "https://bugzilla.suse.com/987709",
+					"description": "SUSE Bug 987709"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The usbvision driver in the Linux kernel package 3.10.0-123.20.1.el7 through 3.10.0-229.14.1.el7 in Red Hat Enterprise Linux (RHEL) 7.1 allows physically proximate attackers to cause a denial of service (panic) via a nonzero bInterfaceNumber value in a USB device descriptor.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-7833",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.6",
+					"vector_v_3": "CVSS:3.1/AV:P/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-7833.html",
+					"description": "CVE-2015-7833"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020452",
+					"description": "SUSE Bug 1020452"
+				},
+				{
+					"url": "https://bugzilla.suse.com/950998",
+					"description": "SUSE Bug 950998"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The rfcomm_sock_bind function in net/bluetooth/rfcomm/sock.c in the Linux kernel before 4.2 allows local users to obtain sensitive information or cause a denial of service (NULL pointer dereference) via vectors involving a bind system call on a Bluetooth RFCOMM socket.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-8956",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:P/I:N/A:C"
+				},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-8956.html",
+					"description": "CVE-2015-8956"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1003925",
+					"description": "SUSE Bug 1003925"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Double free vulnerability in the sg_common_write function in drivers/scsi/sg.c in the Linux kernel before 4.4 allows local users to gain privileges or cause a denial of service (memory corruption and system crash) by detaching a device during an SG_IO ioctl call.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-8962",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5.9",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:C/I:P/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-8962.html",
+					"description": "CVE-2015-8962"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1010501",
+					"description": "SUSE Bug 1010501"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The tty_set_termios_ldisc function in drivers/tty/tty_ldisc.c in the Linux kernel before 4.5 allows local users to obtain sensitive information from kernel memory by reading a tty data structure.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-8964",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:N/AC:H/Au:S/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-8964.html",
+					"description": "CVE-2015-8964"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1010507",
+					"description": "SUSE Bug 1010507"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The pagemap_open function in fs/proc/task_mmu.c in the Linux kernel before 3.19.3, as used in Android 6.0.1 before 2016-03-01, allows local users to obtain sensitive physical-address information by reading a pagemap file, aka Android internal bug 25739721.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-0823",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-0823.html",
+					"description": "CVE-2016-0823"
+				},
+				{
+					"url": "https://bugzilla.suse.com/987709",
+					"description": "SUSE Bug 987709"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994759",
+					"description": "SUSE Bug 994759"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The sg implementation in the Linux kernel through 4.9 does not properly restrict write operations in situations where the KERNEL_DS option is set, which allows local users to read or write to arbitrary kernel memory locations or cause a denial of service (use-after-free) by leveraging access to a /dev/sg device, related to block/bsg.c and drivers/scsi/sg.c.  NOTE: this vulnerability exists because of an incomplete fix for CVE-2016-9576.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-10088",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.2",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-10088.html",
+					"description": "CVE-2016-10088"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1013604",
+					"description": "SUSE Bug 1013604"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1014271",
+					"description": "SUSE Bug 1014271"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1017710",
+					"description": "SUSE Bug 1017710"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1019079",
+					"description": "SUSE Bug 1019079"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The ecryptfs_privileged_open function in fs/ecryptfs/kthread.c in the Linux kernel before 4.6.3 allows local users to gain privileges or cause a denial of service (stack memory consumption) via vectors involving crafted mmap calls for /proc pathnames, leading to recursive pagefault handling.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-1583",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.8",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.1",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-1583.html",
+					"description": "CVE-2016-1583"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020452",
+					"description": "SUSE Bug 1020452"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1052256",
+					"description": "SUSE Bug 1052256"
+				},
+				{
+					"url": "https://bugzilla.suse.com/983143",
+					"description": "SUSE Bug 983143"
+				},
+				{
+					"url": "https://bugzilla.suse.com/983144",
+					"description": "SUSE Bug 983144"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The gtco_probe function in drivers/input/tablet/gtco.c in the Linux kernel through 4.5.2 allows physically proximate attackers to cause a denial of service (NULL pointer dereference and system crash) via a crafted endpoints value in a USB device descriptor.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2187",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.9",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.6",
+					"vector_v_3": "CVSS:3.1/AV:P/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2187.html",
+					"description": "CVE-2016-2187"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020452",
+					"description": "SUSE Bug 1020452"
+				},
+				{
+					"url": "https://bugzilla.suse.com/971919",
+					"description": "SUSE Bug 971919"
+				},
+				{
+					"url": "https://bugzilla.suse.com/971944",
+					"description": "SUSE Bug 971944"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "** REJECT **  DO NOT USE THIS CANDIDATE NUMBER.  ConsultIDs: CVE-2016-4565.  Reason: This candidate is a reservation duplicate of CVE-2016-4565.  Notes: All CVE users should reference CVE-2016-4565 instead of this candidate.  All references and descriptions in this candidate have been removed to prevent accidental usage.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-2189",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-2189.html",
+					"description": "CVE-2016-2189"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979548",
+					"description": "SUSE Bug 979548"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980363",
+					"description": "SUSE Bug 980363"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The IPv6 stack in the Linux kernel before 4.3.3 mishandles options data, which allows local users to gain privileges or cause a denial of service (use-after-free and system crash) via a crafted sendmsg system call.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-3841",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.3",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-3841.html",
+					"description": "CVE-2016-3841"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1052256",
+					"description": "SUSE Bug 1052256"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				},
+				{
+					"url": "https://bugzilla.suse.com/992566",
+					"description": "SUSE Bug 992566"
+				},
+				{
+					"url": "https://bugzilla.suse.com/992569",
+					"description": "SUSE Bug 992569"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The key_reject_and_link function in security/keys/key.c in the Linux kernel through 4.6.3 does not ensure that a certain data structure is initialized, which allows local users to cause a denial of service (system crash) via vectors involving a crafted keyctl request2 command.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4470",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4470.html",
+					"description": "CVE-2016-4470"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020452",
+					"description": "SUSE Bug 1020452"
+				},
+				{
+					"url": "https://bugzilla.suse.com/984755",
+					"description": "SUSE Bug 984755"
+				},
+				{
+					"url": "https://bugzilla.suse.com/984764",
+					"description": "SUSE Bug 984764"
+				},
+				{
+					"url": "https://bugzilla.suse.com/991651",
+					"description": "SUSE Bug 991651"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The proc_connectinfo function in drivers/usb/core/devio.c in the Linux kernel through 4.6 does not initialize a certain data structure, which allows local users to obtain sensitive information from kernel stack memory via a crafted USBDEVFS_CONNECTINFO ioctl call.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4482",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4482.html",
+					"description": "CVE-2016-4482"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020452",
+					"description": "SUSE Bug 1020452"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978401",
+					"description": "SUSE Bug 978401"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978445",
+					"description": "SUSE Bug 978445"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The llc_cmsg_rcv function in net/llc/af_llc.c in the Linux kernel before 4.5.5 does not initialize a certain data structure, which allows attackers to obtain sensitive information from kernel stack memory by reading a message.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4485",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.3",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4485.html",
+					"description": "CVE-2016-4485"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020452",
+					"description": "SUSE Bug 1020452"
+				},
+				{
+					"url": "https://bugzilla.suse.com/978821",
+					"description": "SUSE Bug 978821"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The InfiniBand (aka IB) stack in the Linux kernel before 4.5.3 incorrectly relies on the write system call, which allows local users to cause a denial of service (kernel memory write operation) or possibly have unspecified other impact via a uAPI interface.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4565",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.6",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4565.html",
+					"description": "CVE-2016-4565"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020452",
+					"description": "SUSE Bug 1020452"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979548",
+					"description": "SUSE Bug 979548"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980363",
+					"description": "SUSE Bug 980363"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980883",
+					"description": "SUSE Bug 980883"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The snd_timer_user_params function in sound/core/timer.c in the Linux kernel through 4.6 does not initialize a certain data structure, which allows local users to obtain sensitive information from kernel stack memory via crafted use of the ALSA timer interface.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4569",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "3.3",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4569.html",
+					"description": "CVE-2016-4569"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020452",
+					"description": "SUSE Bug 1020452"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979213",
+					"description": "SUSE Bug 979213"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979879",
+					"description": "SUSE Bug 979879"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "sound/core/timer.c in the Linux kernel through 4.6 does not initialize certain r1 data structures, which allows local users to obtain sensitive information from kernel stack memory via crafted use of the ALSA timer interface, related to the (1) snd_timer_user_ccallback and (2) snd_timer_user_tinterrupt functions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4578",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4578.html",
+					"description": "CVE-2016-4578"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020452",
+					"description": "SUSE Bug 1020452"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1052256",
+					"description": "SUSE Bug 1052256"
+				},
+				{
+					"url": "https://bugzilla.suse.com/979879",
+					"description": "SUSE Bug 979879"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The x25_negotiate_facilities function in net/x25/x25_facilities.c in the Linux kernel before 4.5.5 does not properly initialize a certain data structure, which allows attackers to obtain sensitive information from kernel stack memory via an X.25 Call Request.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4580",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4580.html",
+					"description": "CVE-2016-4580"
+				},
+				{
+					"url": "https://bugzilla.suse.com/870618",
+					"description": "SUSE Bug 870618"
+				},
+				{
+					"url": "https://bugzilla.suse.com/981267",
+					"description": "SUSE Bug 981267"
+				},
+				{
+					"url": "https://bugzilla.suse.com/985132",
+					"description": "SUSE Bug 985132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Use-after-free vulnerability in drivers/net/ppp/ppp_generic.c in the Linux kernel before 4.5.2 allows local users to cause a denial of service (memory corruption and system crash, or spinlock) or possibly have unspecified other impact by removing a network namespace, related to the ppp_register_net_channel and ppp_unregister_channel functions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4805",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.3",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4805.html",
+					"description": "CVE-2016-4805"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020452",
+					"description": "SUSE Bug 1020452"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980371",
+					"description": "SUSE Bug 980371"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The get_rock_ridge_filename function in fs/isofs/rock.c in the Linux kernel before 4.5.5 mishandles NM (aka alternate name) entries containing \\0 characters, which allows local users to obtain sensitive information from kernel memory or possibly have unspecified other impact via a crafted isofs filesystem.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4913",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4913.html",
+					"description": "CVE-2016-4913"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				},
+				{
+					"url": "https://bugzilla.suse.com/870618",
+					"description": "SUSE Bug 870618"
+				},
+				{
+					"url": "https://bugzilla.suse.com/980725",
+					"description": "SUSE Bug 980725"
+				},
+				{
+					"url": "https://bugzilla.suse.com/985132",
+					"description": "SUSE Bug 985132"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The compat IPT_SO_SET_REPLACE and IP6T_SO_SET_REPLACE setsockopt implementations in the netfilter subsystem in the Linux kernel before 4.6.3 allow local users to gain privileges or cause a denial of service (memory corruption) by leveraging in-container root access to provide a crafted offset value that triggers an unintended decrement.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-4997",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-4997.html",
+					"description": "CVE-2016-4997"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1020452",
+					"description": "SUSE Bug 1020452"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986362",
+					"description": "SUSE Bug 986362"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986365",
+					"description": "SUSE Bug 986365"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986377",
+					"description": "SUSE Bug 986377"
+				},
+				{
+					"url": "https://bugzilla.suse.com/991651",
+					"description": "SUSE Bug 991651"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The rds_inc_info_copy function in net/rds/recv.c in the Linux kernel through 4.6.3 does not initialize a certain structure member, which allows remote attackers to obtain sensitive information from kernel stack memory by reading an RDS message.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-5244",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-5244.html",
+					"description": "CVE-2016-5244"
+				},
+				{
+					"url": "https://bugzilla.suse.com/983213",
+					"description": "SUSE Bug 983213"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986225",
+					"description": "SUSE Bug 986225"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Multiple heap-based buffer overflows in the hiddev_ioctl_usage function in drivers/hid/usbhid/hiddev.c in the Linux kernel through 4.6.3 allow local users to cause a denial of service or possibly have unspecified other impact via a crafted (1) HIDIOCGUSAGES or (2) HIDIOCSUSAGES ioctl call.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-5829",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-5829.html",
+					"description": "CVE-2016-5829"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1053919",
+					"description": "SUSE Bug 1053919"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1054127",
+					"description": "SUSE Bug 1054127"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986572",
+					"description": "SUSE Bug 986572"
+				},
+				{
+					"url": "https://bugzilla.suse.com/986573",
+					"description": "SUSE Bug 986573"
+				},
+				{
+					"url": "https://bugzilla.suse.com/991651",
+					"description": "SUSE Bug 991651"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Race condition in the ioctl_send_fib function in drivers/scsi/aacraid/commctrl.c in the Linux kernel through 4.7 allows local users to cause a denial of service (out-of-bounds access or system crash) by changing a certain size value, aka a \"double fetch\" vulnerability.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-6480",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.9",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.1",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-6480.html",
+					"description": "CVE-2016-6480"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1004418",
+					"description": "SUSE Bug 1004418"
+				},
+				{
+					"url": "https://bugzilla.suse.com/991608",
+					"description": "SUSE Bug 991608"
+				},
+				{
+					"url": "https://bugzilla.suse.com/991667",
+					"description": "SUSE Bug 991667"
+				},
+				{
+					"url": "https://bugzilla.suse.com/992568",
+					"description": "SUSE Bug 992568"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The tcp_check_send_head function in include/net/tcp.h in the Linux kernel before 4.7.5 does not properly maintain certain SACK state after a failed data copy, which allows local users to cause a denial of service (tcp_xmit_retransmit_queue use-after-free and system crash) via a crafted SACK option.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-6828",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-6828.html",
+					"description": "CVE-2016-6828"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1052256",
+					"description": "SUSE Bug 1052256"
+				},
+				{
+					"url": "https://bugzilla.suse.com/994296",
+					"description": "SUSE Bug 994296"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The proc_keys_show function in security/keys/proc.c in the Linux kernel through 4.8.2, when the GNU Compiler Collection (gcc) stack protector is enabled, uses an incorrect buffer size for certain timeout data, which allows local users to cause a denial of service (stack memory corruption and panic) by reading the /proc/keys file.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-7042",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.6",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.2",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-7042.html",
+					"description": "CVE-2016-7042"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1004517",
+					"description": "SUSE Bug 1004517"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The filesystem implementation in the Linux kernel through 4.8.2 preserves the setgid bit during a setxattr call, which allows local users to gain group privileges by leveraging the existence of a setgid program with restrictions on execute permissions.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-7097",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:P/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.4",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-7097.html",
+					"description": "CVE-2016-7097"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1021258",
+					"description": "SUSE Bug 1021258"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1052256",
+					"description": "SUSE Bug 1052256"
+				},
+				{
+					"url": "https://bugzilla.suse.com/870618",
+					"description": "SUSE Bug 870618"
+				},
+				{
+					"url": "https://bugzilla.suse.com/995968",
+					"description": "SUSE Bug 995968"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Use-after-free vulnerability in the __sys_recvmmsg function in net/socket.c in the Linux kernel before 4.5.2 allows remote attackers to execute arbitrary code via vectors involving a recvmmsg system call that is mishandled during error processing.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-7117",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "9.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "8.1",
+					"vector_v_3": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-7117.html",
+					"description": "CVE-2016-7117"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1003077",
+					"description": "SUSE Bug 1003077"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1003253",
+					"description": "SUSE Bug 1003253"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1057478",
+					"description": "SUSE Bug 1057478"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1071943",
+					"description": "SUSE Bug 1071943"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The arcmsr_iop_message_xfer function in drivers/scsi/arcmsr/arcmsr_hba.c in the Linux kernel through 4.8.2 does not restrict a certain length field, which allows local users to gain privileges or cause a denial of service (heap-based buffer overflow) via an ARCMSR_MESSAGE_WRITE_WQBUFFER control code.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-7425",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-7425.html",
+					"description": "CVE-2016-7425"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				},
+				{
+					"url": "https://bugzilla.suse.com/999932",
+					"description": "SUSE Bug 999932"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Use-after-free vulnerability in the disk_seqf_stop function in block/genhd.c in the Linux kernel before 4.7.1 allows local users to gain privileges by leveraging the execution of a certain stop operation even if the corresponding start operation had failed.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-7910",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.2",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-7910.html",
+					"description": "CVE-2016-7910"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1010716",
+					"description": "SUSE Bug 1010716"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1196722",
+					"description": "SUSE Bug 1196722"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Race condition in the get_task_ioprio function in block/ioprio.c in the Linux kernel before 4.6.6 allows local users to gain privileges or cause a denial of service (use-after-free) via a crafted ioprio_get system call.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-7911",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.3",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-7911.html",
+					"description": "CVE-2016-7911"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1010711",
+					"description": "SUSE Bug 1010711"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1010713",
+					"description": "SUSE Bug 1010713"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Race condition in the environ_read function in fs/proc/base.c in the Linux kernel before 4.5.4 allows local users to obtain sensitive information from kernel memory by reading a /proc/*/environ file during a process-setup time interval in which environment-variable copying is incomplete.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-7916",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-7916.html",
+					"description": "CVE-2016-7916"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1010467",
+					"description": "SUSE Bug 1010467"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "An elevation of privilege vulnerability in the kernel networking subsystem could enable a local malicious application to execute arbitrary code within the context of the kernel. This issue is rated as Moderate because it first requires compromising a privileged process and current compiler optimizations restrict access to the vulnerable code. Product: Android. Versions: Kernel-3.10, Kernel-3.18. Android ID: A-31349935.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-8399",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3.2",
+					"vector_v_2": "AV:L/AC:L/Au:S/C:P/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-8399.html",
+					"description": "CVE-2016-8399"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1014746",
+					"description": "SUSE Bug 1014746"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The tipc_msg_build function in net/tipc/msg.c in the Linux kernel through 4.8.11 does not validate the relationship between the minimum fragment length and the maximum packet size, which allows local users to gain privileges or cause a denial of service (heap-based buffer overflow) by leveraging the CAP_NET_ADMIN capability.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-8632",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "6.2",
+					"vector_v_2": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-8632.html",
+					"description": "CVE-2016-8632"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1008831",
+					"description": "SUSE Bug 1008831"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1012852",
+					"description": "SUSE Bug 1012852"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "drivers/firewire/net.c in the Linux kernel before 4.8.7, in certain unusual hardware configurations, allows remote attackers to execute arbitrary code via crafted fragmented packets.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-8633",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.4",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.8",
+					"vector_v_3": "CVSS:3.1/AV:P/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-8633.html",
+					"description": "CVE-2016-8633"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1008833",
+					"description": "SUSE Bug 1008833"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The hash_accept function in crypto/algif_hash.c in the Linux kernel before 4.3.6 allows local users to cause a denial of service (OOPS) by attempting to trigger use of in-kernel hash algorithms for a socket that has received zero bytes of data.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-8646",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.7",
+					"vector_v_2": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-8646.html",
+					"description": "CVE-2016-8646"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1010150",
+					"description": "SUSE Bug 1010150"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The sctp_sf_ootb function in net/sctp/sm_statefuns.c in the Linux kernel before 4.8.8 lacks chunk-length checking for the first chunk, which allows remote attackers to cause a denial of service (out-of-bounds slab access) or possibly have unspecified other impact via crafted SCTP data.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-9555",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "7.1",
+					"vector_v_2": "AV:N/AC:H/Au:N/C:C/I:N/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-9555.html",
+					"description": "CVE-2016-9555"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1011685",
+					"description": "SUSE Bug 1011685"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1012183",
+					"description": "SUSE Bug 1012183"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "Multiple memory leaks in error paths in fs/xfs/xfs_attr_list.c in the Linux kernel before 4.5.1 allow local users to cause a denial of service (memory consumption) via crafted XFS filesystem operations.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-9685",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "2.1",
+					"vector_v_2": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-9685.html",
+					"description": "CVE-2016-9685"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1012832",
+					"description": "SUSE Bug 1012832"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "arch/x86/kvm/emulate.c in the Linux kernel before 4.8.12 does not properly initialize Code Segment (CS) in certain error cases, which allows local users to obtain sensitive information from kernel stack memory via a crafted application.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-9756",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "1.5",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:P/I:N/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.1",
+					"vector_v_3": "CVSS:3.1/AV:A/AC:L/PR:L/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-9756.html",
+					"description": "CVE-2016-9756"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1013038",
+					"description": "SUSE Bug 1013038"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The sock_setsockopt function in net/core/sock.c in the Linux kernel before 4.8.14 mishandles negative values of sk_sndbuf and sk_rcvbuf, which allows local users to cause a denial of service (memory corruption and system crash) or possibly have unspecified other impact by leveraging the CAP_NET_ADMIN capability for a crafted setsockopt system call with the (1) SO_SNDBUFFORCE or (2) SO_RCVBUFFORCE option.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2016-9793",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5.9",
+					"vector_v_2": "AV:L/AC:H/Au:M/C:C/I:C/A:C"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2016-9793.html",
+					"description": "CVE-2016-9793"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1013531",
+					"description": "SUSE Bug 1013531"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1013542",
+					"description": "SUSE Bug 1013542"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1115893",
+					"description": "SUSE Bug 1115893"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "The simple_set_acl function in fs/posix_acl.c in the Linux kernel before 4.9.6 preserves the setgid bit during a setxattr call involving a tmpfs filesystem, which allows local users to gain group privileges by leveraging the existence of a setgid program with restrictions on execute permissions.  NOTE: this vulnerability exists because of an incomplete fix for CVE-2016-7097.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2017-5551",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-default-man-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-ec2-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-pae-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-source-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-syms-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-trace-devel-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-base-3.0.101-0.7.53.1",
+						"SUSE Linux Enterprise Server 11 SP2-LTSS:kernel-xen-devel-3.0.101-0.7.53.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "3",
+					"vector_v_2": "AV:L/AC:M/Au:S/C:P/I:P/A:N"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "4.4",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2017/suse-su-20170333-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2017-5551.html",
+					"description": "CVE-2017-5551"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1021258",
+					"description": "SUSE Bug 1021258"
+				},
+				{
+					"url": "https://bugzilla.suse.com/995968",
+					"description": "SUSE Bug 995968"
+				}
+			]
+		}
+	]
+}

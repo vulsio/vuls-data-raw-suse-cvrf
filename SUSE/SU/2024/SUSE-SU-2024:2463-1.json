@@ -1,0 +1,357 @@
+{
+	"document_title": "Security update for squashfs",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2024:2463-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-07-12T13:55:05Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-07-12T13:55:05Z",
+		"current_release_date": "2024-07-12T13:55:05Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for squashfs",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for squashfs fixes the following issues:\n\n- CVE-2015-4645,CVE-2015-4646: Multiple buffer overflows fixed in squashfs-tools (bsc#935380)\n- CVE-2021-40153: Fixed an issue where an attacker might have been able to write a file outside of destination (bsc#1189936)\n- CVE-2021-41072: Fixed an issue where an attacker might have been\n  able to write a file outside the destination directory via a\n  symlink (bsc#1190531).\n\nupdate to 4.6.1:\n\n  * Race condition which can cause corruption of the 'fragment\n    table' fixed.  This is a regression introduced in August 2022,\n    and it has been seen when tailend packing is used (-tailends option).\n  * Fix build failure when the tools are being built without\n    extended attribute (XATTRs) support.\n  * Fix XATTR error message when an unrecognised prefix is\n    found\n  * Fix incorrect free of pointer when an unrecognised XATTR\n    prefix is found.\n  * Major improvements in extended attribute handling,\n    pseudo file handling, and miscellaneous new options and\n    improvements\n  * Extended attribute handling improved in Mksquashfs and\n    Sqfstar\n  * New Pseudo file xattr definition to add extended\n    attributes to files.\n  * New xattrs-add Action to add extended attributes to files\n  * Extended attribute handling improved in Unsquashfs\n  * Other major improvements\n  * Unsquashfs can now output Pseudo files to standard out.\n  * Mksquashfs can now input Pseudo files from standard in.\n  * Squashfs filesystems can now be converted (different\n    block size compression etc) without unpacking to an\n    intermediate filesystem or mounting, by piping the output of\n    Unsquashfs to Mksquashfs.\n  * Pseudo files are now supported by Sqfstar.\n  * 'Non-anchored' excludes are now supported by Unsquashfs.\n\nupdate to 4.5.1 (bsc#1190531, CVE-2021-41072):\n\n  * This release adds Manpages for Mksquashfs(1), Unsquashfs(1),\n    Sqfstar(1) and Sqfscat(1).\n  * The -help text output from the utilities has been improved\n    and extended as well (but the Manpages are now more\n    comprehensive).\n  * CVE-2021-41072 which is a writing outside of destination\n    exploit, has been fixed.\n  * The number of hard-links in the filesystem is now also\n    displayed by Mksquashfs in the output summary.\n  * The number of hard-links written by Unsquashfs is now\n    also displayed in the output summary.\n  * Unsquashfs will now write to a pre-existing destination\n    directory, rather than aborting.\n  * Unsquashfs now allows '.' to used as the destination, to\n    extract to the current directory.\n  * The Unsquashfs progress bar now tracks empty files and\n    hardlinks, in addition to data blocks.\n  * -no-hardlinks option has been implemented for Sqfstar.\n  * More sanity checking for 'corrupted' filesystems, including\n    checks for multiply linked directories and directory loops.\n  * Options that may cause filesystems to be unmountable have\n    been moved into a new 'experts' category in the Mksquashfs\n    help text (and Manpage).\n  * Maximum cpiostyle filename limited to PATH_MAX.  This\n    prevents attempts to overflow the stack, or cause system\n    calls to fail with a too long pathname.\n  * Don't always use 'max open file limit' when calculating\n    length of queues, as a very large file limit can cause\n    Unsquashfs to abort.  Instead use the smaller of max open\n    file limit and cache size.\n  * Fix Mksquashfs silently ignoring Pseudo file definitions\n    when appending.\n  * Don't abort if no XATTR support has been built in, and\n    there's XATTRs in the filesystem.  This is a regression\n    introduced in 2019 in Version 4.4.\n  * Fix duplicate check when the last file block is sparse.\n\nupdate to 4.5:\n\n  * Mksquashfs now supports 'Actions'.\n  * New sqfstar command which will create a Squashfs image from a tar archive.\n  * Tar style handling of source pathnames in Mksquashfs.\n  * Cpio style handling of source pathnames in Mksquashfs.\n  * New option to throttle the amount of CPU and I/O.\n  * Mksquashfs now allows no source directory to be specified.\n  * New Pseudo file 'R' definition which allows a Regular file\n    o be created with data stored within the Pseudo file.\n  * Symbolic links are now followed in extract files\n  * Unsquashfs now supports 'exclude' files.\n  * Max depth traversal option added.\n  * Unsquashfs can now output a 'Pseudo file' representing the\n    input Squashfs filesystem.\n  * New -one-file-system option in Mksquashfs.\n  * New -no-hardlinks option in Mksquashfs.\n  * Exit code in Unsquashfs changed to distinguish between\n    non-fatal errors (exit 2), and fatal errors (exit 1).\n  * Xattr id count added in Unsquashfs '-stat' output.\n  * Unsquashfs 'write outside directory' exploit fixed.\n  * Error handling in Unsquashfs writer thread fixed.\n  * Fix failure to truncate destination if appending aborted.\n  * Prevent Mksquashfs reading the destination file. \n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2024-2463,SUSE-SLE-Micro-5.5-2024-2463",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20242463-1/",
+			"description": "Link for SUSE-SU-2024:2463-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-updates/2024-July/035988.html",
+			"description": "E-Mail link for SUSE-SU-2024:2463-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1189936",
+			"description": "SUSE Bug 1189936"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1190531",
+			"description": "SUSE Bug 1190531"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/935380",
+			"description": "SUSE Bug 935380"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-4645/",
+			"description": "SUSE CVE CVE-2015-4645 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2015-4646/",
+			"description": "SUSE CVE CVE-2015-4646 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-40153/",
+			"description": "SUSE CVE CVE-2021-40153 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-41072/",
+			"description": "SUSE CVE CVE-2021-41072 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Micro 5.5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Micro 5.5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Micro 5.5",
+							"product_id": "SUSE Linux Enterprise Micro 5.5",
+							"cpe": "cpe:/o:suse:sle-micro:5.5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "squashfs-4.6.1-150300.3.3.1",
+				"full_product_name": {
+					"text": "squashfs-4.6.1-150300.3.3.1",
+					"product_id": "squashfs-4.6.1-150300.3.3.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "squashfs-4.6.1-150300.3.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Micro 5.5"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "Integer overflow in the read_fragment_table_4 function in unsquash-4.c in Squashfs and sasquatch allows remote attackers to cause a denial of service (application crash) via a crafted input, which triggers a stack-based buffer overflow.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-4645",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.5:squashfs-4.6.1-150300.3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "4.3",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20242463-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-4645.html",
+					"description": "CVE-2015-4645"
+				},
+				{
+					"url": "https://bugzilla.suse.com/935380",
+					"description": "SUSE Bug 935380"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "(1) unsquash-1.c, (2) unsquash-2.c, (3) unsquash-3.c, and (4) unsquash-4.c in Squashfs and sasquatch allow remote attackers to cause a denial of service (application crash) via a crafted input.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2015-4646",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.5:squashfs-4.6.1-150300.3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5",
+					"vector_v_2": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20242463-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2015-4646.html",
+					"description": "CVE-2015-4646"
+				},
+				{
+					"url": "https://bugzilla.suse.com/935380",
+					"description": "SUSE Bug 935380"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "squashfs_opendir in unsquash-1.c in Squashfs-Tools 4.5 stores the filename in the directory entry; this is then used by unsquashfs to create the new file during the unsquash. The filename is not validated for traversal outside of the destination directory, and thus allows writing to locations outside of the destination.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-40153",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.5:squashfs-4.6.1-150300.3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.6",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20242463-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-40153.html",
+					"description": "CVE-2021-40153"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1189936",
+					"description": "SUSE Bug 1189936"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "squashfs_opendir in unsquash-2.c in Squashfs-Tools 4.5 allows Directory Traversal, a different vulnerability than CVE-2021-40153. A squashfs filesystem that has been crafted to include a symbolic link and then contents under the same filename in a filesystem can cause unsquashfs to first create the symbolic link pointing outside the expected directory, and then the subsequent write operation will cause the unsquashfs process to write through the symbolic link elsewhere in the filesystem.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-41072",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Micro 5.5:squashfs-4.6.1-150300.3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {
+					"base_score_v_2": "5.8",
+					"vector_v_2": "AV:N/AC:M/Au:N/C:N/I:P/A:P"
+				},
+				"score_set_v_3": {
+					"base_score_v_3": "6.6",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20242463-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-41072.html",
+					"description": "CVE-2021-41072"
+				}
+			]
+		}
+	]
+}

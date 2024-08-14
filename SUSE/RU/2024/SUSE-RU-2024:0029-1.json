@@ -1,0 +1,1157 @@
+{
+	"document_title": "Recommended update for net-snmp",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-RU-2024:0029-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-01-04T10:21:18Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-01-04T10:21:18Z",
+		"current_release_date": "2024-01-04T10:21:18Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Recommended update for net-snmp",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for net-snmp fixes the following issues:\n\nUpdate to net-snmp-5.9.4 (bsc#1214364 jsc#PED-6435).\n\n* 5.9.4:\n\n  - libsnmp:\n\n      - Remove the SNMP_SWIPE_MEM() macro Remove this macro since it is not\n\tused in the Net-SNMP code base.\n      - DISPLAY-HINT fixes\n      - Miscellanious improvements to the transports\n      - Handle multiple oldEngineID configuration lines \n      - fixes for DNS names longer than 63 characters\n\n  - agent:\n\n      - Added a ignoremount configuration option for the HOST-MIB\n      - disallow SETs with a NULL varbind\n      - fix the --enable-minimalist build\n\n  - apps:\n\n      - snmpset: allow SET with NULL varbind for testing\n      - snmptrapd: improved MySQL logging code\n\n  - general:\n\n      - configure: Remove -Wno-deprecated as it is no longer needed\n      - miscellanious ther bug fixes, build fixes and cleanups\n\n  - security:\n\n      - These two CVEs can be exploited by a user with read-only credentials:\n\n          - CVE-2022-24805 A buffer overflow in the handling of the INDEX of\n            NET-SNMP-VACM-MIB can cause an out-of-bounds memory access.\n          - CVE-2022-24809 A malformed OID in a GET-NEXT to the nsVacmAccessTable\n            can cause a NULL pointer dereference.\n\n      - These CVEs can be exploited by a user with read-write credentials:\n\n          - CVE-2022-24806 Improper Input Validation when SETing malformed\n            OIDs in master agent and subagent simultaneously\n          - CVE-2022-24807 A malformed OID in a SET request to\n            SNMP-VIEW-BASED-ACM-MIB::vacmAccessTable can cause an\n            out-of-bounds memory access.\n          - CVE-2022-24808 A malformed OID in a SET request to\n            NET-SNMP-AGENT-MIB::nsLogTable can cause a NULL pointer dereference\n          - CVE-2022-24810 A malformed OID in a SET to the nsVacmAccessTable\n            can cause a NULL pointer dereference.\n      - To avoid these flaws, use strong SNMPv3 credentials and do not share them.\n        If you must use SNMPv1 or SNMPv2c, use a complex community string\n        and enhance the protection by restricting access to a given IP address range.\n      - Thanks are due to Yu Zhang of VARAS@IIE and Nanyu Zhong of VARAS@IIE for\n        reporting the following CVEs that have been fixed in this release, and\n        to Arista Networks for providing fixes.\n\n    - IF-MIB: Update ifTable entries even if the interface name has changed\n      At least on Linux a network interface index may be reused for a\n      network interface with a different name. Hence this patch that\n      enables replacing network interface information even if the network\n      interface name has changed.\n\n    - unspecified:\n\n      - Moved transport code into a separate subdirectory in snmplib\n      - Snmplib: remove inline versions of container funcs'.\n\n    - misc:\n\n      - snmp-create-v3-user: Fix the snmpd.conf path   @datadir@ is\n        expanded in ${datarootdir} so datarootdir must be set before\n        @datadir@ is used.\n\n* 5.9:\n\n  - snmplib:\n\n      - Add IPv6 support to DTLSUDP transport\n      - use new netsnmp_sockaddr_storage in netsnmp_addr_pair\n      - add base_transport ptr for tunneled transports\n      - Dtls: overhaul of debug\n      - Remove inline versions of container funcs\n\n  - snmpd:\n\n      - Use ETHTOOL_GLINKSETTINGS when available Newer Linux kernels\n\tsupport ETHTOOL_GLINKSETTINGS. Use it when available instead of the\n\tolder and deprecated ETHTOOL_GSET. This patch avoids that the Linux\n\tkernel reports the following kernel warning: warning: 'snmpd' uses\n\tlegacy ethtool link settings API, link modes are only partially\n\treported See also https://sourceforge.net/p/net-snmp/patches/1387/.\n      - [BUG 2926]: Make it possible to set agentXPingInterval for a\n\tsubagent - register agentXPingInterval for the subagent list\n\thandler, before it was registered for snmp - added agentxTimeout to\n\tthe subagent list handler. It's now possible to set for snmpd and\n\tthe subagent. See 'man snmpd.conf' - added agentxRetries to the\n\tsubagent list handler. See 'man snmpd.conf'. It's never used in the\n\tsubagent, but it's now following the documentation Signed-off-by:\n\tAnders Wallin <wallinux@gmail.com>\n\n    - snmptrap:\n\n      - BUG: 2899: Patch from Drew Roedersheimer to set library\n\tengineboots/time values before sending\n\n    - snmptrapd:\n\n      - Add support for the latest libmysqlclient version\n\n    - libsnmp:\n\n      - Scan MIB directories in alphabetical order This guarantees that\n\te.g. mibs/RFC1213-MIB.txt is read before mibs/SNMPv2-MIB.txt. The\n\torder in which these MIBs is read matters because both define\n\tsysLocation but with different attributes.\n\n\n- Removing legacy MIBs used by Velocity Software (jsc#PED-6416 jsc#PED-6434).\n- Added hardening to systemd service(s) (bsc#1181400, bsc#1206044).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "Image SLES12-SP5-Azure-SAP-BYOS-2024-29,Image SLES12-SP5-Azure-SAP-On-Demand-2024-29,Image SLES12-SP5-EC2-SAP-BYOS-2024-29,Image SLES12-SP5-EC2-SAP-On-Demand-2024-29,Image SLES12-SP5-GCE-SAP-BYOS-2024-29,Image SLES12-SP5-GCE-SAP-On-Demand-2024-29,Image SLES12-SP5-SAP-Azure-LI-BYOS-Production-2024-29,Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production-2024-29,SUSE-2024-29,SUSE-SLE-SDK-12-SP5-2024-29,SUSE-SLE-SERVER-12-SP5-2024-29",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement//suse-ru-20240029-1/",
+			"description": "Link for SUSE-RU-2024:0029-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-updates/2024-January/033563.html",
+			"description": "E-Mail link for SUSE-RU-2024:0029-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1181400",
+			"description": "SUSE Bug 1181400"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1206044",
+			"description": "SUSE Bug 1206044"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1214364",
+			"description": "SUSE Bug 1214364"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-24805/",
+			"description": "SUSE CVE CVE-2022-24805 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-24806/",
+			"description": "SUSE CVE CVE-2022-24806 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-24807/",
+			"description": "SUSE CVE CVE-2022-24807 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-24808/",
+			"description": "SUSE CVE CVE-2022-24808 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-24809/",
+			"description": "SUSE CVE CVE-2022-24809 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2022-24810/",
+			"description": "SUSE CVE CVE-2022-24810 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-Azure-SAP-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-Azure-SAP-BYOS",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-Azure-SAP-BYOS",
+							"product_id": "Image SLES12-SP5-Azure-SAP-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-Azure-SAP-On-Demand",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-Azure-SAP-On-Demand",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-Azure-SAP-On-Demand",
+							"product_id": "Image SLES12-SP5-Azure-SAP-On-Demand"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-EC2-SAP-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-EC2-SAP-BYOS",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-EC2-SAP-BYOS",
+							"product_id": "Image SLES12-SP5-EC2-SAP-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-EC2-SAP-On-Demand",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-EC2-SAP-On-Demand",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-EC2-SAP-On-Demand",
+							"product_id": "Image SLES12-SP5-EC2-SAP-On-Demand"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-GCE-SAP-BYOS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-GCE-SAP-BYOS",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-GCE-SAP-BYOS",
+							"product_id": "Image SLES12-SP5-GCE-SAP-BYOS"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-GCE-SAP-On-Demand",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-GCE-SAP-On-Demand",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-GCE-SAP-On-Demand",
+							"product_id": "Image SLES12-SP5-GCE-SAP-On-Demand"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production",
+							"product_id": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production",
+						"full_product_name": {
+							"text": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production",
+							"product_id": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server 12 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server 12 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server 12 SP5",
+							"product_id": "SUSE Linux Enterprise Server 12 SP5",
+							"cpe": "cpe:/o:suse:sles:12:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Server for SAP Applications 12 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Server for SAP Applications 12 SP5",
+							"product_id": "SUSE Linux Enterprise Server for SAP Applications 12 SP5",
+							"cpe": "cpe:/o:suse:sles_sap:12:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Software Development Kit 12 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Software Development Kit 12 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Software Development Kit 12 SP5",
+							"product_id": "SUSE Linux Enterprise Software Development Kit 12 SP5",
+							"cpe": "cpe:/o:suse:sle-sdk:12:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsnmp40-5.9.4-14.3.1",
+				"full_product_name": {
+					"text": "libsnmp40-5.9.4-14.3.1",
+					"product_id": "libsnmp40-5.9.4-14.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "net-snmp-5.9.4-14.3.1",
+				"full_product_name": {
+					"text": "net-snmp-5.9.4-14.3.1",
+					"product_id": "net-snmp-5.9.4-14.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "perl-SNMP-5.9.4-14.3.1",
+				"full_product_name": {
+					"text": "perl-SNMP-5.9.4-14.3.1",
+					"product_id": "perl-SNMP-5.9.4-14.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "snmp-mibs-5.9.4-14.3.1",
+				"full_product_name": {
+					"text": "snmp-mibs-5.9.4-14.3.1",
+					"product_id": "snmp-mibs-5.9.4-14.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsnmp40-32bit-5.9.4-14.3.1",
+				"full_product_name": {
+					"text": "libsnmp40-32bit-5.9.4-14.3.1",
+					"product_id": "libsnmp40-32bit-5.9.4-14.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsnmp40-64bit-5.9.4-14.3.1",
+				"full_product_name": {
+					"text": "libsnmp40-64bit-5.9.4-14.3.1",
+					"product_id": "libsnmp40-64bit-5.9.4-14.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "net-snmp-devel-5.9.4-14.3.1",
+				"full_product_name": {
+					"text": "net-snmp-devel-5.9.4-14.3.1",
+					"product_id": "net-snmp-devel-5.9.4-14.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "net-snmp-devel-32bit-5.9.4-14.3.1",
+				"full_product_name": {
+					"text": "net-snmp-devel-32bit-5.9.4-14.3.1",
+					"product_id": "net-snmp-devel-32bit-5.9.4-14.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "net-snmp-devel-64bit-5.9.4-14.3.1",
+				"full_product_name": {
+					"text": "net-snmp-devel-64bit-5.9.4-14.3.1",
+					"product_id": "net-snmp-devel-64bit-5.9.4-14.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python2-net-snmp-5.9.4-14.3.1",
+				"full_product_name": {
+					"text": "python2-net-snmp-5.9.4-14.3.1",
+					"product_id": "python2-net-snmp-5.9.4-14.3.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python3-net-snmp-5.9.4-14.3.1",
+				"full_product_name": {
+					"text": "python3-net-snmp-5.9.4-14.3.1",
+					"product_id": "python3-net-snmp-5.9.4-14.3.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "libsnmp40-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-BYOS"
+			},
+			{
+				"product_reference": "net-snmp-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-BYOS"
+			},
+			{
+				"product_reference": "perl-SNMP-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-BYOS"
+			},
+			{
+				"product_reference": "snmp-mibs-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-BYOS"
+			},
+			{
+				"product_reference": "libsnmp40-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-On-Demand"
+			},
+			{
+				"product_reference": "net-snmp-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-On-Demand"
+			},
+			{
+				"product_reference": "perl-SNMP-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-On-Demand"
+			},
+			{
+				"product_reference": "snmp-mibs-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-Azure-SAP-On-Demand"
+			},
+			{
+				"product_reference": "libsnmp40-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-BYOS"
+			},
+			{
+				"product_reference": "net-snmp-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-BYOS"
+			},
+			{
+				"product_reference": "perl-SNMP-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-BYOS"
+			},
+			{
+				"product_reference": "snmp-mibs-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-BYOS"
+			},
+			{
+				"product_reference": "libsnmp40-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-On-Demand"
+			},
+			{
+				"product_reference": "net-snmp-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-On-Demand"
+			},
+			{
+				"product_reference": "perl-SNMP-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-On-Demand"
+			},
+			{
+				"product_reference": "snmp-mibs-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-EC2-SAP-On-Demand"
+			},
+			{
+				"product_reference": "libsnmp40-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-BYOS"
+			},
+			{
+				"product_reference": "net-snmp-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-BYOS"
+			},
+			{
+				"product_reference": "perl-SNMP-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-BYOS"
+			},
+			{
+				"product_reference": "snmp-mibs-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-BYOS"
+			},
+			{
+				"product_reference": "libsnmp40-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-On-Demand"
+			},
+			{
+				"product_reference": "net-snmp-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-On-Demand"
+			},
+			{
+				"product_reference": "perl-SNMP-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-On-Demand"
+			},
+			{
+				"product_reference": "snmp-mibs-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-GCE-SAP-On-Demand"
+			},
+			{
+				"product_reference": "libsnmp40-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "net-snmp-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "perl-SNMP-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "snmp-mibs-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-LI-BYOS-Production"
+			},
+			{
+				"product_reference": "libsnmp40-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "net-snmp-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "perl-SNMP-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "snmp-mibs-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production"
+			},
+			{
+				"product_reference": "libsnmp40-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "libsnmp40-32bit-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "net-snmp-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "perl-SNMP-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "snmp-mibs-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server 12 SP5"
+			},
+			{
+				"product_reference": "libsnmp40-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "libsnmp40-32bit-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "net-snmp-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "perl-SNMP-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "snmp-mibs-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Server for SAP Applications 12 SP5"
+			},
+			{
+				"product_reference": "net-snmp-devel-5.9.4-14.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Software Development Kit 12 SP5"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "net-snmp provides various tools relating to the Simple Network Management Protocol. Prior to version 5.9.2, a buffer overflow in the handling of the `INDEX` of             `NET-SNMP-VACM-MIB` can cause an out-of-bounds memory access. A user with read-only credentials can exploit the issue. Version 5.9.2 contains a patch. Users should use strong SNMPv3 credentials and avoid sharing the credentials. Those who must use SNMPv1 or SNMPv2c should use a complex community string and enhance the protection by restricting access to a given IP address range.\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-24805",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:libsnmp40-32bit-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:libsnmp40-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:net-snmp-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:perl-SNMP-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:libsnmp40-32bit-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:libsnmp40-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:net-snmp-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:perl-SNMP-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:net-snmp-devel-5.9.4-14.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement//suse-ru-20240029-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-24805.html",
+					"description": "CVE-2022-24805"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201103",
+					"description": "SUSE Bug 1201103"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "net-snmp provides various tools relating to the Simple Network Management Protocol. Prior to version 5.9.2, a user with read-write credentials can exploit an Improper Input Validation vulnerability when SETing malformed OIDs in master agent and subagent simultaneously. Version 5.9.2 contains a patch. Users should use strong SNMPv3 credentials and avoid sharing the credentials. Those who must use SNMPv1 or SNMPv2c should use a complex community string and enhance the protection by restricting access to a given IP address range.\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-24806",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:libsnmp40-32bit-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:libsnmp40-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:net-snmp-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:perl-SNMP-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:libsnmp40-32bit-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:libsnmp40-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:net-snmp-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:perl-SNMP-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:net-snmp-devel-5.9.4-14.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement//suse-ru-20240029-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-24806.html",
+					"description": "CVE-2022-24806"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201103",
+					"description": "SUSE Bug 1201103"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "net-snmp provides various tools relating to the Simple Network Management Protocol. Prior to version 5.9.2, a malformed OID in a SET request to `SNMP-VIEW-BASED-ACM-MIB::vacmAccessTable` can cause an out-of-bounds memory access. A user with read-write credentials can exploit the issue. Version 5.9.2 contains a patch. Users should use strong SNMPv3 credentials and avoid sharing the credentials. Those who must use SNMPv1 or SNMPv2c should use a complex community string and enhance the protection by restricting access to a given IP address range.\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-24807",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:libsnmp40-32bit-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:libsnmp40-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:net-snmp-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:perl-SNMP-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:libsnmp40-32bit-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:libsnmp40-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:net-snmp-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:perl-SNMP-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:net-snmp-devel-5.9.4-14.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement//suse-ru-20240029-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-24807.html",
+					"description": "CVE-2022-24807"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201103",
+					"description": "SUSE Bug 1201103"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "net-snmp provides various tools relating to the Simple Network Management Protocol. Prior to version 5.9.2, a user with read-write credentials can use a malformed OID in a `SET` request to `NET-SNMP-AGENT-MIB::nsLogTable` to cause a NULL pointer dereference. Version 5.9.2 contains a patch. Users should use strong SNMPv3 credentials and avoid sharing the credentials. Those who must use SNMPv1 or SNMPv2c should use a complex community string and enhance the protection by restricting access to a given IP address range.\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-24808",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:libsnmp40-32bit-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:libsnmp40-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:net-snmp-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:perl-SNMP-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:libsnmp40-32bit-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:libsnmp40-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:net-snmp-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:perl-SNMP-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:net-snmp-devel-5.9.4-14.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement//suse-ru-20240029-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-24808.html",
+					"description": "CVE-2022-24808"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201103",
+					"description": "SUSE Bug 1201103"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "net-snmp provides various tools relating to the Simple Network Management Protocol. Prior to version 5.9.2, a user with read-only credentials can use a malformed OID in a `GET-NEXT` to the `nsVacmAccessTable` to cause a NULL pointer dereference. Version 5.9.2 contains a patch. Users should use strong SNMPv3 credentials and avoid sharing the credentials. Those who must use SNMPv1 or SNMPv2c should use a complex community string and enhance the protection by restricting access to a given IP address range.\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-24809",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:libsnmp40-32bit-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:libsnmp40-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:net-snmp-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:perl-SNMP-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:libsnmp40-32bit-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:libsnmp40-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:net-snmp-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:perl-SNMP-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:net-snmp-devel-5.9.4-14.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement//suse-ru-20240029-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-24809.html",
+					"description": "CVE-2022-24809"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201103",
+					"description": "SUSE Bug 1201103"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "net-snmp provides various tools relating to the Simple Network Management Protocol. Prior to version 5.9.2, a user with read-write credentials can use a malformed OID in a SET to the nsVacmAccessTable to cause a NULL pointer dereference. Version 5.9.2 contains a patch. Users should use strong SNMPv3 credentials and avoid sharing the credentials. Those who must use SNMPv1 or SNMPv2c should use a complex community string and enhance the protection by restricting access to a given IP address range.\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2022-24810",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"Image SLES12-SP5-Azure-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-Azure-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-EC2-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-BYOS:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-GCE-SAP-On-Demand:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-LI-BYOS-Production:snmp-mibs-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:libsnmp40-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:net-snmp-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:perl-SNMP-5.9.4-14.3.1",
+						"Image SLES12-SP5-SAP-Azure-VLI-BYOS-Production:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:libsnmp40-32bit-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:libsnmp40-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:net-snmp-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:perl-SNMP-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server 12 SP5:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:libsnmp40-32bit-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:libsnmp40-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:net-snmp-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:perl-SNMP-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Server for SAP Applications 12 SP5:snmp-mibs-5.9.4-14.3.1",
+						"SUSE Linux Enterprise Software Development Kit 12 SP5:net-snmp-devel-5.9.4-14.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.9",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement//suse-ru-20240029-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2022-24810.html",
+					"description": "CVE-2022-24810"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1201103",
+					"description": "SUSE Bug 1201103"
+				}
+			]
+		}
+	]
+}

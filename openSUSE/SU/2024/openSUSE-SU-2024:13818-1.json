@@ -1,0 +1,184 @@
+{
+	"document_title": "libuv-devel-1.48.0-1.1 on GA media",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2024:13818-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-08-10T21:46:02Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-08-10T21:46:02Z",
+		"current_release_date": "2024-08-10T21:46:02Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "libuv-devel-1.48.0-1.1 on GA media",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "These are all security issues fixed in the libuv-devel-1.48.0-1.1 package on the GA media of openSUSE Tumbleweed.",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "openSUSE-Tumbleweed-2024-13818",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-24806/",
+			"description": "SUSE CVE CVE-2024-24806 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Tumbleweed",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Tumbleweed",
+						"full_product_name": {
+							"text": "openSUSE Tumbleweed",
+							"product_id": "openSUSE Tumbleweed",
+							"cpe": "cpe:/o:opensuse:tumbleweed"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libuv-devel-1.48.0-1.1",
+				"full_product_name": {
+					"text": "libuv-devel-1.48.0-1.1",
+					"product_id": "libuv-devel-1.48.0-1.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libuv1-1.48.0-1.1",
+				"full_product_name": {
+					"text": "libuv1-1.48.0-1.1",
+					"product_id": "libuv1-1.48.0-1.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libuv1-32bit-1.48.0-1.1",
+				"full_product_name": {
+					"text": "libuv1-32bit-1.48.0-1.1",
+					"product_id": "libuv1-32bit-1.48.0-1.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "libuv-devel-1.48.0-1.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Tumbleweed"
+			},
+			{
+				"product_reference": "libuv1-1.48.0-1.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Tumbleweed"
+			},
+			{
+				"product_reference": "libuv1-32bit-1.48.0-1.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Tumbleweed"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "libuv is a multi-platform support library with a focus on asynchronous I/O. The `uv_getaddrinfo` function in `src/unix/getaddrinfo.c` (and its windows counterpart `src/win/getaddrinfo.c`), truncates hostnames to 256 characters before calling `getaddrinfo`. This behavior can be exploited to create addresses like `0x00007f000001`, which are considered valid by `getaddrinfo` and could allow an attacker to craft payloads that resolve to unintended IP addresses, bypassing developer checks. The vulnerability arises due to how the `hostname_ascii` variable (with a length of 256 bytes) is handled in `uv_getaddrinfo` and subsequently in `uv__idna_toascii`. When the hostname exceeds 256 characters, it gets truncated without a terminating null byte. As a result attackers may be able to access internal APIs or for websites (similar to MySpace) that allows users to have `username.example.com` pages. Internal services that crawl or cache these user pages can be exposed to SSRF attacks if a malicious user chooses a long vulnerable username. This issue has been addressed in release version 1.48.0. Users are advised to upgrade. There are no known workarounds for this vulnerability.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-24806",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Tumbleweed:libuv-devel-1.48.0-1.1",
+						"openSUSE Tumbleweed:libuv1-1.48.0-1.1",
+						"openSUSE Tumbleweed:libuv1-32bit-1.48.0-1.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.8",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					}
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-24806.html",
+					"description": "CVE-2024-24806"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1219724",
+					"description": "SUSE Bug 1219724"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1220056",
+					"description": "SUSE Bug 1220056"
+				}
+			]
+		}
+	]
+}

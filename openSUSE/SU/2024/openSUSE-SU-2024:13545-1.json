@@ -1,0 +1,166 @@
+{
+	"document_title": "liblog4cxx-devel-1.1.0-1.1 on GA media",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2024:13545-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-08-10T21:46:02Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-08-10T21:46:02Z",
+		"current_release_date": "2024-08-10T21:46:02Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "liblog4cxx-devel-1.1.0-1.1 on GA media",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "These are all security issues fixed in the liblog4cxx-devel-1.1.0-1.1 package on the GA media of openSUSE Tumbleweed.",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "openSUSE-Tumbleweed-2024-13545",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-31038/",
+			"description": "SUSE CVE CVE-2023-31038 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Tumbleweed",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Tumbleweed",
+						"full_product_name": {
+							"text": "openSUSE Tumbleweed",
+							"product_id": "openSUSE Tumbleweed",
+							"cpe": "cpe:/o:opensuse:tumbleweed"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "liblog4cxx-devel-1.1.0-1.1",
+				"full_product_name": {
+					"text": "liblog4cxx-devel-1.1.0-1.1",
+					"product_id": "liblog4cxx-devel-1.1.0-1.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "liblog4cxx15-1.1.0-1.1",
+				"full_product_name": {
+					"text": "liblog4cxx15-1.1.0-1.1",
+					"product_id": "liblog4cxx15-1.1.0-1.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "liblog4cxx-devel-1.1.0-1.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Tumbleweed"
+			},
+			{
+				"product_reference": "liblog4cxx15-1.1.0-1.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Tumbleweed"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "SQL injection in Log4cxx when using the ODBC appender to send log messages to a database.  No fields sent to the database were properly escaped for SQL injection.  This has been the case since at least version 0.9.0(released 2003-08-06)\n\n\n\n\nNote that Log4cxx is a C++ framework, so only C++ applications are affected.\n\nBefore version 1.1.0, the ODBC appender was automatically part of Log4cxx if the library was found when compiling the library.  As of version 1.1.0, this must be both explicitly enabled in order to be compiled in.\n\n\n\n\nThree preconditions must be met for this vulnerability to be possible:\n\n1. Log4cxx compiled with ODBC support(before version 1.1.0, this was auto-detected at compile time)\n\n2. ODBCAppender enabled for logging messages to, generally done via a config file\n\n3. User input is logged at some point. If your application does not have user input, it is unlikely to be affected.\n\n\n\n\n\nUsers are recommended to upgrade to version 1.1.0 which properly binds the parameters to the SQL statement, or migrate to the new DBAppender class which supports an ODBC connection in addition to other databases. \nNote that this fix does require a configuration file update, as the old configuration files will not configure properly.  An example is shown below, and more information may be found in the Log4cxx documentation on the ODBCAppender.\n\n\n\n\n\nExample of old configuration snippet:\n\n<appender name=\"SqlODBCAppender\" class=\"ODBCAppender\">\n\n    <param name=\"sql\" value=\"INSERT INTO logs (message) VALUES ('%m')\" />\n\n    ... other params here ...\n\n</appender>\n\n\n\n\nThe migrated configuration snippet with new ColumnMapping parameters:\n\n\n<appender name=\"SqlODBCAppender\" class=\"ODBCAppender\">\n\n\n\n\n    <param name=\"sql\" value=\"INSERT INTO logs (message) VALUES (?)\" />\n\n    <param name=\"ColumnMapping\" value=\"message\"/>\n    ... other params here ...\n\n\n</appender>\n\n\n\n\n\n",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-31038",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Tumbleweed:liblog4cxx-devel-1.1.0-1.1",
+						"openSUSE Tumbleweed:liblog4cxx15-1.1.0-1.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "8.8",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					}
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-31038.html",
+					"description": "CVE-2023-31038"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1211173",
+					"description": "SUSE Bug 1211173"
+				}
+			]
+		}
+	]
+}
