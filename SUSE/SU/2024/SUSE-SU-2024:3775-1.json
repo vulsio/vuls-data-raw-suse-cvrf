@@ -1,0 +1,172 @@
+{
+	"document_title": "Security update for the Linux Kernel RT (Live Patch 2 for SLE 15 SP6)",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2024:3775-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-10-29T16:03:49Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-10-29T16:03:49Z",
+		"current_release_date": "2024-10-29T16:03:49Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel RT (Live Patch 2 for SLE 15 SP6)",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for the Linux Kernel 6.4.0-150600_10_8 fixes one issue.\n\nThe following security issue was fixed:\n\n- CVE-2023-52752: smb: client: fix use-after-free bug in cifs_debug_data_proc_show() (bsc#1225819).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2024-3775,SUSE-SLE-Module-Live-Patching-15-SP6-2024-3775",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20243775-1/",
+			"description": "Link for SUSE-SU-2024:3775-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2024-October/019693.html",
+			"description": "E-Mail link for SUSE-SU-2024:3775-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1225819",
+			"description": "SUSE Bug 1225819"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-52752/",
+			"description": "SUSE CVE CVE-2023-52752 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Live Patching 15 SP6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Live Patching 15 SP6",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Live Patching 15 SP6",
+							"product_id": "SUSE Linux Enterprise Live Patching 15 SP6",
+							"cpe": "cpe:/o:suse:sle-module-live-patching:15:sp6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-livepatch-6_4_0-150600_10_8-rt-2-150600.1.6.1",
+				"full_product_name": {
+					"text": "kernel-livepatch-6_4_0-150600_10_8-rt-2-150600.1.6.1",
+					"product_id": "kernel-livepatch-6_4_0-150600_10_8-rt-2-150600.1.6.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-livepatch-6_4_0-150600_10_8-rt-2-150600.1.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Live Patching 15 SP6"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nsmb: client: fix use-after-free bug in cifs_debug_data_proc_show()\n\nSkip SMB sessions that are being teared down\n(e.g. @ses->ses_status == SES_EXITING) in cifs_debug_data_proc_show()\nto avoid use-after-free in @ses.\n\nThis fixes the following GPF when reading from /proc/fs/cifs/DebugData\nwhile mounting and umounting\n\n  [ 816.251274] general protection fault, probably for non-canonical\n  address 0x6b6b6b6b6b6b6d81: 0000 [#1] PREEMPT SMP NOPTI\n  ...\n  [  816.260138] Call Trace:\n  [  816.260329]  <TASK>\n  [  816.260499]  ? die_addr+0x36/0x90\n  [  816.260762]  ? exc_general_protection+0x1b3/0x410\n  [  816.261126]  ? asm_exc_general_protection+0x26/0x30\n  [  816.261502]  ? cifs_debug_tcon+0xbd/0x240 [cifs]\n  [  816.261878]  ? cifs_debug_tcon+0xab/0x240 [cifs]\n  [  816.262249]  cifs_debug_data_proc_show+0x516/0xdb0 [cifs]\n  [  816.262689]  ? seq_read_iter+0x379/0x470\n  [  816.262995]  seq_read_iter+0x118/0x470\n  [  816.263291]  proc_reg_read_iter+0x53/0x90\n  [  816.263596]  ? srso_alias_return_thunk+0x5/0x7f\n  [  816.263945]  vfs_read+0x201/0x350\n  [  816.264211]  ksys_read+0x75/0x100\n  [  816.264472]  do_syscall_64+0x3f/0x90\n  [  816.264750]  entry_SYSCALL_64_after_hwframe+0x6e/0xd8\n  [  816.265135] RIP: 0033:0x7fd5e669d381",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-52752",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Live Patching 15 SP6:kernel-livepatch-6_4_0-150600_10_8-rt-2-150600.1.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.8",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20243775-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-52752.html",
+					"description": "CVE-2023-52752"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1225487",
+					"description": "SUSE Bug 1225487"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1225819",
+					"description": "SUSE Bug 1225819"
+				}
+			]
+		}
+	]
+}
