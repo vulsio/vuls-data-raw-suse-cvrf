@@ -1,0 +1,1974 @@
+{
+	"document_title": "Security update for pcp",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2024:3785-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-10-30T07:56:17Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-10-30T07:56:17Z",
+		"current_release_date": "2024-10-30T07:56:17Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for pcp",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for pcp fixes the following issues:\n\npcp was updated from version 5.2.5 to version 6.2.0 (jsc#PED-8192, jsc#PED-8389):\n\n- Security issues fixed:\n\n  * CVE-2024-45770: Fixed a symlink attack that allows escalating from the pcp to the root user (bsc#1230552)\n  * CVE-2024-45769: Fixed a heap corruption through metric pmstore operations (bsc#1230551)\n  * CVE-2023-6917: Fixed local privilege escalation from pcp user to root in /usr/libexec/pcp/lib/pmproxy (bsc#1217826)\n\n- Major changes:\n\n  * Add version 3 PCP archive support: instance domain change-deltas,\n    Y2038-safe timestamps, nanosecond-precision timestamps, arbitrary timezones support, 64-bit file offsets used\n    throughout for larger (beyond 2GB) individual volumes\n    + Opt-in using the /etc/pcp.conf PCP_ARCHIVE_VERSION setting\n    + Version 2 archives remain the default (for next few years)\n  * Switch to using OpenSSL only throughout PCP (dropped NSS/NSPR);\n    this impacts on libpcp, PMAPI clients and PMCD use of encryption;\n    these are now configured and used consistently with pmproxy HTTPS support and redis-server, which were both already\n    using OpenSSL.\n  * New nanosecond precision timestamp PMAPI calls for PCP library interfaces that make use of timestamps\n    These are all optional, and full backward compatibility is preserved for existing tools.\n  * For the full list of changes please consult the packaged CHANGELOG file\n\n- Other packaging changes:\n\n  * Moved pmlogger_daily into the main package (bsc#1222815)\n  * Change dependency from openssl-devel >= 1.1.1 to openssl-devel >= 1.0.2p.\n    Required for SLE-12\n  * Introduce 'pmda-resctrl' package, disabled for architectures other than x86_64\n  * Change the architecture for various subpackages to 'noarch' as they contain no binaries\n  * Disable 'pmda-mssql', as it fails to build\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2024-3785,SUSE-SLE-Module-Development-Tools-15-SP5-2024-3785,openSUSE-SLE-15.5-2024-3785",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20243785-1/",
+			"description": "Link for SUSE-SU-2024:3785-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2024-October/019697.html",
+			"description": "E-Mail link for SUSE-SU-2024:3785-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1217826",
+			"description": "SUSE Bug 1217826"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1222815",
+			"description": "SUSE Bug 1222815"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1230551",
+			"description": "SUSE Bug 1230551"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1230552",
+			"description": "SUSE Bug 1230552"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1231345",
+			"description": "SUSE Bug 1231345"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2023-6917/",
+			"description": "SUSE CVE CVE-2023-6917 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-45769/",
+			"description": "SUSE CVE CVE-2024-45769 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-45770/",
+			"description": "SUSE CVE CVE-2024-45770 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Development Tools 15 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Development Tools 15 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Development Tools 15 SP5",
+							"product_id": "SUSE Linux Enterprise Module for Development Tools 15 SP5",
+							"cpe": "cpe:/o:suse:sle-module-development-tools:15:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 15.5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 15.5",
+						"full_product_name": {
+							"text": "openSUSE Leap 15.5",
+							"product_id": "openSUSE Leap 15.5",
+							"cpe": "cpe:/o:opensuse:leap:15.5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpcp-devel-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "libpcp-devel-6.2.0-150500.8.6.1",
+					"product_id": "libpcp-devel-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpcp3-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "libpcp3-6.2.0-150500.8.6.1",
+					"product_id": "libpcp3-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpcp_gui2-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "libpcp_gui2-6.2.0-150500.8.6.1",
+					"product_id": "libpcp_gui2-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpcp_import1-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "libpcp_import1-6.2.0-150500.8.6.1",
+					"product_id": "libpcp_import1-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpcp_mmv1-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "libpcp_mmv1-6.2.0-150500.8.6.1",
+					"product_id": "libpcp_mmv1-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpcp_trace2-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "libpcp_trace2-6.2.0-150500.8.6.1",
+					"product_id": "libpcp_trace2-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libpcp_web1-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "libpcp_web1-6.2.0-150500.8.6.1",
+					"product_id": "libpcp_web1-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-6.2.0-150500.8.6.1",
+					"product_id": "pcp-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-conf-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-conf-6.2.0-150500.8.6.1",
+					"product_id": "pcp-conf-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-devel-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-devel-6.2.0-150500.8.6.1",
+					"product_id": "pcp-devel-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-doc-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-doc-6.2.0-150500.8.6.1",
+					"product_id": "pcp-doc-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-export-pcp2elasticsearch-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-export-pcp2elasticsearch-6.2.0-150500.8.6.1",
+					"product_id": "pcp-export-pcp2elasticsearch-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-export-pcp2graphite-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-export-pcp2graphite-6.2.0-150500.8.6.1",
+					"product_id": "pcp-export-pcp2graphite-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-export-pcp2influxdb-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-export-pcp2influxdb-6.2.0-150500.8.6.1",
+					"product_id": "pcp-export-pcp2influxdb-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-export-pcp2json-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-export-pcp2json-6.2.0-150500.8.6.1",
+					"product_id": "pcp-export-pcp2json-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-export-pcp2spark-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-export-pcp2spark-6.2.0-150500.8.6.1",
+					"product_id": "pcp-export-pcp2spark-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-export-pcp2xml-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-export-pcp2xml-6.2.0-150500.8.6.1",
+					"product_id": "pcp-export-pcp2xml-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-export-pcp2zabbix-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-export-pcp2zabbix-6.2.0-150500.8.6.1",
+					"product_id": "pcp-export-pcp2zabbix-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-gui-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-gui-6.2.0-150500.8.6.1",
+					"product_id": "pcp-gui-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-import-collectl2pcp-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-import-collectl2pcp-6.2.0-150500.8.6.1",
+					"product_id": "pcp-import-collectl2pcp-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-import-ganglia2pcp-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-import-ganglia2pcp-6.2.0-150500.8.6.1",
+					"product_id": "pcp-import-ganglia2pcp-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-import-iostat2pcp-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-import-iostat2pcp-6.2.0-150500.8.6.1",
+					"product_id": "pcp-import-iostat2pcp-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-import-mrtg2pcp-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-import-mrtg2pcp-6.2.0-150500.8.6.1",
+					"product_id": "pcp-import-mrtg2pcp-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-import-sar2pcp-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-import-sar2pcp-6.2.0-150500.8.6.1",
+					"product_id": "pcp-import-sar2pcp-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-activemq-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-activemq-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-activemq-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-apache-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-apache-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-apache-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-bash-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-bash-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-bash-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-bind2-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-bind2-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-bind2-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-bonding-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-bonding-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-bonding-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-cifs-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-cifs-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-cifs-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-cisco-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-cisco-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-cisco-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-dbping-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-dbping-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-dbping-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-dm-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-dm-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-dm-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-docker-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-docker-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-docker-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-ds389-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-ds389-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-ds389-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-ds389log-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-ds389log-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-ds389log-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-elasticsearch-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-elasticsearch-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-elasticsearch-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-gfs2-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-gfs2-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-gfs2-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-gluster-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-gluster-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-gluster-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-gpfs-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-gpfs-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-gpfs-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-gpsd-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-gpsd-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-gpsd-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-hacluster-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-hacluster-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-hacluster-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-haproxy-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-haproxy-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-haproxy-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-infiniband-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-infiniband-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-infiniband-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-json-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-json-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-json-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-lmsensors-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-lmsensors-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-lmsensors-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-logger-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-logger-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-logger-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-lustre-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-lustre-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-lustre-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-lustrecomm-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-lustrecomm-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-lustrecomm-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-mailq-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-mailq-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-mailq-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-memcache-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-memcache-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-memcache-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-mic-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-mic-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-mic-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-mounts-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-mounts-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-mounts-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-mysql-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-mysql-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-mysql-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-named-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-named-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-named-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-netcheck-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-netcheck-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-netcheck-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-netfilter-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-netfilter-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-netfilter-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-news-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-news-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-news-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-nfsclient-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-nfsclient-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-nfsclient-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-nginx-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-nginx-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-nginx-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-nutcracker-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-nutcracker-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-nutcracker-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-nvidia-gpu-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-nvidia-gpu-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-nvidia-gpu-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-openmetrics-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-openmetrics-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-openmetrics-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-openvswitch-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-openvswitch-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-openvswitch-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-oracle-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-oracle-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-oracle-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-pdns-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-pdns-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-pdns-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-perfevent-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-perfevent-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-perfevent-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-postfix-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-postfix-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-postfix-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-rabbitmq-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-rabbitmq-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-rabbitmq-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-redis-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-redis-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-redis-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-resctrl-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-resctrl-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-resctrl-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-roomtemp-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-roomtemp-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-roomtemp-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-rsyslog-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-rsyslog-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-rsyslog-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-samba-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-samba-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-samba-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-sendmail-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-sendmail-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-sendmail-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-shping-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-shping-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-shping-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-slurm-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-slurm-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-slurm-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-smart-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-smart-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-smart-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-snmp-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-snmp-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-snmp-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-sockets-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-sockets-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-sockets-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-summary-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-summary-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-summary-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-systemd-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-systemd-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-systemd-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-trace-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-trace-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-trace-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-unbound-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-unbound-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-unbound-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-weblog-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-weblog-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-weblog-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-zimbra-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-zimbra-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-zimbra-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-pmda-zswap-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-pmda-zswap-6.2.0-150500.8.6.1",
+					"product_id": "pcp-pmda-zswap-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-system-tools-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-system-tools-6.2.0-150500.8.6.1",
+					"product_id": "pcp-system-tools-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-testsuite-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-testsuite-6.2.0-150500.8.6.1",
+					"product_id": "pcp-testsuite-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcp-zeroconf-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "pcp-zeroconf-6.2.0-150500.8.6.1",
+					"product_id": "pcp-zeroconf-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "perl-PCP-LogImport-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "perl-PCP-LogImport-6.2.0-150500.8.6.1",
+					"product_id": "perl-PCP-LogImport-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "perl-PCP-LogSummary-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "perl-PCP-LogSummary-6.2.0-150500.8.6.1",
+					"product_id": "perl-PCP-LogSummary-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "perl-PCP-MMV-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "perl-PCP-MMV-6.2.0-150500.8.6.1",
+					"product_id": "perl-PCP-MMV-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "perl-PCP-PMDA-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "perl-PCP-PMDA-6.2.0-150500.8.6.1",
+					"product_id": "perl-PCP-PMDA-6.2.0-150500.8.6.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python3-pcp-6.2.0-150500.8.6.1",
+				"full_product_name": {
+					"text": "python3-pcp-6.2.0-150500.8.6.1",
+					"product_id": "python3-pcp-6.2.0-150500.8.6.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "libpcp-devel-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "libpcp3-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "libpcp_gui2-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "libpcp_import1-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "libpcp_mmv1-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "libpcp_trace2-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "libpcp_web1-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "pcp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "pcp-conf-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "pcp-devel-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "pcp-doc-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "pcp-import-iostat2pcp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "pcp-import-mrtg2pcp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "pcp-import-sar2pcp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "pcp-pmda-perfevent-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "pcp-system-tools-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "perl-PCP-LogImport-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "perl-PCP-LogSummary-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "perl-PCP-MMV-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "perl-PCP-PMDA-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "python3-pcp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Development Tools 15 SP5"
+			},
+			{
+				"product_reference": "libpcp-devel-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "libpcp3-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "libpcp_gui2-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "libpcp_import1-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "libpcp_mmv1-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "libpcp_trace2-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "libpcp_web1-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-conf-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-devel-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-doc-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-export-pcp2elasticsearch-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-export-pcp2graphite-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-export-pcp2influxdb-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-export-pcp2json-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-export-pcp2spark-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-export-pcp2xml-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-export-pcp2zabbix-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-gui-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-import-collectl2pcp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-import-ganglia2pcp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-import-iostat2pcp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-import-mrtg2pcp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-import-sar2pcp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-activemq-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-apache-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-bash-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-bonding-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-cifs-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-cisco-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-dbping-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-dm-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-docker-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-ds389-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-ds389log-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-elasticsearch-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-gfs2-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-gluster-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-gpfs-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-gpsd-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-hacluster-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-haproxy-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-infiniband-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-json-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-lmsensors-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-logger-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-lustre-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-lustrecomm-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-mailq-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-memcache-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-mic-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-mounts-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-mysql-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-named-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-netcheck-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-netfilter-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-news-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-nfsclient-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-nginx-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-nutcracker-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-nvidia-gpu-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-openmetrics-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-openvswitch-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-oracle-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-pdns-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-perfevent-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-postfix-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-rabbitmq-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-redis-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-roomtemp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-rsyslog-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-samba-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-sendmail-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-shping-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-slurm-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-smart-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-snmp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-sockets-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-summary-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-systemd-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-trace-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-unbound-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-weblog-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-zimbra-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-pmda-zswap-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-system-tools-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-testsuite-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "pcp-zeroconf-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "perl-PCP-LogImport-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "perl-PCP-LogSummary-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "perl-PCP-MMV-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "perl-PCP-PMDA-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			},
+			{
+				"product_reference": "python3-pcp-6.2.0-150500.8.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.5"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "A vulnerability has been identified in the Performance Co-Pilot (PCP) package, stemming from the mixed privilege levels utilized by systemd services associated with PCP. While certain services operate within the confines of limited PCP user/group privileges, others are granted full root privileges. This disparity in privilege levels poses a risk when privileged root processes interact with directories or directory trees owned by unprivileged PCP users. Specifically, this vulnerability may lead to the compromise of PCP user isolation and facilitate local PCP-to-root exploits, particularly through symlink attacks. These vulnerabilities underscore the importance of maintaining robust privilege separation mechanisms within PCP to mitigate the potential for unauthorized privilege escalation.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2023-6917",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp-devel-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp3-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_gui2-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_import1-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_mmv1-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_trace2-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_web1-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-conf-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-devel-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-doc-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-import-iostat2pcp-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-import-mrtg2pcp-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-import-sar2pcp-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-pmda-perfevent-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-system-tools-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:perl-PCP-LogImport-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:perl-PCP-LogSummary-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:perl-PCP-MMV-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:perl-PCP-PMDA-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:python3-pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp-devel-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp3-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_gui2-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_import1-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_mmv1-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_trace2-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_web1-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-conf-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-devel-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-doc-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2elasticsearch-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2graphite-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2influxdb-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2json-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2spark-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2xml-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2zabbix-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-gui-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-collectl2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-ganglia2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-iostat2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-mrtg2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-sar2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-activemq-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-apache-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-bash-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-bonding-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-cifs-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-cisco-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-dbping-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-dm-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-docker-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-ds389-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-ds389log-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-elasticsearch-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-gfs2-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-gluster-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-gpfs-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-gpsd-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-hacluster-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-haproxy-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-infiniband-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-json-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-lmsensors-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-logger-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-lustre-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-lustrecomm-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-mailq-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-memcache-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-mic-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-mounts-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-mysql-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-named-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-netcheck-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-netfilter-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-news-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-nfsclient-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-nginx-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-nutcracker-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-nvidia-gpu-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-openmetrics-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-openvswitch-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-oracle-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-pdns-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-perfevent-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-postfix-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-rabbitmq-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-redis-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-roomtemp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-rsyslog-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-samba-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-sendmail-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-shping-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-slurm-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-smart-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-snmp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-sockets-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-summary-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-systemd-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-trace-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-unbound-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-weblog-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-zimbra-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-zswap-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-system-tools-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-testsuite-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-zeroconf-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:perl-PCP-LogImport-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:perl-PCP-LogSummary-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:perl-PCP-MMV-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:perl-PCP-PMDA-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:python3-pcp-6.2.0-150500.8.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.7",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20243785-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2023-6917.html",
+					"description": "CVE-2023-6917"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1217826",
+					"description": "SUSE Bug 1217826"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A vulnerability was found in Performance Co-Pilot (PCP).  This flaw allows an attacker to send specially crafted data to the system, which could cause the program to misbehave or crash.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-45769",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp-devel-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp3-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_gui2-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_import1-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_mmv1-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_trace2-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_web1-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-conf-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-devel-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-doc-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-import-iostat2pcp-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-import-mrtg2pcp-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-import-sar2pcp-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-pmda-perfevent-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-system-tools-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:perl-PCP-LogImport-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:perl-PCP-LogSummary-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:perl-PCP-MMV-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:perl-PCP-PMDA-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:python3-pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp-devel-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp3-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_gui2-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_import1-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_mmv1-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_trace2-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_web1-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-conf-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-devel-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-doc-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2elasticsearch-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2graphite-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2influxdb-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2json-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2spark-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2xml-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2zabbix-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-gui-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-collectl2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-ganglia2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-iostat2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-mrtg2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-sar2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-activemq-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-apache-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-bash-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-bonding-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-cifs-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-cisco-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-dbping-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-dm-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-docker-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-ds389-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-ds389log-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-elasticsearch-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-gfs2-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-gluster-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-gpfs-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-gpsd-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-hacluster-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-haproxy-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-infiniband-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-json-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-lmsensors-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-logger-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-lustre-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-lustrecomm-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-mailq-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-memcache-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-mic-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-mounts-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-mysql-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-named-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-netcheck-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-netfilter-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-news-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-nfsclient-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-nginx-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-nutcracker-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-nvidia-gpu-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-openmetrics-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-openvswitch-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-oracle-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-pdns-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-perfevent-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-postfix-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-rabbitmq-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-redis-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-roomtemp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-rsyslog-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-samba-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-sendmail-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-shping-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-slurm-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-smart-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-snmp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-sockets-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-summary-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-systemd-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-trace-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-unbound-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-weblog-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-zimbra-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-zswap-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-system-tools-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-testsuite-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-zeroconf-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:perl-PCP-LogImport-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:perl-PCP-LogSummary-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:perl-PCP-MMV-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:perl-PCP-PMDA-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:python3-pcp-6.2.0-150500.8.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "5.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20243785-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-45769.html",
+					"description": "CVE-2024-45769"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1230551",
+					"description": "SUSE Bug 1230551"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "A vulnerability was found in Performance Co-Pilot (PCP). This flaw can only be exploited if an attacker has access to a compromised PCP system account. The issue is related to the pmpost tool, which is used to log messages in the system. Under certain conditions, it runs with high-level privileges.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-45770",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp-devel-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp3-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_gui2-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_import1-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_mmv1-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_trace2-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:libpcp_web1-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-conf-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-devel-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-doc-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-import-iostat2pcp-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-import-mrtg2pcp-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-import-sar2pcp-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-pmda-perfevent-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:pcp-system-tools-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:perl-PCP-LogImport-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:perl-PCP-LogSummary-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:perl-PCP-MMV-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:perl-PCP-PMDA-6.2.0-150500.8.6.1",
+						"SUSE Linux Enterprise Module for Development Tools 15 SP5:python3-pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp-devel-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp3-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_gui2-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_import1-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_mmv1-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_trace2-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:libpcp_web1-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-conf-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-devel-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-doc-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2elasticsearch-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2graphite-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2influxdb-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2json-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2spark-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2xml-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-export-pcp2zabbix-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-gui-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-collectl2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-ganglia2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-iostat2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-mrtg2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-import-sar2pcp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-activemq-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-apache-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-bash-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-bonding-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-cifs-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-cisco-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-dbping-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-dm-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-docker-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-ds389-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-ds389log-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-elasticsearch-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-gfs2-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-gluster-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-gpfs-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-gpsd-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-hacluster-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-haproxy-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-infiniband-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-json-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-lmsensors-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-logger-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-lustre-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-lustrecomm-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-mailq-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-memcache-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-mic-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-mounts-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-mysql-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-named-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-netcheck-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-netfilter-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-news-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-nfsclient-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-nginx-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-nutcracker-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-nvidia-gpu-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-openmetrics-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-openvswitch-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-oracle-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-pdns-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-perfevent-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-postfix-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-rabbitmq-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-redis-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-roomtemp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-rsyslog-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-samba-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-sendmail-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-shping-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-slurm-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-smart-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-snmp-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-sockets-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-summary-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-systemd-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-trace-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-unbound-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-weblog-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-zimbra-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-pmda-zswap-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-system-tools-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-testsuite-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:pcp-zeroconf-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:perl-PCP-LogImport-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:perl-PCP-LogSummary-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:perl-PCP-MMV-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:perl-PCP-PMDA-6.2.0-150500.8.6.1",
+						"openSUSE Leap 15.5:python3-pcp-6.2.0-150500.8.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20243785-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-45770.html",
+					"description": "CVE-2024-45770"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1217826",
+					"description": "SUSE Bug 1217826"
+				}
+			]
+		}
+	]
+}
