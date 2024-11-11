@@ -1,0 +1,172 @@
+{
+	"document_title": "coredns-1.11.3+git129.387f34d-1.1 on GA media",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "openSUSE-SU-2024:14481-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-11-09T00:00:00Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-11-09T00:00:00Z",
+		"current_release_date": "2024-11-09T00:00:00Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "coredns-1.11.3+git129.387f34d-1.1 on GA media",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "These are all security issues fixed in the coredns-1.11.3+git129.387f34d-1.1 package on the GA media of openSUSE Tumbleweed.",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "openSUSE-Tumbleweed-2024-14481",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/FRQMZTGDFOBRPKL5LYFU2R55SK6DBIPC/",
+			"description": "E-Mail link for openSUSE-SU-2024:14481-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-51744/",
+			"description": "SUSE CVE CVE-2024-51744 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "openSUSE Tumbleweed",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Tumbleweed",
+						"full_product_name": {
+							"text": "openSUSE Tumbleweed",
+							"product_id": "openSUSE Tumbleweed",
+							"cpe": "cpe:/o:opensuse:tumbleweed"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "coredns-1.11.3+git129.387f34d-1.1",
+				"full_product_name": {
+					"text": "coredns-1.11.3+git129.387f34d-1.1",
+					"product_id": "coredns-1.11.3+git129.387f34d-1.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "coredns-extras-1.11.3+git129.387f34d-1.1",
+				"full_product_name": {
+					"text": "coredns-extras-1.11.3+git129.387f34d-1.1",
+					"product_id": "coredns-extras-1.11.3+git129.387f34d-1.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "coredns-1.11.3+git129.387f34d-1.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Tumbleweed"
+			},
+			{
+				"product_reference": "coredns-extras-1.11.3+git129.387f34d-1.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Tumbleweed"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "golang-jwt is a Go implementation of JSON Web Tokens. Unclear documentation of the error behavior in `ParseWithClaims` can lead to situation where users are potentially not checking errors in the way they should be. Especially, if a token is both expired and invalid, the errors returned by `ParseWithClaims` return both error codes. If users only check for the `jwt.ErrTokenExpired ` using `error.Is`, they will ignore the embedded `jwt.ErrTokenSignatureInvalid` and thus potentially accept invalid tokens. A fix has been back-ported with the error handling logic from the `v5` branch to the `v4` branch. In this logic, the `ParseWithClaims` function will immediately return in \"dangerous\" situations (e.g., an invalid signature), limiting the combined errors only to situations where the signature is valid, but further validation failed (e.g., if the signature is valid, but is expired AND has the wrong audience). This fix is part of the 4.5.1 release. We are aware that this changes the behaviour of an established function and is not 100 % backwards compatible, so updating to 4.5.1 might break your code. In case you cannot update to 4.5.0, please make sure that you are properly checking for all errors (\"dangerous\" ones first), so that you are not running in the case detailed above.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-51744",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"openSUSE Tumbleweed:coredns-1.11.3+git129.387f34d-1.1",
+						"openSUSE Tumbleweed:coredns-extras-1.11.3+git129.387f34d-1.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "low"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "3.1",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://lists.opensuse.org/archives/list/security-announce@lists.opensuse.org/thread/FRQMZTGDFOBRPKL5LYFU2R55SK6DBIPC/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-51744.html",
+					"description": "CVE-2024-51744"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1232936",
+					"description": "SUSE Bug 1232936"
+				}
+			]
+		}
+	]
+}
