@@ -1,0 +1,234 @@
+{
+	"document_title": "Security update for the Linux Kernel (Live Patch 17 for SLE 15 SP5)",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2024:4240-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-12-06T12:33:45Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-12-06T12:33:45Z",
+		"current_release_date": "2024-12-06T12:33:45Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for the Linux Kernel (Live Patch 17 for SLE 15 SP5)",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for the Linux Kernel 5.14.21-150500_55_73 fixes several issues.\n\nThe following security issues were fixed:\n\n- CVE-2021-47517: Fix panic when interrupt coaleceing is set via ethtool (bsc#1225429).\n- CVE-2024-43861: Fix memory leak for not ip packets (bsc#1229553).\n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2024-4240,SUSE-SLE-Module-Live-Patching-15-SP5-2024-4240",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20244240-1/",
+			"description": "Link for SUSE-SU-2024:4240-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2024-December/019960.html",
+			"description": "E-Mail link for SUSE-SU-2024:4240-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1225429",
+			"description": "SUSE Bug 1225429"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1229553",
+			"description": "SUSE Bug 1229553"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2021-47517/",
+			"description": "SUSE CVE CVE-2021-47517 page"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-43861/",
+			"description": "SUSE CVE CVE-2024-43861 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Live Patching 15 SP5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Live Patching 15 SP5",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Live Patching 15 SP5",
+							"product_id": "SUSE Linux Enterprise Live Patching 15 SP5",
+							"cpe": "cpe:/o:suse:sle-module-live-patching:15:sp5"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-livepatch-5_14_21-150500_55_73-default-2-150500.11.6.1",
+				"full_product_name": {
+					"text": "kernel-livepatch-5_14_21-150500_55_73-default-2-150500.11.6.1",
+					"product_id": "kernel-livepatch-5_14_21-150500_55_73-default-2-150500.11.6.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "kernel-livepatch-5_14_21-150500_55_73-default-2-150500.11.6.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Live Patching 15 SP5"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nethtool: do not perform operations on net devices being unregistered\n\nThere is a short period between a net device starts to be unregistered\nand when it is actually gone. In that time frame ethtool operations\ncould still be performed, which might end up in unwanted or undefined\nbehaviours[1].\n\nDo not allow ethtool operations after a net device starts its\nunregistration. This patch targets the netlink part as the ioctl one\nisn't affected: the reference to the net device is taken and the\noperation is executed within an rtnl lock section and the net device\nwon't be found after unregister.\n\n[1] For example adding Tx queues after unregister ends up in NULL\n    pointer exceptions and UaFs, such as:\n\n      BUG: KASAN: use-after-free in kobject_get+0x14/0x90\n      Read of size 1 at addr ffff88801961248c by task ethtool/755\n\n      CPU: 0 PID: 755 Comm: ethtool Not tainted 5.15.0-rc6+ #778\n      Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.14.0-4.fc34 04/014\n      Call Trace:\n       dump_stack_lvl+0x57/0x72\n       print_address_description.constprop.0+0x1f/0x140\n       kasan_report.cold+0x7f/0x11b\n       kobject_get+0x14/0x90\n       kobject_add_internal+0x3d1/0x450\n       kobject_init_and_add+0xba/0xf0\n       netdev_queue_update_kobjects+0xcf/0x200\n       netif_set_real_num_tx_queues+0xb4/0x310\n       veth_set_channels+0x1c3/0x550\n       ethnl_set_channels+0x524/0x610",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2021-47517",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Live Patching 15 SP5:kernel-livepatch-5_14_21-150500_55_73-default-2-150500.11.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "6.5",
+					"vector_v_3": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20244240-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2021-47517.html",
+					"description": "CVE-2021-47517"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1225428",
+					"description": "SUSE Bug 1225428"
+				}
+			]
+		},
+		{
+			"notes": [
+				{
+					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: usb: qmi_wwan: fix memory leak for not ip packets\n\nFree the unused skb when not ip packets arrive.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-43861",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Live Patching 15 SP5:kernel-livepatch-5_14_21-150500_55_73-default-2-150500.11.6.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "important"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "7.5",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20244240-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-43861.html",
+					"description": "CVE-2024-43861"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1229500",
+					"description": "SUSE Bug 1229500"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1229553",
+					"description": "SUSE Bug 1229553"
+				}
+			]
+		}
+	]
+}
