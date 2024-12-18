@@ -1,0 +1,190 @@
+{
+	"document_title": "Security update for python-urllib3_1",
+	"document_type": "SUSE Patch",
+	"document_publisher": {
+		"type": "Vendor",
+		"contact_details": "security@suse.de",
+		"issuing_authority": "SUSE Security Team"
+	},
+	"document_tracking": {
+		"identification": {
+			"id": "SUSE-SU-2024:4358-1"
+		},
+		"status": "Final",
+		"version": "1",
+		"revision_history": {
+			"revision": {
+				"number": "1",
+				"date": "2024-12-17T13:17:45Z",
+				"description": "current"
+			}
+		},
+		"initial_release_date": "2024-12-17T13:17:45Z",
+		"current_release_date": "2024-12-17T13:17:45Z",
+		"generator": {
+			"engine": "cve-database/bin/generate-cvrf.pl",
+			"date": "2017-02-24T01:00:00Z"
+		}
+	},
+	"document_notes": [
+		{
+			"text": "Security update for python-urllib3_1",
+			"title": "Topic",
+			"type": "Summary"
+		},
+		{
+			"text": "This update for python-urllib3_1 fixes the following issues:\n\n- CVE-2024-37891: Fixed proxy-authorization request header not stripped during cross-origin redirects (bsc#1226469)  \n",
+			"title": "Details",
+			"type": "General"
+		},
+		{
+			"text": "The CVRF data is provided by SUSE under the Creative Commons License 4.0 with Attribution (CC-BY-4.0).",
+			"title": "Terms of Use",
+			"type": "Legal Disclaimer"
+		},
+		{
+			"text": "SUSE-2024-4358,SUSE-SLE-Module-Python3-15-SP6-2024-4358,openSUSE-SLE-15.6-2024-4358",
+			"title": "Patchnames",
+			"type": "Details"
+		}
+	],
+	"documentdistribution": "Copyright SUSE LLC under the Creative Commons License 4.0 with Attribution (CC-BY-4.0)",
+	"document_references": [
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20244358-1/",
+			"description": "Link for SUSE-SU-2024:4358-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://lists.suse.com/pipermail/sle-security-updates/2024-December/020022.html",
+			"description": "E-Mail link for SUSE-SU-2024:4358-1"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/support/security/rating/",
+			"description": "SUSE Security Ratings"
+		},
+		{
+			"type": "Self",
+			"url": "https://bugzilla.suse.com/1226469",
+			"description": "SUSE Bug 1226469"
+		},
+		{
+			"type": "Self",
+			"url": "https://www.suse.com/security/cve/CVE-2024-37891/",
+			"description": "SUSE CVE CVE-2024-37891 page"
+		}
+	],
+	"product_tree": {
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "SUSE Linux Enterprise Module for Python 3 15 SP6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "SUSE Linux Enterprise Module for Python 3 15 SP6",
+						"full_product_name": {
+							"text": "SUSE Linux Enterprise Module for Python 3 15 SP6",
+							"product_id": "SUSE Linux Enterprise Module for Python 3 15 SP6",
+							"cpe": "cpe:/o:suse:sle-module-python3:15:sp6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Family",
+				"name": "openSUSE Leap 15.6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "openSUSE Leap 15.6",
+						"full_product_name": {
+							"text": "openSUSE Leap 15.6",
+							"product_id": "openSUSE Leap 15.6",
+							"cpe": "cpe:/o:opensuse:leap:15.6"
+						}
+					}
+				],
+				"full_product_name": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "python311-urllib3_1-1.26.18-150600.3.3.1",
+				"full_product_name": {
+					"text": "python311-urllib3_1-1.26.18-150600.3.3.1",
+					"product_id": "python311-urllib3_1-1.26.18-150600.3.3.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"product_reference": "python311-urllib3_1-1.26.18-150600.3.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "SUSE Linux Enterprise Module for Python 3 15 SP6"
+			},
+			{
+				"product_reference": "python311-urllib3_1-1.26.18-150600.3.3.1",
+				"relation_type": "Default Component Of",
+				"relates_to_product_reference": "openSUSE Leap 15.6"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"notes": [
+				{
+					"text": " urllib3 is a user-friendly HTTP client library for Python. When using urllib3's proxy support with `ProxyManager`, the `Proxy-Authorization` header is only sent to the configured proxy, as expected. However, when sending HTTP requests *without* using urllib3's proxy support, it's possible to accidentally configure the `Proxy-Authorization` header even though it won't have any effect as the request is not using a forwarding proxy or a tunneling proxy. In those cases, urllib3 doesn't treat the `Proxy-Authorization` HTTP header as one carrying authentication material and thus doesn't strip the header on cross-origin redirects. Because this is a highly unlikely scenario, we believe the severity of this vulnerability is low for almost all users. Out of an abundance of caution urllib3 will automatically strip the `Proxy-Authorization` header during cross-origin redirects to avoid the small chance that users are doing this on accident. Users should use urllib3's proxy support or disable automatic redirects to achieve safe processing of the `Proxy-Authorization` header, but we still decided to strip the header by default in order to further protect users who aren't using the correct approach. We believe the number of usages affected by this advisory is low. It requires all of the following to be true to be exploited: 1. Setting the `Proxy-Authorization` header without using urllib3's built-in proxy support. 2. Not disabling HTTP redirects. 3. Either not using an HTTPS origin server or for the proxy or target origin to redirect to a malicious origin. Users are advised to update to either version 1.26.19 or version 2.2.2. Users unable to upgrade may use the `Proxy-Authorization` header with urllib3's `ProxyManager`, disable HTTP redirects using `redirects=False` when sending requests, or not user the `Proxy-Authorization` header as mitigations.",
+					"title": "Vulnerability Description",
+					"type": "General"
+				}
+			],
+			"cve": "CVE-2024-37891",
+			"product_statuses": [
+				{
+					"type": "Fixed",
+					"product_id": [
+						"SUSE Linux Enterprise Module for Python 3 15 SP6:python311-urllib3_1-1.26.18-150600.3.3.1",
+						"openSUSE Leap 15.6:python311-urllib3_1-1.26.18-150600.3.3.1"
+					]
+				}
+			],
+			"threats": [
+				{
+					"type": "Impact",
+					"description": "moderate"
+				}
+			],
+			"cvss_score_sets": {
+				"score_set_v_2": {},
+				"score_set_v_3": {
+					"base_score_v_3": "4.4",
+					"vector_v_3": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:H/I:N/A:N"
+				},
+				"scoreset": {}
+			},
+			"remediations": [
+				{
+					"type": "Vendor Fix",
+					"description": {
+						"text": "To install this SUSE Security Update use the SUSE recommended installation methods like YaST online_update or \"zypper patch\".\n",
+						"lang": "en"
+					},
+					"url": "https://www.suse.com/support/update/announcement/2024/suse-su-20244358-1/"
+				}
+			],
+			"references": [
+				{
+					"url": "https://www.suse.com/security/cve/CVE-2024-37891.html",
+					"description": "CVE-2024-37891"
+				},
+				{
+					"url": "https://bugzilla.suse.com/1226469",
+					"description": "SUSE Bug 1226469"
+				}
+			]
+		}
+	]
+}
